@@ -1,0 +1,1814 @@
+/* =========================================================
+   KELLY AVATAR
+   ========================================================= */
+
+.kelly-wrap {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+  flex-shrink: 0;
+}
+
+.kelly-wrap.kelly-sm {
+  width: 56px;
+  height: 56px;
+}
+
+.kelly-wrap.kelly-lg {
+  width: 180px;
+  height: 180px;
+}
+
+/* =========================================================
+   MAIN BODY
+   ========================================================= */
+
+.kelly-body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 44% 44% 48% 48% / 52% 52% 45% 45%;
+
+  background:
+    radial-gradient(
+      circle at 30% 22%,
+      rgb(255 255 255 / 38%),
+      transparent 23%
+    ),
+    radial-gradient(
+      circle at 72% 78%,
+      rgb(91 70 180 / 20%),
+      transparent 38%
+    ),
+    linear-gradient(
+      145deg,
+      #a997ff 0%,
+      #8067d8 48%,
+      #6652bd 100%
+    );
+
+  box-shadow:
+    0 22px 45px rgb(74 58 145 / 24%),
+    0 5px 14px rgb(74 58 145 / 18%),
+    inset 0 2px 5px rgb(255 255 255 / 30%),
+    inset 0 -12px 22px rgb(40 30 90 / 12%);
+
+  transition:
+    background 300ms ease,
+    transform 300ms ease,
+    box-shadow 300ms ease;
+
+  animation: kelly-breathe 4.5s ease-in-out infinite;
+}
+
+@keyframes kelly-breathe {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-3px) scale(1.035);
+  }
+}
+
+/* =========================================================
+   EARS
+   ========================================================= */
+
+.kelly-ear {
+  position: absolute;
+  top: -9%;
+  width: 24%;
+  height: 34%;
+  border-radius: 55% 55% 45% 45%;
+
+  background:
+    linear-gradient(
+      145deg,
+      #a997ff,
+      #8067d8 65%,
+      #6c57c2
+    );
+
+  box-shadow:
+    inset 0 2px 4px rgb(255 255 255 / 25%),
+    0 8px 16px rgb(74 58 145 / 18%);
+
+  z-index: -1;
+}
+
+.kelly-ear::after {
+  content: "";
+  position: absolute;
+  inset: 19%;
+  border-radius: inherit;
+
+  background:
+    radial-gradient(
+      circle,
+      rgb(255 255 255 / 18%),
+      transparent 68%
+    );
+
+  opacity: 0.8;
+}
+
+.kelly-ear-left {
+  left: 9%;
+  transform: rotate(-15deg);
+}
+
+.kelly-ear-right {
+  right: 9%;
+  transform: rotate(15deg);
+}
+
+/* =========================================================
+   EYES
+   ========================================================= */
+
+.kelly-eye {
+  position: absolute;
+  top: 41%;
+  width: 11%;
+  height: 15%;
+  border-radius: 50%;
+
+  background: #fff;
+
+  box-shadow:
+    0 2px 6px rgb(45 34 80 / 18%),
+    inset 0 1px 2px rgb(255 255 255 / 30%);
+
+  transition:
+    height 140ms ease,
+    width 140ms ease,
+    top 140ms ease,
+    transform 140ms ease;
+}
+
+.kelly-eye::after {
+  content: "";
+  position: absolute;
+  width: 31%;
+  height: 31%;
+  top: 14%;
+  left: 19%;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 95%);
+}
+
+.kelly-eye-left {
+  left: 31%;
+}
+
+.kelly-eye-right {
+  right: 31%;
+}
+
+/* =========================================================
+   CHEEKS
+   ========================================================= */
+
+.kelly-cheek {
+  position: absolute;
+  top: 57%;
+  width: 13%;
+  height: 8%;
+  border-radius: 50%;
+
+  background: #f3a5c8;
+
+  filter: blur(1px);
+  opacity: 0;
+
+  transition:
+    opacity 250ms ease,
+    transform 250ms ease;
+}
+
+.kelly-cheek-left {
+  left: 16%;
+}
+
+.kelly-cheek-right {
+  right: 16%;
+}
+
+/* =========================================================
+   MOUTH
+   ========================================================= */
+
+.kelly-mouth {
+  position: absolute;
+  bottom: 24%;
+  left: 50%;
+  width: 22%;
+  height: 11%;
+
+  transform: translateX(-50%);
+
+  border-bottom: 3px solid #fff;
+  border-radius: 0 0 50% 50%;
+
+  transition:
+    width 200ms ease,
+    height 200ms ease,
+    border 200ms ease;
+}
+
+/* =========================================================
+   ANTENNA
+   ========================================================= */
+
+.kelly-antenna {
+  position: absolute;
+  top: -16%;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 3px;
+  height: 16%;
+
+  border-radius: 99px;
+
+  background:
+    linear-gradient(
+      to top,
+      #8067d8,
+      #b5a6ff
+    );
+
+  box-shadow:
+    0 0 9px rgb(128 103 216 / 45%);
+}
+
+.kelly-antenna span {
+  position: absolute;
+  top: -7px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 10px;
+  height: 10px;
+
+  border-radius: 50%;
+
+  background: #b7a7ff;
+
+  box-shadow:
+    0 0 7px #a997ff,
+    0 0 18px rgb(128 103 216 / 65%);
+
+  animation: kelly-antenna-pulse 2s ease-in-out infinite;
+}
+
+@keyframes kelly-antenna-pulse {
+  0%,
+  100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.85;
+  }
+
+  50% {
+    transform: translateX(-50%) scale(1.25);
+    opacity: 1;
+  }
+}
+
+/* =========================================================
+   THOUGHT / ALERT
+   ========================================================= */
+
+.kelly-thought,
+.kelly-alert {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+
+  min-width: 22px;
+  height: 22px;
+  padding: 0 5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: rgb(255 255 255 / 82%);
+  border: 1px solid rgb(255 255 255 / 55%);
+
+  color: #706580;
+  font-size: 11px;
+  font-weight: 700;
+
+  box-shadow:
+    0 5px 15px rgb(45 34 80 / 12%);
+
+  backdrop-filter: blur(8px);
+}
+
+.kelly-alert {
+  background: #e97886;
+  color: white;
+  border: none;
+
+  animation: kelly-alert-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes kelly-alert-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+/* =========================================================
+   MOODS
+   ========================================================= */
+
+/* IDLE */
+
+.kelly-idle .kelly-body,
+.kelly-idle .kelly-ear {
+  background:
+    radial-gradient(
+      circle at 30% 22%,
+      rgb(255 255 255 / 32%),
+      transparent 25%
+    ),
+    linear-gradient(
+      145deg,
+      #a997ff,
+      #8067d8 55%,
+      #6c57c2
+    );
+}
+
+/* THINKING */
+
+.kelly-thinking .kelly-body,
+.kelly-thinking .kelly-ear {
+  background:
+    radial-gradient(
+      circle at 30% 22%,
+      rgb(255 255 255 / 28%),
+      transparent 25%
+    ),
+    linear-gradient(
+      145deg,
+      #8c9cf0,
+      #6e76c9 55%,
+      #5c62a9
+    );
+}
+
+.kelly-thinking .kelly-eye {
+  height: 4%;
+  top: 47%;
+}
+
+.kelly-thinking .kelly-mouth {
+  width: 13%;
+  height: 5%;
+  border-bottom-width: 2px;
+}
+
+/* HAPPY */
+
+.kelly-happy .kelly-body,
+.kelly-happy .kelly-ear {
+  background:
+    radial-gradient(
+      circle at 30% 20%,
+      rgb(255 255 255 / 38%),
+      transparent 25%
+    ),
+    linear-gradient(
+      145deg,
+      #b7a7ff,
+      #8067d8 50%,
+      #6953bf
+    );
+
+  box-shadow:
+    0 24px 50px rgb(128 103 216 / 28%),
+    inset 0 2px 5px rgb(255 255 255 / 30%),
+    inset 0 -12px 22px rgb(45 30 100 / 10%);
+}
+
+.kelly-happy .kelly-cheek {
+  opacity: 0.65;
+  transform: scale(1.05);
+}
+
+.kelly-happy .kelly-mouth {
+  width: 30%;
+  height: 17%;
+  border-bottom-width: 4px;
+}
+
+/* CONCERNED */
+
+.kelly-concerned .kelly-body,
+.kelly-concerned .kelly-ear {
+  background:
+    radial-gradient(
+      circle at 30% 20%,
+      rgb(255 255 255 / 24%),
+      transparent 25%
+    ),
+    linear-gradient(
+      145deg,
+      #e8919c,
+      #c96172 65%,
+      #aa4f62
+    );
+}
+
+.kelly-concerned .kelly-mouth {
+  border-bottom: none;
+  border-top: 3px solid #fff;
+  border-radius: 50% 50% 0 0;
+  bottom: 30%;
+}
+
+/* =========================================================
+   EXTRA AVATAR POLISH
+   ========================================================= */
+
+.kelly-wrap:hover .kelly-body {
+  transform: scale(1.05) rotate(-1deg);
+}
+
+.kelly-wrap:hover .kelly-ear-left {
+  transform: rotate(-19deg);
+}
+
+.kelly-wrap:hover .kelly-ear-right {
+  transform: rotate(19deg);
+}
+
+.kelly-wrap:hover .kelly-antenna span {
+  animation-duration: 0.7s;
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .kelly-body,
+  .kelly-antenna span,
+  .kelly-alert {
+    animation: none;
+  }
+}
+
+/* =========================================================
+   KELLY LANDING EXPERIENCE
+   ========================================================= */
+
+.kelly-landing {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgb(124 92 255 / 15%),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 85% 25%,
+      rgb(66 180 255 / 12%),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      rgb(160 100 255 / 12%),
+      transparent 35%
+    ),
+    #080912;
+
+  color: #f7f7fb;
+}
+
+.kelly-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  opacity: 0.18;
+
+  background-image:
+    linear-gradient(
+      rgb(255 255 255 / 3.5%) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgb(255 255 255 / 3.5%) 1px,
+      transparent 1px
+    );
+
+  background-size: 56px 56px;
+
+  mask-image:
+    linear-gradient(
+      to bottom,
+      black,
+      transparent 85%
+    );
+}
+
+.kelly-orb {
+  position: absolute;
+
+  width: 420px;
+  height: 420px;
+
+  border-radius: 50%;
+  filter: blur(90px);
+
+  pointer-events: none;
+}
+
+.kelly-orb-one {
+  top: 120px;
+  right: -180px;
+  background: rgb(125 85 255 / 22%);
+}
+
+.kelly-orb-two {
+  bottom: 200px;
+  left: -220px;
+  background: rgb(45 170 255 / 14%);
+}
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.kelly-landing-nav {
+  position: relative;
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  max-width: 1180px;
+  margin: auto;
+  padding: 24px 28px;
+}
+
+.kelly-logo {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  color: inherit;
+  text-decoration: none;
+}
+
+.kelly-logo-mark {
+  display: grid;
+
+  width: 42px;
+  height: 42px;
+
+  place-items: center;
+  overflow: hidden;
+
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 14px;
+
+  background: rgb(255 255 255 / 7%);
+
+  box-shadow:
+    0 10px 35px rgb(0 0 0 / 25%);
+}
+
+.kelly-logo-mark .kelly-wrap {
+  transform: scale(0.62);
+}
+
+.kelly-logo strong {
+  display: block;
+
+  font-size: 18px;
+  letter-spacing: -0.03em;
+}
+
+.kelly-logo small {
+  display: block;
+
+  margin-top: 1px;
+
+  color: rgb(255 255 255 / 45%);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.kelly-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.kelly-login {
+  padding: 10px 14px;
+
+  color: rgb(255 255 255 / 68%);
+  text-decoration: none;
+
+  font-size: 14px;
+
+  transition: color 0.2s ease;
+}
+
+.kelly-login:hover {
+  color: white;
+}
+
+.kelly-nav-button,
+.kelly-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #9277ff,
+      #6952df
+    );
+
+  color: white;
+
+  box-shadow:
+    0 12px 35px rgb(111 82 255 / 25%);
+
+  text-decoration: none;
+  font-weight: 650;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.kelly-nav-button {
+  padding: 11px 16px;
+  font-size: 13px;
+}
+
+.kelly-primary {
+  padding: 14px 20px;
+  font-size: 14px;
+}
+
+.kelly-primary:hover,
+.kelly-nav-button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 16px 42px rgb(111 82 255 / 34%);
+}
+
+.kelly-primary svg,
+.kelly-nav-button svg {
+  width: 17px;
+  height: 17px;
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.kelly-hero {
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(420px, 0.9fr);
+
+  gap: 30px;
+  align-items: center;
+
+  max-width: 1180px;
+  min-height: 650px;
+
+  margin: auto;
+  padding: 60px 28px 100px;
+}
+
+.kelly-hero-copy {
+  position: relative;
+  z-index: 5;
+}
+
+.kelly-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  width: fit-content;
+
+  padding: 7px 11px;
+
+  border: 1px solid rgb(255 255 255 / 9%);
+  border-radius: 999px;
+
+  background: rgb(255 255 255 / 5.5%);
+
+  color: rgb(255 255 255 / 62%);
+
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+
+  backdrop-filter: blur(16px);
+}
+
+.kelly-pill > span {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #9e8aff;
+
+  box-shadow:
+    0 0 12px #8c72ff;
+}
+
+.kelly-hero h1 {
+  max-width: 680px;
+
+  margin: 22px 0 20px;
+
+  font-size: clamp(54px, 7vw, 86px);
+  line-height: 0.94;
+  letter-spacing: -0.065em;
+}
+
+.kelly-hero h1 span,
+.kelly-section-heading h2 span,
+.kelly-final h2 span {
+  background:
+    linear-gradient(
+      110deg,
+      #b7a7ff,
+      #79c9ff
+    );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+}
+
+.kelly-hero-copy > p {
+  max-width: 590px;
+
+  margin: 0;
+
+  color: rgb(255 255 255 / 57%);
+
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+.kelly-hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  margin-top: 30px;
+}
+
+.kelly-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 14px 18px;
+
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 14px;
+
+  background: rgb(255 255 255 / 4%);
+
+  color: rgb(255 255 255 / 70%);
+
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  backdrop-filter: blur(15px);
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.kelly-secondary:hover {
+  background: rgb(255 255 255 / 7%);
+  border-color: rgb(255 255 255 / 16%);
+}
+
+.kelly-trust {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin-top: 34px;
+}
+
+.kelly-trust-avatar {
+  display: grid;
+
+  width: 40px;
+  height: 40px;
+
+  place-items: center;
+  overflow: hidden;
+
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 13px;
+
+  background: rgb(255 255 255 / 5%);
+}
+
+.kelly-trust-avatar .kelly-wrap {
+  transform: scale(0.6);
+}
+
+.kelly-trust strong {
+  display: block;
+  font-size: 13px;
+}
+
+.kelly-trust span {
+  display: block;
+
+  margin-top: 3px;
+
+  color: rgb(255 255 255 / 38%);
+  font-size: 11px;
+}
+
+/* =========================================================
+   HERO CHARACTER
+   ========================================================= */
+
+.kelly-hero-character {
+  position: relative;
+  min-height: 570px;
+}
+
+.kelly-character-glow {
+  position: absolute;
+  inset: 15% 8%;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgb(126 102 255 / 25%),
+      transparent 62%
+    );
+
+  filter: blur(20px);
+}
+
+.kelly-character-stage {
+  position: absolute;
+  inset: 50px 0 0;
+
+  display: grid;
+  place-items: center;
+}
+
+.kelly-character-platform {
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+
+  width: 280px;
+  height: 280px;
+
+  place-items: center;
+
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at 50% 40%,
+      rgb(255 255 255 / 10%),
+      transparent 48%
+    ),
+    rgb(255 255 255 / 3.5%);
+
+  box-shadow:
+    inset 0 0 70px rgb(125 95 255 / 8%),
+    0 30px 100px rgb(0 0 0 / 35%);
+
+  backdrop-filter: blur(20px);
+}
+
+.kelly-character-platform .kelly-wrap {
+  transform: scale(1.65);
+}
+
+.kelly-ring {
+  position: absolute;
+
+  border: 1px solid rgb(148 126 255 / 16%);
+  border-radius: 50%;
+
+  animation:
+    kelly-spin 18s linear infinite;
+}
+
+.kelly-ring-one {
+  width: 380px;
+  height: 380px;
+}
+
+.kelly-ring-two {
+  width: 470px;
+  height: 470px;
+
+  border-style: dashed;
+  opacity: 0.55;
+
+  animation-direction: reverse;
+  animation-duration: 28s;
+}
+
+@keyframes kelly-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.kelly-speech {
+  position: absolute;
+  z-index: 5;
+
+  bottom: 35px;
+  left: 50%;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 11px 15px;
+
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 14px;
+
+  background: rgb(16 17 28 / 72%);
+
+  color: rgb(255 255 255 / 70%);
+
+  font-size: 12px;
+
+  box-shadow:
+    0 15px 45px rgb(0 0 0 / 30%);
+
+  backdrop-filter: blur(18px);
+
+  transform: translateX(-50%);
+
+  white-space: nowrap;
+}
+
+.kelly-speech-dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #8f7aff;
+
+  box-shadow:
+    0 0 12px #8f7aff;
+}
+
+/* =========================================================
+   FLOATING CARDS
+   ========================================================= */
+
+.kelly-floating {
+  position: absolute;
+  z-index: 8;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  min-width: 210px;
+
+  padding: 12px;
+
+  border: 1px solid rgb(255 255 255 / 9%);
+  border-radius: 17px;
+
+  background: rgb(15 16 27 / 68%);
+
+  box-shadow:
+    0 20px 55px rgb(0 0 0 / 30%);
+
+  backdrop-filter: blur(20px);
+
+  animation:
+    kelly-float 5s ease-in-out infinite;
+}
+
+.kelly-floating strong {
+  display: block;
+  font-size: 11px;
+}
+
+.kelly-floating span {
+  display: block;
+
+  margin-top: 3px;
+
+  color: rgb(255 255 255 / 42%);
+  font-size: 9px;
+}
+
+.kelly-float-task {
+  top: 55px;
+  left: 0;
+}
+
+.kelly-float-memory {
+  top: 205px;
+  right: -5px;
+
+  animation-delay: -1.8s;
+}
+
+.kelly-float-deadline {
+  bottom: 95px;
+  left: 5px;
+
+  animation-delay: -3s;
+}
+
+@keyframes kelly-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.kelly-float-icon {
+  display: grid;
+
+  width: 34px;
+  height: 34px;
+
+  flex: 0 0 auto;
+
+  place-items: center;
+
+  border-radius: 11px;
+}
+
+.kelly-float-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.kelly-float-icon.purple {
+  background: rgb(143 119 255 / 13%);
+  color: #a795ff;
+}
+
+.kelly-float-icon.blue {
+  background: rgb(80 172 255 / 12%);
+  color: #77c3ff;
+}
+
+.kelly-float-icon.orange {
+  background: rgb(255 170 85 / 10%);
+  color: #ffbb78;
+}
+
+.kelly-mini-progress {
+  position: absolute;
+
+  right: 12px;
+  bottom: 8px;
+  left: 56px;
+
+  height: 2px;
+
+  overflow: hidden;
+
+  border-radius: 4px;
+
+  background: rgb(255 255 255 / 7%);
+}
+
+.kelly-mini-progress span {
+  display: block;
+
+  width: 68%;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      #8f78ff,
+      #69baff
+    );
+}
+
+/* =========================================================
+   HOW IT WORKS
+   ========================================================= */
+
+.kelly-how {
+  position: relative;
+  z-index: 2;
+
+  max-width: 1180px;
+
+  margin: auto;
+  padding: 80px 28px 110px;
+}
+
+.kelly-section-heading {
+  max-width: 650px;
+  margin-bottom: 38px;
+}
+
+.kelly-section-heading h2 {
+  margin: 18px 0 14px;
+
+  font-size: clamp(38px, 5vw, 60px);
+  line-height: 1;
+  letter-spacing: -0.055em;
+}
+
+.kelly-section-heading > p {
+  max-width: 560px;
+
+  color: rgb(255 255 255 / 47%);
+
+  line-height: 1.7;
+}
+
+.kelly-feature-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 14px;
+}
+
+.kelly-feature {
+  min-height: 270px;
+
+  padding: 24px;
+
+  border: 1px solid rgb(255 255 255 / 8%);
+  border-radius: 25px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgb(255 255 255 / 6.5%),
+      rgb(255 255 255 / 2.5%)
+    );
+
+  box-shadow:
+    0 25px 70px rgb(0 0 0 / 16%);
+
+  backdrop-filter: blur(18px);
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.kelly-feature:hover {
+  transform: translateY(-5px);
+  border-color: rgb(150 130 255 / 20%);
+}
+
+.kelly-feature-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kelly-feature-top > span {
+  color: rgb(255 255 255 / 27%);
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.kelly-feature-top > div {
+  display: grid;
+
+  width: 42px;
+  height: 42px;
+
+  place-items: center;
+
+  border: 1px solid rgb(255 255 255 / 8%);
+  border-radius: 13px;
+
+  background: rgb(255 255 255 / 5%);
+
+  color: #a795ff;
+}
+
+.kelly-feature-top svg {
+  width: 18px;
+}
+
+.kelly-feature h3 {
+  margin: 55px 0 9px;
+
+  font-size: 20px;
+  letter-spacing: -0.025em;
+}
+
+.kelly-feature p {
+  margin: 0;
+
+  color: rgb(255 255 255 / 43%);
+
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* =========================================================
+   FINAL CTA
+   ========================================================= */
+
+.kelly-final {
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+
+  grid-template-columns:
+    auto 1fr auto;
+
+  gap: 25px;
+  align-items: center;
+
+  max-width: 1124px;
+
+  margin: 20px auto 80px;
+  padding: 30px;
+
+  border: 1px solid rgb(255 255 255 / 9%);
+  border-radius: 30px;
+
+  background:
+    radial-gradient(
+      circle at 0 50%,
+      rgb(123 93 255 / 12%),
+      transparent 35%
+    ),
+    rgb(255 255 255 / 3.5%);
+
+  box-shadow:
+    0 30px 90px rgb(0 0 0 / 22%);
+
+  backdrop-filter: blur(20px);
+}
+
+.kelly-final-avatar {
+  display: grid;
+
+  width: 75px;
+  height: 75px;
+
+  place-items: center;
+  overflow: hidden;
+
+  border-radius: 22px;
+
+  background: rgb(255 255 255 / 5%);
+}
+
+.kelly-final-avatar .kelly-wrap {
+  transform: scale(0.9);
+}
+
+.kelly-final h2 {
+  margin-top: 8px;
+
+  font-size: 27px;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.kelly-footer {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  max-width: 1124px;
+
+  margin: auto;
+  padding: 28px;
+
+  border-top: 1px solid rgb(255 255 255 / 7%);
+
+  color: rgb(255 255 255 / 35%);
+
+  font-size: 11px;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .kelly-hero {
+    grid-template-columns: 1fr;
+    padding-top: 45px;
+  }
+
+  .kelly-hero-copy {
+    text-align: center;
+  }
+
+  .kelly-pill,
+  .kelly-hero-buttons,
+  .kelly-trust {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .kelly-hero-copy > p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .kelly-hero-character {
+    min-height: 520px;
+  }
+
+  .kelly-feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .kelly-feature {
+    min-height: 220px;
+  }
+
+  .kelly-final {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+@media (max-width: 620px) {
+  .kelly-landing-nav {
+    padding: 18px 16px;
+  }
+
+  .kelly-login {
+    display: none;
+  }
+
+  .kelly-hero {
+    padding: 35px 18px 70px;
+  }
+
+  .kelly-hero h1 {
+    font-size: 55px;
+  }
+
+  .kelly-hero-character {
+    min-height: 470px;
+    transform: scale(0.88);
+  }
+
+  .kelly-float-memory {
+    right: -20px;
+  }
+
+  .kelly-float-task {
+    left: -15px;
+  }
+
+  .kelly-ring-two {
+    width: 400px;
+    height: 400px;
+  }
+
+  .kelly-how {
+    padding: 60px 18px 80px;
+  }
+
+  .kelly-final {
+    grid-template-columns: 1fr;
+
+    margin-left: 18px;
+    margin-right: 18px;
+
+    padding: 24px;
+  }
+
+  .kelly-footer {
+    margin: 0 18px;
+
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .kelly-footer > span {
+    display: none;
+  }
+}
+
+/* ============================================================
+   KELLY — FULL VIEWPORT + RESPONSIVE FOUNDATION
+   ============================================================ */
+
+html,
+body,
+#root {
+  width: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  min-height: 100%;
+  background: #080912;
+}
+
+body {
+  min-height: 100dvh;
+  overflow-x: hidden;
+  background: #080912;
+}
+
+#root {
+  min-height: 100dvh;
+}
+
+/* Every major Kelly page fills the available viewport */
+.kelly-landing,
+.kelly-auth {
+  position: relative;
+  width: 100%;
+  min-width: 100%;
+  min-height: 100dvh;
+  box-sizing: border-box;
+  overflow-x: clip;
+}
+
+/* ------------------------------------------------------------
+   LANDING PAGE
+   ------------------------------------------------------------ */
+
+.kelly-landing {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Keep content centered without creating a narrow fixed page */
+.kelly-landing-nav,
+.kelly-hero,
+.kelly-how,
+.kelly-final,
+.kelly-footer {
+  width: min(100% - 48px, 1440px);
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+/* Navigation */
+.kelly-landing-nav {
+  flex: 0 0 auto;
+}
+
+/* Hero fills the remaining first-screen space */
+.kelly-hero {
+  flex: 1 1 auto;
+  min-height: min(760px, calc(100dvh - 92px));
+  box-sizing: border-box;
+}
+
+/* Prevent the character area from being squeezed */
+.kelly-hero-copy,
+.kelly-hero-character {
+  min-width: 0;
+}
+
+/* ------------------------------------------------------------
+   LARGE SCREENS
+   ------------------------------------------------------------ */
+
+@media (min-width: 1600px) {
+  .kelly-landing-nav,
+  .kelly-hero,
+  .kelly-how,
+  .kelly-final,
+  .kelly-footer {
+    width: min(100% - 96px, 1600px);
+  }
+
+  .kelly-hero {
+    min-height: min(820px, calc(100dvh - 100px));
+  }
+}
+
+/* ------------------------------------------------------------
+   LAPTOP / NORMAL DESKTOP
+   ------------------------------------------------------------ */
+
+@media (min-width: 1024px) and (max-width: 1399px) {
+  .kelly-landing-nav,
+  .kelly-hero,
+  .kelly-how,
+  .kelly-final,
+  .kelly-footer {
+    width: min(100% - 64px, 1280px);
+  }
+
+  .kelly-hero {
+    min-height: calc(100dvh - 88px);
+  }
+
+  .kelly-hero-copy {
+    max-width: 560px;
+  }
+
+  .kelly-hero-character {
+    transform: scale(0.92);
+    transform-origin: center;
+  }
+}
+
+/* ------------------------------------------------------------
+   TABLETS
+   ------------------------------------------------------------ */
+
+@media (min-width: 641px) and (max-width: 1023px) {
+  .kelly-landing-nav,
+  .kelly-hero,
+  .kelly-how,
+  .kelly-final,
+  .kelly-footer {
+    width: min(100% - 48px, 900px);
+  }
+
+  .kelly-hero {
+    min-height: auto;
+    padding-top: 56px;
+    padding-bottom: 80px;
+  }
+
+  .kelly-hero-copy {
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .kelly-hero-buttons,
+  .kelly-trust {
+    justify-content: center;
+  }
+
+  .kelly-hero-character {
+    min-height: 540px;
+    margin-top: 40px;
+  }
+}
+
+/* ------------------------------------------------------------
+   PHONES
+   ------------------------------------------------------------ */
+
+@media (max-width: 640px) {
+  .kelly-landing-nav,
+  .kelly-hero,
+  .kelly-how,
+  .kelly-final,
+  .kelly-footer {
+    width: calc(100% - 32px);
+  }
+
+  .kelly-landing-nav {
+    min-height: 72px;
+  }
+
+  .kelly-hero {
+    min-height: auto;
+    padding-top: 40px;
+    padding-bottom: 64px;
+  }
+
+  .kelly-hero-copy {
+    width: 100%;
+    text-align: center;
+  }
+
+  .kelly-hero-copy h1 {
+    font-size: clamp(3rem, 15vw, 4.5rem);
+    line-height: 0.95;
+  }
+
+  .kelly-hero-copy p {
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .kelly-hero-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .kelly-primary,
+  .kelly-secondary {
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: center;
+  }
+
+  .kelly-trust {
+    justify-content: center;
+  }
+
+  .kelly-hero-character {
+    width: 100%;
+    min-height: 430px;
+    margin-top: 24px;
+    transform: scale(0.78);
+    transform-origin: top center;
+  }
+
+  /* Keep floating cards inside the viewport */
+  .kelly-floating {
+    max-width: 210px;
+  }
+
+  .kelly-float-task {
+    left: 0;
+  }
+
+  .kelly-float-memory {
+    right: 0;
+  }
+
+  .kelly-float-deadline {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .kelly-character-stage {
+    width: 100%;
+  }
+
+  .kelly-how {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+
+  .kelly-feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .kelly-final {
+    padding: 40px 24px;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .kelly-footer {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+    padding-bottom: 32px;
+  }
+}
+
+/* ------------------------------------------------------------
+   VERY SMALL PHONES
+   ------------------------------------------------------------ */
+
+@media (max-width: 380px) {
+  .kelly-landing-nav,
+  .kelly-hero,
+  .kelly-how,
+  .kelly-final,
+  .kelly-footer {
+    width: calc(100% - 24px);
+  }
+
+  .kelly-hero {
+    padding-top: 32px;
+  }
+
+  .kelly-hero-character {
+    min-height: 380px;
+    transform: scale(0.68);
+  }
+
+  .kelly-floating {
+    max-width: 185px;
+    padding: 12px;
+  }
+
+  .kelly-floating strong,
+  .kelly-floating span {
+    font-size: 0.75rem;
+  }
+}
+
+/* ------------------------------------------------------------
+   HEIGHT-CONSTRAINED LAPTOPS
+   Prevent the hero from becoming ridiculously tall.
+   ------------------------------------------------------------ */
+
+@media (min-width: 900px) and (max-height: 760px) {
+  .kelly-hero {
+    min-height: 620px;
+    padding-top: 32px;
+    padding-bottom: 48px;
+  }
+
+  .kelly-hero-character {
+    transform: scale(0.82);
+    transform-origin: center;
+  }
+}
+
+/* ------------------------------------------------------------
+   ULTRA-WIDE SCREENS
+   Don't let the content stretch endlessly.
+   ------------------------------------------------------------ */
+
+@media (min-width: 1800px) {
+  .kelly-hero {
+    max-width: 1600px;
+  }
+
+  .kelly-how,
+  .kelly-final {
+    max-width: 1600px;
+  }
+}
