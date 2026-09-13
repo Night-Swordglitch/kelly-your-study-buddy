@@ -1,14 +1,154 @@
-/* =========================================================
-   KELLY AVATAR
-   ========================================================= */
+/* ============================================================
+   KELLY — YOUR STUDY BUDDY
+   Full visual theme
+   Style: warm digital study journal
+   ============================================================ */
+
+
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+
+:root {
+  --kelly-paper: #fffdf7;
+  --kelly-paper-deep: #f7f1e5;
+  --kelly-paper-dark: #eee6d7;
+
+  --kelly-ink: #30302d;
+  --kelly-ink-soft: #68655d;
+  --kelly-ink-faint: #969188;
+
+  --kelly-blue: #78a9d8;
+  --kelly-blue-dark: #5687b7;
+  --kelly-blue-soft: #e8f2fb;
+
+  --kelly-yellow: #f4c95d;
+  --kelly-yellow-dark: #b88b25;
+  --kelly-yellow-soft: #fff4cf;
+
+  --kelly-coral: #ee927d;
+  --kelly-coral-dark: #c86f5c;
+  --kelly-coral-soft: #fce8e2;
+
+  --kelly-mint: #82c5a3;
+  --kelly-mint-dark: #4d9872;
+  --kelly-mint-soft: #e5f4eb;
+
+  --kelly-lilac: #b7a9d8;
+  --kelly-lilac-soft: #f0ebf8;
+
+  --kelly-border: #e6dfd2;
+  --kelly-border-dark: #d8cfbf;
+
+  --kelly-shadow: rgba(72, 64, 50, 0.09);
+  --kelly-shadow-strong: rgba(72, 64, 50, 0.14);
+
+  --kelly-radius-sm: 10px;
+  --kelly-radius-md: 15px;
+  --kelly-radius-lg: 21px;
+}
+
+
+/* ============================================================
+   RESET / FOUNDATION
+   ============================================================ */
+
+html,
+body,
+#root {
+  width: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: var(--kelly-paper);
+}
+
+body {
+  min-height: 100dvh;
+  overflow-x: hidden;
+
+  background:
+    radial-gradient(
+      circle at 8% 5%,
+      rgba(244, 201, 93, 0.12),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 94% 20%,
+      rgba(120, 169, 216, 0.10),
+      transparent 27%
+    ),
+    var(--kelly-paper);
+
+  color: var(--kelly-ink);
+}
+
+#root {
+  min-height: 100dvh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: var(--kelly-yellow-soft);
+  color: var(--kelly-ink);
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+
+/* ============================================================
+   REMOVE OLD FUTURISTIC EFFECTS
+   ============================================================ */
+
+.kelly-grid,
+.kelly-orb {
+  display: none !important;
+}
+
+.glass-panel {
+  background: white;
+  border: 2px solid var(--kelly-border);
+  box-shadow: 0 5px 0 var(--kelly-border);
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+
+/* ============================================================
+   KELLY AVATAR — LEGACY COMPONENT
+   ============================================================ */
 
 .kelly-wrap {
   position: relative;
+
   width: 96px;
   height: 96px;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   isolation: isolate;
   flex-shrink: 0;
 }
@@ -23,99 +163,92 @@
   height: 180px;
 }
 
-/* =========================================================
-   MAIN BODY
-   ========================================================= */
 
-.kelly-body {
+/* ============================================================
+   LEGACY AVATAR BODY
+   ============================================================ */
+
+.kelly-wrap .kelly-body {
   position: relative;
+
   width: 100%;
   height: 100%;
-  border-radius: 44% 44% 48% 48% / 52% 52% 45% 45%;
+
+  border-radius:
+    44% 44% 48% 48% /
+    52% 52% 45% 45%;
 
   background:
-    radial-gradient(
-      circle at 30% 22%,
-      rgb(255 255 255 / 38%),
-      transparent 23%
-    ),
-    radial-gradient(
-      circle at 72% 78%,
-      rgb(91 70 180 / 20%),
-      transparent 38%
-    ),
     linear-gradient(
       145deg,
-      #a997ff 0%,
-      #8067d8 48%,
-      #6652bd 100%
+      #a9cce8 0%,
+      #78a9d8 58%,
+      #6297c9 100%
     );
 
   box-shadow:
-    0 22px 45px rgb(74 58 145 / 24%),
-    0 5px 14px rgb(74 58 145 / 18%),
-    inset 0 2px 5px rgb(255 255 255 / 30%),
-    inset 0 -12px 22px rgb(40 30 90 / 12%);
+    inset 0 3px 6px rgba(255, 255, 255, 0.35),
+    0 8px 0 rgba(83, 130, 166, 0.15);
+
+  animation:
+    kelly-legacy-breathe 4.5s ease-in-out infinite;
 
   transition:
-    background 300ms ease,
-    transform 300ms ease,
-    box-shadow 300ms ease;
-
-  animation: kelly-breathe 4.5s ease-in-out infinite;
+    transform 220ms ease,
+    box-shadow 220ms ease;
 }
 
-@keyframes kelly-breathe {
+@keyframes kelly-legacy-breathe {
   0%,
   100% {
     transform: translateY(0) scale(1);
   }
 
   50% {
-    transform: translateY(-3px) scale(1.035);
+    transform: translateY(-3px) scale(1.025);
   }
 }
 
-/* =========================================================
-   EARS
-   ========================================================= */
 
-.kelly-ear {
+/* ============================================================
+   LEGACY EARS
+   ============================================================ */
+
+.kelly-wrap .kelly-ear {
   position: absolute;
+
   top: -9%;
+
   width: 24%;
   height: 34%;
+
   border-radius: 55% 55% 45% 45%;
 
   background:
     linear-gradient(
       145deg,
-      #a997ff,
-      #8067d8 65%,
-      #6c57c2
+      #a9cce8,
+      #78a9d8 65%,
+      #6297c9
     );
 
   box-shadow:
-    inset 0 2px 4px rgb(255 255 255 / 25%),
-    0 8px 16px rgb(74 58 145 / 18%);
+    inset 0 2px 4px rgba(255, 255, 255, 0.25),
+    0 5px 12px rgba(73, 107, 135, 0.12);
 
   z-index: -1;
 }
 
-.kelly-ear::after {
+.kelly-wrap .kelly-ear::after {
   content: "";
+
   position: absolute;
   inset: 19%;
+
   border-radius: inherit;
 
   background:
-    radial-gradient(
-      circle,
-      rgb(255 255 255 / 18%),
-      transparent 68%
-    );
-
-  opacity: 0.8;
+    rgba(255, 255, 255, 0.15);
 }
 
 .kelly-ear-left {
@@ -128,22 +261,22 @@
   transform: rotate(15deg);
 }
 
-/* =========================================================
-   EYES
-   ========================================================= */
 
-.kelly-eye {
+/* ============================================================
+   LEGACY EYES
+   ============================================================ */
+
+.kelly-wrap .kelly-eye {
   position: absolute;
+
   top: 41%;
+
   width: 11%;
   height: 15%;
+
   border-radius: 50%;
 
-  background: #fff;
-
-  box-shadow:
-    0 2px 6px rgb(45 34 80 / 18%),
-    inset 0 1px 2px rgb(255 255 255 / 30%);
+  background: #30302d;
 
   transition:
     height 140ms ease,
@@ -152,15 +285,20 @@
     transform 140ms ease;
 }
 
-.kelly-eye::after {
+.kelly-wrap .kelly-eye::after {
   content: "";
+
   position: absolute;
+
   width: 31%;
   height: 31%;
+
   top: 14%;
   left: 19%;
+
   border-radius: 50%;
-  background: rgb(255 255 255 / 95%);
+
+  background: white;
 }
 
 .kelly-eye-left {
@@ -171,20 +309,25 @@
   right: 31%;
 }
 
-/* =========================================================
-   CHEEKS
-   ========================================================= */
 
-.kelly-cheek {
+/* ============================================================
+   LEGACY CHEEKS
+   ============================================================ */
+
+.kelly-wrap .kelly-cheek {
   position: absolute;
+
   top: 57%;
+
   width: 13%;
   height: 8%;
+
   border-radius: 50%;
 
-  background: #f3a5c8;
+  background: var(--kelly-coral);
 
   filter: blur(1px);
+
   opacity: 0;
 
   transition:
@@ -200,20 +343,24 @@
   right: 16%;
 }
 
-/* =========================================================
-   MOUTH
-   ========================================================= */
 
-.kelly-mouth {
+/* ============================================================
+   LEGACY MOUTH
+   ============================================================ */
+
+.kelly-wrap .kelly-mouth {
   position: absolute;
+
   bottom: 24%;
   left: 50%;
+
   width: 22%;
   height: 11%;
 
   transform: translateX(-50%);
 
-  border-bottom: 3px solid #fff;
+  border-bottom: 3px solid #30302d;
+
   border-radius: 0 0 50% 50%;
 
   transition:
@@ -222,12 +369,14 @@
     border 200ms ease;
 }
 
-/* =========================================================
-   ANTENNA
-   ========================================================= */
 
-.kelly-antenna {
+/* ============================================================
+   LEGACY ANTENNA
+   ============================================================ */
+
+.kelly-wrap .kelly-antenna {
   position: absolute;
+
   top: -16%;
   left: 50%;
 
@@ -238,19 +387,12 @@
 
   border-radius: 99px;
 
-  background:
-    linear-gradient(
-      to top,
-      #8067d8,
-      #b5a6ff
-    );
-
-  box-shadow:
-    0 0 9px rgb(128 103 216 / 45%);
+  background: var(--kelly-blue-dark);
 }
 
-.kelly-antenna span {
+.kelly-wrap .kelly-antenna span {
   position: absolute;
+
   top: -7px;
   left: 50%;
 
@@ -261,117 +403,39 @@
 
   border-radius: 50%;
 
-  background: #b7a7ff;
+  background: var(--kelly-yellow);
 
   box-shadow:
-    0 0 7px #a997ff,
-    0 0 18px rgb(128 103 216 / 65%);
+    0 0 8px rgba(244, 201, 93, 0.55);
 
-  animation: kelly-antenna-pulse 2s ease-in-out infinite;
+  animation:
+    kelly-legacy-antenna 2s ease-in-out infinite;
 }
 
-@keyframes kelly-antenna-pulse {
+@keyframes kelly-legacy-antenna {
   0%,
   100% {
     transform: translateX(-50%) scale(1);
-    opacity: 0.85;
   }
 
   50% {
-    transform: translateX(-50%) scale(1.25);
-    opacity: 1;
+    transform: translateX(-50%) scale(1.2);
   }
 }
 
-/* =========================================================
-   THOUGHT / ALERT
-   ========================================================= */
 
-.kelly-thought,
-.kelly-alert {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-
-  min-width: 22px;
-  height: 22px;
-  padding: 0 5px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-
-  background: rgb(255 255 255 / 82%);
-  border: 1px solid rgb(255 255 255 / 55%);
-
-  color: #706580;
-  font-size: 11px;
-  font-weight: 700;
-
-  box-shadow:
-    0 5px 15px rgb(45 34 80 / 12%);
-
-  backdrop-filter: blur(8px);
-}
-
-.kelly-alert {
-  background: #e97886;
-  color: white;
-  border: none;
-
-  animation: kelly-alert-pulse 1.8s ease-in-out infinite;
-}
-
-@keyframes kelly-alert-pulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.08);
-  }
-}
-
-/* =========================================================
-   MOODS
-   ========================================================= */
-
-/* IDLE */
-
-.kelly-idle .kelly-body,
-.kelly-idle .kelly-ear {
-  background:
-    radial-gradient(
-      circle at 30% 22%,
-      rgb(255 255 255 / 32%),
-      transparent 25%
-    ),
-    linear-gradient(
-      145deg,
-      #a997ff,
-      #8067d8 55%,
-      #6c57c2
-    );
-}
-
-/* THINKING */
+/* ============================================================
+   LEGACY MOODS
+   ============================================================ */
 
 .kelly-thinking .kelly-body,
 .kelly-thinking .kelly-ear {
   background:
-    radial-gradient(
-      circle at 30% 22%,
-      rgb(255 255 255 / 28%),
-      transparent 25%
-    ),
     linear-gradient(
       145deg,
-      #8c9cf0,
-      #6e76c9 55%,
-      #5c62a9
+      #b8d8ed,
+      #82afd5 60%,
+      #6d9bc3
     );
 }
 
@@ -386,31 +450,19 @@
   border-bottom-width: 2px;
 }
 
-/* HAPPY */
-
 .kelly-happy .kelly-body,
 .kelly-happy .kelly-ear {
   background:
-    radial-gradient(
-      circle at 30% 20%,
-      rgb(255 255 255 / 38%),
-      transparent 25%
-    ),
     linear-gradient(
       145deg,
-      #b7a7ff,
-      #8067d8 50%,
-      #6953bf
+      #b9dced,
+      #7dbd9f 58%,
+      #65a989
     );
-
-  box-shadow:
-    0 24px 50px rgb(128 103 216 / 28%),
-    inset 0 2px 5px rgb(255 255 255 / 30%),
-    inset 0 -12px 22px rgb(45 30 100 / 10%);
 }
 
 .kelly-happy .kelly-cheek {
-  opacity: 0.65;
+  opacity: 0.7;
   transform: scale(1.05);
 }
 
@@ -420,148 +472,514 @@
   border-bottom-width: 4px;
 }
 
-/* CONCERNED */
-
 .kelly-concerned .kelly-body,
 .kelly-concerned .kelly-ear {
   background:
-    radial-gradient(
-      circle at 30% 20%,
-      rgb(255 255 255 / 24%),
-      transparent 25%
-    ),
     linear-gradient(
       145deg,
-      #e8919c,
-      #c96172 65%,
-      #aa4f62
+      #f2b4a5,
+      #df8f7c 60%,
+      #cf7d6a
     );
 }
 
 .kelly-concerned .kelly-mouth {
   border-bottom: none;
-  border-top: 3px solid #fff;
+  border-top: 3px solid #30302d;
   border-radius: 50% 50% 0 0;
   bottom: 30%;
 }
 
-/* =========================================================
-   EXTRA AVATAR POLISH
-   ========================================================= */
-
 .kelly-wrap:hover .kelly-body {
-  transform: scale(1.05) rotate(-1deg);
+  transform: scale(1.04) rotate(-1deg);
 }
 
-.kelly-wrap:hover .kelly-ear-left {
-  transform: rotate(-19deg);
+
+/* ============================================================
+   KELLY CHARACTER — MODERN COMPONENT
+   ============================================================ */
+
+.kelly-character {
+  position: relative;
+
+  display: inline-block;
+
+  flex-shrink: 0;
+
+  width: 76px;
+  height: 76px;
+
+  animation:
+    kelly-character-breathe 3.4s ease-in-out infinite;
 }
 
-.kelly-wrap:hover .kelly-ear-right {
-  transform: rotate(19deg);
+.kelly-character-sm {
+  width: 42px;
+  height: 42px;
 }
 
-.kelly-wrap:hover .kelly-antenna span {
-  animation-duration: 0.7s;
+.kelly-character-lg {
+  width: 170px;
+  height: 170px;
 }
 
-/* =========================================================
-   REDUCED MOTION
-   ========================================================= */
+@keyframes kelly-character-breathe {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
 
-@media (prefers-reduced-motion: reduce) {
-  .kelly-body,
-  .kelly-antenna span,
-  .kelly-alert {
-    animation: none;
+  50% {
+    transform: translateY(-3px);
   }
 }
 
-/* =========================================================
-   KELLY LANDING EXPERIENCE
-   ========================================================= */
+
+/* ============================================================
+   CHARACTER AURA
+   ============================================================ */
+
+.kelly-character-aura {
+  position: absolute;
+
+  inset: 10%;
+
+  border-radius: 50%;
+
+  background:
+    rgba(244, 201, 93, 0.22);
+
+  filter: blur(12px);
+}
+
+
+/* ============================================================
+   CHARACTER BODY
+   ============================================================ */
+
+.kelly-character-body {
+  position: absolute;
+
+  inset: 12%;
+
+  border-radius:
+    42% 42% 46% 46%;
+
+  background:
+    linear-gradient(
+      145deg,
+      #a9cce8 0%,
+      #78a9d8 58%,
+      #6297c9 100%
+    );
+
+  box-shadow:
+    inset 0 5px 10px rgba(255, 255, 255, 0.35),
+    0 9px 0 rgba(83, 130, 166, 0.18);
+
+  overflow: visible;
+}
+
+
+/* ============================================================
+   CHARACTER EARS
+   ============================================================ */
+
+.kelly-character-ear {
+  position: absolute;
+
+  top: 18%;
+
+  width: 25%;
+  height: 32%;
+
+  background: #78a9d8;
+
+  border-radius: 50%;
+}
+
+.kelly-character-ear-left {
+  left: -13%;
+  transform: rotate(-18deg);
+}
+
+.kelly-character-ear-right {
+  right: -13%;
+  transform: rotate(18deg);
+}
+
+
+/* ============================================================
+   CHARACTER EYES
+   ============================================================ */
+
+.kelly-character-eye {
+  position: absolute;
+
+  top: 39%;
+
+  width: 11%;
+  height: 14%;
+
+  border-radius: 50%;
+
+  background: #30302d;
+
+  animation:
+    kelly-blink 5s infinite;
+}
+
+.kelly-character-eye-left {
+  left: 29%;
+}
+
+.kelly-character-eye-right {
+  right: 29%;
+}
+
+@keyframes kelly-blink {
+  0%,
+  43%,
+  48%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  45%,
+  46% {
+    transform: scaleY(0.08);
+  }
+}
+
+
+/* ============================================================
+   CHARACTER CHEEKS
+   ============================================================ */
+
+.kelly-character-cheek {
+  position: absolute;
+
+  top: 55%;
+
+  width: 15%;
+  height: 8%;
+
+  border-radius: 999px;
+
+  background:
+    rgba(238, 146, 125, 0.60);
+}
+
+.kelly-character-cheek-left {
+  left: 14%;
+}
+
+.kelly-character-cheek-right {
+  right: 14%;
+}
+
+
+/* ============================================================
+   CHARACTER MOUTH
+   ============================================================ */
+
+.kelly-character-mouth {
+  position: absolute;
+
+  left: 50%;
+  top: 58%;
+
+  width: 20%;
+  height: 11%;
+
+  transform: translateX(-50%);
+
+  border-bottom: 3px solid #30302d;
+
+  border-radius: 0 0 50% 50%;
+}
+
+
+/* ============================================================
+   CHARACTER ANTENNA
+   ============================================================ */
+
+.kelly-character-antenna {
+  position: absolute;
+
+  left: 50%;
+  top: 0;
+
+  width: 3px;
+  height: 17%;
+
+  transform: translateX(-50%);
+
+  background: var(--kelly-blue-dark);
+}
+
+.kelly-character-antenna span {
+  position: absolute;
+
+  left: 50%;
+  top: -5px;
+
+  width: 11px;
+  height: 11px;
+
+  transform: translateX(-50%);
+
+  border-radius: 50%;
+
+  background: var(--kelly-yellow);
+
+  box-shadow:
+    0 0 10px rgba(244, 201, 93, 0.55);
+
+  animation:
+    kelly-character-antenna-pulse 2s ease-in-out infinite;
+}
+
+@keyframes kelly-character-antenna-pulse {
+  0%,
+  100% {
+    transform: translateX(-50%) scale(1);
+  }
+
+  50% {
+    transform: translateX(-50%) scale(1.18);
+  }
+}
+
+
+/* ============================================================
+   CHARACTER SHADOW
+   ============================================================ */
+
+.kelly-character-shadow {
+  position: absolute;
+
+  left: 18%;
+  right: 18%;
+  bottom: 1%;
+
+  height: 9%;
+
+  border-radius: 50%;
+
+  background:
+    rgba(56, 49, 79, 0.12);
+
+  filter: blur(4px);
+
+  z-index: -1;
+}
+
+
+/* ============================================================
+   CHARACTER THINKING
+   ============================================================ */
+
+.kelly-character-thoughts {
+  position: absolute;
+
+  right: -12%;
+  top: 0;
+
+  display: flex;
+
+  gap: 4px;
+
+  align-items: flex-end;
+}
+
+.kelly-character-thoughts span {
+  display: block;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: var(--kelly-blue);
+}
+
+.kelly-character-thoughts span:nth-child(1) {
+  width: 5px;
+  height: 5px;
+}
+
+.kelly-character-thoughts span:nth-child(2) {
+  width: 8px;
+  height: 8px;
+}
+
+.kelly-character-thoughts span:nth-child(3) {
+  width: 11px;
+  height: 11px;
+}
+
+
+/* ============================================================
+   CHARACTER ALERT
+   ============================================================ */
+
+.kelly-character-alert {
+  position: absolute;
+
+  right: -7%;
+  top: -5%;
+
+  width: 25%;
+
+  aspect-ratio: 1;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: var(--kelly-coral);
+
+  color: white;
+
+  font-size: 65%;
+  font-weight: 800;
+
+  box-shadow:
+    0 5px 14px rgba(210, 126, 53, 0.20);
+}
+
+
+/* ============================================================
+   CHARACTER HAPPY
+   ============================================================ */
+
+.kelly-character-sparkles {
+  position: absolute;
+
+  right: -12%;
+  top: -7%;
+
+  color: #d9a82e;
+
+  font-weight: 800;
+}
+
+.kelly-character-sparkles span:first-child {
+  font-size: 22px;
+}
+
+.kelly-character-sparkles span:last-child {
+  position: absolute;
+
+  left: -8px;
+  top: 15px;
+
+  font-size: 13px;
+}
+
+
+/* ============================================================
+   CHARACTER MOODS
+   ============================================================ */
+
+.kelly-character-thinking .kelly-character-body {
+  background:
+    linear-gradient(
+      145deg,
+      #b9d8ec,
+      #86b6dc
+    );
+
+  animation:
+    kelly-thinking 1.7s ease-in-out infinite;
+}
+
+.kelly-character-happy .kelly-character-body {
+  background:
+    linear-gradient(
+      145deg,
+      #b9dced,
+      #78b89b
+    );
+
+  animation:
+    kelly-happy 1.8s ease-in-out infinite;
+}
+
+.kelly-character-concerned .kelly-character-body {
+  background:
+    linear-gradient(
+      145deg,
+      #f1b2a3,
+      #df8e7b
+    );
+}
+
+@keyframes kelly-thinking {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(-2deg) translateY(-2px);
+  }
+}
+
+@keyframes kelly-happy {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  30% {
+    transform: translateY(-6px) rotate(-2deg);
+  }
+
+  60% {
+    transform: translateY(-3px) rotate(2deg);
+  }
+}
+
+
+/* ============================================================
+   LANDING PAGE
+   ============================================================ */
 
 .kelly-landing {
   position: relative;
-  min-height: 100vh;
-  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  min-width: 100%;
+  min-height: 100dvh;
+
+  overflow-x: clip;
 
   background:
     radial-gradient(
-      circle at 15% 20%,
-      rgb(124 92 255 / 15%),
-      transparent 30%
+      circle at 8% 5%,
+      rgba(244, 201, 93, 0.13),
+      transparent 27%
     ),
     radial-gradient(
-      circle at 85% 25%,
-      rgb(66 180 255 / 12%),
-      transparent 30%
+      circle at 94% 20%,
+      rgba(120, 169, 216, 0.11),
+      transparent 28%
     ),
-    radial-gradient(
-      circle at 50% 100%,
-      rgb(160 100 255 / 12%),
-      transparent 35%
-    ),
-    #080912;
+    var(--kelly-paper);
 
-  color: #f7f7fb;
+  color: var(--kelly-ink);
 }
 
-.kelly-grid {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
 
-  opacity: 0.18;
-
-  background-image:
-    linear-gradient(
-      rgb(255 255 255 / 3.5%) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgb(255 255 255 / 3.5%) 1px,
-      transparent 1px
-    );
-
-  background-size: 56px 56px;
-
-  mask-image:
-    linear-gradient(
-      to bottom,
-      black,
-      transparent 85%
-    );
-}
-
-.kelly-orb {
-  position: absolute;
-
-  width: 420px;
-  height: 420px;
-
-  border-radius: 50%;
-  filter: blur(90px);
-
-  pointer-events: none;
-}
-
-.kelly-orb-one {
-  top: 120px;
-  right: -180px;
-  background: rgb(125 85 255 / 22%);
-}
-
-.kelly-orb-two {
-  bottom: 200px;
-  left: -220px;
-  background: rgb(45 170 255 / 14%);
-}
-
-/* =========================================================
-   NAVIGATION
-   ========================================================= */
+/* ============================================================
+   LANDING NAVIGATION
+   ============================================================ */
 
 .kelly-landing-nav {
   position: relative;
@@ -571,119 +989,143 @@
   align-items: center;
   justify-content: space-between;
 
-  max-width: 1180px;
-  margin: auto;
-  padding: 24px 28px;
+  width: min(100% - 48px, 1440px);
+
+  margin: 0 auto;
+
+  padding:
+    24px 0
+    12px;
 }
 
 .kelly-logo {
   display: flex;
   align-items: center;
+
   gap: 11px;
 
-  color: inherit;
+  color: var(--kelly-ink);
+
   text-decoration: none;
 }
 
 .kelly-logo-mark {
   display: grid;
 
-  width: 42px;
-  height: 42px;
+  width: 46px;
+  height: 46px;
 
   place-items: center;
+
   overflow: hidden;
 
-  border: 1px solid rgb(255 255 255 / 12%);
-  border-radius: 14px;
+  border: 2px solid var(--kelly-border);
 
-  background: rgb(255 255 255 / 7%);
+  border-radius: 15px;
+
+  background: var(--kelly-yellow-soft);
 
   box-shadow:
-    0 10px 35px rgb(0 0 0 / 25%);
+    0 4px 0 #e7d99e;
 }
 
 .kelly-logo-mark .kelly-wrap {
-  transform: scale(0.62);
+  transform: scale(0.58);
 }
 
 .kelly-logo strong {
   display: block;
 
-  font-size: 18px;
-  letter-spacing: -0.03em;
+  font-size: 20px;
+  font-weight: 800;
+
+  letter-spacing: -0.035em;
 }
 
 .kelly-logo small {
   display: block;
 
-  margin-top: 1px;
+  margin-top: 2px;
 
-  color: rgb(255 255 255 / 45%);
+  color: var(--kelly-ink-faint);
+
   font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  font-weight: 650;
+
+  letter-spacing: 0.1em;
+
   text-transform: uppercase;
 }
 
 .kelly-nav-actions {
   display: flex;
   align-items: center;
+
   gap: 10px;
 }
 
 .kelly-login {
   padding: 10px 14px;
 
-  color: rgb(255 255 255 / 68%);
+  color: var(--kelly-ink-soft);
+
   text-decoration: none;
 
   font-size: 14px;
+  font-weight: 600;
 
-  transition: color 0.2s ease;
+  transition:
+    color 160ms ease;
 }
 
 .kelly-login:hover {
-  color: white;
+  color: var(--kelly-ink);
 }
+
+
+/* ============================================================
+   PRIMARY BUTTONS
+   ============================================================ */
 
 .kelly-nav-button,
 .kelly-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   gap: 9px;
 
-  border: 1px solid rgb(255 255 255 / 12%);
-  border-radius: 14px;
+  border:
+    2px solid
+    #30302d;
 
-  background:
-    linear-gradient(
-      135deg,
-      #9277ff,
-      #6952df
-    );
+  border-radius: 13px;
+
+  background: var(--kelly-blue);
 
   color: white;
 
   box-shadow:
-    0 12px 35px rgb(111 82 255 / 25%);
+    0 4px 0 var(--kelly-blue-dark);
 
   text-decoration: none;
-  font-weight: 650;
+
+  font-weight: 700;
 
   transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+    transform 140ms ease,
+    box-shadow 140ms ease;
 }
 
 .kelly-nav-button {
   padding: 11px 16px;
+
   font-size: 13px;
 }
 
 .kelly-primary {
   padding: 14px 20px;
+
   font-size: 14px;
 }
 
@@ -692,7 +1134,15 @@
   transform: translateY(-2px);
 
   box-shadow:
-    0 16px 42px rgb(111 82 255 / 34%);
+    0 6px 0 var(--kelly-blue-dark);
+}
+
+.kelly-primary:active,
+.kelly-nav-button:active {
+  transform: translateY(2px);
+
+  box-shadow:
+    0 2px 0 var(--kelly-blue-dark);
 }
 
 .kelly-primary svg,
@@ -701,27 +1151,38 @@
   height: 17px;
 }
 
-/* =========================================================
+
+/* ============================================================
    HERO
-   ========================================================= */
+   ============================================================ */
 
 .kelly-hero {
   position: relative;
   z-index: 2;
 
   display: grid;
-  grid-template-columns:
-    minmax(0, 1fr)
-    minmax(420px, 0.9fr);
 
-  gap: 30px;
+  grid-template-columns:
+    minmax(0, 1.05fr)
+    minmax(400px, 0.95fr);
+
+  gap: 50px;
+
   align-items: center;
 
-  max-width: 1180px;
-  min-height: 650px;
+  width: min(100% - 48px, 1440px);
 
-  margin: auto;
-  padding: 60px 28px 100px;
+  min-height:
+    min(
+      760px,
+      calc(100dvh - 92px)
+    );
+
+  margin: 0 auto;
+
+  padding:
+    50px 0
+    100px;
 }
 
 .kelly-hero-copy {
@@ -732,63 +1193,71 @@
 .kelly-pill {
   display: inline-flex;
   align-items: center;
+
   gap: 8px;
 
   width: fit-content;
 
   padding: 7px 11px;
 
-  border: 1px solid rgb(255 255 255 / 9%);
+  border: 2px solid var(--kelly-border);
+
   border-radius: 999px;
 
-  background: rgb(255 255 255 / 5.5%);
+  background: white;
 
-  color: rgb(255 255 255 / 62%);
+  color: var(--kelly-ink-soft);
+
+  box-shadow:
+    0 3px 0 var(--kelly-border);
 
   font-size: 11px;
-  font-weight: 650;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-weight: 700;
 
-  backdrop-filter: blur(16px);
+  letter-spacing: 0.06em;
+
+  text-transform: uppercase;
 }
 
 .kelly-pill > span {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
 
   border-radius: 50%;
 
-  background: #9e8aff;
-
-  box-shadow:
-    0 0 12px #8c72ff;
+  background: var(--kelly-mint);
 }
 
+
 .kelly-hero h1 {
-  max-width: 680px;
+  max-width: 700px;
 
-  margin: 22px 0 20px;
+  margin:
+    22px 0
+    20px;
 
-  font-size: clamp(54px, 7vw, 86px);
-  line-height: 0.94;
+  color: var(--kelly-ink);
+
+  font-size:
+    clamp(
+      52px,
+      7vw,
+      82px
+    );
+
+  font-weight: 850;
+
+  line-height: 0.95;
+
   letter-spacing: -0.065em;
 }
 
-.kelly-hero h1 span,
-.kelly-section-heading h2 span,
-.kelly-final h2 span {
-  background:
-    linear-gradient(
-      110deg,
-      #b7a7ff,
-      #79c9ff
-    );
+.kelly-hero h1 span {
+  background: none;
 
-  -webkit-background-clip: text;
-  background-clip: text;
+  color: var(--kelly-blue);
 
-  color: transparent;
+  -webkit-text-fill-color: initial;
 }
 
 .kelly-hero-copy > p {
@@ -796,15 +1265,17 @@
 
   margin: 0;
 
-  color: rgb(255 255 255 / 57%);
+  color: var(--kelly-ink-soft);
 
   font-size: 17px;
+
   line-height: 1.75;
 }
 
 .kelly-hero-buttons {
   display: flex;
   flex-wrap: wrap;
+
   gap: 12px;
 
   margin-top: 30px;
@@ -817,33 +1288,42 @@
 
   padding: 14px 18px;
 
-  border: 1px solid rgb(255 255 255 / 10%);
-  border-radius: 14px;
+  border: 2px solid var(--kelly-border);
 
-  background: rgb(255 255 255 / 4%);
+  border-radius: 13px;
 
-  color: rgb(255 255 255 / 70%);
+  background: white;
+
+  color: var(--kelly-ink);
+
+  box-shadow:
+    0 3px 0 var(--kelly-border);
 
   text-decoration: none;
 
   font-size: 14px;
-  font-weight: 600;
-
-  backdrop-filter: blur(15px);
+  font-weight: 650;
 
   transition:
-    background 0.2s ease,
-    border-color 0.2s ease;
+    transform 140ms ease,
+    background 140ms ease;
 }
 
 .kelly-secondary:hover {
-  background: rgb(255 255 255 / 7%);
-  border-color: rgb(255 255 255 / 16%);
+  transform: translateY(-2px);
+
+  background: var(--kelly-paper-deep);
 }
+
+
+/* ============================================================
+   HERO TRUST
+   ============================================================ */
 
 .kelly-trust {
   display: flex;
   align-items: center;
+
   gap: 12px;
 
   margin-top: 34px;
@@ -856,20 +1336,23 @@
   height: 40px;
 
   place-items: center;
+
   overflow: hidden;
 
-  border: 1px solid rgb(255 255 255 / 10%);
+  border: 2px solid var(--kelly-border);
+
   border-radius: 13px;
 
-  background: rgb(255 255 255 / 5%);
+  background: white;
 }
 
 .kelly-trust-avatar .kelly-wrap {
-  transform: scale(0.6);
+  transform: scale(0.58);
 }
 
 .kelly-trust strong {
   display: block;
+
   font-size: 13px;
 }
 
@@ -878,40 +1361,35 @@
 
   margin-top: 3px;
 
-  color: rgb(255 255 255 / 38%);
+  color: var(--kelly-ink-faint);
+
   font-size: 11px;
 }
 
-/* =========================================================
-   HERO CHARACTER
-   ========================================================= */
+
+/* ============================================================
+   HERO CHARACTER STAGE
+   ============================================================ */
 
 .kelly-hero-character {
   position: relative;
+
   min-height: 570px;
 }
 
 .kelly-character-glow {
-  position: absolute;
-  inset: 15% 8%;
-
-  border-radius: 50%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgb(126 102 255 / 25%),
-      transparent 62%
-    );
-
-  filter: blur(20px);
+  display: none;
 }
 
 .kelly-character-stage {
   position: absolute;
-  inset: 50px 0 0;
+
+  inset:
+    50px 0
+    0;
 
   display: grid;
+
   place-items: center;
 }
 
@@ -921,57 +1399,54 @@
 
   display: grid;
 
-  width: 280px;
-  height: 280px;
+  width: 300px;
+  height: 300px;
 
   place-items: center;
 
-  border: 1px solid rgb(255 255 255 / 10%);
+  border: 2px solid var(--kelly-border);
+
   border-radius: 50%;
 
-  background:
-    radial-gradient(
-      circle at 50% 40%,
-      rgb(255 255 255 / 10%),
-      transparent 48%
-    ),
-    rgb(255 255 255 / 3.5%);
+  background: var(--kelly-yellow-soft);
 
   box-shadow:
-    inset 0 0 70px rgb(125 95 255 / 8%),
-    0 30px 100px rgb(0 0 0 / 35%);
-
-  backdrop-filter: blur(20px);
+    0 10px 0 #e5d79d;
 }
 
 .kelly-character-platform .kelly-wrap {
-  transform: scale(1.65);
+  transform: scale(1.55);
 }
 
 .kelly-ring {
   position: absolute;
 
-  border: 1px solid rgb(148 126 255 / 16%);
+  border:
+    2px solid
+    rgba(120, 169, 216, 0.20);
+
   border-radius: 50%;
 
   animation:
-    kelly-spin 18s linear infinite;
+    kelly-spin 22s linear infinite;
 }
 
 .kelly-ring-one {
-  width: 380px;
-  height: 380px;
+  width: 390px;
+  height: 390px;
 }
 
 .kelly-ring-two {
-  width: 470px;
-  height: 470px;
+  width: 480px;
+  height: 480px;
 
   border-style: dashed;
-  opacity: 0.55;
+
+  opacity: 0.45;
 
   animation-direction: reverse;
-  animation-duration: 28s;
+
+  animation-duration: 30s;
 }
 
 @keyframes kelly-spin {
@@ -979,6 +1454,11 @@
     transform: rotate(360deg);
   }
 }
+
+
+/* ============================================================
+   HERO SPEECH
+   ============================================================ */
 
 .kelly-speech {
   position: absolute;
@@ -989,25 +1469,27 @@
 
   display: flex;
   align-items: center;
+
   gap: 8px;
 
-  padding: 11px 15px;
+  padding:
+    11px 15px;
 
-  border: 1px solid rgb(255 255 255 / 10%);
-  border-radius: 14px;
+  border: 2px solid var(--kelly-ink);
 
-  background: rgb(16 17 28 / 72%);
+  border-radius: 15px;
 
-  color: rgb(255 255 255 / 70%);
+  background: white;
+
+  color: var(--kelly-ink);
 
   font-size: 12px;
 
   box-shadow:
-    0 15px 45px rgb(0 0 0 / 30%);
+    4px 5px 0 var(--kelly-shadow);
 
-  backdrop-filter: blur(18px);
-
-  transform: translateX(-50%);
+  transform:
+    translateX(-50%);
 
   white-space: nowrap;
 }
@@ -1018,15 +1500,13 @@
 
   border-radius: 50%;
 
-  background: #8f7aff;
-
-  box-shadow:
-    0 0 12px #8f7aff;
+  background: var(--kelly-mint);
 }
 
-/* =========================================================
-   FLOATING CARDS
-   ========================================================= */
+
+/* ============================================================
+   FLOATING STUDY CARDS
+   ============================================================ */
 
 .kelly-floating {
   position: absolute;
@@ -1034,21 +1514,25 @@
 
   display: flex;
   align-items: center;
+
   gap: 10px;
 
   min-width: 210px;
 
   padding: 12px;
 
-  border: 1px solid rgb(255 255 255 / 9%);
-  border-radius: 17px;
+  border:
+    2px solid
+    var(--kelly-border);
 
-  background: rgb(15 16 27 / 68%);
+  border-radius: 16px;
+
+  background: white;
+
+  color: var(--kelly-ink);
 
   box-shadow:
-    0 20px 55px rgb(0 0 0 / 30%);
-
-  backdrop-filter: blur(20px);
+    5px 6px 0 var(--kelly-shadow);
 
   animation:
     kelly-float 5s ease-in-out infinite;
@@ -1056,6 +1540,7 @@
 
 .kelly-floating strong {
   display: block;
+
   font-size: 11px;
 }
 
@@ -1064,18 +1549,23 @@
 
   margin-top: 3px;
 
-  color: rgb(255 255 255 / 42%);
+  color: var(--kelly-ink-soft);
+
   font-size: 9px;
 }
 
 .kelly-float-task {
   top: 55px;
   left: 0;
+
+  transform: rotate(-3deg);
 }
 
 .kelly-float-memory {
   top: 205px;
   right: -5px;
+
+  transform: rotate(3deg);
 
   animation-delay: -1.8s;
 }
@@ -1084,17 +1574,19 @@
   bottom: 95px;
   left: 5px;
 
+  transform: rotate(-2deg);
+
   animation-delay: -3s;
 }
 
 @keyframes kelly-float {
   0%,
   100% {
-    transform: translateY(0);
+    translate: 0 0;
   }
 
   50% {
-    transform: translateY(-8px);
+    translate: 0 -8px;
   }
 }
 
@@ -1117,18 +1609,18 @@
 }
 
 .kelly-float-icon.purple {
-  background: rgb(143 119 255 / 13%);
-  color: #a795ff;
+  background: var(--kelly-blue-soft);
+  color: var(--kelly-blue-dark);
 }
 
 .kelly-float-icon.blue {
-  background: rgb(80 172 255 / 12%);
-  color: #77c3ff;
+  background: var(--kelly-mint-soft);
+  color: var(--kelly-mint-dark);
 }
 
 .kelly-float-icon.orange {
-  background: rgb(255 170 85 / 10%);
-  color: #ffbb78;
+  background: var(--kelly-yellow-soft);
+  color: var(--kelly-yellow-dark);
 }
 
 .kelly-mini-progress {
@@ -1138,13 +1630,13 @@
   bottom: 8px;
   left: 56px;
 
-  height: 2px;
+  height: 3px;
 
   overflow: hidden;
 
   border-radius: 4px;
 
-  background: rgb(255 255 255 / 7%);
+  background: #eee9df;
 }
 
 .kelly-mini-progress span {
@@ -1153,48 +1645,72 @@
   width: 68%;
   height: 100%;
 
-  background:
-    linear-gradient(
-      90deg,
-      #8f78ff,
-      #69baff
-    );
+  background: var(--kelly-mint);
 }
 
-/* =========================================================
+
+/* ============================================================
    HOW IT WORKS
-   ========================================================= */
+   ============================================================ */
 
 .kelly-how {
   position: relative;
   z-index: 2;
 
-  max-width: 1180px;
+  width: min(100% - 48px, 1440px);
 
-  margin: auto;
-  padding: 80px 28px 110px;
+  margin: 0 auto;
+
+  padding:
+    80px 0
+    110px;
 }
 
 .kelly-section-heading {
   max-width: 650px;
+
   margin-bottom: 38px;
 }
 
 .kelly-section-heading h2 {
-  margin: 18px 0 14px;
+  margin:
+    18px 0
+    14px;
 
-  font-size: clamp(38px, 5vw, 60px);
+  color: var(--kelly-ink);
+
+  font-size:
+    clamp(
+      38px,
+      5vw,
+      60px
+    );
+
   line-height: 1;
+
   letter-spacing: -0.055em;
+}
+
+.kelly-section-heading h2 span {
+  background: none;
+
+  color: var(--kelly-blue);
+
+  -webkit-text-fill-color: initial;
 }
 
 .kelly-section-heading > p {
   max-width: 560px;
 
-  color: rgb(255 255 255 / 47%);
+  color: var(--kelly-ink-soft);
 
   line-height: 1.7;
 }
+
+
+/* ============================================================
+   FEATURE GRID
+   ============================================================ */
 
 .kelly-feature-grid {
   display: grid;
@@ -1202,7 +1718,7 @@
   grid-template-columns:
     repeat(3, 1fr);
 
-  gap: 14px;
+  gap: 18px;
 }
 
 .kelly-feature {
@@ -1210,42 +1726,57 @@
 
   padding: 24px;
 
-  border: 1px solid rgb(255 255 255 / 8%);
-  border-radius: 25px;
+  border:
+    2px solid
+    var(--kelly-border);
 
-  background:
-    linear-gradient(
-      145deg,
-      rgb(255 255 255 / 6.5%),
-      rgb(255 255 255 / 2.5%)
-    );
+  border-radius: 20px;
+
+  background: white;
 
   box-shadow:
-    0 25px 70px rgb(0 0 0 / 16%);
-
-  backdrop-filter: blur(18px);
+    0 5px 0 var(--kelly-border);
 
   transition:
-    transform 0.25s ease,
-    border-color 0.25s ease;
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.kelly-feature:nth-child(1) {
+  transform: rotate(-1deg);
+}
+
+.kelly-feature:nth-child(2) {
+  transform: rotate(0.8deg);
+}
+
+.kelly-feature:nth-child(3) {
+  transform: rotate(-0.5deg);
 }
 
 .kelly-feature:hover {
-  transform: translateY(-5px);
-  border-color: rgb(150 130 255 / 20%);
+  transform:
+    translateY(-5px)
+    rotate(0deg);
+
+  box-shadow:
+    0 9px 0 var(--kelly-border);
 }
 
 .kelly-feature-top {
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
 }
 
 .kelly-feature-top > span {
-  color: rgb(255 255 255 / 27%);
+  color: var(--kelly-ink-faint);
 
   font-size: 11px;
   font-weight: 700;
+
   letter-spacing: 0.1em;
 }
 
@@ -1257,12 +1788,23 @@
 
   place-items: center;
 
-  border: 1px solid rgb(255 255 255 / 8%);
   border-radius: 13px;
 
-  background: rgb(255 255 255 / 5%);
+  background: var(--kelly-blue-soft);
 
-  color: #a795ff;
+  color: var(--kelly-blue-dark);
+}
+
+.kelly-feature:nth-child(2)
+.kelly-feature-top > div {
+  background: var(--kelly-yellow-soft);
+  color: var(--kelly-yellow-dark);
+}
+
+.kelly-feature:nth-child(3)
+.kelly-feature-top > div {
+  background: var(--kelly-mint-soft);
+  color: var(--kelly-mint-dark);
 }
 
 .kelly-feature-top svg {
@@ -1270,24 +1812,31 @@
 }
 
 .kelly-feature h3 {
-  margin: 55px 0 9px;
+  margin:
+    55px 0
+    9px;
+
+  color: var(--kelly-ink);
 
   font-size: 20px;
+
   letter-spacing: -0.025em;
 }
 
 .kelly-feature p {
   margin: 0;
 
-  color: rgb(255 255 255 / 43%);
+  color: var(--kelly-ink-soft);
 
   font-size: 13px;
+
   line-height: 1.7;
 }
 
-/* =========================================================
+
+/* ============================================================
    FINAL CTA
-   ========================================================= */
+   ============================================================ */
 
 .kelly-final {
   position: relative;
@@ -1299,28 +1848,27 @@
     auto 1fr auto;
 
   gap: 25px;
+
   align-items: center;
 
-  max-width: 1124px;
+  width: min(100% - 48px, 1124px);
 
-  margin: 20px auto 80px;
+  margin:
+    20px auto
+    80px;
+
   padding: 30px;
 
-  border: 1px solid rgb(255 255 255 / 9%);
-  border-radius: 30px;
+  border:
+    2px solid
+    var(--kelly-border);
 
-  background:
-    radial-gradient(
-      circle at 0 50%,
-      rgb(123 93 255 / 12%),
-      transparent 35%
-    ),
-    rgb(255 255 255 / 3.5%);
+  border-radius: 22px;
+
+  background: var(--kelly-yellow-soft);
 
   box-shadow:
-    0 30px 90px rgb(0 0 0 / 22%);
-
-  backdrop-filter: blur(20px);
+    0 6px 0 #e5d79d;
 }
 
 .kelly-final-avatar {
@@ -1330,11 +1878,16 @@
   height: 75px;
 
   place-items: center;
+
   overflow: hidden;
+
+  border:
+    2px solid
+    var(--kelly-border);
 
   border-radius: 22px;
 
-  background: rgb(255 255 255 / 5%);
+  background: white;
 }
 
 .kelly-final-avatar .kelly-wrap {
@@ -1344,46 +1897,559 @@
 .kelly-final h2 {
   margin-top: 8px;
 
+  color: var(--kelly-ink);
+
   font-size: 27px;
+
   line-height: 1.05;
+
   letter-spacing: -0.04em;
 }
 
-/* =========================================================
+.kelly-final h2 span {
+  background: none;
+
+  color: var(--kelly-blue);
+
+  -webkit-text-fill-color: initial;
+}
+
+
+/* ============================================================
    FOOTER
-   ========================================================= */
+   ============================================================ */
 
 .kelly-footer {
   position: relative;
   z-index: 2;
 
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
 
-  max-width: 1124px;
+  width: min(100% - 48px, 1124px);
 
-  margin: auto;
-  padding: 28px;
+  margin: 0 auto;
 
-  border-top: 1px solid rgb(255 255 255 / 7%);
+  padding:
+    28px 0;
 
-  color: rgb(255 255 255 / 35%);
+  border-top:
+    2px dashed
+    var(--kelly-border);
+
+  color: var(--kelly-ink-faint);
 
   font-size: 11px;
 }
 
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
+
+/* ============================================================
+   APP SHELL
+   ============================================================ */
+
+.kelly-app {
+  width: 100%;
+  min-height: 100dvh;
+
+  background:
+    radial-gradient(
+      circle at 10% 0%,
+      rgba(244, 201, 93, 0.12),
+      transparent 27%
+    ),
+    radial-gradient(
+      circle at 95% 15%,
+      rgba(120, 169, 216, 0.10),
+      transparent 27%
+    ),
+    var(--kelly-paper);
+
+  color: var(--kelly-ink);
+}
+
+
+/* ============================================================
+   APP HEADER
+   ============================================================ */
+
+.kelly-header {
+  position: sticky;
+
+  top: 0;
+
+  z-index: 40;
+
+  padding:
+    16px 20px;
+
+  background:
+    rgba(255, 253, 247, 0.94);
+
+  border-bottom:
+    1px solid
+    rgba(230, 223, 210, 0.75);
+}
+
+.kelly-header-inner {
+  max-width: 1180px;
+
+  min-height: 58px;
+
+  margin: 0 auto;
+
+  padding:
+    4px 4px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 24px;
+
+  border-bottom:
+    2px solid
+    var(--kelly-border);
+}
+
+.kelly-brand {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  flex-shrink: 0;
+
+  text-decoration: none;
+}
+
+.kelly-brand-copy {
+  display: flex;
+
+  flex-direction: column;
+
+  line-height: 1;
+}
+
+.kelly-brand-name {
+  font-size: 19px;
+
+  font-weight: 800;
+
+  letter-spacing: -0.035em;
+
+  color: var(--kelly-ink);
+}
+
+.kelly-brand-subtitle {
+  margin-top: 4px;
+
+  color: var(--kelly-ink-faint);
+
+  font-size: 9px;
+
+  font-weight: 650;
+
+  letter-spacing: 0.1em;
+
+  text-transform: uppercase;
+}
+
+
+/* ============================================================
+   APP NAV
+   ============================================================ */
+
+.kelly-nav {
+  display: flex;
+
+  align-items: center;
+
+  gap: 3px;
+
+  flex: 1;
+}
+
+.kelly-nav-item {
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  padding:
+    9px 13px;
+
+  border-radius: 10px;
+
+  color: var(--kelly-ink-soft);
+
+  font-size: 13px;
+
+  font-weight: 650;
+
+  text-decoration: none;
+
+  transition:
+    background 160ms ease,
+    color 160ms ease;
+}
+
+.kelly-nav-item:hover {
+  background: var(--kelly-paper-deep);
+
+  color: var(--kelly-ink);
+}
+
+.kelly-nav-item-active {
+  background: var(--kelly-blue-soft);
+
+  color: #477aa8;
+}
+
+
+/* ============================================================
+   HEADER RIGHT
+   ============================================================ */
+
+.kelly-header-right {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+}
+
+.kelly-streak-pill {
+  display: flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  padding:
+    8px 11px;
+
+  border:
+    2px solid
+    #eadca8;
+
+  border-radius: 999px;
+
+  background: var(--kelly-yellow-soft);
+
+  color: #9b751c;
+
+  font-size: 12px;
+
+  font-weight: 750;
+}
+
+.kelly-signout {
+  width: 38px;
+  height: 38px;
+
+  display: grid;
+
+  place-items: center;
+
+  border: 0;
+
+  border-radius: 12px;
+
+  background: transparent;
+
+  color: var(--kelly-ink-faint);
+
+  transition:
+    background 150ms ease,
+    color 150ms ease;
+}
+
+.kelly-signout:hover {
+  background: var(--kelly-paper-deep);
+
+  color: var(--kelly-ink);
+}
+
+
+/* ============================================================
+   APP MAIN
+   ============================================================ */
+
+.kelly-main {
+  width:
+    min(
+      1180px,
+      calc(100% - 40px)
+    );
+
+  margin: 0 auto;
+
+  padding:
+    38px 0
+    110px;
+}
+
+
+/* ============================================================
+   PAGE INTRO
+   ============================================================ */
+
+.kelly-page-intro {
+  display: flex;
+
+  align-items: flex-end;
+
+  justify-content: space-between;
+
+  gap: 24px;
+
+  padding:
+    8px 4px
+    30px;
+}
+
+.kelly-page-intro-copy {
+  max-width: 720px;
+}
+
+.kelly-eyebrow {
+  margin:
+    0 0
+    7px;
+
+  color: #5b91bc;
+
+  font-size: 11px;
+
+  font-weight: 750;
+
+  letter-spacing: 0.13em;
+
+  text-transform: uppercase;
+}
+
+.kelly-page-intro h1 {
+  margin: 0;
+
+  color: var(--kelly-ink);
+
+  font-size:
+    clamp(
+      30px,
+      4vw,
+      43px
+    );
+
+  font-weight: 800;
+
+  letter-spacing: -0.045em;
+
+  line-height: 1.08;
+}
+
+.kelly-page-description {
+  max-width: 650px;
+
+  margin:
+    11px 0
+    0;
+
+  color: var(--kelly-ink-soft);
+
+  font-size: 15px;
+
+  line-height: 1.7;
+}
+
+.kelly-page-action {
+  flex-shrink: 0;
+}
+
+
+/* ============================================================
+   FLOATING KELLY
+   ============================================================ */
+
+.kelly-floating-companion {
+  position: fixed;
+
+  right: 24px;
+  bottom: 24px;
+
+  z-index: 45;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding:
+    7px 13px
+    7px 7px;
+
+  background: white;
+
+  border:
+    2px solid
+    var(--kelly-border);
+
+  border-radius: 15px;
+
+  box-shadow:
+    4px 5px 0 var(--kelly-shadow);
+
+  text-decoration: none;
+
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.kelly-floating-companion:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    5px 7px 0 var(--kelly-shadow-strong);
+}
+
+.kelly-floating-label {
+  color: var(--kelly-ink);
+
+  font-size: 12px;
+
+  font-weight: 750;
+}
+
+
+/* ============================================================
+   MOBILE NAV
+   ============================================================ */
+
+.kelly-mobile-nav {
+  display: none;
+}
+
+
+/* ============================================================
+   AUTH PAGE
+   ============================================================ */
+
+.kelly-auth {
+  position: relative;
+
+  width: 100%;
+  min-width: 100%;
+  min-height: 100dvh;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  overflow-x: clip;
+
+  background:
+    radial-gradient(
+      circle at 12% 10%,
+      rgba(244, 201, 93, 0.15),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 90% 80%,
+      rgba(120, 169, 216, 0.13),
+      transparent 28%
+    ),
+    var(--kelly-paper);
+}
+
+
+/* ============================================================
+   AUTH GENERIC OVERRIDES
+   ============================================================ */
+
+.kelly-auth .glass-panel {
+  background: white !important;
+
+  border:
+    2px solid
+    var(--kelly-border) !important;
+
+  border-radius:
+    var(--kelly-radius-lg) !important;
+
+  box-shadow:
+    0 7px 0
+    var(--kelly-border) !important;
+
+  backdrop-filter: none !important;
+}
+
+
+/* ============================================================
+   GENERIC FORM ELEMENTS
+   ============================================================ */
+
+.kelly-auth input,
+.kelly-auth textarea,
+.kelly-auth select {
+  border:
+    2px solid
+    var(--kelly-border);
+
+  border-radius:
+    12px;
+
+  background:
+    var(--kelly-paper);
+
+  color:
+    var(--kelly-ink);
+
+  outline: none;
+
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.kelly-auth input:focus,
+.kelly-auth textarea:focus,
+.kelly-auth select:focus {
+  border-color:
+    var(--kelly-blue);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(120, 169, 216, 0.15);
+}
+
+
+/* ============================================================
+   RESPONSIVE — TABLET
+   ============================================================ */
 
 @media (max-width: 900px) {
+
   .kelly-hero {
     grid-template-columns: 1fr;
+
+    min-height: auto;
+
     padding-top: 45px;
   }
 
   .kelly-hero-copy {
+    max-width: 700px;
+
+    margin:
+      0 auto;
+
     text-align: center;
   }
 
@@ -1394,6 +2460,11 @@
     margin-right: auto;
   }
 
+  .kelly-hero-buttons,
+  .kelly-trust {
+    justify-content: center;
+  }
+
   .kelly-hero-copy > p {
     margin-left: auto;
     margin-right: auto;
@@ -1401,6 +2472,8 @@
 
   .kelly-hero-character {
     min-height: 520px;
+
+    margin-top: 20px;
   }
 
   .kelly-feature-grid {
@@ -1412,14 +2485,142 @@
   }
 
   .kelly-final {
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 24px;
+    margin-right: 24px;
   }
 }
 
-@media (max-width: 620px) {
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 800px) {
+
+  .kelly-header {
+    padding:
+      10px 12px;
+  }
+
+  .kelly-header-inner {
+    min-height: 58px;
+
+    border-bottom-width: 2px;
+  }
+
+  .kelly-nav {
+    display: none;
+  }
+
+  .kelly-header-right {
+    margin-left: auto;
+  }
+
+  .kelly-main {
+    width:
+      min(
+        calc(100% - 24px),
+        680px
+      );
+
+    padding-top: 24px;
+  }
+
+  .kelly-floating-companion {
+    display: none;
+  }
+
+  .kelly-mobile-nav {
+    position: fixed;
+
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+
+    z-index: 50;
+
+    display: grid;
+
+    grid-template-columns:
+      repeat(4, 1fr);
+
+    gap: 4px;
+
+    padding: 7px;
+
+    background:
+      var(--kelly-paper);
+
+    border:
+      2px solid
+      var(--kelly-border);
+
+    border-radius: 18px;
+
+    box-shadow:
+      0 5px 0
+      var(--kelly-shadow);
+  }
+
+  .kelly-mobile-nav-item {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 3px;
+
+    min-height: 50px;
+
+    border-radius: 13px;
+
+    color: var(--kelly-ink-faint);
+
+    font-size: 9px;
+
+    font-weight: 650;
+
+    text-decoration: none;
+  }
+
+  .kelly-mobile-nav-item-active {
+    background: var(--kelly-blue-soft);
+
+    color: #477aa8;
+  }
+
+  .kelly-page-intro {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .kelly-page-intro h1 {
+    font-size: 32px;
+  }
+
+  .kelly-header-right .kelly-streak-pill {
+    padding: 8px;
+  }
+}
+
+
+@media (max-width: 640px) {
+
+  .kelly-landing-nav,
+  .kelly-hero,
+  .kelly-how,
+  .kelly-final,
+  .kelly-footer {
+    width:
+      calc(100% - 32px);
+  }
+
   .kelly-landing-nav {
-    padding: 18px 16px;
+    min-height: 72px;
   }
 
   .kelly-login {
@@ -1427,265 +2628,47 @@
   }
 
   .kelly-hero {
-    padding: 35px 18px 70px;
-  }
-
-  .kelly-hero h1 {
-    font-size: 55px;
-  }
-
-  .kelly-hero-character {
-    min-height: 470px;
-    transform: scale(0.88);
-  }
-
-  .kelly-float-memory {
-    right: -20px;
-  }
-
-  .kelly-float-task {
-    left: -15px;
-  }
-
-  .kelly-ring-two {
-    width: 400px;
-    height: 400px;
-  }
-
-  .kelly-how {
-    padding: 60px 18px 80px;
-  }
-
-  .kelly-final {
-    grid-template-columns: 1fr;
-
-    margin-left: 18px;
-    margin-right: 18px;
-
-    padding: 24px;
-  }
-
-  .kelly-footer {
-    margin: 0 18px;
-
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .kelly-footer > span {
-    display: none;
-  }
-}
-
-/* ============================================================
-   KELLY — FULL VIEWPORT + RESPONSIVE FOUNDATION
-   ============================================================ */
-
-html,
-body,
-#root {
-  width: 100%;
-  min-width: 100%;
-  min-height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  min-height: 100%;
-  background: #080912;
-}
-
-body {
-  min-height: 100dvh;
-  overflow-x: hidden;
-  background: #080912;
-}
-
-#root {
-  min-height: 100dvh;
-}
-
-/* Every major Kelly page fills the available viewport */
-.kelly-landing,
-.kelly-auth {
-  position: relative;
-  width: 100%;
-  min-width: 100%;
-  min-height: 100dvh;
-  box-sizing: border-box;
-  overflow-x: clip;
-}
-
-/* ------------------------------------------------------------
-   LANDING PAGE
-   ------------------------------------------------------------ */
-
-.kelly-landing {
-  display: flex;
-  flex-direction: column;
-}
-
-/* Keep content centered without creating a narrow fixed page */
-.kelly-landing-nav,
-.kelly-hero,
-.kelly-how,
-.kelly-final,
-.kelly-footer {
-  width: min(100% - 48px, 1440px);
-  margin-left: auto;
-  margin-right: auto;
-  box-sizing: border-box;
-}
-
-/* Navigation */
-.kelly-landing-nav {
-  flex: 0 0 auto;
-}
-
-/* Hero fills the remaining first-screen space */
-.kelly-hero {
-  flex: 1 1 auto;
-  min-height: min(760px, calc(100dvh - 92px));
-  box-sizing: border-box;
-}
-
-/* Prevent the character area from being squeezed */
-.kelly-hero-copy,
-.kelly-hero-character {
-  min-width: 0;
-}
-
-/* ------------------------------------------------------------
-   LARGE SCREENS
-   ------------------------------------------------------------ */
-
-@media (min-width: 1600px) {
-  .kelly-landing-nav,
-  .kelly-hero,
-  .kelly-how,
-  .kelly-final,
-  .kelly-footer {
-    width: min(100% - 96px, 1600px);
-  }
-
-  .kelly-hero {
-    min-height: min(820px, calc(100dvh - 100px));
-  }
-}
-
-/* ------------------------------------------------------------
-   LAPTOP / NORMAL DESKTOP
-   ------------------------------------------------------------ */
-
-@media (min-width: 1024px) and (max-width: 1399px) {
-  .kelly-landing-nav,
-  .kelly-hero,
-  .kelly-how,
-  .kelly-final,
-  .kelly-footer {
-    width: min(100% - 64px, 1280px);
-  }
-
-  .kelly-hero {
-    min-height: calc(100dvh - 88px);
-  }
-
-  .kelly-hero-copy {
-    max-width: 560px;
-  }
-
-  .kelly-hero-character {
-    transform: scale(0.92);
-    transform-origin: center;
-  }
-}
-
-/* ------------------------------------------------------------
-   TABLETS
-   ------------------------------------------------------------ */
-
-@media (min-width: 641px) and (max-width: 1023px) {
-  .kelly-landing-nav,
-  .kelly-hero,
-  .kelly-how,
-  .kelly-final,
-  .kelly-footer {
-    width: min(100% - 48px, 900px);
-  }
-
-  .kelly-hero {
     min-height: auto;
-    padding-top: 56px;
-    padding-bottom: 80px;
-  }
 
-  .kelly-hero-copy {
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-  }
-
-  .kelly-hero-buttons,
-  .kelly-trust {
-    justify-content: center;
-  }
-
-  .kelly-hero-character {
-    min-height: 540px;
-    margin-top: 40px;
-  }
-}
-
-/* ------------------------------------------------------------
-   PHONES
-   ------------------------------------------------------------ */
-
-@media (max-width: 640px) {
-  .kelly-landing-nav,
-  .kelly-hero,
-  .kelly-how,
-  .kelly-final,
-  .kelly-footer {
-    width: calc(100% - 32px);
-  }
-
-  .kelly-landing-nav {
-    min-height: 72px;
-  }
-
-  .kelly-hero {
-    min-height: auto;
-    padding-top: 40px;
-    padding-bottom: 64px;
+    padding:
+      40px 0
+      64px;
   }
 
   .kelly-hero-copy {
     width: 100%;
+
     text-align: center;
   }
 
-  .kelly-hero-copy h1 {
-    font-size: clamp(3rem, 15vw, 4.5rem);
+  .kelly-hero h1 {
+    font-size:
+      clamp(
+        3rem,
+        15vw,
+        4.5rem
+      );
+
     line-height: 0.95;
   }
 
-  .kelly-hero-copy p {
+  .kelly-hero-copy > p {
     max-width: 540px;
+
     margin-left: auto;
     margin-right: auto;
   }
 
   .kelly-hero-buttons {
     flex-direction: column;
+
     width: 100%;
   }
 
   .kelly-primary,
   .kelly-secondary {
     width: 100%;
-    box-sizing: border-box;
+
     justify-content: center;
   }
 
@@ -1695,13 +2678,18 @@ body {
 
   .kelly-hero-character {
     width: 100%;
+
     min-height: 430px;
+
     margin-top: 24px;
-    transform: scale(0.78);
-    transform-origin: top center;
+
+    transform:
+      scale(0.78);
+
+    transform-origin:
+      top center;
   }
 
-  /* Keep floating cards inside the viewport */
   .kelly-floating {
     max-width: 210px;
   }
@@ -1716,7 +2704,9 @@ body {
 
   .kelly-float-deadline {
     left: 50%;
-    transform: translateX(-50%);
+
+    transform:
+      translateX(-50%);
   }
 
   .kelly-character-stage {
@@ -1724,8 +2714,8 @@ body {
   }
 
   .kelly-how {
-    padding-top: 64px;
-    padding-bottom: 64px;
+    padding:
+      64px 0;
   }
 
   .kelly-feature-grid {
@@ -1733,30 +2723,51 @@ body {
   }
 
   .kelly-final {
-    padding: 40px 24px;
-    flex-direction: column;
+    grid-template-columns: 1fr;
+
+    margin-left: 16px;
+    margin-right: 16px;
+
+    padding:
+      32px 24px;
+
     text-align: center;
+  }
+
+  .kelly-final-avatar {
+    margin:
+      0 auto;
   }
 
   .kelly-footer {
     flex-direction: column;
+
     gap: 20px;
-    text-align: center;
+
     padding-bottom: 32px;
+
+    text-align: center;
+  }
+
+  .kelly-footer > span {
+    display: none;
   }
 }
 
-/* ------------------------------------------------------------
-   VERY SMALL PHONES
-   ------------------------------------------------------------ */
+
+/* ============================================================
+   SMALL PHONES
+   ============================================================ */
 
 @media (max-width: 380px) {
+
   .kelly-landing-nav,
   .kelly-hero,
   .kelly-how,
   .kelly-final,
   .kelly-footer {
-    width: calc(100% - 24px);
+    width:
+      calc(100% - 24px);
   }
 
   .kelly-hero {
@@ -1765,44 +2776,164 @@ body {
 
   .kelly-hero-character {
     min-height: 380px;
-    transform: scale(0.68);
+
+    transform:
+      scale(0.68);
   }
 
   .kelly-floating {
     max-width: 185px;
-    padding: 12px;
-  }
 
-  .kelly-floating strong,
-  .kelly-floating span {
-    font-size: 0.75rem;
+    padding: 10px;
   }
 }
 
-/* ------------------------------------------------------------
-   HEIGHT-CONSTRAINED LAPTOPS
-   Prevent the hero from becoming ridiculously tall.
-   ------------------------------------------------------------ */
 
-@media (min-width: 900px) and (max-height: 760px) {
+/* ============================================================
+   LARGE DESKTOP
+   ============================================================ */
+
+@media (min-width: 1600px) {
+
+  .kelly-landing-nav,
+  .kelly-hero,
+  .kelly-how,
+  .kelly-final,
+  .kelly-footer {
+    width:
+      min(
+        calc(100% - 96px),
+        1600px
+      );
+  }
+
+  .kelly-hero {
+    min-height:
+      min(
+        820px,
+        calc(100dvh - 100px)
+      );
+  }
+}
+
+
+/* ============================================================
+   DESKTOP LAPTOP
+   ============================================================ */
+
+@media (min-width: 1024px)
+and (max-width: 1399px) {
+
+  .kelly-landing-nav,
+  .kelly-hero,
+  .kelly-how,
+  .kelly-final,
+  .kelly-footer {
+    width:
+      min(
+        calc(100% - 64px),
+        1280px
+      );
+  }
+
+  .kelly-hero {
+    min-height:
+      calc(100dvh - 88px);
+  }
+
+  .kelly-hero-copy {
+    max-width: 560px;
+  }
+
+  .kelly-hero-character {
+    transform:
+      scale(0.92);
+
+    transform-origin:
+      center;
+  }
+}
+
+
+/* ============================================================
+   TABLETS
+   ============================================================ */
+
+@media (min-width: 641px)
+and (max-width: 1023px) {
+
+  .kelly-landing-nav,
+  .kelly-hero,
+  .kelly-how,
+  .kelly-final,
+  .kelly-footer {
+    width:
+      min(
+        calc(100% - 48px),
+        900px
+      );
+  }
+
+  .kelly-hero {
+    min-height: auto;
+
+    padding:
+      56px 0
+      80px;
+  }
+
+  .kelly-hero-copy {
+    max-width: 700px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    text-align: center;
+  }
+
+  .kelly-hero-buttons,
+  .kelly-trust {
+    justify-content: center;
+  }
+
+  .kelly-hero-character {
+    min-height: 540px;
+
+    margin-top: 40px;
+  }
+}
+
+
+/* ============================================================
+   HEIGHT-CONSTRAINED LAPTOPS
+   ============================================================ */
+
+@media (min-width: 900px)
+and (max-height: 760px) {
+
   .kelly-hero {
     min-height: 620px;
+
     padding-top: 32px;
     padding-bottom: 48px;
   }
 
   .kelly-hero-character {
-    transform: scale(0.82);
-    transform-origin: center;
+    transform:
+      scale(0.82);
+
+    transform-origin:
+      center;
   }
 }
 
-/* ------------------------------------------------------------
-   ULTRA-WIDE SCREENS
-   Don't let the content stretch endlessly.
-   ------------------------------------------------------------ */
+
+/* ============================================================
+   ULTRA-WIDE
+   ============================================================ */
 
 @media (min-width: 1800px) {
+
   .kelly-hero {
     max-width: 1600px;
   }
@@ -1810,5 +2941,50 @@ body {
   .kelly-how,
   .kelly-final {
     max-width: 1600px;
+  }
+}
+
+
+/* ============================================================
+   ACCESSIBILITY
+   ============================================================ */
+
+:focus-visible {
+  outline:
+    3px solid
+    rgba(120, 169, 216, 0.55);
+
+  outline-offset: 3px;
+}
+
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
+
+  .kelly-body,
+  .kelly-character,
+  .kelly-character-body,
+  .kelly-character-eye,
+  .kelly-character-antenna span,
+  .kelly-wrap .kelly-antenna span,
+  .kelly-floating,
+  .kelly-ring {
+    animation: none !important;
+  }
+
+  .kelly-feature,
+  .kelly-primary,
+  .kelly-secondary,
+  .kelly-nav-button {
+    transition: none !important;
   }
 }

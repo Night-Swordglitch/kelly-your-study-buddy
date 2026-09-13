@@ -1,46 +1,200 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { BookOpen, Brain, CalendarClock, Home, LogOut, Settings } from "lucide-react";
+import {
+  BookOpen,
+  Brain,
+  CalendarDays,
+  Home,
+  LogOut,
+  Settings,
+  Flame,
+} from "lucide-react";
 import type { ReactNode } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { Button } from "@/components/ui/button";
-import { KellyAvatar } from "./kelly-avatar";
+import { KellyAvatar, type KellyMood } from "./kelly-avatar";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
 
 const items = [
-  { to: "/dashboard" as const, label: "Dashboard", icon: Home },
-  { to: "/work" as const, label: "Guided work", icon: BookOpen },
-  { to: "/memory" as const, label: "Memory", icon: Brain },
-  { to: "/settings" as const, label: "Settings", icon: Settings },
+  {
+    to: "/dashboard" as const,
+    label: "Home",
+    icon: Home,
+  },
+  {
+    to: "/work" as const,
+    label: "My work",
+    icon: BookOpen,
+  },
+  {
+    to: "/memory" as const,
+    label: "Memory",
+    icon: Brain,
+  },
+  {
+    to: "/settings" as const,
+    label: "Settings",
+    icon: Settings,
+  },
 ];
 
-export function AppShell({ children, mood = "idle" }: { children: ReactNode; mood?: "idle" | "thinking" | "happy" | "concerned" }) {
-  const path = useRouterState({ select: (state) => state.location.pathname });
+export function AppShell({
+  children,
+  mood = "idle",
+}: {
+  children: ReactNode;
+  mood?: KellyMood;
+}) {
+  const path = useRouterState({
+    select: (state) => state.location.pathname,
+  });
+
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  async function signOut() { await queryClient.cancelQueries(); queryClient.clear(); await supabase.auth.signOut(); await navigate({ to: "/auth", replace: true }); }
+
+  async function signOut() {
+    await queryClient.cancelQueries();
+    queryClient.clear();
+    await supabase.auth.signOut();
+    await navigate({
+      to: "/auth",
+      replace: true,
+    });
+  }
+
   return (
-    <div className="app-canvas min-h-screen pb-24 text-foreground">
-      <header className="sticky top-0 z-40 px-4 pt-4 md:px-6">
-        <nav className="glass-panel mx-auto flex max-w-6xl items-center justify-between rounded-2xl px-3 py-2.5">
-          <Link to="/dashboard" className="flex items-center gap-2.5" aria-label="Kelly dashboard">
-            <KellyAvatar size="sm" /><div className="leading-tight"><p className="font-display text-lg font-semibold">Kelly</p><p className="text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground">Study companion</p></div>
+    <div className="kelly-app min-h-screen text-foreground">
+      {/* Desktop header */}
+      <header className="kelly-header">
+        <div className="kelly-header-inner">
+          <Link
+            to="/dashboard"
+            className="kelly-brand"
+            aria-label="Kelly home"
+          >
+            <KellyAvatar size="sm" />
+
+            <div className="kelly-brand-copy">
+              <span className="kelly-brand-name">Kelly</span>
+              <span className="kelly-brand-subtitle">
+                your study buddy
+              </span>
+            </div>
           </Link>
-          <div className="hidden items-center gap-1 rounded-xl bg-surface-soft p-1 md:flex">
-            {items.map(({ to, label, icon: Icon }) => <Link key={to} to={to} className={cn("flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground", path === to && "bg-surface text-primary shadow-soft")}><Icon className="size-4" />{label}</Link>)}
+
+          <nav className="kelly-nav" aria-label="Main navigation">
+            {items.map(({ to, label, icon: Icon }) => {
+              const active =
+                path === to ||
+                (to !== "/dashboard" && path.startsWith(to));
+
+              return (
+                <Link
+                  key={to}
+                  to={to}
+                  className={cn(
+                    "kelly-nav-item",
+                    active && "kelly-nav-item-active"
+                  )}
+                >
+                  <Icon className="size-[17px]" />
+                  <span>{label}</span>
+                </Link>
+              );
+            })}
+          </nav>
+
+          <div className="kelly-header-right">
+            <div className="kelly-streak-pill">
+              <Flame className="size-4" />
+              <span>4</span>
+              <span className="hidden sm:inline">day streak</span>
+            </div>
+
+            <button
+              onClick={signOut}
+              className="kelly-signout"
+              aria-label="Sign out"
+              title="Sign out"
+            >
+              <LogOut className="size-[17px]" />
+            </button>
           </div>
-          <Button variant="ghost" size="icon" onClick={signOut} aria-label="Sign out" title="Sign out"><LogOut /></Button>
-        </nav>
+        </div>
       </header>
-      <main className="relative z-10 mx-auto max-w-6xl px-4 pb-8 pt-6 md:px-6">{children}</main>
-      <nav className="fixed inset-x-3 bottom-3 z-50 flex justify-around rounded-2xl bg-surface/90 p-2 shadow-prism backdrop-blur-xl md:hidden">
-        {items.map(({ to, label, icon: Icon }) => <Link key={to} to={to} aria-label={label} className={cn("grid size-11 place-items-center rounded-xl text-muted-foreground", path === to && "bg-primary text-primary-foreground")}><Icon className="size-5" /></Link>)}
+
+      {/* Main content */}
+      <main className="kelly-main">
+        {children}
+      </main>
+
+      {/* Mobile navigation */}
+      <nav className="kelly-mobile-nav" aria-label="Mobile navigation">
+        {items.map(({ to, label, icon: Icon }) => {
+          const active =
+            path === to ||
+            (to !== "/dashboard" && path.startsWith(to));
+
+          return (
+            <Link
+              key={to}
+              to={to}
+              aria-label={label}
+              className={cn(
+                "kelly-mobile-nav-item",
+                active && "kelly-mobile-nav-item-active"
+              )}
+            >
+              <Icon className="size-[20px]" />
+              <span>{label}</span>
+            </Link>
+          );
+        })}
       </nav>
-      <Link to="/work" className="fixed bottom-20 right-4 z-30 rounded-full bg-surface/90 p-2 shadow-prism backdrop-blur-xl md:bottom-6 md:right-6" aria-label="Open Kelly"><KellyAvatar mood={mood} /></Link>
+
+      {/* Kelly floating companion */}
+      <Link
+        to="/work"
+        className="kelly-floating-companion"
+        aria-label="Talk to Kelly"
+      >
+        <KellyAvatar mood={mood} size="md" />
+
+        <span className="kelly-floating-label">
+          Talk to Kelly
+        </span>
+      </Link>
     </div>
   );
 }
 
-export function PageIntro({ eyebrow, title, description, action }: { eyebrow: string; title: string; description: string; action?: ReactNode }) {
-  return <section className="glass-panel prism-line relative overflow-hidden rounded-3xl p-6 md:p-8"><div className="flex flex-wrap items-start justify-between gap-5"><div><p className="eyebrow">{eyebrow}</p><h1 className="mt-2 max-w-3xl font-display text-3xl font-semibold leading-tight md:text-4xl">{title}</h1><p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground md:text-base">{description}</p></div>{action}</div></section>;
+export function PageIntro({
+  eyebrow,
+  title,
+  description,
+  action,
+}: {
+  eyebrow: string;
+  title: string;
+  description: string;
+  action?: ReactNode;
+}) {
+  return (
+    <section className="kelly-page-intro">
+      <div className="kelly-page-intro-copy">
+        <p className="kelly-eyebrow">{eyebrow}</p>
+
+        <h1>{title}</h1>
+
+        <p className="kelly-page-description">
+          {description}
+        </p>
+      </div>
+
+      {action && (
+        <div className="kelly-page-action">
+          {action}
+        </div>
+      )}
+    </section>
+  );
 }

@@ -8,7 +8,7 @@ export default defineConfig({
   vite: {
     server: {
       allowedHosts: [
-        "periodically-airlines-menu-ancient.trycloudflare.com",
+        "pretty-equal-old-ellen.trycloudflare.com",
       ],
     },
   },
