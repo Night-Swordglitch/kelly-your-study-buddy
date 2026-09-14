@@ -60,8 +60,8 @@ export function KellyAvatar({
 
         {mood === "happy" && (
           <div className="kelly-character-sparkles" aria-hidden="true">
-            <span>?</span>
-            <span>·</span>
+            <span className="kelly-sparkle-star" />
+            <span className="kelly-sparkle-dot" />
           </div>
         )}
       </div>

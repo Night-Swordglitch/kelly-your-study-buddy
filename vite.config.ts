@@ -8,7 +8,7 @@ export default defineConfig({
   vite: {
     server: {
       allowedHosts: [
-        "pretty-equal-old-ellen.trycloudflare.com",
+        "geo-luke-grant-ambient.trycloudflare.com",
       ],
     },
   },
