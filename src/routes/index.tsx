@@ -87,15 +87,32 @@ function Index() {
   setupKellyAuthBridge();
 
   return (
-    <iframe
-      src="/KELLY/KELLY.html"
-      title="Kelly"
+    <div
       style={{
-        width: "100%",
+        position: "fixed",
+        inset: 0,
+        width: "100vw",
         height: "100vh",
-        border: "none",
-        display: "block",
+        margin: 0,
+        padding: 0,
+        overflow: "hidden",
+        background: "#0a0a0f",
       }}
-    />
+    >
+      <iframe
+        src="/KELLY/KELLY.html"
+        title="Kelly"
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          margin: 0,
+          padding: 0,
+          border: "none",
+          display: "block",
+        }}
+      />
+    </div>
   );
 }
