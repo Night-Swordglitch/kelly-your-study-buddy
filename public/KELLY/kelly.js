@@ -610,8 +610,7 @@ window.handleGoogleAuth = function () {
       console.warn("[KELLY] Authentication bridge did not become ready.");
     }
 
-    if (session) {
-      let lastPage = "home";
+    let parentPath = "/";`r`n`r`n    try {`r`n      parentPath = window.parent?.location?.pathname || "/";`r`n    } catch (error) {`r`n      console.warn("[KELLY] Could not read parent URL:", error);`r`n    }`r`n`r`n    if (parentPath === "/") {`r`n      showRoot("view-landing");`r`n    } else if (session) {`r`n      let lastPage = "home";
 
       try {
         const savedPage = localStorage.getItem("kelly:last-page");
@@ -674,6 +673,7 @@ window.handleGoogleAuth = function () {
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',render);
   else render();
 })();
+
 
 
 

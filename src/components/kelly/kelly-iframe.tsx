@@ -109,6 +109,7 @@ export function KellyIframe() {
   const navigate = useNavigate();
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
+  const isLandingRoute = location.pathname === "/";
   const page = pathToPage(location.pathname);
 
   useEffect(() => {
@@ -125,7 +126,9 @@ export function KellyIframe() {
     const sendPage = () => {
       iframe.contentWindow?.postMessage(
         {
-          type: "kelly:set-page",
+          type: isLandingRoute
+            ? "kelly:force-landing"
+            : "kelly:set-page",
           page,
         },
         window.location.origin,
@@ -138,7 +141,7 @@ export function KellyIframe() {
     return () => {
       iframe.removeEventListener("load", sendPage);
     };
-  }, [page]);
+  }, [page, isLandingRoute]);
 
   useEffect(() => {
     const handleKellyNavigation = (event: MessageEvent) => {
@@ -215,3 +218,5 @@ export function KellyIframe() {
     </div>
   );
 }
+
+
