@@ -3060,8 +3060,23 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
 
 
 
+<script id="kelly-static-app-lock">
+(function () {
+    document.addEventListener("click", function (event) {
+        const app = event.target.closest("#view-app");
+
+        if (!app) {
+            return;
+        }
+
+        event.preventDefault();
+        event.stopImmediatePropagation();
+    }, true);
+})();
+</script>
 </body>
 </html>
+
 
 
 
