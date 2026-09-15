@@ -15,7 +15,6 @@
 
   const APP_PAGES = [
     "home",
-    "notes",
     "subjects",
     "study",
     "quizzes",
@@ -569,4 +568,3 @@ window.handleGoogleAuth = function () {
   });
 
 })();
-
