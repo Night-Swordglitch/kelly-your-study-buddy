@@ -3091,6 +3091,10 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
     }, true);
 })();
 </script>
+
+<script id="kelly-button-lock"> (function () { function block(event) { const target = event.target; if ( target.closest("button") || target.closest("a") || target.closest("[role='button']") || target.closest("input[type='submit']") || target.closest("input[type='button']") ) { event.preventDefault(); event.stopImmediatePropagation(); } } [ "click", "dblclick", "mousedown", "mouseup", "pointerdown", "pointerup", "touchstart", "touchend", "keydown" ].forEach(function (eventName) { document.addEventListener(eventName, block, true); }); document.addEventListener("submit", function (event) { event.preventDefault(); event.stopImmediatePropagation(); }, true); })(); </script>
+
 </body>
 </html>
+
 
