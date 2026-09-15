@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -1341,645 +1341,6 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
   .kelly-panel{ width:100%; }
 }
 </style>
-<style id="kelly-claude-dashboard-overrides">
-
-/* ============================================================
-   KELLY — CLAUDE DASHBOARD
-   Scoped mostly to Home so the rest of the app survives.
-   ============================================================ */
-
-/* ------------------------------------------------------------
-   HOME APP SHELL
-   ------------------------------------------------------------ */
-
-#view-app:has(#page-home.active) {
-  background: #0a0a0f !important;
-  min-height: 100vh;
-}
-
-#view-app:has(#page-home.active) .app-shell {
-  grid-template-columns: 172px minmax(0, 1fr) !important;
-  min-height: 100vh;
-  background: #0a0a0f !important;
-}
-
-#view-app:has(#page-home.active) .app-topbar {
-  display: none !important;
-}
-
-#view-app:has(#page-home.active) .app-main {
-  min-width: 0;
-  min-height: 100vh;
-  background: #0a0a0f !important;
-}
-
-#view-app:has(#page-home.active) .app-content {
-  padding: 0 !important;
-  background: #0a0a0f !important;
-}
-
-/* ------------------------------------------------------------
-   SIDEBAR
-   ------------------------------------------------------------ */
-
-#view-app:has(#page-home.active) .sidebar {
-  width: 172px !important;
-  min-width: 172px !important;
-  max-width: 172px !important;
-  height: 100vh;
-  position: sticky;
-  top: 0;
-  padding: 18px 12px !important;
-  background: #0d0d13 !important;
-  border-right: 1px solid #20202a !important;
-  box-shadow: none !important;
-}
-
-#view-app:has(#page-home.active) .sidebar-logo {
-  width: 100%;
-  margin-bottom: 22px;
-}
-
-#view-app:has(#page-home.active) .logo-word {
-  color: #f8f7fb !important;
-  font-size: 15px !important;
-  font-weight: 700 !important;
-}
-
-#view-app:has(#page-home.active) .side-nav {
-  gap: 4px !important;
-}
-
-#view-app:has(#page-home.active) .side-link {
-  width: 100%;
-  min-height: 36px;
-  padding: 8px 9px !important;
-  border-radius: 9px !important;
-  color: #878793 !important;
-  font-size: 11px !important;
-  background: transparent !important;
-}
-
-#view-app:has(#page-home.active) .side-link:hover {
-  background: #15151d !important;
-  color: #e8e7ef !important;
-}
-
-#view-app:has(#page-home.active) .side-link.active {
-  background: rgba(139, 92, 246, 0.12) !important;
-  color: #b49cff !important;
-}
-
-#view-app:has(#page-home.active) .sidebar-kelly {
-  margin-top: auto;
-}
-
-/* ------------------------------------------------------------
-   DASHBOARD
-   ------------------------------------------------------------ */
-
-#page-home {
-  min-height: 100%;
-  width: 100%;
-  background: #0a0a0f !important;
-}
-
-#page-home .claude-dashboard {
-  width: 100%;
-  min-height: 100vh;
-  padding: 34px 38px 50px;
-  background:
-    radial-gradient(
-      circle at 82% 0%,
-      rgba(139, 92, 246, 0.07),
-      transparent 30%
-    ),
-    #0a0a0f;
-  color: #f8f7fb;
-}
-
-/* ------------------------------------------------------------
-   WELCOME
-   ------------------------------------------------------------ */
-
-#page-home .claude-welcome {
-  margin-bottom: 28px;
-}
-
-#page-home .claude-welcome h1 {
-  margin: 0;
-  color: #f8f7fb !important;
-  font-family: Inter, system-ui, sans-serif !important;
-  font-size: 32px !important;
-  font-weight: 750 !important;
-  line-height: 1.15;
-  letter-spacing: -0.04em;
-}
-
-#page-home .claude-welcome h1 span {
-  color: #a78bfa;
-}
-
-#page-home .claude-welcome p {
-  margin: 8px 0 0;
-  color: #8d8d99;
-  font-size: 14px;
-}
-
-/* ------------------------------------------------------------
-   SHARED CARD
-   ------------------------------------------------------------ */
-
-#page-home .claude-card {
-  background: #101016;
-  border: 1px solid #24242e;
-  border-radius: 14px;
-  box-shadow:
-    0 12px 32px rgba(0, 0, 0, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.018);
-}
-
-/* ------------------------------------------------------------
-   LEVEL CARD
-   ------------------------------------------------------------ */
-
-#page-home .claude-level-card {
-  padding: 24px;
-  margin-bottom: 16px;
-}
-
-#page-home .claude-level-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-#page-home .claude-level-title {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-#page-home .claude-trophy {
-  width: 42px;
-  height: 42px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-  background: rgba(139, 92, 246, 0.12);
-  font-size: 20px;
-}
-
-#page-home .claude-eyebrow,
-#page-home .claude-section-label,
-#page-home .claude-stat-name {
-  color: #767681;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-}
-
-#page-home .claude-level-number {
-  margin-top: 4px;
-  color: #f5f4fa;
-  font-size: 21px;
-  font-weight: 700;
-}
-
-#page-home .claude-level-next {
-  text-align: right;
-}
-
-#page-home .claude-level-next strong {
-  display: block;
-  color: #a78bfa;
-  font-size: 14px;
-}
-
-#page-home .claude-level-next span {
-  display: block;
-  margin-top: 3px;
-  color: #70707b;
-  font-size: 11px;
-}
-
-#page-home .claude-xp-track {
-  width: 100%;
-  height: 7px;
-  margin-top: 22px;
-  overflow: hidden;
-  border-radius: 99px;
-  background: #1d1d26;
-}
-
-#page-home .claude-xp-fill {
-  width: 72%;
-  height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(
-    90deg,
-    #7c3aed,
-    #a78bfa
-  );
-  box-shadow:
-    0 0 18px rgba(139, 92, 246, 0.32);
-}
-
-#page-home .claude-level-bottom {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: 11px;
-  color: #6e6e79;
-  font-size: 11px;
-}
-
-#page-home .claude-level-bottom strong {
-  color: #a78bfa;
-}
-
-/* ------------------------------------------------------------
-   STATS
-   ------------------------------------------------------------ */
-
-#page-home .claude-stat-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
-  margin-bottom: 16px;
-}
-
-#page-home .claude-stat-card {
-  position: relative;
-  min-height: 130px;
-  padding: 21px;
-}
-
-#page-home .claude-stat-icon {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9px;
-  background: rgba(139, 92, 246, 0.09);
-  color: #a78bfa;
-  font-size: 14px;
-}
-
-#page-home .claude-stat-name {
-  margin-bottom: 12px;
-}
-
-#page-home .claude-stat-value {
-  color: #f6f4fa;
-  font-size: 25px;
-  font-weight: 750;
-  letter-spacing: -0.03em;
-}
-
-#page-home .claude-stat-label {
-  margin-top: 5px;
-  color: #777782;
-  font-size: 12px;
-}
-
-/* ------------------------------------------------------------
-   TWO COLUMN SECTIONS
-   ------------------------------------------------------------ */
-
-#page-home .claude-two-col {
-  display: grid;
-  grid-template-columns:
-    minmax(0, 1fr)
-    minmax(0, 1fr);
-  gap: 16px;
-  margin-bottom: 16px;
-}
-
-#page-home .claude-content-card {
-  padding: 22px;
-}
-
-#page-home .claude-card-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 17px;
-}
-
-#page-home .claude-link {
-  border: 1px solid rgba(139, 92, 246, 0.2);
-  background: transparent;
-  color: #a78bfa;
-  border-radius: 9px;
-  padding: 7px 11px;
-  font: inherit;
-  font-size: 11px;
-  cursor: pointer;
-}
-
-#page-home .claude-link:hover {
-  background: rgba(139, 92, 246, 0.08);
-}
-
-/* ------------------------------------------------------------
-   NOTES
-   ------------------------------------------------------------ */
-
-#page-home .claude-note-list,
-#page-home .claude-upcoming-list {
-  display: flex;
-  flex-direction: column;
-}
-
-#page-home .claude-note-row {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 14px 0;
-  border: 0;
-  border-top: 1px solid rgba(255,255,255,0.05);
-  background: transparent;
-  color: inherit;
-  text-align: left;
-  cursor: pointer;
-}
-
-#page-home .claude-note-row:first-child {
-  border-top: 0;
-}
-
-#page-home .claude-note-row strong,
-#page-home .claude-upcoming-copy strong,
-#page-home .claude-friend-row strong,
-#page-home .claude-quiz-name {
-  display: block;
-  color: #f3f2f7;
-  font-size: 13px;
-  font-weight: 650;
-}
-
-#page-home .claude-note-row span,
-#page-home .claude-upcoming-copy span,
-#page-home .claude-friend-row span {
-  display: block;
-  margin-top: 4px;
-  color: #71717c;
-  font-size: 11px;
-}
-
-#page-home .claude-arrow {
-  color: #666672 !important;
-  font-size: 20px !important;
-}
-
-/* ------------------------------------------------------------
-   UPCOMING
-   ------------------------------------------------------------ */
-
-#page-home .claude-upcoming-row {
-  display: flex;
-  align-items: stretch;
-  gap: 12px;
-  padding: 13px 0;
-  border-top: 1px solid rgba(255,255,255,0.05);
-}
-
-#page-home .claude-upcoming-row:first-child {
-  border-top: 0;
-}
-
-#page-home .claude-upcoming-bar {
-  width: 3px;
-  flex: 0 0 3px;
-  border-radius: 99px;
-}
-
-#page-home .claude-upcoming-bar.green {
-  background: #35d07f;
-}
-
-#page-home .claude-upcoming-bar.red {
-  background: #ef596f;
-}
-
-/* ------------------------------------------------------------
-   QUIZ
-   ------------------------------------------------------------ */
-
-#page-home .claude-quiz-name {
-  margin-top: 5px;
-}
-
-#page-home .claude-quiz-summary {
-  display: flex;
-  gap: 55px;
-  margin-top: 26px;
-}
-
-#page-home .claude-quiz-summary > div {
-  display: flex;
-  flex-direction: column;
-}
-
-#page-home .claude-quiz-summary strong {
-  color: #f8f7fb;
-  font-size: 27px;
-  line-height: 1;
-}
-
-#page-home .claude-quiz-summary span {
-  margin-top: 7px;
-  color: #6d6d78;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-#page-home .claude-score {
-  color: #42d58a !important;
-}
-
-#page-home .claude-quiz-xp {
-  color: #a78bfa !important;
-}
-
-/* ------------------------------------------------------------
-   FRIEND
-   ------------------------------------------------------------ */
-
-#page-home .claude-friend-row {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  padding-top: 7px;
-}
-
-#page-home .claude-friend-avatar {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: linear-gradient(
-    135deg,
-    #7c3aed,
-    #4c1d95
-  );
-  color: white;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-#page-home .claude-studying {
-  color: #42d58a !important;
-}
-
-/* ------------------------------------------------------------
-   QUICK ACTIONS
-   ------------------------------------------------------------ */
-
-#page-home .claude-quick-wrap {
-  margin-top: 27px;
-}
-
-#page-home .claude-quick-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
-  margin-top: 13px;
-}
-
-#page-home .claude-quick-action {
-  min-height: 125px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  border: 1px solid rgba(139, 92, 246, 0.12);
-  border-radius: 14px;
-  background: #101016;
-  color: #f4f2f8;
-  cursor: pointer;
-  transition:
-    transform .16s ease,
-    border-color .16s ease,
-    background .16s ease;
-}
-
-#page-home .claude-quick-action:hover {
-  transform: translateY(-2px);
-  border-color: rgba(139, 92, 246, 0.32);
-  background: #13131b;
-}
-
-#page-home .claude-quick-icon {
-  width: 42px;
-  height: 42px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-  background: rgba(139, 92, 246, 0.1);
-  color: #a78bfa;
-  font-size: 18px;
-}
-
-#page-home .claude-quick-action strong {
-  font-size: 12px;
-  font-weight: 650;
-}
-
-/* ------------------------------------------------------------
-   RESPONSIVE
-   ------------------------------------------------------------ */
-
-@media (max-width: 1000px) {
-
-  #page-home .claude-stat-row {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  #page-home .claude-quick-row {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-}
-
-@media (max-width: 760px) {
-
-  #view-app:has(#page-home.active) .app-shell {
-    grid-template-columns: 1fr !important;
-  }
-
-  #view-app:has(#page-home.active) .sidebar {
-    width: 100% !important;
-    min-width: 0 !important;
-    max-width: none !important;
-    height: auto !important;
-    position: relative;
-    border-right: 0 !important;
-    border-bottom: 1px solid #20202a !important;
-  }
-
-  #view-app:has(#page-home.active) .side-nav {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  #page-home .claude-dashboard {
-    padding: 24px 18px 40px;
-  }
-
-  #page-home .claude-welcome h1 {
-    font-size: 26px !important;
-  }
-
-  #page-home .claude-two-col {
-    grid-template-columns: 1fr;
-  }
-
-}
-
-@media (max-width: 520px) {
-
-  #page-home .claude-stat-row {
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-
-  #page-home .claude-stat-card {
-    min-height: 115px;
-    padding: 17px;
-  }
-
-  #page-home .claude-level-top {
-    flex-direction: column;
-  }
-
-  #page-home .claude-level-next {
-    text-align: left;
-  }
-
-  #page-home .claude-quick-row {
-    grid-template-columns: 1fr 1fr;
-  }
-
-}
-
-</style>
 </head>
 <body>
 
@@ -2411,69 +1772,63 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
         <!-- ============ PAGE: HOME ============ -->
 <section class="app-page active" id="page-home">
 
-  <div class="claude-dashboard">
+  <div class="claude-home">
 
-    <!-- ======================================================
-         WELCOME
-         ====================================================== -->
-
+    <!-- WELCOME -->
     <div class="claude-welcome">
-      <div>
-        <h1>Welcome back, <span>You</span></h1>
-        <p>Here's your study overview</p>
-      </div>
+      <h1>Welcome back, <span>You</span></h1>
+      <p>Here's your study overview</p>
     </div>
 
-    <!-- ======================================================
-         LEVEL
-         ====================================================== -->
-
+    <!-- LEVEL -->
     <div class="claude-card claude-level-card">
 
       <div class="claude-level-top">
 
         <div class="claude-level-title">
-
-          <div class="claude-trophy">
+          <div class="claude-level-icon">
             🏆
           </div>
 
           <div>
-            <div class="claude-eyebrow">LEVEL</div>
+            <div class="claude-label">
+              LEVEL
+            </div>
+
             <div class="claude-level-number">
               Level 3
             </div>
           </div>
-
         </div>
 
-        <div class="claude-level-next">
+        <div class="claude-to-next">
           <strong>320 XP</strong>
           <span>to next level</span>
         </div>
 
       </div>
 
-      <div class="claude-xp-track">
-        <div class="claude-xp-fill"></div>
+      <div class="claude-level-track">
+        <div
+          class="claude-level-fill"
+          style="width:62%;"
+        ></div>
       </div>
 
       <div class="claude-level-bottom">
-        <span>
-          <strong>1180 XP</strong> total
+        <span class="claude-total">
+          1180 XP total
         </span>
 
-        <span>
+        <span class="claude-week">
           380 XP this week
         </span>
       </div>
 
     </div>
 
-    <!-- ======================================================
-         STATS
-         ====================================================== -->
 
+    <!-- STATS -->
     <div class="claude-stat-row">
 
       <div class="claude-card claude-stat-card">
@@ -2490,16 +1845,17 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
           5 days
         </div>
 
-        <div class="claude-stat-label">
+        <div class="claude-stat-sub">
           Keep it up!
         </div>
 
       </div>
 
+
       <div class="claude-card claude-stat-card">
 
         <div class="claude-stat-icon">
-          ◷
+          🕐
         </div>
 
         <div class="claude-stat-name">
@@ -2510,11 +1866,12 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
           47m
         </div>
 
-        <div class="claude-stat-label">
+        <div class="claude-stat-sub">
           Study time
         </div>
 
       </div>
+
 
       <div class="claude-card claude-stat-card">
 
@@ -2530,16 +1887,17 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
           2
         </div>
 
-        <div class="claude-stat-label">
+        <div class="claude-stat-sub">
           Focus sessions
         </div>
 
       </div>
 
+
       <div class="claude-card claude-stat-card">
 
         <div class="claude-stat-icon">
-          ▤
+          📝
         </div>
 
         <div class="claude-stat-name">
@@ -2550,7 +1908,7 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
           4
         </div>
 
-        <div class="claude-stat-label">
+        <div class="claude-stat-sub">
           Created
         </div>
 
@@ -2558,24 +1916,22 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
 
     </div>
 
-    <!-- ======================================================
-         RECENT NOTES / UPCOMING
-         ====================================================== -->
 
+    <!-- RECENT NOTES + UPCOMING -->
     <div class="claude-two-col">
 
-      <!-- RECENT NOTES -->
 
+      <!-- RECENT NOTES -->
       <div class="claude-card claude-content-card">
 
         <div class="claude-card-head">
 
-          <div class="claude-section-label">
-            RECENT NOTES
-          </div>
+          <h3>
+            Recent Notes
+          </h3>
 
           <button
-            class="claude-link"
+            class="claude-outline-link"
             onclick="showPage('study')"
           >
             View all
@@ -2583,66 +1939,77 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
 
         </div>
 
-        <div class="claude-note-list">
 
-          <button
-            class="claude-note-row"
-            onclick="showPage('study')"
-          >
-            <div>
-              <strong>Cell Division</strong>
-              <span>Biology · Updated today</span>
-            </div>
+        <div class="claude-note-row">
 
-            <span class="claude-arrow">
-              →
+          <div>
+            <strong>
+              Cell Division
+            </strong>
+
+            <span>
+              Biology · 2026-09-12
             </span>
-          </button>
+          </div>
 
-          <button
-            class="claude-note-row"
-            onclick="showPage('study')"
-          >
-            <div>
-              <strong>Quadratic Equations</strong>
-              <span>Mathematics · Updated yesterday</span>
-            </div>
+          <span class="claude-arrow">
+            →
+          </span>
 
-            <span class="claude-arrow">
-              →
+        </div>
+
+
+        <div class="claude-note-row">
+
+          <div>
+            <strong>
+              Quadratic Equations
+            </strong>
+
+            <span>
+              Mathematics · 2026-09-10
             </span>
-          </button>
+          </div>
 
-          <button
-            class="claude-note-row"
-            onclick="showPage('study')"
-          >
-            <div>
-              <strong>World War II — Causes</strong>
-              <span>History · Updated 2 days ago</span>
-            </div>
+          <span class="claude-arrow">
+            →
+          </span>
 
-            <span class="claude-arrow">
-              →
+        </div>
+
+
+        <div class="claude-note-row">
+
+          <div>
+            <strong>
+              World War II — Causes
+            </strong>
+
+            <span>
+              History · 2026-09-08
             </span>
-          </button>
+          </div>
+
+          <span class="claude-arrow">
+            →
+          </span>
 
         </div>
 
       </div>
 
-      <!-- UPCOMING -->
 
+      <!-- UPCOMING -->
       <div class="claude-card claude-content-card">
 
         <div class="claude-card-head">
 
-          <div class="claude-section-label">
-            UPCOMING
-          </div>
+          <h3>
+            Upcoming
+          </h3>
 
           <button
-            class="claude-link"
+            class="claude-text-link"
             onclick="showPage('calendar')"
           >
             Calendar
@@ -2650,39 +2017,53 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
 
         </div>
 
-        <div class="claude-upcoming-list">
 
-          <div class="claude-upcoming-row">
+        <div class="claude-up-row">
 
-            <div class="claude-upcoming-bar green"></div>
+          <div class="claude-up-bar green"></div>
 
-            <div class="claude-upcoming-copy">
-              <strong>Group Study Session</strong>
-              <span>Today · 7:00 PM</span>
-            </div>
+          <div>
+            <strong>
+              Group Study Session
+            </strong>
 
+            <span>
+              2026-09-15 · 18:00
+            </span>
           </div>
 
-          <div class="claude-upcoming-row">
+        </div>
 
-            <div class="claude-upcoming-bar green"></div>
 
-            <div class="claude-upcoming-copy">
-              <strong>Biology Essay Due</strong>
-              <span>Tomorrow · 11:59 PM</span>
-            </div>
+        <div class="claude-up-row">
 
+          <div class="claude-up-bar red"></div>
+
+          <div>
+            <strong>
+              Biology Essay Due
+            </strong>
+
+            <span>
+              2026-09-16 · 23:59
+            </span>
           </div>
 
-          <div class="claude-upcoming-row">
+        </div>
 
-            <div class="claude-upcoming-bar red"></div>
 
-            <div class="claude-upcoming-copy">
-              <strong>Mathematics Exam</strong>
-              <span>Friday · 9:00 AM</span>
-            </div>
+        <div class="claude-up-row">
 
+          <div class="claude-up-bar red"></div>
+
+          <div>
+            <strong>
+              Mathematics Exam
+            </strong>
+
+            <span>
+              2026-09-18 · 09:00
+            </span>
           </div>
 
         </div>
@@ -2691,36 +2072,36 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
 
     </div>
 
-    <!-- ======================================================
-         LAST QUIZ / FRIENDS
-         ====================================================== -->
 
+    <!-- LAST QUIZ + FRIENDS -->
     <div class="claude-two-col">
 
-      <!-- LAST QUIZ -->
 
+      <!-- LAST QUIZ -->
       <div class="claude-card claude-content-card">
 
         <div class="claude-card-head">
 
-          <div class="claude-section-label">
-            LAST QUIZ
-          </div>
+          <h3>
+            Last Quiz
+          </h3>
 
           <button
-            class="claude-link"
+            class="claude-text-link"
             onclick="showPage('quizzes')"
           >
-            View quiz
+            All quizzes
           </button>
 
         </div>
+
 
         <div class="claude-quiz-name">
           Biology Basics
         </div>
 
-        <div class="claude-quiz-summary">
+
+        <div class="claude-quiz-stats">
 
           <div>
             <strong class="claude-score">
@@ -2728,17 +2109,18 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
             </strong>
 
             <span>
-              SCORE
+              Score
             </span>
           </div>
 
+
           <div>
-            <strong class="claude-quiz-xp">
-              +60
+            <strong class="claude-xp">
+              +60 XP
             </strong>
 
             <span>
-              XP EARNED
+              Earned
             </span>
           </div>
 
@@ -2746,24 +2128,25 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
 
       </div>
 
-      <!-- FRIENDS -->
 
+      <!-- FRIENDS -->
       <div class="claude-card claude-content-card">
 
         <div class="claude-card-head">
 
-          <div class="claude-section-label">
-            FRIENDS STUDYING
-          </div>
+          <h3>
+            Friends Studying
+          </h3>
 
           <button
-            class="claude-link"
+            class="claude-text-link"
             onclick="showPage('groups')"
           >
-            View friends
+            View all
           </button>
 
         </div>
+
 
         <div class="claude-friend-row">
 
@@ -2772,10 +2155,15 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
           </div>
 
           <div>
-            <strong>Sarah</strong>
+
+            <strong>
+              Sarah
+            </strong>
+
             <span class="claude-studying">
-              Studying Biology
+              Studying now
             </span>
+
           </div>
 
         </div>
@@ -2784,71 +2172,69 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
 
     </div>
 
-    <!-- ======================================================
-         QUICK ACTIONS
-         ====================================================== -->
 
-    <div class="claude-quick-wrap">
+    <!-- QUICK ACTIONS -->
+    <div class="claude-quick-title">
+      QUICK ACTIONS
+    </div>
 
-      <div class="claude-section-label">
-        QUICK ACTIONS
-      </div>
 
-      <div class="claude-quick-row">
+    <div class="claude-quick-row">
 
-        <button
-          class="claude-quick-action"
-          onclick="showPage('study')"
-        >
-          <span class="claude-quick-icon">
-            ▤
-          </span>
+      <button
+        class="claude-card claude-quick"
+        onclick="showPage('study')"
+      >
+        <span class="claude-quick-icon">
+          📄
+        </span>
 
-          <strong>
-            New Note
-          </strong>
-        </button>
+        <strong>
+          New Note
+        </strong>
+      </button>
 
-        <button
-          class="claude-quick-action"
-          onclick="showPage('quizzes')"
-        >
-          <span class="claude-quick-icon">
-            🧠
-          </span>
 
-          <strong>
-            Start Quiz
-          </strong>
-        </button>
+      <button
+        class="claude-card claude-quick"
+        onclick="showPage('quizzes')"
+      >
+        <span class="claude-quick-icon">
+          🧠
+        </span>
 
-        <button
-          class="claude-quick-action"
-          onclick="showPage('calendar')"
-        >
-          <span class="claude-quick-icon">
-            ◷
-          </span>
+        <strong>
+          Start Quiz
+        </strong>
+      </button>
 
-          <strong>
-            Start Timer
-          </strong>
-        </button>
 
-        <button
-          class="claude-quick-action"
-          onclick="showPage('study')"
-        >
-          <span class="claude-quick-icon">
-            🎙
-          </span>
+      <button
+        class="claude-card claude-quick"
+        onclick="showPage('study')"
+      >
+        <span class="claude-quick-icon">
+          🕐
+        </span>
 
-          <strong>
-            Listen
-          </strong>
-        </button>
+        <strong>
+          Start Timer
+        </strong>
+      </button>
 
-      </div>
+
+      <button
+        class="claude-card claude-quick"
+        onclick="showPage('study')"
+      >
+        <span class="claude-quick-icon">
+          🎙
+        </span>
+
+        <strong>
+          Listen
+        </strong>
+      </button>
 
     </div>
 
