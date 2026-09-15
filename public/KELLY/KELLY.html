@@ -3,1418 +3,4626 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KELLY</title>
+<title>KELLY — Your Study Buddy</title>
 
 <style>
-  :root {
-    --bg: #0a0a0f;
-    --sidebar: #0d0d14;
-    --card: #12121a;
-    --card-border: #1f1f2b;
-
-    --purple: #8b5cf6;
-    --purple-light: #a78bfa;
-    --purple-dim: #8b5cf633;
-
-    --text: #f2f2f5;
-    --text-dim: #8b8b99;
-    --text-faint: #5a5a68;
-
-    --green: #4ade80;
-    --red: #f87171;
-  }
-
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  html,
-  body {
-    width: 100%;
-    height: 100%;
-  }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family:
-      -apple-system,
-      BlinkMacSystemFont,
-      "Segoe UI",
-      Roboto,
-      Helvetica,
-      Arial,
-      sans-serif;
-
-    display: flex;
-
-    width: 100vw;
-    height: 100vh;
-
-    overflow: hidden;
-  }
-
-  /* =========================================================
-     SIDEBAR
-     ========================================================= */
-
-  .sidebar {
-    width: 172px;
-    min-width: 172px;
-    height: 100%;
-
-    background: var(--sidebar);
-
-    border-right: 1px solid var(--card-border);
-
-    display: flex;
-    flex-direction: column;
-
-    padding: 20px 14px;
-  }
-
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    margin-bottom: 20px;
-  }
-
-  .brand .logo {
-    width: 26px;
-    height: 26px;
-
-    background: var(--purple);
-
-    border-radius: 8px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 14px;
-  }
-
-  .brand span {
-    font-weight: 800;
-    font-size: 14px;
-    letter-spacing: 0.5px;
-  }
-
-  .level-row {
-    display: flex;
-    justify-content: space-between;
-
-    font-size: 11px;
-    color: var(--text-dim);
-
-    margin-bottom: 6px;
-  }
-
-  .level-row .lv {
-    color: var(--purple);
-    font-weight: 600;
-  }
-
-  .xp-bar-track {
-    width: 100%;
-    height: 4px;
-
-    background: #1f1f2b;
-
-    border-radius: 4px;
-
-    overflow: hidden;
-
-    margin-bottom: 22px;
-  }
-
-  .xp-bar-fill {
-    height: 100%;
-    width: 38%;
-
-    background: var(--purple);
-
-    border-radius: 4px;
-  }
-
-  nav {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-
-    flex: 1;
-  }
-
-  .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    padding: 9px 10px;
-
-    border-radius: 8px;
-
-    font-size: 13px;
-
-    color: var(--text-dim);
-
-    cursor: pointer;
-
-    text-decoration: none;
-
-    transition:
-      background 0.15s ease,
-      color 0.15s ease;
-  }
-
-  .nav-item:hover {
-    background: #16161f;
-    color: var(--text);
-  }
-
-  .nav-item.active {
-    background: var(--purple-dim);
-    color: var(--purple);
-
-    font-weight: 600;
-  }
-
-  .nav-icon {
-    width: 16px;
-    height: 16px;
-
-    flex-shrink: 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .settings {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    padding: 9px 10px;
-
-    border-radius: 8px;
-
-    font-size: 13px;
-
-    color: var(--text-dim);
-
-    cursor: pointer;
-
-    transition:
-      background 0.15s ease,
-      color 0.15s ease;
-  }
-
-  .settings:hover {
-    background: #16161f;
-    color: var(--text);
-  }
-
-  /* =========================================================
-     MAIN
-     ========================================================= */
-
-  main {
-    flex: 1;
-
-    height: 100%;
-
-    overflow-y: auto;
-
-    padding: 32px 40px;
-
-    scrollbar-width: thin;
-    scrollbar-color: #292936 transparent;
-  }
-
-  main::-webkit-scrollbar {
-    width: 7px;
-  }
-
-  main::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  main::-webkit-scrollbar-thumb {
-    background: #292936;
-    border-radius: 10px;
-  }
-
-  /* =========================================================
-     WELCOME
-     ========================================================= */
-
-  .welcome {
-    margin-bottom: 24px;
-  }
-
-  .welcome h1 {
-    font-size: 26px;
-    font-weight: 800;
-
-    margin-bottom: 4px;
-
-    letter-spacing: -0.025em;
-  }
-
-  .welcome h1 span {
-    color: var(--purple);
-  }
-
-  .welcome p {
-    color: var(--text-dim);
-
-    font-size: 13px;
-  }
-
-  /* =========================================================
-     GENERIC CARD
-     ========================================================= */
-
-  .card {
-    background: var(--card);
-
-    border: 1px solid var(--card-border);
-
-    border-radius: 14px;
-
-    padding: 18px 20px;
-  }
-
-  /* =========================================================
-     LEVEL CARD
-     ========================================================= */
-
-  .level-card {
-    margin-bottom: 20px;
-  }
-
-  .level-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    margin-bottom: 12px;
-  }
-
-  .level-title {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    font-size: 15px;
-    font-weight: 700;
-  }
-
-  .level-top .to-next {
-    font-size: 11px;
-
-    color: var(--text-dim);
-  }
-
-  .level-track {
-    width: 100%;
-    height: 8px;
-
-    background: #1f1f2b;
-
-    border-radius: 6px;
-
-    overflow: hidden;
-
-    margin-bottom: 10px;
-  }
-
-  .level-fill {
-    height: 100%;
-
-    width: 62%;
-
-    background:
-      linear-gradient(
-        90deg,
-        var(--purple),
-        var(--purple-light)
-      );
-
-    border-radius: 6px;
-  }
-
-  .level-bottom {
-    display: flex;
-    justify-content: space-between;
-
-    font-size: 11px;
-  }
-
-  .level-bottom .total {
-    color: var(--purple);
-
-    font-weight: 600;
-  }
-
-  .level-bottom .week {
-    color: var(--text-dim);
-  }
-
-  /* =========================================================
-     STATS
-     ========================================================= */
-
-  .stat-row {
-    display: grid;
-
-    grid-template-columns:
-      repeat(4, minmax(0, 1fr));
-
-    gap: 16px;
-
-    margin-bottom: 20px;
-  }
-
-  .stat-card {
-    position: relative;
-
-    min-height: 126px;
-  }
-
-  .stat-icon {
-    position: absolute;
-
-    top: 18px;
-    right: 18px;
-
-    width: 22px;
-    height: 22px;
-
-    border-radius: 6px;
-
-    background: var(--purple-dim);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: var(--purple);
-
-    font-size: 12px;
-  }
-
-  .stat-value {
-    font-size: 24px;
-
-    font-weight: 800;
-
-    margin-bottom: 2px;
-  }
-
-  .stat-label {
-    font-size: 12px;
-
-    color: var(--text);
-
-    margin-bottom: 2px;
-  }
-
-  .stat-sub {
-    font-size: 11px;
-
-    color: var(--text-faint);
-  }
-
-  /* =========================================================
-     TWO COLUMN
-     ========================================================= */
-
-  .two-col {
-    display: grid;
-
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
-
-    gap: 16px;
-
-    margin-bottom: 20px;
-  }
-
-  .card-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    margin-bottom: 14px;
-  }
-
-  .card-head h3 {
-    font-size: 11px;
-
-    letter-spacing: 0.6px;
-
-    color: var(--text-dim);
-
-    font-weight: 700;
-
-    text-transform: uppercase;
-  }
-
-  .link-btn {
-    font-size: 11px;
-
-    color: var(--purple);
-
-    background: transparent;
-
-    border: 1px solid var(--purple);
-
-    padding: 4px 10px;
-
-    border-radius: 6px;
-
-    cursor: pointer;
-  }
-
-  .link-btn:hover {
-    background: var(--purple-dim);
-  }
-
-  .link-plain {
-    font-size: 11px;
-
-    color: var(--purple);
-
-    cursor: pointer;
-
-    background: none;
-
-    border: none;
-  }
-
-  /* =========================================================
-     NOTES
-     ========================================================= */
-
-  .note-row {
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    padding: 10px 0;
-
-    border-bottom:
-      1px solid var(--card-border);
-  }
-
-  .note-row:last-child {
-    border-bottom: none;
-  }
-
-  .note-title {
-    font-size: 13px;
-
-    font-weight: 600;
-
-    margin-bottom: 2px;
-  }
-
-  .note-sub {
-    font-size: 11px;
-
-    color: var(--text-faint);
-  }
-
-  .note-arrow {
-    color: var(--text-faint);
-
-    font-size: 14px;
-  }
-
-  /* =========================================================
-     UPCOMING
-     ========================================================= */
-
-  .up-row {
-    display: flex;
-
-    align-items: flex-start;
-
-    gap: 10px;
-
-    padding: 10px 0;
-
-    border-bottom:
-      1px solid var(--card-border);
-  }
-
-  .up-row:last-child {
-    border-bottom: none;
-  }
-
-  .up-bar {
-    width: 3px;
-
-    align-self: stretch;
-
-    border-radius: 2px;
-
-    flex-shrink: 0;
-  }
-
-  .up-title {
-    font-size: 13px;
-
-    font-weight: 600;
-
-    margin-bottom: 2px;
-  }
-
-  .up-sub {
-    font-size: 11px;
-
-    color: var(--text-faint);
-  }
-
-  /* =========================================================
-     QUIZ
-     ========================================================= */
-
-  .quiz-name {
-    font-size: 14px;
-
-    font-weight: 700;
-
-    margin-bottom: 14px;
-  }
-
-  .quiz-stats {
-    display: flex;
-
-    gap: 32px;
-  }
-
-  .quiz-score {
-    font-size: 22px;
-
-    font-weight: 800;
-
-    color: var(--green);
-  }
-
-  .quiz-xp {
-    font-size: 22px;
-
-    font-weight: 800;
-
-    color: var(--purple);
-  }
-
-  .quiz-label {
-    font-size: 10px;
-
-    color: var(--text-faint);
-
-    margin-top: 2px;
-  }
-
-  /* =========================================================
-     FRIENDS
-     ========================================================= */
-
-  .friend-row {
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-  }
-
-  .avatar {
-    width: 34px;
-    height: 34px;
-
-    border-radius: 50%;
-
-    background: var(--purple);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 13px;
-
-    font-weight: 700;
-  }
-
-  .friend-name {
-    font-size: 13px;
-
-    font-weight: 600;
-  }
-
-  .friend-status {
-    font-size: 11px;
-
-    color: var(--green);
-  }
-
-  /* =========================================================
-     QUICK ACTIONS
-     ========================================================= */
-
-  .qa-label {
-    font-size: 11px;
-
-    letter-spacing: 0.6px;
-
-    color: var(--text-dim);
-
-    font-weight: 700;
-
-    text-transform: uppercase;
-
-    margin-bottom: 12px;
-  }
-
-  .qa-row {
-    display: grid;
-
-    grid-template-columns:
-      repeat(4, minmax(0, 1fr));
-
-    gap: 16px;
-  }
-
-  .qa-btn {
-    min-height: 110px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 8px;
-
-    padding: 22px 0;
-
-    cursor: pointer;
-
-    color: var(--text);
-
-    transition:
-      border-color 0.15s ease,
-      transform 0.15s ease,
-      background 0.15s ease;
-  }
-
-  .qa-btn:hover {
-    border-color: #8b5cf655;
-
-    background: #16161f;
-
-    transform: translateY(-1px);
-  }
-
-  .qa-icon {
-    width: 30px;
-    height: 30px;
-
-    border-radius: 8px;
-
-    background: var(--purple-dim);
-
-    color: var(--purple);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .qa-btn span {
-    font-size: 12px;
-
-    font-weight: 600;
-  }
-
-  /* =========================================================
-     RESPONSIVE
-     ========================================================= */
-
-  @media (max-width: 1050px) {
-    .stat-row {
-      grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-    }
-
-    .qa-row {
-      grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  @media (max-width: 760px) {
-    body {
-      overflow: auto;
-    }
-
-    .sidebar {
-      width: 150px;
-      min-width: 150px;
-    }
-
-    main {
-      padding: 24px 20px;
-    }
-
-    .two-col {
-      grid-template-columns: 1fr;
-    }
-
-    .welcome h1 {
-      font-size: 24px;
-    }
-  }
-
-  @media (max-width: 560px) {
-    body {
-      flex-direction: column;
-    }
-
-    .sidebar {
-      width: 100%;
-      min-width: 0;
-      height: auto;
-
-      border-right: none;
-      border-bottom: 1px solid var(--card-border);
-    }
-
-    .sidebar nav {
-      display: none;
-    }
-
-    .settings {
-      display: none;
-    }
-
-    main {
-      width: 100%;
-      height: auto;
-
-      padding: 20px 16px 40px;
-    }
-
-    .stat-row {
-      grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-      gap: 10px;
-    }
-
-    .qa-row {
-      grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-      gap: 10px;
-    }
-
-    .level-top {
-      align-items: flex-start;
-
-      flex-direction: column;
-
-      gap: 8px;
-    }
-
-    .card {
-      padding: 16px;
-    }
-  }
+:root{
+  --bg:#0a0a0f;
+  --sidebar:#0d0d14;
+  --card:#12121a;
+  --card-2:#15151e;
+  --border:#1f1f2b;
+  --purple:#8b5cf6;
+  --purple-light:#a78bfa;
+  --purple-dim:#8b5cf633;
+  --text:#f2f2f5;
+  --muted:#8b8b99;
+  --faint:#5a5a68;
+  --green:#4ade80;
+  --red:#f87171;
+  --blue:#60a5fa;
+  --yellow:#facc15;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html,
+body{
+  width:100%;
+  height:100%;
+  margin:0;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+
+button,
+input,
+select,
+textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.hidden{
+  display:none !important;
+}
+
+.root-view{
+  display:none;
+  min-height:100vh;
+}
+
+.root-view.active{
+  display:block;
+}
+
+/* =========================================================
+   LANDING
+   ========================================================= */
+
+.landing{
+  min-height:100vh;
+  background:
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(139,92,246,.14),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 85% 90%,
+      rgba(139,92,246,.08),
+      transparent 32%
+    ),
+    var(--bg);
+}
+
+.landing-nav{
+  height:68px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 32px;
+  border-bottom:1px solid var(--border);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:800;
+  letter-spacing:.4px;
+}
+
+.brand-avatar{
+  width:30px;
+  height:30px;
+  border-radius:9px;
+  background:var(--purple);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.brand-avatar img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+.landing-nav-actions{
+  display:flex;
+  gap:10px;
+}
+
+.btn{
+  border:1px solid var(--border);
+  background:#11111a;
+  color:var(--text);
+  border-radius:10px;
+  padding:10px 14px;
+}
+
+.btn:hover{
+  border-color:#353545;
+}
+
+.btn-primary{
+  border:1px solid var(--purple);
+  background:var(--purple);
+  color:#fff;
+  border-radius:10px;
+  padding:10px 14px;
+  font-weight:700;
+}
+
+.btn-primary:hover{
+  background:#7c4eed;
+}
+
+.hero{
+  max-width:1100px;
+  margin:0 auto;
+  padding:100px 32px 72px;
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:48px;
+  align-items:center;
+}
+
+.eyebrow{
+  color:var(--purple-light);
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+.hero h1{
+  font-size:clamp(42px,6vw,72px);
+  line-height:.96;
+  letter-spacing:-.055em;
+  margin:14px 0;
+}
+
+.hero h1 span{
+  color:var(--purple-light);
+}
+
+.hero p{
+  color:var(--muted);
+  font-size:17px;
+  line-height:1.65;
+  max-width:650px;
+}
+
+.hero-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:24px;
+}
+
+.hero-visual{
+  min-height:360px;
+  border:1px solid var(--border);
+  border-radius:28px;
+  background:rgba(18,18,26,.9);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 25px 90px rgba(0,0,0,.3);
+}
+
+.hero-visual img{
+  width:200px;
+  height:200px;
+  object-fit:contain;
+  filter:drop-shadow(
+    0 0 30px rgba(139,92,246,.22)
+  );
+}
+
+.section{
+  max-width:1100px;
+  margin:0 auto;
+  padding:20px 32px 80px;
+}
+
+.section-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+
+.feature{
+  border:1px solid var(--border);
+  background:var(--card);
+  border-radius:18px;
+  padding:20px;
+}
+
+.feature h3{
+  font-size:15px;
+  margin:0 0 8px;
+}
+
+.feature p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.55;
+  margin:0;
+}
+
+/* =========================================================
+   AUTH
+   ========================================================= */
+
+.auth-shell{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  background:
+    radial-gradient(
+      circle at 15% 15%,
+      rgba(139,92,246,.12),
+      transparent 35%
+    ),
+    var(--bg);
+}
+
+.auth-box{
+  width:min(430px,100%);
+  border:1px solid var(--border);
+  border-radius:22px;
+  background:var(--card);
+  padding:28px;
+  box-shadow:0 24px 70px rgba(0,0,0,.35);
+}
+
+.auth-brand{
+  text-align:center;
+  margin-bottom:24px;
+}
+
+.auth-brand img{
+  width:76px;
+  height:76px;
+  object-fit:contain;
+}
+
+.auth-box h1{
+  margin:10px 0 6px;
+  text-align:center;
+  font-size:28px;
+}
+
+.auth-sub{
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:22px;
+}
+
+.field{
+  margin-bottom:13px;
+}
+
+.field label{
+  display:block;
+  font-size:11px;
+  color:var(--muted);
+  margin-bottom:7px;
+}
+
+.field input,
+.ob-input,
+.ob-select{
+  width:100%;
+  background:#0d0d14;
+  border:1px solid var(--border);
+  color:var(--text);
+  border-radius:10px;
+  padding:12px;
+  outline:none;
+}
+
+.field input:focus,
+.ob-input:focus,
+.ob-select:focus{
+  border-color:#6240b6;
+  box-shadow:0 0 0 3px rgba(139,92,246,.08);
+}
+
+.form-message{
+  min-height:18px;
+  color:var(--red);
+  font-size:12px;
+  margin:8px 0 12px;
+}
+
+.auth-foot{
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+  margin-top:16px;
+}
+
+.auth-link{
+  border:0;
+  background:transparent;
+  color:var(--purple-light);
+  padding:0;
+}
+
+.back-link{
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  padding:0;
+  margin-bottom:14px;
+}
+
+/* =========================================================
+   ONBOARDING
+   ========================================================= */
+
+.onboarding-shell{
+  min-height:100vh;
+  background:var(--bg);
+  display:flex;
+  flex-direction:column;
+}
+
+.onboarding-top{
+  height:68px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
+}
+
+.onboarding-progress{
+  display:flex;
+  gap:6px;
+}
+
+.ob-dot{
+  width:34px;
+  height:4px;
+  border-radius:99px;
+  background:#222231;
+}
+
+.ob-dot.active,
+.ob-dot.done{
+  background:var(--purple);
+}
+
+.onboarding-body{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:32px;
+}
+
+.onboarding-card{
+  width:min(680px,100%);
+  border:1px solid var(--border);
+  background:var(--card);
+  border-radius:24px;
+  padding:30px;
+}
+
+.ob-step{
+  display:none;
+}
+
+.ob-step.active{
+  display:block;
+}
+
+.ob-step h2{
+  margin:0 0 8px;
+  font-size:28px;
+}
+
+.ob-step p{
+  margin:0 0 22px;
+  color:var(--muted);
+}
+
+.chip-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.subject-chip{
+  border:1px solid var(--border);
+  background:#101018;
+  color:var(--muted);
+  padding:12px;
+  border-radius:10px;
+}
+
+.subject-chip.selected{
+  background:var(--purple-dim);
+  border-color:#6f4ed0;
+  color:#fff;
+}
+
+.ob-actions{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:24px;
+}
+
+.swatches{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:12px 0 20px;
+}
+
+.swatch{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  border:2px solid transparent;
+  cursor:pointer;
+}
+
+.swatch.active{
+  border-color:#fff;
+}
+
+/* =========================================================
+   APP SHELL
+   ========================================================= */
+
+.app-shell{
+  width:100vw;
+  height:100vh;
+  display:flex;
+  overflow:hidden;
+  background:var(--bg);
+}
+
+.sidebar{
+  width:172px;
+  min-width:172px;
+  height:100%;
+  background:var(--sidebar);
+  border-right:1px solid var(--border);
+  display:flex;
+  flex-direction:column;
+  padding:20px 14px;
+}
+
+.sidebar-brand{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:20px;
+  cursor:pointer;
+}
+
+.sidebar-brand .mini-logo{
+  width:26px;
+  height:26px;
+  border-radius:8px;
+  background:var(--purple);
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.sidebar-brand img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+.sidebar-brand span{
+  font-weight:800;
+  font-size:14px;
+  letter-spacing:.5px;
+}
+
+.level-row{
+  display:flex;
+  justify-content:space-between;
+  font-size:11px;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+
+.level-row .lv{
+  color:var(--purple);
+  font-weight:700;
+}
+
+.xp-bar-track{
+  width:100%;
+  height:4px;
+  background:#1f1f2b;
+  border-radius:4px;
+  overflow:hidden;
+  margin-bottom:20px;
+}
+
+.xp-bar-fill{
+  height:100%;
+  width:38%;
+  background:var(--purple);
+  border-radius:4px;
+}
+
+.side-nav{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  flex:1;
+}
+
+.side-link{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:9px 10px;
+  border-radius:8px;
+  font-size:12px;
+  color:var(--muted);
+  border:0;
+  background:transparent;
+  text-align:left;
+}
+
+.side-link:hover{
+  background:#16161f;
+  color:var(--text);
+}
+
+.side-link.active{
+  background:var(--purple-dim);
+  color:var(--purple-light);
+  font-weight:700;
+}
+
+.side-icon{
+  width:16px;
+  text-align:center;
+}
+
+.side-settings{
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  padding:9px 10px;
+  border-radius:8px;
+  text-align:left;
+  font-size:12px;
+}
+
+.side-settings:hover{
+  background:#16161f;
+  color:var(--text);
+}
+
+.app-main{
+  flex:1;
+  height:100%;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+
+.app-topbar{
+  height:54px;
+  min-height:54px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  padding:0 22px;
+  background:rgba(10,10,15,.85);
+}
+
+.top-xp{
+  color:var(--muted);
+  font-size:11px;
+}
+
+.top-profile{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-left:16px;
+}
+
+.top-avatar{
+  width:28px;
+  height:28px;
+  border-radius:8px;
+  overflow:hidden;
+  background:#1b1b25;
+}
+
+.top-avatar img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+.app-content{
+  flex:1;
+  overflow:auto;
+}
+
+.app-page{
+  display:none;
+  min-height:100%;
+  padding:0;
+}
+
+.app-page.active{
+  display:block;
+}
+
+/* =========================================================
+   COMMON APP
+   ========================================================= */
+
+.page-wrap{
+  padding:32px 40px 46px;
+}
+
+.page-title{
+  margin:0;
+  font-size:27px;
+  letter-spacing:-.03em;
+}
+
+.page-sub{
+  margin:6px 0 22px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.page-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:20px;
+}
+
+.grid-2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+
+.grid-3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+
+.card-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:14px;
+}
+
+.card-head h3{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.6px;
+  color:var(--muted);
+  margin:0;
+}
+
+.link-btn{
+  border:1px solid var(--purple);
+  background:transparent;
+  color:var(--purple-light);
+  border-radius:6px;
+  padding:4px 10px;
+  font-size:11px;
+}
+
+.empty{
+  color:var(--muted);
+  font-size:13px;
+  padding:18px 0;
+}
+
+.list-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:13px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.list-row:last-child{
+  border-bottom:0;
+}
+
+.muted{
+  color:var(--muted);
+}
+
+.small{
+  font-size:12px;
+}
+
+.tiny{
+  font-size:11px;
+}
+
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  border-radius:999px;
+  padding:5px 8px;
+  background:#1a1a25;
+  color:var(--muted);
+  font-size:10px;
+}
+
+.green{
+  color:var(--green)!important;
+}
+
+.red{
+  color:var(--red)!important;
+}
+
+.purple{
+  color:var(--purple-light)!important;
+}
+
+/* =========================================================
+   HOME
+   ========================================================= */
+
+.home{
+  min-height:100%;
+  padding:32px 40px 48px;
+  background:#0a0a0f;
+}
+
+.welcome{
+  margin-bottom:24px;
+}
+
+.welcome h1{
+  font-size:26px;
+  font-weight:800;
+  margin:0 0 4px;
+}
+
+.welcome h1 span{
+  color:var(--purple);
+}
+
+.welcome p{
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.level-card{
+  margin-bottom:20px;
+}
+
+.level-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+.level-title{
+  font-size:15px;
+  font-weight:700;
+}
+
+.to-next{
+  font-size:11px;
+  color:var(--muted);
+}
+
+.level-track{
+  width:100%;
+  height:8px;
+  background:#1f1f2b;
+  border-radius:6px;
+  overflow:hidden;
+}
+
+.level-fill{
+  height:100%;
+  width:62%;
+  background:
+    linear-gradient(
+      90deg,
+      #8b5cf6,
+      #a78bfa
+    );
+  border-radius:6px;
+}
+
+.level-bottom{
+  display:flex;
+  justify-content:space-between;
+  font-size:11px;
+  margin-top:10px;
+}
+
+.level-total{
+  color:var(--purple-light);
+  font-weight:600;
+}
+
+.level-week{
+  color:var(--muted);
+}
+
+.stat-row{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin-bottom:20px;
+}
+
+.stat-card{
+  position:relative;
+  min-height:126px;
+}
+
+.stat-icon{
+  position:absolute;
+  top:18px;
+  right:18px;
+  width:22px;
+  height:22px;
+  border-radius:6px;
+  background:var(--purple-dim);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--purple);
+}
+
+.stat-value{
+  font-size:24px;
+  font-weight:800;
+  margin-bottom:2px;
+}
+
+.stat-label{
+  font-size:12px;
+  margin-bottom:2px;
+}
+
+.stat-sub{
+  font-size:11px;
+  color:var(--faint);
+}
+
+.two-col{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin-bottom:20px;
+}
+
+.note-row,
+.up-row{
+  display:flex;
+  padding:10px 0;
+  border-bottom:1px solid var(--border);
+  gap:10px;
+}
+
+.note-row:last-child,
+.up-row:last-child{
+  border-bottom:0;
+}
+
+.note-row{
+  justify-content:space-between;
+  align-items:center;
+}
+
+.note-title,
+.up-title{
+  font-size:13px;
+  font-weight:600;
+  margin-bottom:2px;
+}
+
+.note-sub,
+.up-sub{
+  font-size:11px;
+  color:var(--faint);
+}
+
+.note-arrow{
+  color:var(--faint);
+}
+
+.up-bar{
+  width:3px;
+  align-self:stretch;
+  border-radius:2px;
+  flex-shrink:0;
+}
+
+.up-bar.green{
+  background:var(--green);
+}
+
+.up-bar.red{
+  background:var(--red);
+}
+
+.quiz-name{
+  font-size:14px;
+  font-weight:700;
+  margin-bottom:14px;
+}
+
+.quiz-stats{
+  display:flex;
+  gap:32px;
+}
+
+.quiz-score{
+  font-size:22px;
+  font-weight:800;
+  color:var(--green);
+}
+
+.quiz-xp{
+  font-size:22px;
+  font-weight:800;
+  color:var(--purple);
+}
+
+.quiz-label{
+  font-size:10px;
+  color:var(--faint);
+  margin-top:2px;
+}
+
+.friend-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.avatar{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:var(--purple);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+}
+
+.friend-name{
+  font-size:13px;
+  font-weight:600;
+}
+
+.friend-status{
+  font-size:11px;
+  color:var(--green);
+}
+
+.qa-label{
+  font-size:11px;
+  letter-spacing:.6px;
+  color:var(--muted);
+  font-weight:700;
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+
+.qa-row{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+
+.qa-btn{
+  min-height:110px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  color:var(--text);
+}
+
+.qa-icon{
+  width:30px;
+  height:30px;
+  border-radius:8px;
+  background:var(--purple-dim);
+  color:var(--purple);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.qa-btn span{
+  font-size:12px;
+  font-weight:600;
+}
+
+/* =========================================================
+   SUBJECTS
+   ========================================================= */
+
+.subject-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+
+.subject-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:18px;
+}
+
+.subject-card h3{
+  margin:0 0 6px;
+}
+
+.subject-card p{
+  margin:0;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.action-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+
+.action-card{
+  padding:22px;
+  border-radius:16px;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--text);
+  text-align:left;
+}
+
+.action-card .icon{
+  font-size:22px;
+  margin-bottom:13px;
+}
+
+/* =========================================================
+   CALENDAR
+   ========================================================= */
+
+.calendar-grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  border-top:1px solid var(--border);
+  border-left:1px solid var(--border);
+}
+
+.cal-day{
+  min-height:88px;
+  border-right:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:8px;
+  font-size:11px;
+  color:var(--muted);
+}
+
+.cal-day strong{
+  color:var(--text);
+}
+
+.event-dot{
+  display:block;
+  margin-top:6px;
+  padding:4px 5px;
+  border-radius:5px;
+  background:#1a1a25;
+  color:var(--purple-light);
+  font-size:9px;
+}
+
+/* =========================================================
+   PROGRESS / SETTINGS
+   ========================================================= */
+
+.progress-card{
+  padding:18px;
+}
+
+.big-stat{
+  font-size:36px;
+  font-weight:800;
+}
+
+.bar{
+  height:8px;
+  background:#1f1f2b;
+  border-radius:99px;
+  overflow:hidden;
+}
+
+.bar > div{
+  height:100%;
+  background:var(--purple);
+  border-radius:inherit;
+}
+
+.settings-list{
+  display:flex;
+  flex-direction:column;
+}
+
+.settings-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.settings-row:last-child{
+  border-bottom:0;
+}
+
+/* =========================================================
+   KELLY PANEL
+   ========================================================= */
+
+.kelly-fab{
+  position:fixed;
+  right:22px;
+  bottom:22px;
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  border:1px solid #6d4ec5;
+  background:var(--purple);
+  overflow:hidden;
+  z-index:30;
+  box-shadow:0 14px 35px rgba(0,0,0,.35);
+}
+
+.kelly-fab img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+.kelly-panel{
+  position:fixed;
+  right:22px;
+  bottom:86px;
+  width:min(360px,calc(100vw - 32px));
+  height:460px;
+  background:#11111a;
+  border:1px solid var(--border);
+  border-radius:18px;
+  z-index:30;
+  display:none;
+  overflow:hidden;
+  box-shadow:0 24px 80px rgba(0,0,0,.5);
+}
+
+.kelly-panel.open{
+  display:flex;
+  flex-direction:column;
+}
+
+.kp-head{
+  padding:14px 16px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+}
+
+.kp-scroll{
+  flex:1;
+  overflow:auto;
+  padding:14px;
+}
+
+.chat-msg{
+  margin-bottom:10px;
+}
+
+.chat-bubble{
+  display:inline-block;
+  max-width:85%;
+  padding:10px 12px;
+  border-radius:12px;
+  background:#191923;
+  color:#ddd;
+  font-size:12px;
+  line-height:1.45;
+}
+
+.chat-msg.user{
+  text-align:right;
+}
+
+.chat-msg.user .chat-bubble{
+  background:var(--purple);
+  color:#fff;
+}
+
+.kp-input{
+  display:flex;
+  gap:8px;
+  padding:12px;
+  border-top:1px solid var(--border);
+}
+
+.kp-input input{
+  flex:1;
+  background:#0d0d14;
+  border:1px solid var(--border);
+  color:var(--text);
+  border-radius:9px;
+  padding:9px;
+}
+
+.kp-input button{
+  border:0;
+  background:var(--purple);
+  color:#fff;
+  border-radius:9px;
+  padding:0 12px;
+}
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+.toast{
+  position:fixed;
+  right:20px;
+  top:20px;
+  z-index:60;
+  background:#1a1a24;
+  border:1px solid var(--border);
+  color:#fff;
+  border-radius:10px;
+  padding:10px 13px;
+  font-size:12px;
+  box-shadow:0 12px 40px rgba(0,0,0,.35);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media(max-width:1050px){
+  .stat-row{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .qa-row{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .subject-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .action-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:760px){
+  .hero{
+    grid-template-columns:1fr;
+    padding-top:60px;
+  }
+
+  .section-grid{
+    grid-template-columns:1fr;
+  }
+
+  .sidebar{
+    width:150px;
+    min-width:150px;
+  }
+
+  .page-wrap,
+  .home{
+    padding:24px 20px 40px;
+  }
+
+  .two-col,
+  .grid-2{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:560px){
+  .app-shell{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    width:100%;
+    min-width:0;
+    height:auto;
+    border-right:0;
+    border-bottom:1px solid var(--border);
+  }
+
+  .side-nav{
+    display:none;
+  }
+
+  .side-settings{
+    display:none;
+  }
+
+  .app-topbar{
+    display:none;
+  }
+
+  .stat-row{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .qa-row{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .subject-grid,
+  .action-grid{
+    grid-template-columns:1fr;
+  }
+
+  .landing-nav{
+    padding:0 18px;
+  }
+
+  .hero,
+  .section{
+    padding-left:18px;
+    padding-right:18px;
+  }
+}
 </style>
 </head>
 
 <body>
 
-  <!-- =======================================================
-       SIDEBAR
-       ======================================================= -->
+<!-- =========================================================
+     LANDING
+     ========================================================= -->
 
-  <aside class="sidebar">
+<section class="root-view active" id="view-landing">
 
-    <div class="brand">
-      <div class="logo">🐼</div>
-      <span>KELLY</span>
-    </div>
+  <div class="landing">
 
-    <div class="level-row">
-      <span class="lv">Lv 3</span>
-      <span>1180 XP</span>
-    </div>
+    <nav class="landing-nav">
 
-    <div class="xp-bar-track">
-      <div class="xp-bar-fill"></div>
-    </div>
+      <div class="brand">
+        <div class="brand-avatar">
+          <img src="/favicon.png" alt="KELLY">
+        </div>
+        <span>KELLY</span>
+      </div>
 
-    <nav>
+      <div class="landing-nav-actions">
+        <button
+          class="btn"
+          onclick="showRoot('view-login')"
+        >
+          Log in
+        </button>
 
-      <a
-        class="nav-item active"
-        href="#"
-        onclick="activateNav(this)"
-      >
-        <span class="nav-icon">🏠</span>
-        Home
-      </a>
-
-      <a
-        class="nav-item"
-        href="#"
-        onclick="activateNav(this)"
-      >
-        <span class="nav-icon">📄</span>
-        Notes
-      </a>
-
-      <a
-        class="nav-item"
-        href="#"
-        onclick="activateNav(this)"
-      >
-        <span class="nav-icon">🎙️</span>
-        Listen &amp; Transcribe
-      </a>
-
-      <a
-        class="nav-item"
-        href="#"
-        onclick="activateNav(this)"
-      >
-        <span class="nav-icon">🧠</span>
-        Quizzes
-      </a>
-
-      <a
-        class="nav-item"
-        href="#"
-        onclick="activateNav(this)"
-      >
-        <span class="nav-icon">🎮</span>
-        Games
-      </a>
-
-      <a
-        class="nav-item"
-        href="#"
-        onclick="activateNav(this)"
-      >
-        <span class="nav-icon">👥</span>
-        Friends
-      </a>
-
-      <a
-        class="nav-item"
-        href="#"
-        onclick="activateNav(this)"
-      >
-        <span class="nav-icon">⏱️</span>
-        Timer
-      </a>
-
-      <a
-        class="nav-item"
-        href="#"
-        onclick="activateNav(this)"
-      >
-        <span class="nav-icon">📅</span>
-        Calendar
-      </a>
+        <button
+          class="btn-primary"
+          onclick="showRoot('view-signup')"
+        >
+          Get started
+        </button>
+      </div>
 
     </nav>
 
-    <div class="settings">
-      ⚙️
-      Settings
-    </div>
+    <div class="hero">
 
-  </aside>
+      <div>
 
-  <!-- =======================================================
-       MAIN
-       ======================================================= -->
-
-  <main>
-
-    <!-- WELCOME -->
-
-    <div class="welcome">
-
-      <h1>
-        Welcome back,
-        <span>You</span>
-      </h1>
-
-      <p>
-        Here's your study overview
-      </p>
-
-    </div>
-
-    <!-- LEVEL -->
-
-    <div class="card level-card">
-
-      <div class="level-top">
-
-        <div class="level-title">
-          🏆
-          Level 3
+        <div class="eyebrow">
+          YOUR AI STUDY COMPANION
         </div>
 
-        <div class="to-next">
-          320 XP to next level
-        </div>
+        <h1>
+          Meet <span>KELLY.</span><br>
+          Your studies, finally figured out.
+        </h1>
 
-      </div>
+        <p>
+          Plan your study time, capture lessons,
+          practise with quizzes and flashcards,
+          track your progress and study alongside friends.
+        </p>
 
-      <div class="level-track">
+        <div class="hero-actions">
 
-        <div class="level-fill"></div>
+          <button
+            class="btn-primary"
+            onclick="showRoot('view-signup')"
+          >
+            Get started
+          </button>
 
-      </div>
-
-      <div class="level-bottom">
-
-        <span class="total">
-          1180 XP total
-        </span>
-
-        <span class="week">
-          380 XP this week
-        </span>
-
-      </div>
-
-    </div>
-
-    <!-- STATS -->
-
-    <div class="stat-row">
-
-      <div class="card stat-card">
-
-        <div class="stat-icon">
-          ⚡
-        </div>
-
-        <div class="stat-value">
-          5 days
-        </div>
-
-        <div class="stat-label">
-          Streak
-        </div>
-
-        <div class="stat-sub">
-          Keep it up!
-        </div>
-
-      </div>
-
-      <div class="card stat-card">
-
-        <div class="stat-icon">
-          🕐
-        </div>
-
-        <div class="stat-value">
-          47m
-        </div>
-
-        <div class="stat-label">
-          Today
-        </div>
-
-        <div class="stat-sub">
-          Study time
-        </div>
-
-      </div>
-
-      <div class="card stat-card">
-
-        <div class="stat-icon">
-          ⚡
-        </div>
-
-        <div class="stat-value">
-          2
-        </div>
-
-        <div class="stat-label">
-          Sessions
-        </div>
-
-        <div class="stat-sub">
-          Focus sessions
-        </div>
-
-      </div>
-
-      <div class="card stat-card">
-
-        <div class="stat-icon">
-          📝
-        </div>
-
-        <div class="stat-value">
-          4
-        </div>
-
-        <div class="stat-label">
-          Notes
-        </div>
-
-        <div class="stat-sub">
-          Created
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- NOTES / UPCOMING -->
-
-    <div class="two-col">
-
-      <div class="card">
-
-        <div class="card-head">
-
-          <h3>
-            Recent Notes
-          </h3>
-
-          <button class="link-btn">
-            View all
+          <button
+            class="btn"
+            onclick="showRoot('view-login')"
+          >
+            Log in
           </button>
 
         </div>
 
-        <div class="note-row">
+      </div>
 
-          <div>
+      <div class="hero-visual">
+        <img src="/favicon.png" alt="KELLY">
+      </div>
 
-            <div class="note-title">
-              Cell Division
-            </div>
+    </div>
 
-            <div class="note-sub">
-              Biology · 2026-09-12
-            </div>
+    <div class="section">
 
-          </div>
+      <div class="section-grid">
 
-          <div class="note-arrow">
-            →
-          </div>
-
+        <div class="feature">
+          <h3>Study smarter</h3>
+          <p>
+            Turn your subjects, notes and weak areas
+            into one focused study system.
+          </p>
         </div>
 
-        <div class="note-row">
-
-          <div>
-
-            <div class="note-title">
-              Quadratic Equations
-            </div>
-
-            <div class="note-sub">
-              Mathematics · 2026-09-10
-            </div>
-
-          </div>
-
-          <div class="note-arrow">
-            →
-          </div>
-
+        <div class="feature">
+          <h3>Stay on track</h3>
+          <p>
+            See your XP, streaks, sessions, tasks
+            and deadlines at a glance.
+          </p>
         </div>
 
-        <div class="note-row">
-
-          <div>
-
-            <div class="note-title">
-              World War II — Causes
-            </div>
-
-            <div class="note-sub">
-              History · 2026-09-08
-            </div>
-
-          </div>
-
-          <div class="note-arrow">
-            →
-          </div>
-
+        <div class="feature">
+          <h3>Study together</h3>
+          <p>
+            Keep friends close with groups,
+            challenges and studying-now activity.
+          </p>
         </div>
 
       </div>
 
-      <div class="card">
+    </div>
 
-        <div class="card-head">
+  </div>
 
-          <h3>
-            Upcoming
-          </h3>
+</section>
 
-          <button class="link-plain">
-            Calendar
-          </button>
 
+<!-- =========================================================
+     LOGIN
+     ========================================================= -->
+
+<section class="root-view" id="view-login">
+
+  <div class="auth-shell">
+
+    <div class="auth-box">
+
+      <button
+        class="back-link"
+        onclick="showRoot('view-landing')"
+      >
+        ← Back
+      </button>
+
+      <div class="auth-brand">
+
+        <img src="/favicon.png" alt="KELLY">
+
+        <h1>Welcome back</h1>
+
+        <div class="auth-sub">
+          Log in to your KELLY account
         </div>
 
-        <div class="up-row">
+      </div>
+
+      <div class="field">
+        <label>Email</label>
+
+        <input
+          id="loginEmail"
+          type="email"
+          autocomplete="email"
+          placeholder="you@example.com"
+        >
+      </div>
+
+      <div class="field">
+        <label>Password</label>
+
+        <input
+          id="loginPassword"
+          type="password"
+          autocomplete="current-password"
+          placeholder="Your password"
+        >
+      </div>
+
+      <div
+        class="form-message"
+        id="loginMessage"
+      ></div>
+
+      <button
+        class="btn-primary"
+        style="width:100%"
+        onclick="handleLogin()"
+      >
+        Log in
+      </button>
+
+      <div class="auth-foot">
+        Don't have an account?
+        <button
+          class="auth-link"
+          onclick="showRoot('view-signup')"
+        >
+          Create one
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     SIGNUP
+     ========================================================= -->
+
+<section class="root-view" id="view-signup">
+
+  <div class="auth-shell">
+
+    <div class="auth-box">
+
+      <button
+        class="back-link"
+        onclick="showRoot('view-landing')"
+      >
+        ← Back
+      </button>
+
+      <div class="auth-brand">
+
+        <img src="/favicon.png" alt="KELLY">
+
+        <h1>Create your account</h1>
+
+        <div class="auth-sub">
+          Start building your study system
+        </div>
+
+      </div>
+
+      <div class="field">
+        <label>Name</label>
+
+        <input
+          id="signupName"
+          type="text"
+          autocomplete="name"
+          placeholder="Your name"
+        >
+      </div>
+
+      <div class="field">
+        <label>Email</label>
+
+        <input
+          id="signupEmail"
+          type="email"
+          autocomplete="email"
+          placeholder="you@example.com"
+        >
+      </div>
+
+      <div class="field">
+        <label>Password</label>
+
+        <input
+          id="signupPassword"
+          type="password"
+          autocomplete="new-password"
+          placeholder="At least 6 characters"
+        >
+      </div>
+
+      <div
+        class="form-message"
+        id="signupMessage"
+      ></div>
+
+      <button
+        class="btn-primary"
+        style="width:100%"
+        onclick="handleSignup()"
+      >
+        Create account
+      </button>
+
+      <div class="auth-foot">
+        Already have an account?
+        <button
+          class="auth-link"
+          onclick="showRoot('view-login')"
+        >
+          Log in
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     ONBOARDING
+     ========================================================= -->
+
+<section class="root-view" id="view-onboarding">
+
+  <div class="onboarding-shell">
+
+    <div class="onboarding-top">
+
+      <div class="brand">
+        <div class="brand-avatar">
+          <img src="/favicon.png" alt="KELLY">
+        </div>
+
+        <span>KELLY</span>
+      </div>
+
+      <div class="onboarding-progress">
+
+        <span
+          class="ob-dot active"
+          data-ob-dot="0"
+        ></span>
+
+        <span
+          class="ob-dot"
+          data-ob-dot="1"
+        ></span>
+
+        <span
+          class="ob-dot"
+          data-ob-dot="2"
+        ></span>
+
+        <span
+          class="ob-dot"
+          data-ob-dot="3"
+        ></span>
+
+        <span
+          class="ob-dot"
+          data-ob-dot="4"
+        ></span>
+
+      </div>
+
+      <button
+        class="btn"
+        onclick="skipOnboarding()"
+      >
+        Skip
+      </button>
+
+    </div>
+
+    <div class="onboarding-body">
+
+      <div class="onboarding-card">
+
+        <!-- STEP 1 -->
+
+        <div
+          class="ob-step active"
+          data-ob-step="0"
+        >
+
+          <h2>
+            Hey, I'm KELLY. 👋
+          </h2>
+
+          <p>
+            Let's set up your study space.
+          </p>
 
           <div
-            class="up-bar"
-            style="background: var(--green);"
-          ></div>
+            class="hero-visual"
+            style="min-height:220px"
+          >
+            <img
+              src="/favicon.png"
+              alt="KELLY"
+              style="width:130px;height:130px"
+            >
+          </div>
 
-          <div>
+        </div>
 
-            <div class="up-title">
-              Group Study Session
-            </div>
 
-            <div class="up-sub">
-              2026-09-15 · 18:00
-            </div>
+        <!-- STEP 2 -->
+
+        <div
+          class="ob-step"
+          data-ob-step="1"
+        >
+
+          <h2>
+            What are you studying?
+          </h2>
+
+          <p>
+            Pick the subjects KELLY should keep track of.
+          </p>
+
+          <div class="chip-grid">
+
+            <button
+              class="subject-chip"
+              onclick="toggleChip(this)"
+            >
+              Mathematics
+            </button>
+
+            <button
+              class="subject-chip"
+              onclick="toggleChip(this)"
+            >
+              Biology
+            </button>
+
+            <button
+              class="subject-chip"
+              onclick="toggleChip(this)"
+            >
+              Physics
+            </button>
+
+            <button
+              class="subject-chip"
+              onclick="toggleChip(this)"
+            >
+              Chemistry
+            </button>
+
+            <button
+              class="subject-chip"
+              onclick="toggleChip(this)"
+            >
+              English
+            </button>
+
+            <button
+              class="subject-chip"
+              onclick="toggleChip(this)"
+            >
+              History
+            </button>
+
+            <button
+              class="subject-chip"
+              onclick="toggleChip(this)"
+            >
+              Computer Science
+            </button>
+
+            <button
+              class="subject-chip"
+              onclick="toggleChip(this)"
+            >
+              Engineering
+            </button>
+
+            <button
+              class="subject-chip"
+              onclick="toggleChip(this)"
+            >
+              Other
+            </button>
 
           </div>
 
         </div>
 
-        <div class="up-row">
 
-          <div
-            class="up-bar"
-            style="background: var(--red);"
-          ></div>
+        <!-- STEP 3 -->
 
-          <div>
+        <div
+          class="ob-step"
+          data-ob-step="2"
+        >
 
-            <div class="up-title">
-              Biology Essay Due
-            </div>
+          <h2>
+            Any important dates?
+          </h2>
 
-            <div class="up-sub">
-              2026-09-16 · 23:59
-            </div>
+          <p>
+            Add an exam, project or assignment deadline.
+          </p>
 
-          </div>
+          <div class="field">
 
-        </div>
+            <label>
+              First important date
+            </label>
 
-        <div class="up-row">
-
-          <div
-            class="up-bar"
-            style="background: var(--red);"
-          ></div>
-
-          <div>
-
-            <div class="up-title">
-              Mathematics Exam
-            </div>
-
-            <div class="up-sub">
-              2026-09-18 · 09:00
-            </div>
+            <input
+              class="ob-input"
+              id="importantDate"
+              type="date"
+            >
 
           </div>
 
         </div>
 
-      </div>
 
-    </div>
+        <!-- STEP 4 -->
 
-    <!-- QUIZ / FRIENDS -->
+        <div
+          class="ob-step"
+          data-ob-step="3"
+        >
 
-    <div class="two-col">
+          <h2>
+            When do you usually study?
+          </h2>
 
-      <div class="card">
+          <p>
+            Choose a rough time.
+          </p>
 
-        <div class="card-head">
+          <select
+            class="ob-select"
+            id="studyTime"
+          >
 
-          <h3>
-            Last Quiz
-          </h3>
+            <option value="morning">
+              Morning
+            </option>
 
-          <button class="link-plain">
-            All quizzes
+            <option value="afternoon">
+              Afternoon
+            </option>
+
+            <option
+              value="evening"
+              selected
+            >
+              Evening
+            </option>
+
+            <option value="night">
+              Night
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- STEP 5 -->
+
+        <div
+          class="ob-step"
+          data-ob-step="4"
+        >
+
+          <h2>
+            Create your KELLY
+          </h2>
+
+          <p>
+            Give your study buddy a nickname and colour.
+          </p>
+
+          <div class="field">
+
+            <label>
+              Nickname
+            </label>
+
+            <input
+              class="ob-input"
+              id="kellyNickname"
+              placeholder="Kelly"
+            >
+
+          </div>
+
+          <label class="small muted">
+            Colour
+          </label>
+
+          <div class="swatches">
+
+            <button
+              class="swatch active"
+              style="background:#8b5cf6"
+              onclick="pickSwatch(this)"
+            ></button>
+
+            <button
+              class="swatch"
+              style="background:#60a5fa"
+              onclick="pickSwatch(this)"
+            ></button>
+
+            <button
+              class="swatch"
+              style="background:#ec4899"
+              onclick="pickSwatch(this)"
+            ></button>
+
+            <button
+              class="swatch"
+              style="background:#4ade80"
+              onclick="pickSwatch(this)"
+            ></button>
+
+          </div>
+
+        </div>
+
+
+        <div class="ob-actions">
+
+          <button
+            class="btn"
+            onclick="obBack()"
+          >
+            Back
+          </button>
+
+          <button
+            class="btn-primary"
+            id="obNextBtn"
+            onclick="obNext()"
+          >
+            Next
           </button>
 
         </div>
 
-        <div class="quiz-name">
-          Biology Basics
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     APP
+     ========================================================= -->
+
+<section class="root-view" id="view-app">
+
+  <div class="app-shell">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+      <div
+        class="sidebar-brand"
+        onclick="showPage('home')"
+      >
+
+        <div class="mini-logo">
+          <img
+            src="/favicon.png"
+            alt="KELLY"
+          >
         </div>
 
-        <div class="quiz-stats">
+        <span>KELLY</span>
 
-          <div>
+      </div>
 
-            <div class="quiz-score">
-              3/4
-            </div>
+      <div class="level-row">
 
-            <div class="quiz-label">
-              Score
-            </div>
+        <span class="lv">
+          Lv 3
+        </span>
 
-          </div>
+        <span>
+          1180 XP
+        </span>
 
-          <div>
+      </div>
 
-            <div class="quiz-xp">
-              +60 XP
-            </div>
+      <div class="xp-bar-track">
+        <div class="xp-bar-fill"></div>
+      </div>
 
-            <div class="quiz-label">
-              Earned
-            </div>
 
+      <nav class="side-nav">
+
+        <button
+          class="side-link active"
+          data-page="home"
+          onclick="showPage('home')"
+        >
+          <span class="side-icon">🏠</span>
+          Home
+        </button>
+
+        <button
+          class="side-link"
+          data-page="subjects"
+          onclick="showPage('subjects')"
+        >
+          <span class="side-icon">📚</span>
+          My Subjects
+        </button>
+
+        <button
+          class="side-link"
+          data-page="study"
+          onclick="showPage('study')"
+        >
+          <span class="side-icon">🎙</span>
+          Study
+        </button>
+
+        <button
+          class="side-link"
+          data-page="quizzes"
+          onclick="showPage('quizzes')"
+        >
+          <span class="side-icon">🧠</span>
+          Quizzes
+        </button>
+
+        <button
+          class="side-link"
+          data-page="flashcards"
+          onclick="showPage('flashcards')"
+        >
+          <span class="side-icon">🗂</span>
+          Flashcards
+        </button>
+
+        <button
+          class="side-link"
+          data-page="groups"
+          onclick="showPage('groups')"
+        >
+          <span class="side-icon">👥</span>
+          Study Groups
+        </button>
+
+        <button
+          class="side-link"
+          data-page="calendar"
+          onclick="showPage('calendar')"
+        >
+          <span class="side-icon">📅</span>
+          Calendar
+        </button>
+
+        <button
+          class="side-link"
+          data-page="progress"
+          onclick="showPage('progress')"
+        >
+          <span class="side-icon">📈</span>
+          Progress
+        </button>
+
+        <button
+          class="side-link"
+          data-page="profile"
+          onclick="showPage('profile')"
+        >
+          <span class="side-icon">⚙</span>
+          Profile & Settings
+        </button>
+
+      </nav>
+
+      <button
+        class="side-settings"
+        onclick="showPage('profile')"
+      >
+        ⚙ Settings
+      </button>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="app-main">
+
+      <div class="app-topbar">
+
+        <div class="top-xp">
+          🔥 5-day streak · ⚡ 1180 XP
+        </div>
+
+        <div class="top-profile">
+
+          <div class="top-avatar">
+            <img
+              src="/favicon.png"
+              alt="KELLY"
+            >
           </div>
 
         </div>
 
       </div>
 
-      <div class="card">
 
-        <div class="card-head">
+      <div class="app-content">
 
-          <h3>
-            Friends Studying
-          </h3>
+        <!-- =================================================
+             HOME
+             ================================================= -->
 
-          <button class="link-plain">
-            View all
-          </button>
+        <section
+          class="app-page active"
+          id="page-home"
+        >
 
-        </div>
+          <div class="home">
 
-        <div class="friend-row">
+            <div class="welcome">
 
-          <div class="avatar">
-            S
-          </div>
+              <h1>
+                Welcome back,
+                <span id="homeName">
+                  You
+                </span>
+              </h1>
 
-          <div>
+              <p>
+                Here's your study overview
+              </p>
 
-            <div class="friend-name">
-              Sarah
             </div>
 
-            <div class="friend-status">
-              Studying now
+
+            <!-- LEVEL -->
+
+            <div class="page-card level-card">
+
+              <div class="level-top">
+
+                <div class="level-title">
+                  🏆 Level 3
+                </div>
+
+                <div class="to-next">
+                  320 XP to next level
+                </div>
+
+              </div>
+
+              <div class="level-track">
+
+                <div class="level-fill"></div>
+
+              </div>
+
+              <div class="level-bottom">
+
+                <span class="level-total">
+                  1180 XP total
+                </span>
+
+                <span class="level-week">
+                  380 XP this week
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <!-- STATS -->
+
+            <div class="stat-row">
+
+              <div class="page-card stat-card">
+
+                <div class="stat-icon">
+                  ⚡
+                </div>
+
+                <div class="stat-value">
+                  5 days
+                </div>
+
+                <div class="stat-label">
+                  Streak
+                </div>
+
+                <div class="stat-sub">
+                  Keep it up!
+                </div>
+
+              </div>
+
+
+              <div class="page-card stat-card">
+
+                <div class="stat-icon">
+                  🕐
+                </div>
+
+                <div class="stat-value">
+                  47m
+                </div>
+
+                <div class="stat-label">
+                  Today
+                </div>
+
+                <div class="stat-sub">
+                  Study time
+                </div>
+
+              </div>
+
+
+              <div class="page-card stat-card">
+
+                <div class="stat-icon">
+                  ⚡
+                </div>
+
+                <div class="stat-value">
+                  2
+                </div>
+
+                <div class="stat-label">
+                  Sessions
+                </div>
+
+                <div class="stat-sub">
+                  Focus sessions
+                </div>
+
+              </div>
+
+
+              <div class="page-card stat-card">
+
+                <div class="stat-icon">
+                  📝
+                </div>
+
+                <div class="stat-value">
+                  4
+                </div>
+
+                <div class="stat-label">
+                  Notes
+                </div>
+
+                <div class="stat-sub">
+                  Created
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- NOTES / UPCOMING -->
+
+            <div class="two-col">
+
+
+              <!-- NOTES -->
+
+              <div class="page-card">
+
+                <div class="card-head">
+
+                  <h3>
+                    Recent Notes
+                  </h3>
+
+                  <button
+                    class="link-btn"
+                    onclick="showPage('study')"
+                  >
+                    View all
+                  </button>
+
+                </div>
+
+
+                <div class="note-row">
+
+                  <div>
+
+                    <div class="note-title">
+                      Cell Division
+                    </div>
+
+                    <div class="note-sub">
+                      Biology · 2026-09-12
+                    </div>
+
+                  </div>
+
+                  <div class="note-arrow">
+                    →
+                  </div>
+
+                </div>
+
+
+                <div class="note-row">
+
+                  <div>
+
+                    <div class="note-title">
+                      Quadratic Equations
+                    </div>
+
+                    <div class="note-sub">
+                      Mathematics · 2026-09-10
+                    </div>
+
+                  </div>
+
+                  <div class="note-arrow">
+                    →
+                  </div>
+
+                </div>
+
+
+                <div class="note-row">
+
+                  <div>
+
+                    <div class="note-title">
+                      World War II — Causes
+                    </div>
+
+                    <div class="note-sub">
+                      History · 2026-09-08
+                    </div>
+
+                  </div>
+
+                  <div class="note-arrow">
+                    →
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <!-- UPCOMING -->
+
+              <div class="page-card">
+
+                <div class="card-head">
+
+                  <h3>
+                    Upcoming
+                  </h3>
+
+                  <button
+                    class="link-btn"
+                    onclick="showPage('calendar')"
+                  >
+                    Calendar
+                  </button>
+
+                </div>
+
+
+                <div class="up-row">
+
+                  <div class="up-bar green"></div>
+
+                  <div>
+
+                    <div class="up-title">
+                      Group Study Session
+                    </div>
+
+                    <div class="up-sub">
+                      2026-09-15 · 18:00
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+                <div class="up-row">
+
+                  <div class="up-bar red"></div>
+
+                  <div>
+
+                    <div class="up-title">
+                      Biology Essay Due
+                    </div>
+
+                    <div class="up-sub">
+                      2026-09-16 · 23:59
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+                <div class="up-row">
+
+                  <div class="up-bar red"></div>
+
+                  <div>
+
+                    <div class="up-title">
+                      Mathematics Exam
+                    </div>
+
+                    <div class="up-sub">
+                      2026-09-18 · 09:00
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- QUIZ / FRIENDS -->
+
+            <div class="two-col">
+
+
+              <div class="page-card">
+
+                <div class="card-head">
+
+                  <h3>
+                    Last Quiz
+                  </h3>
+
+                  <button
+                    class="link-btn"
+                    onclick="showPage('quizzes')"
+                  >
+                    All quizzes
+                  </button>
+
+                </div>
+
+                <div class="quiz-name">
+                  Biology Basics
+                </div>
+
+                <div class="quiz-stats">
+
+                  <div>
+
+                    <div class="quiz-score">
+                      3/4
+                    </div>
+
+                    <div class="quiz-label">
+                      Score
+                    </div>
+
+                  </div>
+
+
+                  <div>
+
+                    <div class="quiz-xp">
+                      +60 XP
+                    </div>
+
+                    <div class="quiz-label">
+                      Earned
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <div class="page-card">
+
+                <div class="card-head">
+
+                  <h3>
+                    Friends Studying
+                  </h3>
+
+                  <button
+                    class="link-btn"
+                    onclick="showPage('groups')"
+                  >
+                    View all
+                  </button>
+
+                </div>
+
+                <div class="friend-row">
+
+                  <div class="avatar">
+                    S
+                  </div>
+
+                  <div>
+
+                    <div class="friend-name">
+                      Sarah
+                    </div>
+
+                    <div class="friend-status">
+                      Studying now
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- QUICK ACTIONS -->
+
+            <div class="qa-label">
+              Quick Actions
+            </div>
+
+            <div class="qa-row">
+
+
+              <button
+                class="page-card qa-btn"
+                onclick="showPage('study')"
+              >
+
+                <div class="qa-icon">
+                  📄
+                </div>
+
+                <span>
+                  New Note
+                </span>
+
+              </button>
+
+
+              <button
+                class="page-card qa-btn"
+                onclick="showPage('quizzes')"
+              >
+
+                <div class="qa-icon">
+                  🧠
+                </div>
+
+                <span>
+                  Start Quiz
+                </span>
+
+              </button>
+
+
+              <button
+                class="page-card qa-btn"
+                onclick="startTimer()"
+              >
+
+                <div class="qa-icon">
+                  🕐
+                </div>
+
+                <span>
+                  Start Timer
+                </span>
+
+              </button>
+
+
+              <button
+                class="page-card qa-btn"
+                onclick="showPage('study')"
+              >
+
+                <div class="qa-icon">
+                  🎙
+                </div>
+
+                <span>
+                  Listen
+                </span>
+
+              </button>
+
+
             </div>
 
           </div>
 
+        </section>
+
+
+        <!-- =================================================
+             SUBJECTS
+             ================================================= -->
+
+        <section
+          class="app-page"
+          id="page-subjects"
+        >
+
+          <div class="page-wrap">
+
+            <h1 class="page-title">
+              My Subjects
+            </h1>
+
+            <p class="page-sub">
+              Keep every subject and weak area in one place.
+            </p>
+
+
+            <div class="subject-grid">
+
+              <div class="subject-card">
+                <h3>Mathematics</h3>
+                <p>
+                  Quadratic equations · 68% mastery
+                </p>
+              </div>
+
+              <div class="subject-card">
+                <h3>Biology</h3>
+                <p>
+                  Cell division · 81% mastery
+                </p>
+              </div>
+
+              <div class="subject-card">
+                <h3>History</h3>
+                <p>
+                  World War II · 74% mastery
+                </p>
+              </div>
+
+              <div class="subject-card">
+                <h3>Physics</h3>
+                <p>
+                  Forces and motion · 72% mastery
+                </p>
+              </div>
+
+              <div class="subject-card">
+                <h3>English</h3>
+                <p>
+                  Essay writing · 79% mastery
+                </p>
+              </div>
+
+              <button
+                class="action-card"
+                onclick="showToast('Add subject flow ready for connection.')"
+              >
+                ＋ Add subject
+              </button>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================
+             STUDY
+             ================================================= -->
+
+        <section
+          class="app-page"
+          id="page-study"
+        >
+
+          <div class="page-wrap">
+
+            <h1 class="page-title">
+              Study
+            </h1>
+
+            <p class="page-sub">
+              Capture, review and focus.
+            </p>
+
+
+            <div class="action-grid">
+
+              <button
+                class="action-card"
+                onclick="startRecording()"
+              >
+                <div class="icon">🎙</div>
+
+                <strong>
+                  Record lecture
+                </strong>
+
+                <div class="muted small">
+                  Turn audio into notes.
+                </div>
+              </button>
+
+
+              <button
+                class="action-card"
+                onclick="showToast('Note editor is ready for connection.')"
+              >
+                <div class="icon">📝</div>
+
+                <strong>
+                  New note
+                </strong>
+
+                <div class="muted small">
+                  Write and organise.
+                </div>
+              </button>
+
+
+              <button
+                class="action-card"
+                onclick="startTimer()"
+              >
+                <div class="icon">🕐</div>
+
+                <strong>
+                  Focus timer
+                </strong>
+
+                <div class="muted small">
+                  Start a study session.
+                </div>
+              </button>
+
+
+              <button
+                class="action-card"
+                onclick="openKellyPanel()"
+              >
+                <div class="icon">✨</div>
+
+                <strong>
+                  Ask KELLY
+                </strong>
+
+                <div class="muted small">
+                  Get study help.
+                </div>
+              </button>
+
+            </div>
+
+
+            <div
+              class="page-card"
+              style="margin-top:16px"
+            >
+
+              <div class="card-head">
+
+                <h3>
+                  Recent study activity
+                </h3>
+
+              </div>
+
+
+              <div class="list-row">
+
+                <div>
+
+                  <strong>
+                    Mathematics · Quadratic Equations
+                  </strong>
+
+                  <div class="muted tiny">
+                    25 minutes
+                  </div>
+
+                </div>
+
+                <span class="pill purple">
+                  +40 XP
+                </span>
+
+              </div>
+
+
+              <div class="list-row">
+
+                <div>
+
+                  <strong>
+                    Biology · Cell Division
+                  </strong>
+
+                  <div class="muted tiny">
+                    22 minutes
+                  </div>
+
+                </div>
+
+                <span class="pill purple">
+                  +35 XP
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================
+             QUIZZES
+             ================================================= -->
+
+        <section
+          class="app-page"
+          id="page-quizzes"
+        >
+
+          <div class="page-wrap">
+
+            <h1 class="page-title">
+              Quizzes
+            </h1>
+
+            <p class="page-sub">
+              Test yourself and earn XP.
+            </p>
+
+
+            <div class="grid-2">
+
+
+              <div class="page-card">
+
+                <div class="card-head">
+
+                  <h3>
+                    Biology Basics
+                  </h3>
+
+                  <span class="pill green">
+                    3/4
+                  </span>
+
+                </div>
+
+                <p class="muted small">
+                  Cells, mitosis and chromosomes.
+                </p>
+
+                <button
+                  class="btn-primary"
+                  style="margin-top:16px"
+                  onclick="runQuiz()"
+                >
+                  Start quiz
+                </button>
+
+              </div>
+
+
+              <div class="page-card">
+
+                <div class="card-head">
+
+                  <h3>
+                    Quadratic Equations
+                  </h3>
+
+                  <span class="pill">
+                    New
+                  </span>
+
+                </div>
+
+                <p class="muted small">
+                  Roots, factorisation and graphs.
+                </p>
+
+                <button
+                  class="btn-primary"
+                  style="margin-top:16px"
+                  onclick="runQuiz()"
+                >
+                  Start quiz
+                </button>
+
+              </div>
+
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================
+             FLASHCARDS
+             ================================================= -->
+
+        <section
+          class="app-page"
+          id="page-flashcards"
+        >
+
+          <div class="page-wrap">
+
+            <h1 class="page-title">
+              Flashcards
+            </h1>
+
+            <p class="page-sub">
+              Review what you need to remember.
+            </p>
+
+
+            <div class="page-card">
+
+              <div class="card-head">
+
+                <h3>
+                  Biology deck
+                </h3>
+
+                <span class="pill purple">
+                  12 due
+                </span>
+
+              </div>
+
+
+              <div
+                style="
+                  min-height:230px;
+                  display:flex;
+                  align-items:center;
+                  justify-content:center;
+                "
+              >
+
+                <div
+                  style="
+                    width:min(520px,100%);
+                    border:1px solid var(--border);
+                    border-radius:18px;
+                    padding:35px;
+                    text-align:center;
+                    background:#101018;
+                  "
+                >
+
+                  <div class="muted tiny">
+                    CARD 1 OF 12
+                  </div>
+
+                  <h2 style="margin:18px 0">
+                    What is mitosis?
+                  </h2>
+
+                  <p class="muted small">
+                    Tap reveal to check the answer.
+                  </p>
+
+                  <button
+                    class="btn-primary"
+                    style="margin-top:16px"
+                    onclick="showToast('Mitosis produces two genetically similar daughter cells.')"
+                  >
+                    Reveal
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================
+             GROUPS
+             ================================================= -->
+
+        <section
+          class="app-page"
+          id="page-groups"
+        >
+
+          <div class="page-wrap">
+
+            <h1 class="page-title">
+              Study Groups
+            </h1>
+
+            <p class="page-sub">
+              Study alongside friends.
+            </p>
+
+
+            <div class="grid-2">
+
+              <div class="page-card">
+
+                <div class="card-head">
+
+                  <h3>
+                    Sarah
+                  </h3>
+
+                  <span class="pill green">
+                    Studying now
+                  </span>
+
+                </div>
+
+                <p class="muted small">
+                  Biology · Cell Division
+                </p>
+
+              </div>
+
+
+              <div class="page-card">
+
+                <div class="card-head">
+
+                  <h3>
+                    Engineering Crew
+                  </h3>
+
+                  <span class="pill">
+                    4 members
+                  </span>
+
+                </div>
+
+                <p class="muted small">
+                  Next group session: tomorrow 18:00
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CALENDAR
+             ================================================= -->
+
+        <section
+          class="app-page"
+          id="page-calendar"
+        >
+
+          <div class="page-wrap">
+
+            <h1 class="page-title">
+              Calendar
+            </h1>
+
+            <p class="page-sub">
+              Upcoming deadlines and study sessions.
+            </p>
+
+
+            <div
+              class="page-card"
+              style="margin-bottom:16px"
+            >
+
+              <div class="card-head">
+
+                <h3>
+                  September 2026
+                </h3>
+
+                <span class="pill purple">
+                  3 upcoming
+                </span>
+
+              </div>
+
+
+              <div class="calendar-grid">
+
+                <div class="cal-day">
+                  <strong>13</strong>
+                </div>
+
+                <div class="cal-day">
+                  <strong>14</strong>
+                </div>
+
+                <div class="cal-day">
+
+                  <strong>15</strong>
+
+                  <span class="event-dot">
+                    Group Study
+                  </span>
+
+                </div>
+
+                <div class="cal-day">
+
+                  <strong>16</strong>
+
+                  <span class="event-dot">
+                    Biology due
+                  </span>
+
+                </div>
+
+                <div class="cal-day">
+                  <strong>17</strong>
+                </div>
+
+                <div class="cal-day">
+
+                  <strong>18</strong>
+
+                  <span class="event-dot">
+                    Math exam
+                  </span>
+
+                </div>
+
+                <div class="cal-day">
+                  <strong>19</strong>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PROGRESS
+             ================================================= -->
+
+        <section
+          class="app-page"
+          id="page-progress"
+        >
+
+          <div class="page-wrap">
+
+            <h1 class="page-title">
+              Progress
+            </h1>
+
+            <p class="page-sub">
+              See how your study is adding up.
+            </p>
+
+
+            <div class="grid-3">
+
+              <div class="page-card progress-card">
+
+                <div class="muted tiny">
+                  TOTAL XP
+                </div>
+
+                <div class="big-stat">
+                  1180
+                </div>
+
+              </div>
+
+
+              <div class="page-card progress-card">
+
+                <div class="muted tiny">
+                  THIS WEEK
+                </div>
+
+                <div class="big-stat">
+                  380
+                </div>
+
+              </div>
+
+
+              <div class="page-card progress-card">
+
+                <div class="muted tiny">
+                  STREAK
+                </div>
+
+                <div class="big-stat">
+                  5
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div
+              class="page-card"
+              style="margin-top:16px"
+            >
+
+              <div class="card-head">
+
+                <h3>
+                  Overall mastery
+                </h3>
+
+                <span class="purple">
+                  74%
+                </span>
+
+              </div>
+
+              <div class="bar">
+                <div style="width:74%"></div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PROFILE
+             ================================================= -->
+
+        <section
+          class="app-page"
+          id="page-profile"
+        >
+
+          <div class="page-wrap">
+
+            <h1 class="page-title">
+              Profile & Settings
+            </h1>
+
+            <p class="page-sub">
+              Manage your KELLY experience.
+            </p>
+
+
+            <div class="page-card">
+
+              <div class="settings-list">
+
+                <div class="settings-row">
+
+                  <span>
+                    Display name
+                  </span>
+
+                  <strong id="profileName">
+                    You
+                  </strong>
+
+                </div>
+
+
+                <div class="settings-row">
+
+                  <span>
+                    Level
+                  </span>
+
+                  <strong>
+                    3
+                  </strong>
+
+                </div>
+
+
+                <div class="settings-row">
+
+                  <span>
+                    Total XP
+                  </span>
+
+                  <strong>
+                    1180
+                  </strong>
+
+                </div>
+
+
+                <div class="settings-row">
+
+                  <span>
+                    Streak
+                  </span>
+
+                  <strong>
+                    5 days
+                  </strong>
+
+                </div>
+
+
+                <div class="settings-row">
+
+                  <button
+                    class="btn"
+                    onclick="logout()"
+                  >
+                    Log out
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+      </div>
+
+    </main>
+
+  </div>
+
+
+  <!-- KELLY FLOATING BUTTON -->
+
+  <button
+    class="kelly-fab"
+    onclick="openKellyPanel()"
+  >
+    <img
+      src="/favicon.png"
+      alt="KELLY"
+    >
+  </button>
+
+
+  <!-- KELLY PANEL -->
+
+  <div
+    class="kelly-panel"
+    id="kellyPanel"
+  >
+
+    <div class="kp-head">
+
+      <strong>
+        KELLY
+      </strong>
+
+      <button
+        class="btn"
+        style="padding:5px 8px"
+        onclick="closeKellyPanel()"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div
+      class="kp-scroll"
+      id="kpScroll"
+    >
+
+      <div class="chat-msg">
+
+        <div class="chat-bubble">
+          Hey! I'm here. What are you studying? ✨
         </div>
 
       </div>
 
     </div>
 
-    <!-- QUICK ACTIONS -->
 
-    <div class="qa-label">
-      Quick Actions
-    </div>
+    <div class="kp-input">
 
-    <div class="qa-row">
+      <input
+        id="kpInput"
+        placeholder="Ask KELLY..."
+      >
 
-      <div class="card qa-btn">
-
-        <div class="qa-icon">
-          📄
-        </div>
-
-        <span>
-          New Note
-        </span>
-
-      </div>
-
-      <div class="card qa-btn">
-
-        <div class="qa-icon">
-          🧠
-        </div>
-
-        <span>
-          Start Quiz
-        </span>
-
-      </div>
-
-      <div class="card qa-btn">
-
-        <div class="qa-icon">
-          🕐
-        </div>
-
-        <span>
-          Start Timer
-        </span>
-
-      </div>
-
-      <div class="card qa-btn">
-
-        <div class="qa-icon">
-          ⚡
-        </div>
-
-        <span>
-          Listen
-        </span>
-
-      </div>
+      <button
+        onclick="sendKellyMessage()"
+      >
+        Send
+      </button>
 
     </div>
 
-  </main>
+  </div>
+
+</section>
+
+
+<!-- TOAST -->
+
+<div
+  class="toast hidden"
+  id="toast"
+></div>
+
 
 <script>
-  function activateNav(element) {
+(() => {
+
+  "use strict";
+
+  const ROOTS = [
+    "view-landing",
+    "view-login",
+    "view-signup",
+    "view-onboarding",
+    "view-app"
+  ];
+
+  const PAGES = [
+    "home",
+    "subjects",
+    "study",
+    "quizzes",
+    "flashcards",
+    "groups",
+    "calendar",
+    "progress",
+    "profile"
+  ];
+
+  let onboardingStep = 0;
+
+  let timerInterval = null;
+  let timerSeconds = 0;
+
+
+  /* =========================================================
+     AUTH BRIDGE
+     ========================================================= */
+
+  function getAuthBridge(){
+
+    if(
+      window.parent &&
+      window.parent.KellyAuth
+    ){
+
+      return window.parent.KellyAuth;
+
+    }
+
+    return null;
+
+  }
+
+
+  /* =========================================================
+     ROOT NAVIGATION
+     ========================================================= */
+
+  window.showRoot = function(id){
+
+    ROOTS.forEach(rootId => {
+
+      const element =
+        document.getElementById(rootId);
+
+      if(!element){
+        return;
+      }
+
+      element.classList.toggle(
+        "active",
+        rootId === id
+      );
+
+    });
+
+    window.scrollTo({
+      top:0,
+      behavior:"instant"
+    });
+
+  };
+
+
+  /* =========================================================
+     APP PAGE NAVIGATION
+     ========================================================= */
+
+  window.showPage = function(page){
+
+    PAGES.forEach(pageId => {
+
+      const element =
+        document.getElementById(
+          "page-" + pageId
+        );
+
+      if(!element){
+        return;
+      }
+
+      element.classList.toggle(
+        "active",
+        pageId === page
+      );
+
+    });
+
+
     document
-      .querySelectorAll(".nav-item")
-      .forEach((item) => {
-        item.classList.remove("active");
+      .querySelectorAll(".side-link")
+      .forEach(link => {
+
+        link.classList.toggle(
+          "active",
+          link.dataset.page === page
+        );
+
       });
 
-    element.classList.add("active");
+
+    const content =
+      document.querySelector(
+        ".app-content"
+      );
+
+    if(content){
+
+      content.scrollTo({
+        top:0,
+        behavior:"instant"
+      });
+
+    }
+
+  };
+
+
+  /* =========================================================
+     AUTH MESSAGE
+     ========================================================= */
+
+  function setMessage(
+    id,
+    message,
+    success=false
+  ){
+
+    const element =
+      document.getElementById(id);
+
+    if(!element){
+      return;
+    }
+
+    element.textContent =
+      message || "";
+
+    element.style.color =
+      success
+        ? "var(--green)"
+        : "var(--red)";
+
   }
+
+
+  /* =========================================================
+     LOGIN
+     ========================================================= */
+
+  window.handleLogin = async function(){
+
+    const auth =
+      getAuthBridge();
+
+    if(!auth){
+
+      setMessage(
+        "loginMessage",
+        "Authentication bridge unavailable."
+      );
+
+      return;
+
+    }
+
+
+    const email =
+      document
+        .getElementById("loginEmail")
+        .value
+        .trim();
+
+    const password =
+      document
+        .getElementById("loginPassword")
+        .value;
+
+
+    if(!email || !password){
+
+      setMessage(
+        "loginMessage",
+        "Enter your email and password."
+      );
+
+      return;
+
+    }
+
+
+    setMessage(
+      "loginMessage",
+      "Logging in...",
+      true
+    );
+
+
+    try{
+
+      const result =
+        await auth.login(
+          email,
+          password
+        );
+
+
+      if(result?.error){
+
+        setMessage(
+          "loginMessage",
+          result.error
+        );
+
+        return;
+
+      }
+
+
+      setMessage(
+        "loginMessage",
+        "Welcome back!",
+        true
+      );
+
+
+      await enterApp();
+
+    }catch(error){
+
+      setMessage(
+        "loginMessage",
+        error?.message ||
+        "Unable to log in."
+      );
+
+    }
+
+  };
+
+
+  /* =========================================================
+     SIGNUP
+     ========================================================= */
+
+  window.handleSignup = async function(){
+
+    const auth =
+      getAuthBridge();
+
+    if(!auth){
+
+      setMessage(
+        "signupMessage",
+        "Authentication bridge unavailable."
+      );
+
+      return;
+
+    }
+
+
+    const name =
+      document
+        .getElementById("signupName")
+        .value
+        .trim();
+
+    const email =
+      document
+        .getElementById("signupEmail")
+        .value
+        .trim();
+
+    const password =
+      document
+        .getElementById("signupPassword")
+        .value;
+
+
+    if(!name || !email || !password){
+
+      setMessage(
+        "signupMessage",
+        "Fill in all fields."
+      );
+
+      return;
+
+    }
+
+
+    if(password.length < 6){
+
+      setMessage(
+        "signupMessage",
+        "Use a password with at least 6 characters."
+      );
+
+      return;
+
+    }
+
+
+    setMessage(
+      "signupMessage",
+      "Creating your account...",
+      true
+    );
+
+
+    try{
+
+      const result =
+        await auth.signup(
+          name,
+          email,
+          password
+        );
+
+
+      if(result?.error){
+
+        setMessage(
+          "signupMessage",
+          result.error
+        );
+
+        return;
+
+      }
+
+
+      if(!result?.session){
+
+        setMessage(
+          "signupMessage",
+          "Account created. Check your email to confirm your account.",
+          true
+        );
+
+        return;
+
+      }
+
+
+      document
+        .getElementById("signupMessage")
+        .textContent = "";
+
+
+      startOnboarding();
+
+    }catch(error){
+
+      setMessage(
+        "signupMessage",
+        error?.message ||
+        "Unable to create your account."
+      );
+
+    }
+
+  };
+
+
+  /* =========================================================
+     ENTER APP
+     ========================================================= */
+
+  async function enterApp(){
+
+    const auth =
+      getAuthBridge();
+
+
+    if(auth){
+
+      try{
+
+        const result =
+          await auth.getSession();
+
+        const session =
+          result?.session;
+
+
+        const name =
+          session?.user
+            ?.user_metadata
+            ?.display_name ||
+
+          session?.user
+            ?.email
+            ?.split("@")[0] ||
+
+          "You";
+
+
+        const homeName =
+          document.getElementById(
+            "homeName"
+          );
+
+        const profileName =
+          document.getElementById(
+            "profileName"
+          );
+
+
+        if(homeName){
+          homeName.textContent =
+            name;
+        }
+
+
+        if(profileName){
+          profileName.textContent =
+            name;
+        }
+
+      }catch{
+
+        // Keep the UI working even if
+        // session metadata is unavailable.
+
+      }
+
+    }
+
+
+    showRoot("view-app");
+
+    showPage("home");
+
+  }
+
+
+  /* =========================================================
+     ONBOARDING
+     ========================================================= */
+
+  window.startOnboarding =
+    function(){
+
+      onboardingStep = 0;
+
+      showRoot(
+        "view-onboarding"
+      );
+
+      renderOnboarding();
+
+    };
+
+
+  window.skipOnboarding =
+    function(){
+
+      showRoot(
+        "view-app"
+      );
+
+      showPage(
+        "home"
+      );
+
+    };
+
+
+  window.obNext =
+    function(){
+
+      if(onboardingStep < 4){
+
+        onboardingStep++;
+
+        renderOnboarding();
+
+        return;
+
+      }
+
+
+      finishOnboarding();
+
+    };
+
+
+  window.obBack =
+    function(){
+
+      if(onboardingStep > 0){
+
+        onboardingStep--;
+
+        renderOnboarding();
+
+      }else{
+
+        showRoot(
+          "view-signup"
+        );
+
+      }
+
+    };
+
+
+  function renderOnboarding(){
+
+    document
+      .querySelectorAll(
+        "[data-ob-step]"
+      )
+      .forEach(step => {
+
+        step.classList.toggle(
+          "active",
+          Number(step.dataset.obStep) ===
+          onboardingStep
+        );
+
+      });
+
+
+    document
+      .querySelectorAll(
+        "[data-ob-dot]"
+      )
+      .forEach(dot => {
+
+        const number =
+          Number(dot.dataset.obDot);
+
+        dot.classList.toggle(
+          "active",
+          number === onboardingStep
+        );
+
+        dot.classList.toggle(
+          "done",
+          number < onboardingStep
+        );
+
+      });
+
+
+    const button =
+      document.getElementById(
+        "obNextBtn"
+      );
+
+    if(button){
+
+      button.textContent =
+        onboardingStep === 4
+          ? "Create KELLY"
+          : "Next";
+
+    }
+
+  }
+
+
+  window.toggleChip =
+    function(element){
+
+      element.classList.toggle(
+        "selected"
+      );
+
+    };
+
+
+  window.pickSwatch =
+    function(element){
+
+      document
+        .querySelectorAll(".swatch")
+        .forEach(swatch => {
+
+          swatch.classList.remove(
+            "active"
+          );
+
+        });
+
+      element.classList.add(
+        "active"
+      );
+
+    };
+
+
+  window.finishOnboarding =
+    function(){
+
+      const signupName =
+        document.getElementById(
+          "signupName"
+        );
+
+      const name =
+        signupName
+          ?.value
+          ?.trim() ||
+
+        "You";
+
+
+      const homeName =
+        document.getElementById(
+          "homeName"
+        );
+
+      const profileName =
+        document.getElementById(
+          "profileName"
+        );
+
+
+      if(homeName){
+        homeName.textContent =
+          name;
+      }
+
+
+      if(profileName){
+        profileName.textContent =
+          name;
+      }
+
+
+      showRoot(
+        "view-app"
+      );
+
+      showPage(
+        "home"
+      );
+
+
+      showToast(
+        "KELLY is ready. ✨"
+      );
+
+    };
+
+
+  /* =========================================================
+     LOGOUT
+     ========================================================= */
+
+  window.logout =
+    async function(){
+
+      const auth =
+        getAuthBridge();
+
+
+      if(auth){
+
+        try{
+
+          await auth.logout();
+
+        }catch{
+
+          // Still clear the UI locally.
+
+        }
+
+      }
+
+
+      closeKellyPanel();
+
+      showRoot(
+        "view-landing"
+      );
+
+
+      showToast(
+        "Logged out."
+      );
+
+    };
+
+
+  /* =========================================================
+     KELLY PANEL
+     ========================================================= */
+
+  window.openKellyPanel =
+    function(){
+
+      const panel =
+        document.getElementById(
+          "kellyPanel"
+        );
+
+      if(panel){
+
+        panel.classList.add(
+          "open"
+        );
+
+      }
+
+    };
+
+
+  window.closeKellyPanel =
+    function(){
+
+      const panel =
+        document.getElementById(
+          "kellyPanel"
+        );
+
+      if(panel){
+
+        panel.classList.remove(
+          "open"
+        );
+
+      }
+
+    };
+
+
+  /* =========================================================
+     KELLY CHAT
+     ========================================================= */
+
+  window.sendKellyMessage =
+    function(){
+
+      const input =
+        document.getElementById(
+          "kpInput"
+        );
+
+      const scroll =
+        document.getElementById(
+          "kpScroll"
+        );
+
+
+      if(!input || !scroll){
+        return;
+      }
+
+
+      const text =
+        input.value.trim();
+
+
+      if(!text){
+        return;
+      }
+
+
+      const userMessage =
+        document.createElement(
+          "div"
+        );
+
+      userMessage.className =
+        "chat-msg user";
+
+
+      userMessage.innerHTML =
+        '<div class="chat-bubble"></div>';
+
+
+      userMessage
+        .querySelector(
+          ".chat-bubble"
+        )
+        .textContent =
+        text;
+
+
+      scroll.appendChild(
+        userMessage
+      );
+
+
+      const reply =
+        document.createElement(
+          "div"
+        );
+
+      reply.className =
+        "chat-msg";
+
+
+      reply.innerHTML =
+        '<div class="chat-bubble"></div>';
+
+
+      reply
+        .querySelector(
+          ".chat-bubble"
+        )
+        .textContent =
+        "I can help with that. KELLY's AI study engine can be connected to your backend next.";
+
+
+      scroll.appendChild(
+        reply
+      );
+
+
+      input.value = "";
+
+      scroll.scrollTop =
+        scroll.scrollHeight;
+
+    };
+
+
+  /* =========================================================
+     TIMER
+     ========================================================= */
+
+  window.startTimer =
+    function(){
+
+      if(timerInterval){
+
+        clearInterval(
+          timerInterval
+        );
+
+        timerInterval = null;
+
+        showToast(
+          "Timer stopped."
+        );
+
+        return;
+
+      }
+
+
+      timerSeconds = 0;
+
+
+      timerInterval =
+        setInterval(
+          () => {
+
+            timerSeconds++;
+
+          },
+          1000
+        );
+
+
+      showToast(
+        "Focus timer started."
+      );
+
+    };
+
+
+  /* =========================================================
+     RECORDING
+     ========================================================= */
+
+  window.startRecording =
+    function(){
+
+      showPage(
+        "study"
+      );
+
+      showToast(
+        "Recording flow opened — audio processing comes next."
+      );
+
+    };
+
+
+  /* =========================================================
+     QUIZ
+     ========================================================= */
+
+  window.runQuiz =
+    function(){
+
+      showToast(
+        "Quiz started — quiz engine comes next."
+      );
+
+    };
+
+
+  /* =========================================================
+     TOAST
+     ========================================================= */
+
+  window.showToast =
+    function(message){
+
+      const toast =
+        document.getElementById(
+          "toast"
+        );
+
+
+      if(!toast){
+        return;
+      }
+
+
+      toast.textContent =
+        message;
+
+
+      toast.classList.remove(
+        "hidden"
+      );
+
+
+      clearTimeout(
+        window.__kellyToastTimer
+      );
+
+
+      window.__kellyToastTimer =
+        setTimeout(
+          () => {
+
+            toast.classList.add(
+              "hidden"
+            );
+
+          },
+          2600
+        );
+
+    };
+
+
+  /* =========================================================
+     INITIALISE
+     ========================================================= */
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    async () => {
+
+      renderOnboarding();
+
+
+      const auth =
+        getAuthBridge();
+
+
+      if(auth){
+
+        try{
+
+          const result =
+            await auth.getSession();
+
+          const session =
+            result?.session;
+
+
+          if(session){
+
+            const name =
+              session?.user
+                ?.user_metadata
+                ?.display_name ||
+
+              session?.user
+                ?.email
+                ?.split("@")[0] ||
+
+              "You";
+
+
+            const homeName =
+              document.getElementById(
+                "homeName"
+              );
+
+            const profileName =
+              document.getElementById(
+                "profileName"
+              );
+
+
+            if(homeName){
+              homeName.textContent =
+                name;
+            }
+
+
+            if(profileName){
+              profileName.textContent =
+                name;
+            }
+
+          }
+
+        }catch{
+
+          // Ignore session lookup failures.
+
+        }
+
+      }
+
+
+      const input =
+        document.getElementById(
+          "kpInput"
+        );
+
+
+      if(input){
+
+        input.addEventListener(
+          "keydown",
+          event => {
+
+            if(event.key === "Enter"){
+
+              sendKellyMessage();
+
+            }
+
+          }
+        );
+
+      }
+
+    }
+  );
+
+})();
 </script>
 
 </body>
