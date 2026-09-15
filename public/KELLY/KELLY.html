@@ -3789,6 +3789,295 @@ body {
 
 <script id="kelly-static-app-lock"> (function () { document.addEventListener("click", function (event) { const app = event.target.closest("#view-app"); if (!app) { return; } const sideLink = event.target.closest(".side-link"); const activeNotesPage = app.querySelector("#page-notes.active"); const activeHomePage = app.querySelector("#page-home.active"); if (sideLink) { const page = sideLink.getAttribute("data-page"); if (page === "home" || page === "notes") { return; } event.preventDefault(); event.stopImmediatePropagation(); return; } if (activeNotesPage || activeHomePage) { return; } event.preventDefault(); event.stopImmediatePropagation(); }, true); })(); </script>
 
+<style id="kelly-notes-layout-fix">
+
+/* ============================================================
+   KELLY NOTES — EXACT DARK WORKSPACE
+   Keeps the existing global KELLY sidebar untouched.
+   ============================================================ */
+
+/* Notes has no top header. */
+#view-app:has(#page-notes.active) .app-topbar {
+  display: none !important;
+}
+
+/* Notes fills the entire area beside the existing sidebar. */
+#view-app:has(#page-notes.active) .app-main {
+  min-width: 0 !important;
+  min-height: 100vh !important;
+  height: 100vh !important;
+  background: #0a0a0f !important;
+  overflow: hidden !important;
+}
+
+#view-app:has(#page-notes.active) .app-content {
+  padding: 0 !important;
+  margin: 0 !important;
+  min-height: 100vh !important;
+  height: 100vh !important;
+  background: #0a0a0f !important;
+  overflow: hidden !important;
+}
+
+/* ------------------------------------------------------------
+   THREE-AREA NOTES WORKSPACE
+   Existing sidebar | notes list | note detail
+   ------------------------------------------------------------ */
+
+#page-notes {
+  width: 100% !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: #0a0a0f !important;
+  color: #f4f2fa !important;
+  overflow: hidden !important;
+}
+
+#page-notes .kelly-notes-page {
+  display: grid !important;
+  grid-template-columns: 340px minmax(0, 1fr) !important;
+  width: 100% !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: #0a0a0f !important;
+  overflow: hidden !important;
+}
+
+/* ------------------------------------------------------------
+   MIDDLE NOTES LIST
+   ------------------------------------------------------------ */
+
+#page-notes .kelly-notes-list {
+  width: 340px !important;
+  min-width: 340px !important;
+  max-width: 340px !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  box-sizing: border-box !important;
+  padding: 24px 18px !important;
+  margin: 0 !important;
+  background: #0a0a0f !important;
+  border-right: 1px solid #20202a !important;
+  border-left: 0 !important;
+  border-top: 0 !important;
+  border-bottom: 0 !important;
+  overflow-y: auto !important;
+}
+
+/* Notes heading area */
+#page-notes .kelly-notes-list h1,
+#page-notes .kelly-notes-list h2,
+#page-notes .kelly-notes-list .notes-title {
+  color: #f8f7fb !important;
+  font-weight: 700 !important;
+}
+
+/* Search */
+#page-notes .kelly-notes-list input,
+#page-notes .kelly-notes-list input[type="search"],
+#page-notes .kelly-notes-search input {
+  background: #101017 !important;
+  color: #f4f2fa !important;
+  border: 1px solid #252532 !important;
+  border-radius: 10px !important;
+}
+
+#page-notes .kelly-notes-list input::placeholder,
+#page-notes .kelly-notes-search input::placeholder {
+  color: #6f6f7c !important;
+}
+
+/* New button */
+#page-notes .kelly-notes-list button {
+  box-shadow: none !important;
+}
+
+/* Note cards */
+#page-notes .note-card,
+#page-notes .kelly-note-card,
+#page-notes .notes-card,
+#page-notes [data-note-id] {
+  background: transparent !important;
+  color: #f4f2fa !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  border-radius: 10px !important;
+}
+
+/* Selected note */
+#page-notes .note-card.active,
+#page-notes .note-card.selected,
+#page-notes .kelly-note-card.active,
+#page-notes .kelly-note-card.selected,
+#page-notes .notes-card.active,
+#page-notes .notes-card.selected,
+#page-notes [data-note-id].active,
+#page-notes [data-note-id].selected {
+  background: #15151d !important;
+  border-color: #20202a !important;
+}
+
+/* Note title text */
+#page-notes .note-card *,
+#page-notes .kelly-note-card *,
+#page-notes .notes-card * {
+  color: inherit;
+}
+
+/* ------------------------------------------------------------
+   RIGHT NOTE DETAIL
+   ------------------------------------------------------------ */
+
+#page-notes .kelly-note-detail {
+  min-width: 0 !important;
+  width: 100% !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  box-sizing: border-box !important;
+  padding: 34px 42px 60px !important;
+  margin: 0 !important;
+  background: #0a0a0f !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  overflow-y: auto !important;
+}
+
+/* Remove any card-like shell around the detail content. */
+#page-notes .kelly-note-detail > * {
+  box-shadow: none;
+}
+
+/* Main title */
+#page-notes .kelly-note-detail h1,
+#page-notes .kelly-note-detail h2 {
+  color: #f8f7fb !important;
+}
+
+/* Metadata */
+#page-notes .kelly-note-detail .note-meta,
+#page-notes .kelly-note-detail .note-date,
+#page-notes .kelly-note-detail .note-chapter {
+  color: #858591 !important;
+}
+
+/* Section labels */
+#page-notes .kelly-note-detail .section-label,
+#page-notes .kelly-note-detail .notes-section-label {
+  color: #858591 !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: .12em !important;
+  text-transform: uppercase !important;
+}
+
+/* Body text */
+#page-notes .kelly-note-detail p,
+#page-notes .kelly-note-detail li {
+  color: #b9b7c4 !important;
+}
+
+/* Purple concept pills */
+#page-notes .kelly-note-detail .concept-pill,
+#page-notes .kelly-note-detail .key-concept,
+#page-notes .kelly-note-detail .tag-pill {
+  background: rgba(139, 92, 246, .12) !important;
+  color: #b49cff !important;
+  border: 1px solid rgba(139, 92, 246, .20) !important;
+  border-radius: 999px !important;
+}
+
+/* Definitions */
+#page-notes .kelly-note-detail .definition-card,
+#page-notes .kelly-note-detail .definition {
+  background: #101017 !important;
+  border: 1px solid #252532 !important;
+  border-radius: 10px !important;
+  box-shadow: none !important;
+}
+
+#page-notes .kelly-note-detail .definition-card *,
+#page-notes .kelly-note-detail .definition * {
+  color: #b9b7c4;
+}
+
+#page-notes .kelly-note-detail .definition-card strong,
+#page-notes .kelly-note-detail .definition strong,
+#page-notes .kelly-note-detail .definition-term {
+  color: #b49cff !important;
+}
+
+/* Checklist */
+#page-notes .kelly-note-detail input[type="checkbox"] {
+  accent-color: #8b5cf6;
+}
+
+/* Remove accidental light surfaces anywhere inside Notes. */
+#page-notes [style*="background: white"],
+#page-notes [style*="background:#fff"],
+#page-notes [style*="background: #fff"],
+#page-notes [style*="background: rgb(255"],
+#page-notes [style*="background-color: white"],
+#page-notes [style*="background-color:#fff"],
+#page-notes [style*="background-color: #fff"] {
+  background: #101017 !important;
+}
+
+/* ------------------------------------------------------------
+   EMPTY STATE
+   ------------------------------------------------------------ */
+
+#page-notes #kelly-notes-empty {
+  background: #0a0a0f !important;
+  color: #858591 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* ------------------------------------------------------------
+   MOBILE
+   ------------------------------------------------------------ */
+
+@media (max-width: 900px) {
+
+  #view-app:has(#page-notes.active) .app-main,
+  #view-app:has(#page-notes.active) .app-content,
+  #page-notes,
+  #page-notes .kelly-notes-page {
+    height: auto !important;
+    min-height: calc(100vh - 1px) !important;
+    overflow: visible !important;
+  }
+
+  #page-notes .kelly-notes-page {
+    grid-template-columns: 1fr !important;
+  }
+
+  #page-notes .kelly-notes-list {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: 42vh !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid #20202a !important;
+  }
+
+  #page-notes .kelly-note-detail {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 58vh !important;
+    padding: 28px 22px 48px !important;
+    overflow: visible !important;
+  }
+}
+
+</style>
 <script id="kelly-notes-controller">
 
 (function () {
@@ -4409,6 +4698,7 @@ body {
 </script>
 </body>
 </html>
+
 
 
 
