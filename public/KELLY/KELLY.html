@@ -1382,7 +1382,7 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
    SIDEBAR
    ------------------------------------------------------------ */
 
-#view-app:has(#page-home.active) .sidebar {
+#view-app .sidebar {
   width: 172px !important;
   min-width: 172px !important;
   max-width: 172px !important;
@@ -1395,18 +1395,18 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
   box-shadow: none !important;
 }
 
-#view-app:has(#page-home.active) .sidebar-logo {
+#view-app .sidebar-logo {
   width: 100%;
   margin-bottom: 22px;
 }
 
-#view-app:has(#page-home.active) .logo-word {
+#view-app .logo-word {
   color: #f8f7fb !important;
   font-size: 15px !important;
   font-weight: 700 !important;
 }
 
-#view-app:has(#page-home.active) .side-nav {
+#view-app .side-nav {
   gap: 4px !important;
 }
 
@@ -1420,17 +1420,17 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
   background: transparent !important;
 }
 
-#view-app:has(#page-home.active) .side-link:hover {
+#view-app .side-link:hover {
   background: #15151d !important;
   color: #e8e7ef !important;
 }
 
-#view-app:has(#page-home.active) .side-link.active {
+#view-app .side-link.active {
   background: rgba(139, 92, 246, 0.12) !important;
   color: #b49cff !important;
 }
 
-#view-app:has(#page-home.active) .sidebar-kelly {
+#view-app .sidebar-kelly {
   margin-top: auto;
 }
 
@@ -1924,7 +1924,7 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
     grid-template-columns: 1fr !important;
   }
 
-  #view-app:has(#page-home.active) .sidebar {
+  #view-app .sidebar {
     width: 100% !important;
     min-width: 0 !important;
     max-width: none !important;
@@ -1934,7 +1934,7 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
     border-bottom: 1px solid #20202a !important;
   }
 
-  #view-app:has(#page-home.active) .side-nav {
+  #view-app .side-nav {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -4409,6 +4409,7 @@ body {
 </script>
 </body>
 </html>
+
 
 
 
