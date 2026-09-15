@@ -2032,7 +2032,7 @@ body {
   background: #0a0a0f;
 }
 
-#page-notes .kelly-notes-page {
+.kelly-notes-page {
   display: grid;
   grid-template-columns: 360px minmax(0, 1fr);
   width: 100%;
@@ -2042,23 +2042,15 @@ body {
   color: #f5f3fa;
 }
 
-/* Hide the old application top bar while Notes is active. */
-#view-app:has(#page-notes.active) .app-topbar {
-  display: none !important;
-}
-
-/* Notes list */
-
 .kelly-notes-list {
   width: 360px;
   min-width: 360px;
   height: 100%;
   min-height: 0;
   overflow-y: auto;
-  box-sizing: border-box;
-  padding: 28px 22px;
   background: #0d0d13;
   border-right: 1px solid rgba(255,255,255,.07);
+  padding: 28px 22px;
 }
 
 .kelly-notes-header {
@@ -2077,24 +2069,19 @@ body {
   letter-spacing: -.035em;
 }
 
-.kelly-notes-new,
-.kelly-create-note {
+.kelly-notes-new {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
   gap: 6px;
   border: 0;
   border-radius: 9px;
+  padding: 9px 13px;
   background: #7c5cff;
   color: #fff;
   font: inherit;
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;
-}
-
-.kelly-notes-new {
-  padding: 9px 13px;
 }
 
 .kelly-notes-new span {
@@ -2139,8 +2126,6 @@ body {
   box-shadow: 0 0 0 3px rgba(124,92,255,.08);
 }
 
-/* Note list items */
-
 .kelly-note-items {
   display: flex;
   flex-direction: column;
@@ -2152,7 +2137,6 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  box-sizing: border-box;
   padding: 17px 4px;
   border: 0;
   border-top: 1px solid rgba(255,255,255,.055);
@@ -2221,26 +2205,19 @@ body {
   flex: 0 0 auto;
   color: #5e5e69;
   font-size: 23px;
+  line-height: 1;
 }
-
-/* Reader */
 
 .kelly-note-reader {
   position: relative;
   min-width: 0;
   min-height: 0;
   height: 100%;
-  overflow-y: auto;
+  overflow: auto;
   background:
-    radial-gradient(
-      circle at 75% 8%,
-      rgba(124,92,255,.055),
-      transparent 34%
-    ),
+    radial-gradient(circle at 75% 10%, rgba(124,92,255,.055), transparent 34%),
     #0a0a0f;
 }
-
-/* Empty state */
 
 .kelly-notes-empty {
   position: absolute;
@@ -2251,10 +2228,6 @@ body {
   justify-content: center;
   padding: 40px;
   text-align: center;
-}
-
-.kelly-notes-empty[hidden] {
-  display: none !important;
 }
 
 .kelly-notes-empty-icon {
@@ -2296,229 +2269,60 @@ body {
   background: #454550;
 }
 
-/* Detail */
-
-.kelly-note-detail {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 52px 58px 90px;
+.kelly-notes-empty p {
+  margin: 0 0 18px;
+  color: #74747f;
+  font-size: 13px;
 }
 
-.kelly-note-detail[hidden] {
-  display: none !important;
-}
-
-.kelly-note-detail-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 30px;
-  margin-bottom: 38px;
-}
-
-.kelly-note-detail-top h1 {
-  margin: 0;
-  color: #f8f7fb;
-  font-size: 34px;
-  line-height: 1.12;
-  font-weight: 760;
-  letter-spacing: -.045em;
-}
-
-.kelly-detail-meta {
-  margin-top: 10px;
-  color: #858490;
-  font-size: 12px;
-}
-
-.meta-subject-green {
-  color: #42d58a;
-  font-weight: 650;
-}
-
-.meta-subject-blue {
-  color: #69a8ff;
-  font-weight: 650;
-}
-
-.meta-subject-orange {
-  color: #f6a04d;
-  font-weight: 650;
-}
-
-.kelly-detail-actions {
-  display: flex;
-  flex: 0 0 auto;
-  gap: 8px;
-}
-
-.kelly-note-action {
-  border: 1px solid rgba(255,255,255,.09);
-  border-radius: 8px;
-  padding: 8px 13px;
-  background: #15151d;
-  color: #d7d5df;
+.kelly-create-note {
+  border: 0;
+  border-radius: 10px;
+  padding: 11px 17px;
+  background: #7c5cff;
+  color: #fff;
   font: inherit;
-  font-size: 11px;
-  font-weight: 650;
+  font-size: 12px;
+  font-weight: 700;
   cursor: pointer;
 }
 
-.kelly-note-action:hover {
-  border-color: rgba(124,92,255,.45);
-  color: #fff;
+.kelly-note-reader-content {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 58px 56px 80px;
 }
 
-.kelly-note-delete:hover {
-  border-color: rgba(255,85,100,.4);
-  color: #ff7d88;
+.kelly-reader-meta {
+  margin-bottom: 10px;
+  color: #42d58a;
+  font-size: 11px;
+  font-weight: 650;
 }
 
-/* Section layout */
-
-.kelly-note-section {
-  margin-top: 34px;
+.kelly-note-reader-content h1 {
+  margin: 0;
+  color: #f7f5fb;
+  font-size: 32px;
+  line-height: 1.15;
+  letter-spacing: -.04em;
 }
 
-.kelly-note-section:first-child {
-  margin-top: 0;
+.kelly-reader-divider {
+  height: 1px;
+  margin: 24px 0 26px;
+  background: rgba(255,255,255,.07);
 }
 
-.kelly-note-section-label {
-  margin-bottom: 12px;
-  color: #777581;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: .16em;
-}
-
-.kelly-note-summary {
-  color: #c0bec8;
+.kelly-note-reader-content p {
+  margin: 0;
+  color: #a1a0ab;
   font-size: 14px;
   line-height: 1.8;
 }
 
-/* Key concepts */
-
-.kelly-concept-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.kelly-concept-chip {
-  display: inline-flex;
-  align-items: center;
-  padding: 7px 11px;
-  border: 1px solid rgba(124,92,255,.16);
-  border-radius: 999px;
-  background: rgba(124,92,255,.11);
-  color: #c5baff;
-  font-size: 11px;
-  font-weight: 650;
-}
-
-/* Key points */
-
-.kelly-key-points {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.kelly-key-points li {
-  position: relative;
-  padding-left: 18px;
-  color: #bbb9c4;
-  font-size: 13px;
-  line-height: 1.7;
-}
-
-.kelly-key-points li::before {
-  content: "";
-  position: absolute;
-  left: 2px;
-  top: .7em;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #7c5cff;
-}
-
-/* Definitions */
-
-.kelly-definitions {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.kelly-definition-card {
-  padding: 14px 16px;
-  border: 1px solid rgba(255,255,255,.065);
-  border-radius: 10px;
-  background: #111118;
-}
-
-.kelly-definition-term {
-  margin-bottom: 5px;
-  color: #aa96ff;
-  font-size: 12px;
-  font-weight: 750;
-}
-
-.kelly-definition-text {
-  color: #b5b3be;
-  font-size: 12px;
-  line-height: 1.65;
-}
-
-/* Takeaways */
-
-.kelly-takeaways {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.kelly-takeaway {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  color: #bbb9c4;
-  font-size: 13px;
-  line-height: 1.65;
-}
-
-.kelly-takeaway-check {
-  flex: 0 0 auto;
-  width: 18px;
-  height: 18px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: rgba(66,213,138,.12);
-  color: #42d58a;
-  font-size: 11px;
-  font-weight: 800;
-}
-
-/* Sidebar settings */
-
-.side-nav-bottom {
-  margin-top: auto;
-  padding-top: 12px;
-  border-top: 1px solid rgba(255,255,255,.07);
-}
-
-/* Mobile */
-
 @media (max-width: 900px) {
-  #page-notes .kelly-notes-page {
+  .kelly-notes-page {
     grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
   }
 
@@ -2527,13 +2331,13 @@ body {
     min-width: 0;
   }
 
-  .kelly-note-detail {
-    padding: 42px 32px 70px;
+  .kelly-note-reader-content {
+    padding: 42px 32px 60px;
   }
 }
 
 @media (max-width: 700px) {
-  #page-notes .kelly-notes-page {
+  .kelly-notes-page {
     grid-template-columns: 1fr;
   }
 
@@ -2548,34 +2352,6 @@ body {
   .kelly-note-reader {
     min-height: 56%;
   }
-
-  .kelly-note-detail-top {
-    flex-direction: column;
-  }
-}
-
-</style>
-<style id="kelly-sidebar-branding-fix">
-
-/* KELLY sidebar branding */
-
-#view-app .sidebar-brand,
-#view-app .sidebar-header,
-#view-app .side-brand {
-  position: relative;
-}
-
-/* Hide old XP / streak / circular-avatar elements in sidebar. */
-#view-app .sidebar .xp-badge,
-#view-app .sidebar .streak,
-#view-app .sidebar .avatar,
-#view-app .sidebar .user-avatar {
-  display: none !important;
-}
-
-/* Settings divider should stay at bottom. */
-#view-app .sidebar .side-nav-bottom {
-  margin-top: auto !important;
 }
 
 </style>
@@ -2979,55 +2755,16 @@ body {
         <span class="logo-word">KELLY</span>
       </button>
       <nav class="side-nav">
-
-  <button class="side-link" data-page="home" onclick="showPage('home')">
-    <span class="sl-icon" data-icon="home"></span>
-    Home
-  </button>
-
-  <button class="side-link" data-page="notes" onclick="showPage('notes')">
-    <span class="sl-icon" data-icon="book"></span>
-    Notes
-  </button>
-
-  <button class="side-link" data-page="listen" onclick="showPage('listen')">
-    <span class="sl-icon" data-icon="mic"></span>
-    Listen &amp; Transcribe
-  </button>
-
-  <button class="side-link" data-page="quizzes" onclick="showPage('quizzes')">
-    <span class="sl-icon" data-icon="brain"></span>
-    Quizzes
-  </button>
-
-  <button class="side-link" data-page="games" onclick="showPage('games')">
-    <span class="sl-icon" data-icon="gamepad"></span>
-    Games
-  </button>
-
-  <button class="side-link" data-page="friends" onclick="showPage('friends')">
-    <span class="sl-icon" data-icon="users"></span>
-    Friends
-  </button>
-
-  <button class="side-link" data-page="timer" onclick="showPage('timer')">
-    <span class="sl-icon" data-icon="clock"></span>
-    Timer
-  </button>
-
-  <button class="side-link" data-page="calendar" onclick="showPage('calendar')">
-    <span class="sl-icon" data-icon="calendar"></span>
-    Calendar
-  </button>
-
-  <div class="side-nav-bottom">
-    <button class="side-link" data-page="settings" onclick="showPage('settings')">
-      <span class="sl-icon" data-icon="settings"></span>
-      Settings
-    </button>
-  </div>
-
-</nav>
+        <button class="side-link" data-page="home" onclick="showPage('home')"><span class="sl-icon" data-icon="home"></span>Home</button>
+        <button class="side-link" data-page="notes" onclick="showPage('notes')"><span class="sl-icon" data-icon="book"></span>Notes</button>
+        <button class="side-link" data-page="study" onclick="showPage('study')"><span class="sl-icon" data-icon="play"></span>Study</button>
+        <button class="side-link" data-page="quizzes" onclick="showPage('quizzes')"><span class="sl-icon" data-icon="check"></span>Quizzes</button>
+        <button class="side-link" data-page="flashcards" onclick="showPage('flashcards')"><span class="sl-icon" data-icon="layers"></span>Flashcards</button>
+        <button class="side-link" data-page="groups" onclick="showPage('groups')"><span class="sl-icon" data-icon="users"></span>Study Groups</button>
+        <button class="side-link" data-page="calendar" onclick="showPage('calendar')"><span class="sl-icon" data-icon="calendar"></span>Calendar</button>
+        <button class="side-link" data-page="progress" onclick="showPage('progress')"><span class="sl-icon" data-icon="chart"></span>Progress</button>
+        <button class="side-link" data-page="profile" onclick="showPage('profile')"><span class="sl-icon" data-icon="settings"></span>Profile &amp; Settings</button>
+      </nav>
       <div class="sidebar-kelly" onclick="openKellyPanel()">
         <div class="kelly-mount user-kelly" data-mood="happy" data-theme="gold" data-accessory="none" data-size="44"></div>
         <div class="sk-text"><b id="sidebar-kelly-name">KELLY</b><span id="sidebar-streak-text">🔥 6-day streak</span></div>
@@ -3499,12 +3236,17 @@ body {
 
   <div class="kelly-notes-page">
 
+    <!-- NOTES LIST -->
     <aside class="kelly-notes-list">
 
       <div class="kelly-notes-header">
         <h1>Notes</h1>
 
-        <button type="button" class="kelly-notes-new" id="kelly-new-note">
+        <button
+          type="button"
+          class="kelly-notes-new"
+          onclick="return false;"
+        >
           <span>+</span>
           New
         </button>
@@ -3512,7 +3254,6 @@ body {
 
       <div class="kelly-notes-search">
         <span class="kelly-notes-search-icon">⌕</span>
-
         <input
           type="search"
           id="kelly-notes-search"
@@ -3521,20 +3262,73 @@ body {
         >
       </div>
 
-      <div
-        class="kelly-note-items"
-        id="kelly-note-items"
-      ></div>
+      <div class="kelly-note-items" id="kelly-note-items">
+
+        <button
+          type="button"
+          class="kelly-note-item"
+          data-note-title="Cell Division"
+          data-note-subject="Biology"
+          data-note-date="2026-09-12"
+          data-note-color="green"
+        >
+          <div class="kelly-note-item-copy">
+            <strong>Cell Division</strong>
+            <span>
+              <b class="note-subject-green">Biology</b>
+              <em>2026-09-12</em>
+            </span>
+          </div>
+          <span class="kelly-note-chevron">›</span>
+        </button>
+
+        <button
+          type="button"
+          class="kelly-note-item"
+          data-note-title="Quadratic Equations"
+          data-note-subject="Mathematics"
+          data-note-date="2026-09-10"
+          data-note-color="blue"
+        >
+          <div class="kelly-note-item-copy">
+            <strong>Quadratic Equations</strong>
+            <span>
+              <b class="note-subject-blue">Mathematics</b>
+              <em>2026-09-10</em>
+            </span>
+          </div>
+          <span class="kelly-note-chevron">›</span>
+        </button>
+
+        <button
+          type="button"
+          class="kelly-note-item"
+          data-note-title="World War II — Causes"
+          data-note-subject="History"
+          data-note-date="2026-09-08"
+          data-note-color="orange"
+        >
+          <div class="kelly-note-item-copy">
+            <strong>World War II — Causes</strong>
+            <span>
+              <b class="note-subject-orange">History</b>
+              <em>2026-09-08</em>
+            </span>
+          </div>
+          <span class="kelly-note-chevron">›</span>
+        </button>
+
+      </div>
 
     </aside>
 
+    <!-- NOTE READER -->
     <main class="kelly-note-reader">
 
       <div
         class="kelly-notes-empty"
         id="kelly-notes-empty"
       >
-
         <div class="kelly-notes-empty-icon">
           <span></span>
         </div>
@@ -3544,57 +3338,22 @@ body {
         <button
           type="button"
           class="kelly-create-note"
-          id="kelly-create-first-note"
+          onclick="return false;"
         >
           Create your first note
         </button>
-
       </div>
 
       <article
-        class="kelly-note-detail"
-        id="kelly-note-detail"
+        class="kelly-note-reader-content"
+        id="kelly-note-reader-content"
         hidden
       >
+        <div class="kelly-reader-meta" id="kelly-reader-meta"></div>
+        <h1 id="kelly-reader-title"></h1>
+        <div class="kelly-reader-divider"></div>
 
-        <div class="kelly-note-detail-top">
-
-          <div>
-            <h1 id="kelly-detail-title"></h1>
-
-            <div
-              class="kelly-detail-meta"
-              id="kelly-detail-meta"
-            ></div>
-          </div>
-
-          <div class="kelly-detail-actions">
-
-            <button
-              type="button"
-              class="kelly-note-action"
-              id="kelly-edit-note"
-            >
-              Edit
-            </button>
-
-            <button
-              type="button"
-              class="kelly-note-action kelly-note-delete"
-              id="kelly-delete-note"
-            >
-              Delete
-            </button>
-
-          </div>
-
-        </div>
-
-        <div
-          class="kelly-note-sections"
-          id="kelly-note-sections"
-        ></div>
-
+        <p id="kelly-reader-text"></p>
       </article>
 
     </main>
@@ -3807,626 +3566,103 @@ body {
 <script id="kelly-static-app-lock"> (function () { document.addEventListener("click", function (event) { const app = event.target.closest("#view-app"); if (!app) { return; } const sideLink = event.target.closest(".side-link"); const activeNotesPage = app.querySelector("#page-notes.active"); const activeHomePage = app.querySelector("#page-home.active"); if (sideLink) { const page = sideLink.getAttribute("data-page"); if (page === "home" || page === "notes") { return; } event.preventDefault(); event.stopImmediatePropagation(); return; } if (activeNotesPage || activeHomePage) { return; } event.preventDefault(); event.stopImmediatePropagation(); }, true); })(); </script>
 
 <script id="kelly-notes-controller">
-
 (function () {
-
     const notes = [
-
         {
-            id: "cell-division",
             title: "Cell Division",
             subject: "Biology",
-            chapter: "Chapter 4",
             date: "2026-09-12",
             color: "green",
-
-            summary:
-                "Cell division is the process by which a parent cell produces new cells. Mitosis produces genetically similar body cells for growth and repair, while meiosis produces genetically varied sex cells.",
-
-            keyConcepts: [
-                "Mitosis",
-                "Meiosis",
-                "Cell Cycle",
-                "Chromosomes",
-                "Cytokinesis"
-            ],
-
-            keyPoints: [
-                "The cell cycle consists of growth, DNA replication, and cell division.",
-                "Mitosis produces two genetically similar daughter cells.",
-                "Meiosis produces four genetically varied cells with half the chromosome number.",
-                "DNA is replicated before nuclear division begins.",
-                "Cytokinesis separates the cytoplasm into daughter cells."
-            ],
-
-            definitions: [
-                {
-                    term: "Mitosis",
-                    definition:
-                        "A type of cell division that produces two genetically similar daughter cells."
-                },
-                {
-                    term: "Meiosis",
-                    definition:
-                        "A specialised type of division that produces cells with half the normal chromosome number."
-                },
-                {
-                    term: "Cytokinesis",
-                    definition:
-                        "The division of the cytoplasm to form separate daughter cells."
-                }
-            ],
-
-            takeaways: [
-                "Know the main stages of the cell cycle.",
-                "Understand the difference between mitosis and meiosis.",
-                "Remember that DNA replication occurs before cell division.",
-                "Know why meiosis creates genetic variation."
-            ]
+            content: "Study notes for Cell Division. Review the key stages, terminology, and differences between the major processes."
         },
-
         {
-            id: "quadratic-equations",
             title: "Quadratic Equations",
             subject: "Mathematics",
-            chapter: "Chapter 7",
             date: "2026-09-10",
             color: "blue",
-
-            summary:
-                "Quadratic equations contain a variable raised to the second power. They can be solved using factorisation, completing the square, or the quadratic formula.",
-
-            keyConcepts: [
-                "Standard Form",
-                "Factorisation",
-                "Quadratic Formula",
-                "Discriminant",
-                "Roots"
-            ],
-
-            keyPoints: [
-                "The standard form of a quadratic equation is ax² + bx + c = 0.",
-                "Factorisation can be used when the quadratic can be split into suitable factors.",
-                "The quadratic formula works for any quadratic equation.",
-                "The discriminant helps determine the number and type of roots.",
-                "A quadratic may have two, one, or no real roots."
-            ],
-
-            definitions: [
-                {
-                    term: "Quadratic Equation",
-                    definition:
-                        "An equation in which the highest power of the variable is two."
-                },
-                {
-                    term: "Discriminant",
-                    definition:
-                        "The expression b² − 4ac, which indicates the nature of the roots."
-                },
-                {
-                    term: "Root",
-                    definition:
-                        "A value of the variable that makes the quadratic equation equal to zero."
-                }
-            ],
-
-            takeaways: [
-                "Identify a, b, and c correctly before using the formula.",
-                "Check factorised answers by substitution.",
-                "Use the discriminant to predict the number of real roots.",
-                "Remember that signs matter when substituting into the formula."
-            ]
+            content: "Study notes for Quadratic Equations. Review standard form, factorisation, the quadratic formula, and solving strategies."
         },
-
         {
-            id: "ww2-causes",
             title: "World War II — Causes",
             subject: "History",
-            chapter: "Chapter 12",
             date: "2026-09-08",
             color: "orange",
-
-            summary:
-                "World War II resulted from a combination of political, economic, and military factors, including unresolved tensions after World War I, aggressive expansion, and the failure of collective security.",
-
-            keyConcepts: [
-                "Treaty of Versailles",
-                "Appeasement",
-                "Expansionism",
-                "Collective Security",
-                "Axis Powers"
-            ],
-
-            keyPoints: [
-                "The Treaty of Versailles created resentment and instability in Germany.",
-                "Economic hardship contributed to political extremism.",
-                "Germany, Italy, and Japan pursued aggressive territorial expansion.",
-                "Appeasement failed to prevent further German expansion.",
-                "The invasion of Poland in 1939 led Britain and France to declare war."
-            ],
-
-            definitions: [
-                {
-                    term: "Appeasement",
-                    definition:
-                        "A policy of making concessions to an aggressive power in an attempt to avoid conflict."
-                },
-                {
-                    term: "Expansionism",
-                    definition:
-                        "A policy of increasing a country's territory or influence."
-                },
-                {
-                    term: "Collective Security",
-                    definition:
-                        "The idea that countries should work together to respond to aggression."
-                }
-            ],
-
-            takeaways: [
-                "Understand how the Treaty of Versailles contributed to German resentment.",
-                "Know why appeasement failed.",
-                "Connect economic instability with political extremism.",
-                "Remember the significance of the invasion of Poland in 1939."
-            ]
+            content: "Study notes covering the major causes and events leading to World War II."
         }
-
     ];
 
-    let selectedNoteId = null;
+    function renderNote(note, selectedButton) {
+        const empty = document.getElementById("kelly-notes-empty");
+        const reader = document.getElementById("kelly-note-reader-content");
+        const title = document.getElementById("kelly-reader-title");
+        const meta = document.getElementById("kelly-reader-meta");
+        const text = document.getElementById("kelly-reader-text");
 
-    function escapeHtml(value) {
-
-        return String(value ?? "")
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-
-    }
-
-    function subjectClass(color) {
-
-        if (color === "blue") {
-            return "note-subject-blue";
-        }
-
-        if (color === "orange") {
-            return "note-subject-orange";
-        }
-
-        return "note-subject-green";
-
-    }
-
-    function renderNoteList(list) {
-
-        const container =
-            document.getElementById("kelly-note-items");
-
-        if (!container) {
+        if (!empty || !reader || !title || !meta || !text) {
             return;
         }
 
-        container.innerHTML = list.map(function (note) {
-
-            return `
-                <button
-                    type="button"
-                    class="kelly-note-item${selectedNoteId === note.id ? " active" : ""}"
-                    data-note-id="${escapeHtml(note.id)}"
-                >
-
-                    <div class="kelly-note-item-copy">
-
-                        <strong>
-                            ${escapeHtml(note.title)}
-                        </strong>
-
-                        <span>
-
-                            <b class="${subjectClass(note.color)}">
-                                ${escapeHtml(note.subject)}
-                            </b>
-
-                            <em>
-                                ${escapeHtml(note.date)}
-                            </em>
-
-                        </span>
-
-                    </div>
-
-                    <span class="kelly-note-chevron">
-                        ›
-                    </span>
-
-                </button>
-            `;
-
-        }).join("");
-
-        container
-            .querySelectorAll(".kelly-note-item")
-            .forEach(function (button) {
-
-                button.addEventListener(
-                    "click",
-                    function () {
-                        selectNote(button.dataset.noteId);
-                    }
-                );
-
-            });
-
-    }
-
-    function renderDetail(note) {
-
-        const empty =
-            document.getElementById("kelly-notes-empty");
-
-        const detail =
-            document.getElementById("kelly-note-detail");
-
-        if (!empty || !detail) {
-            return;
-        }
-
-        /*
-         * TRUE CONDITIONAL STATE:
-         *
-         * No selected note:
-         *     EMPTY = visible
-         *     DETAIL = hidden
-         *
-         * Selected note:
-         *     EMPTY = hidden
-         *     DETAIL = visible
-         */
-
-        if (!note) {
-
-            selectedNoteId = null;
-
-            empty.hidden = false;
-            detail.hidden = true;
-
-            return;
-        }
-
-        document.getElementById(
-            "kelly-detail-title"
-        ).textContent = note.title;
-
-        document.getElementById(
-            "kelly-detail-meta"
-        ).innerHTML = `
-            <span class="meta-subject-${escapeHtml(note.color)}">
-                ${escapeHtml(note.subject)}
-            </span>
-            · ${escapeHtml(note.chapter)}
-            · ${escapeHtml(note.date)}
-        `;
-
-        const sections = [];
-
-        sections.push(`
-            <section class="kelly-note-section">
-
-                <div class="kelly-note-section-label">
-                    SUMMARY
-                </div>
-
-                <div class="kelly-note-summary">
-                    ${escapeHtml(note.summary)}
-                </div>
-
-            </section>
-        `);
-
-        sections.push(`
-            <section class="kelly-note-section">
-
-                <div class="kelly-note-section-label">
-                    KEY CONCEPTS
-                </div>
-
-                <div class="kelly-concept-chips">
-
-                    ${note.keyConcepts.map(function (concept) {
-
-                        return `
-                            <span class="kelly-concept-chip">
-                                ${escapeHtml(concept)}
-                            </span>
-                        `;
-
-                    }).join("")}
-
-                </div>
-
-            </section>
-        `);
-
-        sections.push(`
-            <section class="kelly-note-section">
-
-                <div class="kelly-note-section-label">
-                    KEY POINTS
-                </div>
-
-                <ul class="kelly-key-points">
-
-                    ${note.keyPoints.map(function (point) {
-
-                        return `
-                            <li>
-                                ${escapeHtml(point)}
-                            </li>
-                        `;
-
-                    }).join("")}
-
-                </ul>
-
-            </section>
-        `);
-
-        sections.push(`
-            <section class="kelly-note-section">
-
-                <div class="kelly-note-section-label">
-                    DEFINITIONS
-                </div>
-
-                <div class="kelly-definitions">
-
-                    ${note.definitions.map(function (definition) {
-
-                        return `
-                            <div class="kelly-definition-card">
-
-                                <div class="kelly-definition-term">
-                                    ${escapeHtml(definition.term)}
-                                </div>
-
-                                <div class="kelly-definition-text">
-                                    ${escapeHtml(definition.definition)}
-                                </div>
-
-                            </div>
-                        `;
-
-                    }).join("")}
-
-                </div>
-
-            </section>
-        `);
-
-        sections.push(`
-            <section class="kelly-note-section">
-
-                <div class="kelly-note-section-label">
-                    TAKEAWAYS
-                </div>
-
-                <div class="kelly-takeaways">
-
-                    ${note.takeaways.map(function (takeaway) {
-
-                        return `
-                            <div class="kelly-takeaway">
-
-                                <span class="kelly-takeaway-check">
-                                    ✓
-                                </span>
-
-                                <span>
-                                    ${escapeHtml(takeaway)}
-                                </span>
-
-                            </div>
-                        `;
-
-                    }).join("")}
-
-                </div>
-
-            </section>
-        `);
-
-        document.getElementById(
-            "kelly-note-sections"
-        ).innerHTML = sections.join("");
-
-        /*
-         * IMPORTANT:
-         * These are mutually exclusive.
-         */
-
-        empty.hidden = true;
-        detail.hidden = false;
-    }
-
-    function selectNote(noteId) {
-
-        const note = notes.find(function (entry) {
-            return entry.id === noteId;
+        document.querySelectorAll(".kelly-note-item").forEach(function (item) {
+            item.classList.remove("active");
         });
 
-        if (!note) {
-            renderDetail(null);
-            return;
+        if (selectedButton) {
+            selectedButton.classList.add("active");
         }
 
-        selectedNoteId = note.id;
+        title.textContent = note.title;
+        meta.textContent = note.subject + " · " + note.date;
+        text.textContent = note.content;
 
-        renderNoteList(notes);
-        renderDetail(note);
+        empty.hidden = true;
+        reader.hidden = false;
     }
 
     function setupNotes() {
+        const search = document.getElementById("kelly-notes-search");
+        const items = Array.from(document.querySelectorAll(".kelly-note-item"));
 
-        const search =
-            document.getElementById("kelly-notes-search");
+        items.forEach(function (item) {
+            item.addEventListener("click", function () {
+                const title = item.dataset.noteTitle;
+                const note = notes.find(function (entry) {
+                    return entry.title === title;
+                });
 
-        const newButton =
-            document.getElementById("kelly-new-note");
-
-        const createButton =
-            document.getElementById("kelly-create-first-note");
-
-        renderNoteList(notes);
-
-        /*
-         * Initial state:
-         * nothing selected.
-         */
-        renderDetail(null);
+                if (note) {
+                    renderNote(note, item);
+                }
+            });
+        });
 
         if (search) {
+            search.addEventListener("input", function () {
+                const query = search.value.trim().toLowerCase();
 
-            search.addEventListener(
-                "input",
-                function () {
+                items.forEach(function (item) {
+                    const title = (item.dataset.noteTitle || "").toLowerCase();
+                    const subject = (item.dataset.noteSubject || "").toLowerCase();
 
-                    const query =
-                        search.value.trim().toLowerCase();
-
-                    const filtered =
-                        notes.filter(function (note) {
-
-                            return (
-                                note.title.toLowerCase().includes(query) ||
-                                note.subject.toLowerCase().includes(query) ||
-                                note.chapter.toLowerCase().includes(query)
-                            );
-
-                        });
-
-                    renderNoteList(filtered);
-
-                }
-            );
-
+                    item.style.display =
+                        !query ||
+                        title.includes(query) ||
+                        subject.includes(query)
+                            ? ""
+                            : "none";
+                });
+            });
         }
-
-        if (newButton) {
-
-            newButton.addEventListener(
-                "click",
-                function () {
-
-                    alert(
-                        "New Note will be connected to the note editor next."
-                    );
-
-                }
-            );
-
-        }
-
-        if (createButton) {
-
-            createButton.addEventListener(
-                "click",
-                function () {
-
-                    alert(
-                        "New Note will be connected to the note editor next."
-                    );
-
-                }
-            );
-
-        }
-
-        const editButton =
-            document.getElementById("kelly-edit-note");
-
-        if (editButton) {
-
-            editButton.addEventListener(
-                "click",
-                function () {
-
-                    if (!selectedNoteId) {
-                        return;
-                    }
-
-                    alert(
-                        "Edit mode will be connected to the note editor next."
-                    );
-
-                }
-            );
-
-        }
-
-        const deleteButton =
-            document.getElementById("kelly-delete-note");
-
-        if (deleteButton) {
-
-            deleteButton.addEventListener(
-                "click",
-                function () {
-
-                    if (!selectedNoteId) {
-                        return;
-                    }
-
-                    const index =
-                        notes.findIndex(function (note) {
-                            return note.id === selectedNoteId;
-                        });
-
-                    if (index !== -1) {
-                        notes.splice(index, 1);
-                    }
-
-                    /*
-                     * After deletion:
-                     * selectedNoteId = null
-                     * empty state returns
-                     * detail disappears
-                     */
-
-                    selectedNoteId = null;
-
-                    renderNoteList(notes);
-                    renderDetail(null);
-
-                }
-            );
-
-        }
-
     }
 
     if (document.readyState === "loading") {
-
-        document.addEventListener(
-            "DOMContentLoaded",
-            setupNotes
-        );
-
-    }
-    else {
-
+        document.addEventListener("DOMContentLoaded", setupNotes);
+    } else {
         setupNotes();
-
     }
-
 })();
-
 </script>
 </body>
 </html>
-
 
 
 
