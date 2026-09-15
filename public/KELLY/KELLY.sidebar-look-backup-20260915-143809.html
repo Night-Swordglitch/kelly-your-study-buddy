@@ -2042,6 +2042,11 @@ body {
   color: #f5f3fa;
 }
 
+/* Hide the old application top bar while Notes is active. */
+#view-app:has(#page-notes.active) .app-topbar {
+  display: none !important;
+}
+
 /* Notes list */
 
 .kelly-notes-list {
@@ -2502,6 +2507,14 @@ body {
   font-weight: 800;
 }
 
+/* Sidebar settings */
+
+.side-nav-bottom {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,.07);
+}
+
 /* Mobile */
 
 @media (max-width: 900px) {
@@ -2542,23 +2555,27 @@ body {
 }
 
 </style>
+<style id="kelly-sidebar-branding-fix">
 
-<style id="kelly-notes-sidebar-isolation">
+/* KELLY sidebar branding */
 
-/*
- * KELLY NOTES SIDEBAR ISOLATION
- *
- * IMPORTANT:
- * Notes is allowed to style only #page-notes.
- * The application's existing sidebar is intentionally untouched.
- */
-
-#page-notes {
-    position: relative;
+#view-app .sidebar-brand,
+#view-app .sidebar-header,
+#view-app .side-brand {
+  position: relative;
 }
 
-#page-notes .kelly-notes-page {
-    box-sizing: border-box;
+/* Hide old XP / streak / circular-avatar elements in sidebar. */
+#view-app .sidebar .xp-badge,
+#view-app .sidebar .streak,
+#view-app .sidebar .avatar,
+#view-app .sidebar .user-avatar {
+  display: none !important;
+}
+
+/* Settings divider should stay at bottom. */
+#view-app .sidebar .side-nav-bottom {
+  margin-top: auto !important;
 }
 
 </style>
@@ -4409,7 +4426,6 @@ body {
 </script>
 </body>
 </html>
-
 
 
 
