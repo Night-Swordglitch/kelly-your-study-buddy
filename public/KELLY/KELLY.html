@@ -4,484 +4,1418 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KELLY</title>
+
 <style>
-  :root{
-    --bg:#0a0a0f;
-    --sidebar:#0d0d14;
-    --card:#12121a;
-    --card-border:#1f1f2b;
-    --purple:#8b5cf6;
-    --purple-dim:#8b5cf633;
-    --text:#f2f2f5;
-    --text-dim:#8b8b99;
-    --text-faint:#5a5a68;
-    --green:#4ade80;
-    --red:#f87171;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  html,body{width:100%;height:100%;}
-  body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    display:flex;
-    width:100vw;
-    height:100vh;
-    overflow:hidden;
+  :root {
+    --bg: #0a0a0f;
+    --sidebar: #0d0d14;
+    --card: #12121a;
+    --card-border: #1f1f2b;
+
+    --purple: #8b5cf6;
+    --purple-light: #a78bfa;
+    --purple-dim: #8b5cf633;
+
+    --text: #f2f2f5;
+    --text-dim: #8b8b99;
+    --text-faint: #5a5a68;
+
+    --green: #4ade80;
+    --red: #f87171;
   }
 
-  /* SIDEBAR */
-  .sidebar{
-    width:172px;
-    min-width:172px;
-    height:100%;
-    background:var(--sidebar);
-    border-right:1px solid var(--card-border);
-    display:flex;
-    flex-direction:column;
-    padding:20px 14px;
-  }
-  .brand{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    margin-bottom:20px;
-  }
-  .brand .logo{
-    width:26px;height:26px;
-    background:var(--purple);
-    border-radius:8px;
-    display:flex;align-items:center;justify-content:center;
-    font-size:14px;
-  }
-  .brand span{
-    font-weight:800;
-    font-size:14px;
-    letter-spacing:0.5px;
-  }
-  .level-row{
-    display:flex;
-    justify-content:space-between;
-    font-size:11px;
-    color:var(--text-dim);
-    margin-bottom:6px;
-  }
-  .level-row .lv{color:var(--purple);font-weight:600;}
-  .xp-bar-track{
-    width:100%;
-    height:4px;
-    background:#1f1f2b;
-    border-radius:4px;
-    overflow:hidden;
-    margin-bottom:22px;
-  }
-  .xp-bar-fill{
-    height:100%;
-    width:38%;
-    background:var(--purple);
-    border-radius:4px;
-  }
-  nav{
-    display:flex;
-    flex-direction:column;
-    gap:2px;
-    flex:1;
-  }
-  .nav-item{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:9px 10px;
-    border-radius:8px;
-    font-size:13px;
-    color:var(--text-dim);
-    cursor:pointer;
-    text-decoration:none;
-  }
-  .nav-item:hover{background:#16161f;color:var(--text);}
-  .nav-item.active{
-    background:var(--purple-dim);
-    color:var(--purple);
-    font-weight:600;
-  }
-  .nav-icon{width:16px;height:16px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
-  .settings{
-    display:flex;align-items:center;gap:10px;
-    padding:9px 10px;
-    border-radius:8px;
-    font-size:13px;
-    color:var(--text-dim);
-    cursor:pointer;
-  }
-  .settings:hover{background:#16161f;color:var(--text);}
-
-  /* MAIN */
-  main{
-    flex:1;
-    height:100%;
-    overflow-y:auto;
-    padding:32px 40px;
-  }
-  .welcome h1{
-    font-size:26px;
-    font-weight:800;
-    margin-bottom:4px;
-  }
-  .welcome h1 span{color:var(--purple);}
-  .welcome p{
-    color:var(--text-dim);
-    font-size:13px;
-    margin-bottom:24px;
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
 
-  .card{
-    background:var(--card);
-    border:1px solid var(--card-border);
-    border-radius:14px;
-    padding:18px 20px;
+  html,
+  body {
+    width: 100%;
+    height: 100%;
   }
 
-  /* level card */
-  .level-card{margin-bottom:20px;}
-  .level-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:12px;
-  }
-  .level-title{
-    display:flex;align-items:center;gap:8px;
-    font-size:15px;font-weight:700;
-  }
-  .level-top .to-next{
-    font-size:11px;color:var(--text-dim);
-  }
-  .level-track{
-    width:100%;height:8px;
-    background:#1f1f2b;
-    border-radius:6px;
-    overflow:hidden;
-    margin-bottom:10px;
-  }
-  .level-fill{
-    height:100%;width:62%;
-    background:linear-gradient(90deg,#8b5cf6,#a78bfa);
-    border-radius:6px;
-  }
-  .level-bottom{
-    display:flex;justify-content:space-between;
-    font-size:11px;
-  }
-  .level-bottom .total{color:var(--purple);font-weight:600;}
-  .level-bottom .week{color:var(--text-dim);}
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family:
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      Helvetica,
+      Arial,
+      sans-serif;
 
-  /* stat row */
-  .stat-row{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:16px;
-    margin-bottom:20px;
-  }
-  .stat-card{
-    position:relative;
-  }
-  .stat-icon{
-    position:absolute;top:18px;right:18px;
-    width:22px;height:22px;
-    border-radius:6px;
-    background:var(--purple-dim);
-    display:flex;align-items:center;justify-content:center;
-    color:var(--purple);
-  }
-  .stat-value{font-size:24px;font-weight:800;margin-bottom:2px;}
-  .stat-label{font-size:12px;color:var(--text);margin-bottom:2px;}
-  .stat-sub{font-size:11px;color:var(--text-faint);}
+    display: flex;
 
-  /* two column */
-  .two-col{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:16px;
-    margin-bottom:20px;
-  }
-  .card-head{
-    display:flex;justify-content:space-between;align-items:center;
-    margin-bottom:14px;
-  }
-  .card-head h3{
-    font-size:11px;
-    letter-spacing:0.6px;
-    color:var(--text-dim);
-    font-weight:700;
-    text-transform:uppercase;
-  }
-  .link-btn{
-    font-size:11px;
-    color:var(--purple);
-    background:none;
-    border:1px solid var(--purple);
-    padding:4px 10px;
-    border-radius:6px;
-    cursor:pointer;
-  }
-  .link-plain{
-    font-size:11px;
-    color:var(--purple);
-    cursor:pointer;
-    background:none;border:none;
+    width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
   }
 
-  .note-row{
-    display:flex;justify-content:space-between;align-items:center;
-    padding:10px 0;
-    border-bottom:1px solid var(--card-border);
-  }
-  .note-row:last-child{border-bottom:none;}
-  .note-title{font-size:13px;font-weight:600;margin-bottom:2px;}
-  .note-sub{font-size:11px;color:var(--text-faint);}
-  .note-arrow{color:var(--text-faint);font-size:14px;}
+  /* =========================================================
+     SIDEBAR
+     ========================================================= */
 
-  .up-row{
-    display:flex;align-items:flex-start;gap:10px;
-    padding:10px 0;
-    border-bottom:1px solid var(--card-border);
-  }
-  .up-row:last-child{border-bottom:none;}
-  .up-bar{width:3px;align-self:stretch;border-radius:2px;}
-  .up-title{font-size:13px;font-weight:600;margin-bottom:2px;}
-  .up-sub{font-size:11px;color:var(--text-faint);}
+  .sidebar {
+    width: 172px;
+    min-width: 172px;
+    height: 100%;
 
-  .quiz-name{font-size:14px;font-weight:700;margin-bottom:14px;}
-  .quiz-stats{display:flex;gap:32px;}
-  .quiz-score{font-size:22px;font-weight:800;color:var(--green);}
-  .quiz-xp{font-size:22px;font-weight:800;color:var(--purple);}
-  .quiz-label{font-size:10px;color:var(--text-faint);margin-top:2px;}
+    background: var(--sidebar);
 
-  .friend-row{display:flex;align-items:center;gap:10px;}
-  .avatar{
-    width:34px;height:34px;border-radius:50%;
-    background:var(--purple);
-    display:flex;align-items:center;justify-content:center;
-    font-size:13px;font-weight:700;
-  }
-  .friend-name{font-size:13px;font-weight:600;}
-  .friend-status{font-size:11px;color:var(--green);}
+    border-right: 1px solid var(--card-border);
 
-  /* quick actions */
-  .qa-label{
-    font-size:11px;letter-spacing:0.6px;
-    color:var(--text-dim);
-    font-weight:700;
-    text-transform:uppercase;
-    margin-bottom:12px;
-  }
-  .qa-row{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:16px;
-  }
-  .qa-btn{
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    gap:8px;
-    padding:22px 0;
-    cursor:pointer;
-  }
-  .qa-icon{
-    width:30px;height:30px;
-    border-radius:8px;
-    background:var(--purple-dim);
-    color:var(--purple);
-    display:flex;align-items:center;justify-content:center;
-  }
-  .qa-btn span{font-size:12px;font-weight:600;}
+    display: flex;
+    flex-direction: column;
 
-  svg{width:100%;height:100%;}
+    padding: 20px 14px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-bottom: 20px;
+  }
+
+  .brand .logo {
+    width: 26px;
+    height: 26px;
+
+    background: var(--purple);
+
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 14px;
+  }
+
+  .brand span {
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+  }
+
+  .level-row {
+    display: flex;
+    justify-content: space-between;
+
+    font-size: 11px;
+    color: var(--text-dim);
+
+    margin-bottom: 6px;
+  }
+
+  .level-row .lv {
+    color: var(--purple);
+    font-weight: 600;
+  }
+
+  .xp-bar-track {
+    width: 100%;
+    height: 4px;
+
+    background: #1f1f2b;
+
+    border-radius: 4px;
+
+    overflow: hidden;
+
+    margin-bottom: 22px;
+  }
+
+  .xp-bar-fill {
+    height: 100%;
+    width: 38%;
+
+    background: var(--purple);
+
+    border-radius: 4px;
+  }
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    flex: 1;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 9px 10px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+
+    color: var(--text-dim);
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    transition:
+      background 0.15s ease,
+      color 0.15s ease;
+  }
+
+  .nav-item:hover {
+    background: #16161f;
+    color: var(--text);
+  }
+
+  .nav-item.active {
+    background: var(--purple-dim);
+    color: var(--purple);
+
+    font-weight: 600;
+  }
+
+  .nav-icon {
+    width: 16px;
+    height: 16px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .settings {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 9px 10px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+
+    color: var(--text-dim);
+
+    cursor: pointer;
+
+    transition:
+      background 0.15s ease,
+      color 0.15s ease;
+  }
+
+  .settings:hover {
+    background: #16161f;
+    color: var(--text);
+  }
+
+  /* =========================================================
+     MAIN
+     ========================================================= */
+
+  main {
+    flex: 1;
+
+    height: 100%;
+
+    overflow-y: auto;
+
+    padding: 32px 40px;
+
+    scrollbar-width: thin;
+    scrollbar-color: #292936 transparent;
+  }
+
+  main::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  main::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  main::-webkit-scrollbar-thumb {
+    background: #292936;
+    border-radius: 10px;
+  }
+
+  /* =========================================================
+     WELCOME
+     ========================================================= */
+
+  .welcome {
+    margin-bottom: 24px;
+  }
+
+  .welcome h1 {
+    font-size: 26px;
+    font-weight: 800;
+
+    margin-bottom: 4px;
+
+    letter-spacing: -0.025em;
+  }
+
+  .welcome h1 span {
+    color: var(--purple);
+  }
+
+  .welcome p {
+    color: var(--text-dim);
+
+    font-size: 13px;
+  }
+
+  /* =========================================================
+     GENERIC CARD
+     ========================================================= */
+
+  .card {
+    background: var(--card);
+
+    border: 1px solid var(--card-border);
+
+    border-radius: 14px;
+
+    padding: 18px 20px;
+  }
+
+  /* =========================================================
+     LEVEL CARD
+     ========================================================= */
+
+  .level-card {
+    margin-bottom: 20px;
+  }
+
+  .level-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 12px;
+  }
+
+  .level-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .level-top .to-next {
+    font-size: 11px;
+
+    color: var(--text-dim);
+  }
+
+  .level-track {
+    width: 100%;
+    height: 8px;
+
+    background: #1f1f2b;
+
+    border-radius: 6px;
+
+    overflow: hidden;
+
+    margin-bottom: 10px;
+  }
+
+  .level-fill {
+    height: 100%;
+
+    width: 62%;
+
+    background:
+      linear-gradient(
+        90deg,
+        var(--purple),
+        var(--purple-light)
+      );
+
+    border-radius: 6px;
+  }
+
+  .level-bottom {
+    display: flex;
+    justify-content: space-between;
+
+    font-size: 11px;
+  }
+
+  .level-bottom .total {
+    color: var(--purple);
+
+    font-weight: 600;
+  }
+
+  .level-bottom .week {
+    color: var(--text-dim);
+  }
+
+  /* =========================================================
+     STATS
+     ========================================================= */
+
+  .stat-row {
+    display: grid;
+
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+
+    gap: 16px;
+
+    margin-bottom: 20px;
+  }
+
+  .stat-card {
+    position: relative;
+
+    min-height: 126px;
+  }
+
+  .stat-icon {
+    position: absolute;
+
+    top: 18px;
+    right: 18px;
+
+    width: 22px;
+    height: 22px;
+
+    border-radius: 6px;
+
+    background: var(--purple-dim);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--purple);
+
+    font-size: 12px;
+  }
+
+  .stat-value {
+    font-size: 24px;
+
+    font-weight: 800;
+
+    margin-bottom: 2px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+
+    color: var(--text);
+
+    margin-bottom: 2px;
+  }
+
+  .stat-sub {
+    font-size: 11px;
+
+    color: var(--text-faint);
+  }
+
+  /* =========================================================
+     TWO COLUMN
+     ========================================================= */
+
+  .two-col {
+    display: grid;
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 16px;
+
+    margin-bottom: 20px;
+  }
+
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 14px;
+  }
+
+  .card-head h3 {
+    font-size: 11px;
+
+    letter-spacing: 0.6px;
+
+    color: var(--text-dim);
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+  }
+
+  .link-btn {
+    font-size: 11px;
+
+    color: var(--purple);
+
+    background: transparent;
+
+    border: 1px solid var(--purple);
+
+    padding: 4px 10px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+  }
+
+  .link-btn:hover {
+    background: var(--purple-dim);
+  }
+
+  .link-plain {
+    font-size: 11px;
+
+    color: var(--purple);
+
+    cursor: pointer;
+
+    background: none;
+
+    border: none;
+  }
+
+  /* =========================================================
+     NOTES
+     ========================================================= */
+
+  .note-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 10px 0;
+
+    border-bottom:
+      1px solid var(--card-border);
+  }
+
+  .note-row:last-child {
+    border-bottom: none;
+  }
+
+  .note-title {
+    font-size: 13px;
+
+    font-weight: 600;
+
+    margin-bottom: 2px;
+  }
+
+  .note-sub {
+    font-size: 11px;
+
+    color: var(--text-faint);
+  }
+
+  .note-arrow {
+    color: var(--text-faint);
+
+    font-size: 14px;
+  }
+
+  /* =========================================================
+     UPCOMING
+     ========================================================= */
+
+  .up-row {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 10px;
+
+    padding: 10px 0;
+
+    border-bottom:
+      1px solid var(--card-border);
+  }
+
+  .up-row:last-child {
+    border-bottom: none;
+  }
+
+  .up-bar {
+    width: 3px;
+
+    align-self: stretch;
+
+    border-radius: 2px;
+
+    flex-shrink: 0;
+  }
+
+  .up-title {
+    font-size: 13px;
+
+    font-weight: 600;
+
+    margin-bottom: 2px;
+  }
+
+  .up-sub {
+    font-size: 11px;
+
+    color: var(--text-faint);
+  }
+
+  /* =========================================================
+     QUIZ
+     ========================================================= */
+
+  .quiz-name {
+    font-size: 14px;
+
+    font-weight: 700;
+
+    margin-bottom: 14px;
+  }
+
+  .quiz-stats {
+    display: flex;
+
+    gap: 32px;
+  }
+
+  .quiz-score {
+    font-size: 22px;
+
+    font-weight: 800;
+
+    color: var(--green);
+  }
+
+  .quiz-xp {
+    font-size: 22px;
+
+    font-weight: 800;
+
+    color: var(--purple);
+  }
+
+  .quiz-label {
+    font-size: 10px;
+
+    color: var(--text-faint);
+
+    margin-top: 2px;
+  }
+
+  /* =========================================================
+     FRIENDS
+     ========================================================= */
+
+  .friend-row {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+  }
+
+  .avatar {
+    width: 34px;
+    height: 34px;
+
+    border-radius: 50%;
+
+    background: var(--purple);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 13px;
+
+    font-weight: 700;
+  }
+
+  .friend-name {
+    font-size: 13px;
+
+    font-weight: 600;
+  }
+
+  .friend-status {
+    font-size: 11px;
+
+    color: var(--green);
+  }
+
+  /* =========================================================
+     QUICK ACTIONS
+     ========================================================= */
+
+  .qa-label {
+    font-size: 11px;
+
+    letter-spacing: 0.6px;
+
+    color: var(--text-dim);
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    margin-bottom: 12px;
+  }
+
+  .qa-row {
+    display: grid;
+
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+
+    gap: 16px;
+  }
+
+  .qa-btn {
+    min-height: 110px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 22px 0;
+
+    cursor: pointer;
+
+    color: var(--text);
+
+    transition:
+      border-color 0.15s ease,
+      transform 0.15s ease,
+      background 0.15s ease;
+  }
+
+  .qa-btn:hover {
+    border-color: #8b5cf655;
+
+    background: #16161f;
+
+    transform: translateY(-1px);
+  }
+
+  .qa-icon {
+    width: 30px;
+    height: 30px;
+
+    border-radius: 8px;
+
+    background: var(--purple-dim);
+
+    color: var(--purple);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .qa-btn span {
+    font-size: 12px;
+
+    font-weight: 600;
+  }
+
+  /* =========================================================
+     RESPONSIVE
+     ========================================================= */
+
+  @media (max-width: 1050px) {
+    .stat-row {
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+    }
+
+    .qa-row {
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 760px) {
+    body {
+      overflow: auto;
+    }
+
+    .sidebar {
+      width: 150px;
+      min-width: 150px;
+    }
+
+    main {
+      padding: 24px 20px;
+    }
+
+    .two-col {
+      grid-template-columns: 1fr;
+    }
+
+    .welcome h1 {
+      font-size: 24px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    body {
+      flex-direction: column;
+    }
+
+    .sidebar {
+      width: 100%;
+      min-width: 0;
+      height: auto;
+
+      border-right: none;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .sidebar nav {
+      display: none;
+    }
+
+    .settings {
+      display: none;
+    }
+
+    main {
+      width: 100%;
+      height: auto;
+
+      padding: 20px 16px 40px;
+    }
+
+    .stat-row {
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 10px;
+    }
+
+    .qa-row {
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 10px;
+    }
+
+    .level-top {
+      align-items: flex-start;
+
+      flex-direction: column;
+
+      gap: 8px;
+    }
+
+    .card {
+      padding: 16px;
+    }
+  }
 </style>
 </head>
+
 <body>
 
-  <div class="sidebar">
+  <!-- =======================================================
+       SIDEBAR
+       ======================================================= -->
+
+  <aside class="sidebar">
+
     <div class="brand">
       <div class="logo">🐼</div>
       <span>KELLY</span>
     </div>
+
     <div class="level-row">
       <span class="lv">Lv 3</span>
       <span>1180 XP</span>
     </div>
-    <div class="xp-bar-track"><div class="xp-bar-fill"></div></div>
+
+    <div class="xp-bar-track">
+      <div class="xp-bar-fill"></div>
+    </div>
 
     <nav>
-      <a class="nav-item active"><span class="nav-icon">🏠</span>Home</a>
-      <a class="nav-item"><span class="nav-icon">📄</span>Notes</a>
-      <a class="nav-item"><span class="nav-icon">🎙️</span>Listen &amp; Transcribe</a>
-      <a class="nav-item"><span class="nav-icon">🧠</span>Quizzes</a>
-      <a class="nav-item"><span class="nav-icon">🎮</span>Games</a>
-      <a class="nav-item"><span class="nav-icon">👥</span>Friends</a>
-      <a class="nav-item"><span class="nav-icon">⏱️</span>Timer</a>
-      <a class="nav-item"><span class="nav-icon">📅</span>Calendar</a>
+
+      <a
+        class="nav-item active"
+        href="#"
+        onclick="activateNav(this)"
+      >
+        <span class="nav-icon">🏠</span>
+        Home
+      </a>
+
+      <a
+        class="nav-item"
+        href="#"
+        onclick="activateNav(this)"
+      >
+        <span class="nav-icon">📄</span>
+        Notes
+      </a>
+
+      <a
+        class="nav-item"
+        href="#"
+        onclick="activateNav(this)"
+      >
+        <span class="nav-icon">🎙️</span>
+        Listen &amp; Transcribe
+      </a>
+
+      <a
+        class="nav-item"
+        href="#"
+        onclick="activateNav(this)"
+      >
+        <span class="nav-icon">🧠</span>
+        Quizzes
+      </a>
+
+      <a
+        class="nav-item"
+        href="#"
+        onclick="activateNav(this)"
+      >
+        <span class="nav-icon">🎮</span>
+        Games
+      </a>
+
+      <a
+        class="nav-item"
+        href="#"
+        onclick="activateNav(this)"
+      >
+        <span class="nav-icon">👥</span>
+        Friends
+      </a>
+
+      <a
+        class="nav-item"
+        href="#"
+        onclick="activateNav(this)"
+      >
+        <span class="nav-icon">⏱️</span>
+        Timer
+      </a>
+
+      <a
+        class="nav-item"
+        href="#"
+        onclick="activateNav(this)"
+      >
+        <span class="nav-icon">📅</span>
+        Calendar
+      </a>
+
     </nav>
 
-    <div class="settings">⚙️ Settings</div>
-  </div>
+    <div class="settings">
+      ⚙️
+      Settings
+    </div>
+
+  </aside>
+
+  <!-- =======================================================
+       MAIN
+       ======================================================= -->
 
   <main>
+
+    <!-- WELCOME -->
+
     <div class="welcome">
-      <h1>Welcome back, <span>You</span></h1>
-      <p>Here's your study overview</p>
+
+      <h1>
+        Welcome back,
+        <span>You</span>
+      </h1>
+
+      <p>
+        Here's your study overview
+      </p>
+
     </div>
+
+    <!-- LEVEL -->
 
     <div class="card level-card">
+
       <div class="level-top">
-        <div class="level-title">🏆 Level 3</div>
-        <div class="to-next">320 XP to next level</div>
+
+        <div class="level-title">
+          🏆
+          Level 3
+        </div>
+
+        <div class="to-next">
+          320 XP to next level
+        </div>
+
       </div>
-      <div class="level-track"><div class="level-fill"></div></div>
+
+      <div class="level-track">
+
+        <div class="level-fill"></div>
+
+      </div>
+
       <div class="level-bottom">
-        <span class="total">1180 XP total</span>
-        <span class="week">380 XP this week</span>
+
+        <span class="total">
+          1180 XP total
+        </span>
+
+        <span class="week">
+          380 XP this week
+        </span>
+
       </div>
+
     </div>
+
+    <!-- STATS -->
 
     <div class="stat-row">
+
       <div class="card stat-card">
-        <div class="stat-icon">⚡</div>
-        <div class="stat-value">5 days</div>
-        <div class="stat-label">Streak</div>
-        <div class="stat-sub">Keep it up!</div>
+
+        <div class="stat-icon">
+          ⚡
+        </div>
+
+        <div class="stat-value">
+          5 days
+        </div>
+
+        <div class="stat-label">
+          Streak
+        </div>
+
+        <div class="stat-sub">
+          Keep it up!
+        </div>
+
       </div>
+
       <div class="card stat-card">
-        <div class="stat-icon">🕐</div>
-        <div class="stat-value">47m</div>
-        <div class="stat-label">Today</div>
-        <div class="stat-sub">Study time</div>
+
+        <div class="stat-icon">
+          🕐
+        </div>
+
+        <div class="stat-value">
+          47m
+        </div>
+
+        <div class="stat-label">
+          Today
+        </div>
+
+        <div class="stat-sub">
+          Study time
+        </div>
+
       </div>
+
       <div class="card stat-card">
-        <div class="stat-icon">⚡</div>
-        <div class="stat-value">2</div>
-        <div class="stat-label">Sessions</div>
-        <div class="stat-sub">Focus sessions</div>
+
+        <div class="stat-icon">
+          ⚡
+        </div>
+
+        <div class="stat-value">
+          2
+        </div>
+
+        <div class="stat-label">
+          Sessions
+        </div>
+
+        <div class="stat-sub">
+          Focus sessions
+        </div>
+
       </div>
+
       <div class="card stat-card">
-        <div class="stat-icon">📝</div>
-        <div class="stat-value">4</div>
-        <div class="stat-label">Notes</div>
-        <div class="stat-sub">Created</div>
+
+        <div class="stat-icon">
+          📝
+        </div>
+
+        <div class="stat-value">
+          4
+        </div>
+
+        <div class="stat-label">
+          Notes
+        </div>
+
+        <div class="stat-sub">
+          Created
+        </div>
+
       </div>
+
     </div>
 
+    <!-- NOTES / UPCOMING -->
+
     <div class="two-col">
+
       <div class="card">
+
         <div class="card-head">
-          <h3>Recent Notes</h3>
-          <button class="link-btn">View all</button>
+
+          <h3>
+            Recent Notes
+          </h3>
+
+          <button class="link-btn">
+            View all
+          </button>
+
         </div>
+
         <div class="note-row">
+
           <div>
-            <div class="note-title">Cell Division</div>
-            <div class="note-sub">Biology &middot; 2026-09-12</div>
+
+            <div class="note-title">
+              Cell Division
+            </div>
+
+            <div class="note-sub">
+              Biology · 2026-09-12
+            </div>
+
           </div>
-          <div class="note-arrow">&#8594;</div>
+
+          <div class="note-arrow">
+            →
+          </div>
+
         </div>
+
         <div class="note-row">
+
           <div>
-            <div class="note-title">Quadratic Equations</div>
-            <div class="note-sub">Mathematics &middot; 2026-09-10</div>
+
+            <div class="note-title">
+              Quadratic Equations
+            </div>
+
+            <div class="note-sub">
+              Mathematics · 2026-09-10
+            </div>
+
           </div>
-          <div class="note-arrow">&#8594;</div>
+
+          <div class="note-arrow">
+            →
+          </div>
+
         </div>
+
         <div class="note-row">
+
           <div>
-            <div class="note-title">World War II — Causes</div>
-            <div class="note-sub">History &middot; 2026-09-08</div>
+
+            <div class="note-title">
+              World War II — Causes
+            </div>
+
+            <div class="note-sub">
+              History · 2026-09-08
+            </div>
+
           </div>
-          <div class="note-arrow">&#8594;</div>
+
+          <div class="note-arrow">
+            →
+          </div>
+
         </div>
+
       </div>
 
       <div class="card">
+
         <div class="card-head">
-          <h3>Upcoming</h3>
-          <button class="link-plain">Calendar</button>
+
+          <h3>
+            Upcoming
+          </h3>
+
+          <button class="link-plain">
+            Calendar
+          </button>
+
         </div>
+
         <div class="up-row">
-          <div class="up-bar" style="background:var(--green)"></div>
+
+          <div
+            class="up-bar"
+            style="background: var(--green);"
+          ></div>
+
           <div>
-            <div class="up-title">Group Study Session</div>
-            <div class="up-sub">2026-09-15 &middot; 18:00</div>
+
+            <div class="up-title">
+              Group Study Session
+            </div>
+
+            <div class="up-sub">
+              2026-09-15 · 18:00
+            </div>
+
           </div>
+
         </div>
+
         <div class="up-row">
-          <div class="up-bar" style="background:var(--red)"></div>
+
+          <div
+            class="up-bar"
+            style="background: var(--red);"
+          ></div>
+
           <div>
-            <div class="up-title">Biology Essay Due</div>
-            <div class="up-sub">2026-09-16 &middot; 23:59</div>
+
+            <div class="up-title">
+              Biology Essay Due
+            </div>
+
+            <div class="up-sub">
+              2026-09-16 · 23:59
+            </div>
+
           </div>
+
         </div>
+
         <div class="up-row">
-          <div class="up-bar" style="background:var(--red)"></div>
+
+          <div
+            class="up-bar"
+            style="background: var(--red);"
+          ></div>
+
           <div>
-            <div class="up-title">Mathematics Exam</div>
-            <div class="up-sub">2026-09-18 &middot; 09:00</div>
+
+            <div class="up-title">
+              Mathematics Exam
+            </div>
+
+            <div class="up-sub">
+              2026-09-18 · 09:00
+            </div>
+
           </div>
+
         </div>
+
       </div>
+
     </div>
 
+    <!-- QUIZ / FRIENDS -->
+
     <div class="two-col">
+
       <div class="card">
+
         <div class="card-head">
-          <h3>Last Quiz</h3>
-          <button class="link-plain">All quizzes</button>
+
+          <h3>
+            Last Quiz
+          </h3>
+
+          <button class="link-plain">
+            All quizzes
+          </button>
+
         </div>
-        <div class="quiz-name">Biology Basics</div>
+
+        <div class="quiz-name">
+          Biology Basics
+        </div>
+
         <div class="quiz-stats">
+
           <div>
-            <div class="quiz-score">3/4</div>
-            <div class="quiz-label">Score</div>
+
+            <div class="quiz-score">
+              3/4
+            </div>
+
+            <div class="quiz-label">
+              Score
+            </div>
+
           </div>
+
           <div>
-            <div class="quiz-xp">+60 XP</div>
-            <div class="quiz-label">Earned</div>
+
+            <div class="quiz-xp">
+              +60 XP
+            </div>
+
+            <div class="quiz-label">
+              Earned
+            </div>
+
           </div>
+
         </div>
+
       </div>
 
       <div class="card">
+
         <div class="card-head">
-          <h3>Friends Studying</h3>
-          <button class="link-plain">View all</button>
+
+          <h3>
+            Friends Studying
+          </h3>
+
+          <button class="link-plain">
+            View all
+          </button>
+
         </div>
+
         <div class="friend-row">
-          <div class="avatar">S</div>
-          <div>
-            <div class="friend-name">Sarah</div>
-            <div class="friend-status">Studying now</div>
+
+          <div class="avatar">
+            S
           </div>
+
+          <div>
+
+            <div class="friend-name">
+              Sarah
+            </div>
+
+            <div class="friend-status">
+              Studying now
+            </div>
+
+          </div>
+
         </div>
+
       </div>
+
     </div>
 
-    <div class="qa-label">Quick Actions</div>
-    <div class="qa-row">
-      <div class="card qa-btn">
-        <div class="qa-icon">📄</div>
-        <span>New Note</span>
-      </div>
-      <div class="card qa-btn">
-        <div class="qa-icon">🧠</div>
-        <span>Start Quiz</span>
-      </div>
-      <div class="card qa-btn">
-        <div class="qa-icon">🕐</div>
-        <span>Start Timer</span>
-      </div>
-      <div class="card qa-btn">
-        <div class="qa-icon">⚡</div>
-        <span>Listen</span>
-      </div>
+    <!-- QUICK ACTIONS -->
+
+    <div class="qa-label">
+      Quick Actions
     </div>
+
+    <div class="qa-row">
+
+      <div class="card qa-btn">
+
+        <div class="qa-icon">
+          📄
+        </div>
+
+        <span>
+          New Note
+        </span>
+
+      </div>
+
+      <div class="card qa-btn">
+
+        <div class="qa-icon">
+          🧠
+        </div>
+
+        <span>
+          Start Quiz
+        </span>
+
+      </div>
+
+      <div class="card qa-btn">
+
+        <div class="qa-icon">
+          🕐
+        </div>
+
+        <span>
+          Start Timer
+        </span>
+
+      </div>
+
+      <div class="card qa-btn">
+
+        <div class="qa-icon">
+          ⚡
+        </div>
+
+        <span>
+          Listen
+        </span>
+
+      </div>
+
+    </div>
+
   </main>
+
+<script>
+  function activateNav(element) {
+    document
+      .querySelectorAll(".nav-item")
+      .forEach((item) => {
+        item.classList.remove("active");
+      });
+
+    element.classList.add("active");
+  }
+</script>
 
 </body>
 </html>
