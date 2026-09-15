@@ -1,24 +1,6 @@
-﻿import { createFileRoute, redirect } from "@tanstack/react-router";
-import { supabase } from "@/integrations/supabase/client";
+﻿import { createFileRoute } from "@tanstack/react-router";
+import { LandingPage } from "@/components/kelly/landing/landing-page";
 
 export const Route = createFileRoute("/")({
-  ssr: false,
-
-  beforeLoad: async () => {
-    const { data } = await supabase.auth.getUser();
-
-    if (data.user) {
-      throw redirect({
-        to: "/dashboard",
-        replace: true,
-      });
-    }
-
-    throw redirect({
-      to: "/auth",
-      replace: true,
-    });
-  },
-
-  component: () => null,
+  component: LandingPage,
 });
