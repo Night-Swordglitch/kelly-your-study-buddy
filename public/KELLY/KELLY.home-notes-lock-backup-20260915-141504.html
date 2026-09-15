@@ -3562,9 +3562,39 @@ body {
 
 
 
+<script id="kelly-static-app-lock">
+(function () {
+    document.addEventListener("click", function (event) {
+        const app = event.target.closest("#view-app");
 
-<script id="kelly-static-app-lock"> (function () { document.addEventListener("click", function (event) { const app = event.target.closest("#view-app"); if (!app) { return; } const sideLink = event.target.closest(".side-link"); const activeNotesPage = app.querySelector("#page-notes.active"); const activeHomePage = app.querySelector("#page-home.active"); if (sideLink) { const page = sideLink.getAttribute("data-page"); if (page === "home" || page === "notes") { return; } event.preventDefault(); event.stopImmediatePropagation(); return; } if (activeNotesPage || activeHomePage) { return; } event.preventDefault(); event.stopImmediatePropagation(); }, true); })(); </script>
+        if (!app) {
+            return;
+        }
 
+        const sideLink = event.target.closest(".side-link");
+        const activeNotesPage = app.querySelector("#page-notes.active");
+
+        if (sideLink) {
+            const page = sideLink.getAttribute("data-page");
+
+            if (page === "notes") {
+                return;
+            }
+
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            return;
+        }
+
+        if (activeNotesPage) {
+            return;
+        }
+
+        event.preventDefault();
+        event.stopImmediatePropagation();
+    }, true);
+})();
+</script>
 <script id="kelly-notes-controller">
 (function () {
     const notes = [
@@ -3663,7 +3693,6 @@ body {
 </script>
 </body>
 </html>
-
 
 
 
