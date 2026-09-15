@@ -141,7 +141,7 @@ export const Route =
 
         {
           rel: "icon",
-          href: "/favicon.png",
+          href: "/favicon.png?v=3",
           type: "image/png",
         },
       ],
