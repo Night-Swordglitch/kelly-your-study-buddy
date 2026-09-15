@@ -1,5 +1,35 @@
 ﻿import { useLocation, useNavigate } from "@tanstack/react-router";
+import { createClient } from "@supabase/supabase-js";
 import { useEffect, useRef } from "react";
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error(
+    "Missing VITE_SUPABASE_URL or VITE_SUPABASE_PUBLISHABLE_KEY.",
+  );
+}
+
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+declare global {
+  interface Window {
+    KellyAuth?: {
+      login: (
+        email: string,
+        password: string,
+      ) => Promise<{ error: string | null }>;
+      signup: (
+        name: string,
+        email: string,
+        password: string,
+      ) => Promise<{ error: string | null; session: boolean }>;
+      logout: () => Promise<void>;
+      getSession: () => Promise<{ session: unknown }>;
+    };
+  }
+}
 
 const VALID_PAGES = [
   "home",
@@ -30,6 +60,50 @@ function pathToPage(pathname: string): KellyPage {
   return "home";
 }
 
+function setupKellyAuthBridge() {
+  window.KellyAuth = {
+    async login(email, password) {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      return {
+        error: error?.message ?? null,
+      };
+    },
+
+    async signup(name, email, password) {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            display_name: name,
+          },
+        },
+      });
+
+      return {
+        error: error?.message ?? null,
+        session: Boolean(data.session),
+      };
+    },
+
+    async logout() {
+      await supabase.auth.signOut();
+    },
+
+    async getSession() {
+      const { data } = await supabase.auth.getSession();
+
+      return {
+        session: data.session,
+      };
+    },
+  };
+}
+
 export function KellyIframe() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -38,9 +112,15 @@ export function KellyIframe() {
   const page = pathToPage(location.pathname);
 
   useEffect(() => {
+    setupKellyAuthBridge();
+  }, []);
+
+  useEffect(() => {
     const iframe = iframeRef.current;
 
-    if (!iframe) return;
+    if (!iframe) {
+      return;
+    }
 
     const sendPage = () => {
       iframe.contentWindow?.postMessage(
@@ -61,7 +141,7 @@ export function KellyIframe() {
   }, [page]);
 
   useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
+    const handleKellyNavigation = (event: MessageEvent) => {
       if (event.origin !== window.location.origin) {
         return;
       }
@@ -97,10 +177,10 @@ export function KellyIframe() {
       }
     };
 
-    window.addEventListener("message", handleMessage);
+    window.addEventListener("message", handleKellyNavigation);
 
     return () => {
-      window.removeEventListener("message", handleMessage);
+      window.removeEventListener("message", handleKellyNavigation);
     };
   }, [location.pathname, navigate]);
 

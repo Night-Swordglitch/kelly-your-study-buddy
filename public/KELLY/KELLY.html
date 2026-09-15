@@ -1425,9 +1425,11 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
   color: #e8e7ef !important;
 }
 
-#view-app .side-link.active {
+#view-app .side-link.active,
+#view-app:has(#page-home.active) .sidebar-logo {
   background: rgba(139, 92, 246, 0.12) !important;
   color: #b49cff !important;
+  border-radius: 9px !important;
 }
 
 #view-app .sidebar-kelly {
