@@ -58,11 +58,24 @@
       }
     });
 
+    // Startup decision is complete. Reveal the selected KELLY view.
+    document.body.classList.remove("kelly-startup-pending");
+
     document.querySelectorAll(".side-link").forEach((link) => {
       const target = link.dataset.page;
 
       link.classList.toggle("active", target === pageId);
     });
+
+    // Persist the current KELLY page so a browser/iframe reload
+    // can restore the user to the same place.
+    if (APP_PAGES.includes(pageId)) {
+      try {
+        localStorage.setItem("kelly:last-page", pageId);
+      } catch (error) {
+        console.warn("[KELLY] Could not save last page:", error);
+      }
+    }
 
     window.scrollTo({
       top: 0,
@@ -547,8 +560,64 @@ window.handleGoogleAuth = function () {
   // INITIAL STATE
   // ─────────────────────────────────────────────
 
-  document.addEventListener("DOMContentLoaded", () => {
-    showRoot("view-landing");
+  document.addEventListener("DOMContentLoaded", async () => {
+    // KELLY runs inside the React iframe. The parent creates
+    // window.KellyAuth from React's useEffect, so on a full browser
+    // refresh the iframe can sometimes load slightly before the
+    // bridge exists. Wait briefly for the bridge before deciding
+    // that the user is logged out.
+    let session = null;
+    let authBridge = null;
+
+    for (let attempt = 0; attempt < 50; attempt++) {
+      try {
+        if (
+          window.parent &&
+          window.parent.KellyAuth &&
+          typeof window.parent.KellyAuth.getSession === "function"
+        ) {
+          authBridge = window.parent.KellyAuth;
+          break;
+        }
+      } catch (error) {
+        // Parent bridge is not ready yet.
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
+
+    if (authBridge) {
+      try {
+        const result = await authBridge.getSession();
+        session = result?.session || null;
+      } catch (error) {
+        console.warn("[KELLY] Session restore check failed:", error);
+      }
+    } else {
+      console.warn("[KELLY] Authentication bridge did not become ready.");
+    }
+
+    if (session) {
+      let lastPage = "home";
+
+      try {
+        const savedPage = localStorage.getItem("kelly:last-page");
+
+        if (savedPage && APP_PAGES.includes(savedPage)) {
+          lastPage = savedPage;
+        }
+      } catch (error) {
+        console.warn("[KELLY] Could not read last page:", error);
+      }
+
+      showRoot("view-app");
+      showPage(lastPage);
+    } else {
+      showRoot("view-landing");
+    }
+
+    // Startup decision is complete. Reveal the selected KELLY view.
+    document.body.classList.remove("kelly-startup-pending");
 
     document.querySelectorAll(".side-link").forEach((link) => {
       link.addEventListener("click", (event) => {
@@ -592,3 +661,6 @@ window.handleGoogleAuth = function () {
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',render);
   else render();
 })();
+
+
+
