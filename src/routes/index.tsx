@@ -1,5 +1,6 @@
 ﻿import { createFileRoute } from "@tanstack/react-router";
 import { createClient } from "@supabase/supabase-js";
+import { useEffect } from "react";
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
@@ -80,7 +81,9 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  setupKellyAuthBridge();
+  useEffect(() => {
+    setupKellyAuthBridge();
+  }, []);
 
   return (
     <div
