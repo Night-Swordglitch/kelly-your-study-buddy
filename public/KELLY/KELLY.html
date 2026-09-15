@@ -5059,3 +5059,185 @@ body {
 </style>
 
 
+
+
+<style id="kelly-sidebar-spec-final">
+
+/* ============================================================
+   LOGO — 36px PURPLE ROUNDED SQUARE + CAT
+   ============================================================ */
+
+#view-app .sidebar-logo {
+  display: flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+  padding: 6px 7px 18px !important;
+}
+
+#view-app .sidebar-logo .kelly-mount {
+  width: 36px !important;
+  height: 36px !important;
+  min-width: 36px !important;
+  max-width: 36px !important;
+  border-radius: 10px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  background: rgba(139, 92, 246, 0.18) !important;
+  border: 1px solid rgba(139, 92, 246, 0.28) !important;
+
+  position: relative !important;
+  overflow: hidden !important;
+
+  font-size: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Hide the existing KELLY creature rendering inside the logo mount */
+#view-app .sidebar-logo .kelly-mount > * {
+  display: none !important;
+}
+
+/* Cat icon */
+#view-app .sidebar-logo .kelly-mount::after {
+  content: "🐱" !important;
+  display: block !important;
+  font-size: 18px !important;
+  line-height: 1 !important;
+}
+
+/* KELLY wordmark */
+#view-app .sidebar-logo .logo-word {
+  color: #f8f7fb !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  letter-spacing: .02em !important;
+}
+
+
+/* ============================================================
+   NAV ICONS — MUTED PURPLE/GRAY OUTLINE
+   ============================================================ */
+
+#view-app .side-link {
+  color: #878793 !important;
+  font-weight: 600 !important;
+}
+
+#view-app .side-link .sl-icon {
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  color: #87809f !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Existing SVG icon system */
+#view-app .side-link .sl-icon svg {
+  width: 17px !important;
+  height: 17px !important;
+  stroke: currentColor !important;
+  fill: none !important;
+  stroke-width: 1.8 !important;
+}
+
+/* Make any icon paths outline-only */
+#view-app .side-link .sl-icon svg *,
+#view-app .side-link .sl-icon path,
+#view-app .side-link .sl-icon line,
+#view-app .side-link .sl-icon polyline,
+#view-app .side-link .sl-icon polygon,
+#view-app .side-link .sl-icon circle,
+#view-app .side-link .sl-icon rect {
+  fill: none !important;
+  stroke: currentColor !important;
+}
+
+
+/* ============================================================
+   ACTIVE NAV — WHITE ICON + WHITE TEXT
+   ============================================================ */
+
+#view-app .side-link.active {
+  background: rgba(139, 92, 246, 0.18) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+#view-app .side-link.active .sl-icon {
+  color: #ffffff !important;
+}
+
+#view-app .side-link.active .sl-icon svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+#view-app .side-link.active .sl-icon svg *,
+#view-app .side-link.active .sl-icon path,
+#view-app .side-link.active .sl-icon line,
+#view-app .side-link.active .sl-icon polyline,
+#view-app .side-link.active .sl-icon polygon,
+#view-app .side-link.active .sl-icon circle,
+#view-app .side-link.active .sl-icon rect {
+  stroke: #ffffff !important;
+  fill: none !important;
+}
+
+
+/* ============================================================
+   HOVER — KEEP MUTED UNTIL ACTIVE
+   ============================================================ */
+
+#view-app .side-link:hover {
+  background: #15151d !important;
+  color: #e8e7ef !important;
+}
+
+#view-app .side-link:hover .sl-icon {
+  color: #aaa4bf !important;
+}
+
+
+/* ============================================================
+   SETTINGS — SAME ICON TREATMENT
+   ============================================================ */
+
+#view-app .side-nav-bottom .side-link {
+  color: #878793 !important;
+}
+
+#view-app .side-nav-bottom .side-link .sl-icon {
+  color: #87809f !important;
+}
+
+#view-app .side-nav-bottom .side-link.active {
+  background: rgba(139, 92, 246, 0.18) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+#view-app .side-nav-bottom .side-link.active .sl-icon {
+  color: #ffffff !important;
+}
+
+
+/* ============================================================
+   IMPORTANT — DO NOT CHANGE THE XP ROW / DIVIDER
+   ============================================================ */
+
+#view-app .sidebar-level {
+  /* preserve existing XP row layout */
+}
+
+#view-app .sidebar-xp-track {
+  /* preserve existing progress bar */
+}
+
+</style>
+
+

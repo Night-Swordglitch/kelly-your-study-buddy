@@ -570,3 +570,25 @@ window.handleGoogleAuth = function () {
 
 })();
 
+/* KELLY_SVG_ICON_RENDERER */
+(function(){
+  var icons={
+    home:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-7h6v7"/></svg>',
+    book:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M4 4.5v17"/><path d="M8 6h8"/><path d="M8 10h8"/></svg>',
+    mic:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="2.5" width="8" height="13" rx="4"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v4"/><path d="M8 22h8"/></svg>',
+    brain:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4.5A3.5 3.5 0 0 0 5.5 8c0 .5.1 1 .3 1.4A4 4 0 0 0 6 17a3.5 3.5 0 0 0 3 3.5"/><path d="M15 4.5A3.5 3.5 0 0 1 18.5 8c0 .5-.1 1-.3 1.4A4 4 0 0 1 18 17a3.5 3.5 0 0 1-3 3.5"/><path d="M9 4.5V20.5"/><path d="M15 4.5V20.5"/><path d="M9 9h3"/><path d="M15 14h-3"/></svg>',
+    gamepad:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 8h11a4.5 4.5 0 0 1 4.3 5.8l-1.2 4A3 3 0 0 1 15 19l-3-2H12l-3 2a3 3 0 0 1-5.6-1.2l-1.2-4A4.5 4.5 0 0 1 6.5 8z"/><path d="M7 11v4"/><path d="M5 13h4"/><path d="M16 12h.01"/><path d="M19 14h.01"/></svg>',
+    users:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.5"/><path d="M15.5 14.5a5 5 0 0 1 6 5.5"/></svg>',
+    clock:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/><path d="M9 2h6"/></svg>',
+    calendar:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/><path d="M7 14h.01M12 14h.01M17 14h.01M7 18h.01M12 18h.01"/></svg>',
+    settings:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/><path d="m19 13.5 1.5 1-.1 1.8-1.8.9-.3 1.8-1.7.8-1.5-1-1.7.6-.7 1.7h-1.8l-.8-1.7-1.7-.6-1.5 1-1.7-.8-.3-1.8-1.8-.9-.1-1.8 1.5-1-.2-1.8-1.3-1.2.7-1.7 2-.2.8-1.6 1.8.1.9 1.5 1.8-.1 1.1-1.4 1.7.5.3 1.8 1.6.8 1.8-.6 1.3 1.2-.7 1.7.7 1.7z"/></svg>'
+  };
+  function render(){
+    document.querySelectorAll('.sl-icon[data-icon]').forEach(function(el){
+      var key=el.getAttribute('data-icon');
+      if(icons[key]) el.innerHTML=icons[key];
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',render);
+  else render();
+})();
