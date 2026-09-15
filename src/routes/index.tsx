@@ -1,118 +1,119 @@
-﻿import { createFileRoute } from "@tanstack/react-router";
-import { createClient } from "@supabase/supabase-js";
+﻿import { createFileRoute, Link } from "@tanstack/react-router";
+import {
+  ArrowRight,
+  BookOpen,
+  Brain,
+  Sparkles,
+} from "lucide-react";
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-
-if (!supabaseUrl || !supabaseKey) {
-  throw new Error("Missing VITE_SUPABASE_URL or VITE_SUPABASE_PUBLISHABLE_KEY.");
-}
-
-const supabase = createClient(supabaseUrl, supabaseKey);
-
-declare global {
-  interface Window {
-    KellyAuth?: {
-      login: (email: string, password: string) => Promise<{
-        error: string | null;
-      }>;
-
-      signup: (
-        name: string,
-        email: string,
-        password: string
-      ) => Promise<{
-        error: string | null;
-        session: boolean;
-      }>;
-
-      logout: () => Promise<void>;
-
-      getSession: () => Promise<{
-        session: unknown;
-      }>;
-    };
-  }
-}
-
-function setupKellyAuthBridge() {
-  window.KellyAuth = {
-    async login(email, password) {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      return {
-        error: error?.message ?? null,
-      };
-    },
-
-    async signup(name, email, password) {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            display_name: name,
-          },
-        },
-      });
-
-      return {
-        error: error?.message ?? null,
-        session: Boolean(data.session),
-      };
-    },
-
-    async logout() {
-      await supabase.auth.signOut();
-    },
-
-    async getSession() {
-      const { data } = await supabase.auth.getSession();
-
-      return {
-        session: data.session,
-      };
-    },
-  };
-}
+import { KellyAvatar } from "@/components/kelly/kelly-avatar";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
 function Index() {
-  setupKellyAuthBridge();
-
   return (
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        width: "100vw",
-        height: "100vh",
-        margin: 0,
-        padding: 0,
-        overflow: "hidden",
-        background: "#0a0a0f",
-      }}
-    >
-      <iframe
-        src="/KELLY/KELLY.html"
-        title="Kelly"
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100%",
-          height: "100%",
-          margin: 0,
-          padding: 0,
-          border: "none",
-          display: "block",
-        }}
-      />
-    </div>
+    <main className="kelly-landing">
+      <div className="kelly-landing-orb kelly-landing-orb-one" />
+      <div className="kelly-landing-orb kelly-landing-orb-two" />
+      <div className="kelly-landing-grid" />
+
+      <nav className="kelly-landing-nav">
+        <Link to="/" className="kelly-landing-brand">
+          <span className="kelly-landing-brand-mark">
+            <KellyAvatar size="sm" />
+          </span>
+
+          <span>
+            <strong>KELLY</strong>
+            <small>Study companion</small>
+          </span>
+        </Link>
+
+        <Link
+          to="/auth"
+          className="kelly-landing-login"
+        >
+          Log in
+        </Link>
+      </nav>
+
+      <section className="kelly-landing-hero">
+
+        <div className="kelly-landing-copy">
+
+          <div className="kelly-landing-pill">
+            <Sparkles />
+            Your study companion
+          </div>
+
+          <h1>
+            Study smarter.
+            <br />
+            <span>With KELLY.</span>
+          </h1>
+
+          <p>
+            Stay organised, understand difficult topics,
+            and build better study habits with a companion
+            that remembers what matters.
+          </p>
+
+          <div className="kelly-landing-actions">
+
+            <Link
+              to="/auth"
+              className="kelly-landing-primary"
+            >
+              Get started
+              <ArrowRight />
+            </Link>
+
+            <Link
+              to="/auth"
+              className="kelly-landing-secondary"
+            >
+              I already have an account
+            </Link>
+
+          </div>
+
+        </div>
+
+        <div className="kelly-landing-character">
+
+          <div className="kelly-landing-glow" />
+
+          <div className="kelly-landing-ring ring-one" />
+          <div className="kelly-landing-ring ring-two" />
+
+          <div className="kelly-landing-character-card">
+            <KellyAvatar
+              mood="happy"
+              size="lg"
+            />
+          </div>
+
+          <div className="kelly-landing-floating-card floating-one">
+            <BookOpen />
+            <span>
+              <strong>Study</strong>
+              Guided sessions
+            </span>
+          </div>
+
+          <div className="kelly-landing-floating-card floating-two">
+            <Brain />
+            <span>
+              <strong>Learn</strong>
+              Remember more
+            </span>
+          </div>
+
+        </div>
+
+      </section>
+    </main>
   );
 }

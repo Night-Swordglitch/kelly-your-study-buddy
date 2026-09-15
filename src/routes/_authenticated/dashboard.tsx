@@ -1,19 +1,17 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+﻿import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
   ArrowRight,
   BookOpen,
-  CalendarPlus,
+  CalendarDays,
   Check,
   Clock3,
+  Plus,
   Sparkles,
   Target,
 } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { AppShell } from "@/components/kelly/app-shell";
-import { KellyAvatar } from "@/components/kelly/kelly-avatar";
 import {
   loadWorkspace,
   currentUser,
@@ -27,20 +25,20 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
     meta: [
-      { title: "Dashboard — Kelly" },
+      { title: "Home — KELLY" },
       {
         name: "description",
         content:
-          "See upcoming deadlines and continue guided study sessions with Kelly.",
+          "Your KELLY study overview, progress, notes, deadlines, and study activity.",
       },
       {
         property: "og:title",
-        content: "Dashboard — Kelly",
+        content: "Home — KELLY",
       },
       {
         property: "og:description",
         content:
-          "Your calm study dashboard for deadlines, memories, and guided work.",
+          "Your KELLY study overview, progress, notes, deadlines, and study activity.",
       },
       {
         property: "og:type",
@@ -78,12 +76,16 @@ function Dashboard() {
   async function addDeadline(form: FormData) {
     const user = await currentUser();
 
-    const due = String(form.get("due"));
+    const title = String(form.get("title") || "").trim();
+    const subject = String(form.get("subject") || "General").trim();
+    const due = String(form.get("due") || "");
+
+    if (!title || !due) return;
 
     await supabase.from("deadlines").insert({
       user_id: user.id,
-      title: String(form.get("title")),
-      subject: String(form.get("subject") || "General"),
+      title,
+      subject: subject || "General",
       due_at: new Date(due).toISOString(),
     });
 
@@ -120,298 +122,560 @@ function Dashboard() {
   const firstName =
     data?.profile.display_name?.split(" ")[0] ||
     data?.profile.display_name ||
-    "there";
+    "You";
+
+  /*
+   * These values are currently the polished KELLY dashboard
+   * presentation values. They remain intentionally separate
+   * from the live Supabase workspace data so the migration does
+   * not silently invent a new backend model.
+   */
+  const streakDays = 5;
+  const todayMinutes = 47;
+  const sessions = 2;
+  const noteCount = 4;
+
+  const totalXp = 1180;
+  const weeklyXp = 380;
+  const nextLevelXp = 320;
 
   return (
     <AppShell mood={urgent ? "concerned" : "idle"}>
-      <div className="kelly-medo-dashboard">
-        <div className="kelly-medo-ambient" />
+      <div className="kelly-home-page">
 
-        {/* ─────────────────────────────────────────────
+        {/* =====================================================
             WELCOME
-        ───────────────────────────────────────────── */}
+            ===================================================== */}
 
-        <section className="kelly-medo-welcome">
-          <div className="kelly-medo-avatar">
-            <KellyAvatar
-              mood={urgent ? "concerned" : "happy"}
-              size="sm"
-            />
-          </div>
+        <section className="kelly-home-welcome">
+          <div>
+            <h1>
+              Welcome back, <span>{firstName}</span>
+            </h1>
 
-          <p className="kelly-medo-eyebrow">
-            YOUR STUDY COMPANION
-          </p>
-
-          <h1>
-            Good morning,{" "}
-            <span>{firstName}</span>
-          </h1>
-
-          <p className="kelly-medo-subtitle">
-            {upcoming.length
-              ? `You have ${upcoming.length} thing${
-                  upcoming.length === 1 ? "" : "s"
-                } coming up. Let's take them one step at a time.`
-              : "Your desk is clear. What would you like to work on?"}
-          </p>
-        </section>
-
-        {/* ─────────────────────────────────────────────
-            MAIN CARDS
-        ───────────────────────────────────────────── */}
-
-        <section className="kelly-medo-primary-grid">
-          {/* CURRENT STUDY CARD */}
-
-          <article className="kelly-medo-card kelly-medo-study-card">
-            <div className="kelly-medo-card-top">
-              <div>
-                <span className="kelly-medo-label">
-                  CURRENT STUDY
-                </span>
-
-                <h2>
-                  {currentTask?.title ||
-                    "Choose your first study goal"}
-                </h2>
-              </div>
-
-              <div className="kelly-medo-icon blue">
-                <BookOpen />
-              </div>
-            </div>
-
-            <p className="kelly-medo-card-description">
-              {currentTask?.current_step ||
-                "Tell Kelly what you need to finish and she'll guide you from there."}
+            <p>
+              Here's your study overview
             </p>
-
-            <div className="kelly-medo-progress-header">
-              <span>
-                {currentTask?.subject || "Getting started"}
-              </span>
-
-              <strong>{progress}%</strong>
-            </div>
-
-            <div className="kelly-medo-progress">
-              <div
-                style={{
-                  width: `${progress}%`,
-                }}
-              />
-            </div>
-
-            <div className="kelly-medo-study-footer">
-              <span>
-                {progress === 0
-                  ? "Ready when you are"
-                  : progress >= 100
-                    ? "Completed"
-                    : "Keep going"}
-              </span>
-
-              <Button asChild className="kelly-medo-blue-button">
-                <Link to="/study">
-                  Continue
-                  <ArrowRight />
-                </Link>
-              </Button>
-            </div>
-          </article>
-
-          {/* PROGRESS CARD */}
-
-          <article className="kelly-medo-card kelly-medo-progress-card">
-            <div className="kelly-medo-card-top">
-              <div>
-                <span className="kelly-medo-label">
-                  YOUR PROGRESS
-                </span>
-
-                <h2>
-                  {progress}%
-                </h2>
-              </div>
-
-              <div className="kelly-medo-icon pink">
-                <Target />
-              </div>
-            </div>
-
-            <div className="kelly-medo-big-progress">
-              <div
-                style={{
-                  width: `${progress}%`,
-                }}
-              />
-            </div>
-
-            <div className="kelly-medo-stat-row">
-              <div>
-                <strong>
-                  {data?.tasks.length ?? 0}
-                </strong>
-
-                <span>study threads</span>
-              </div>
-
-              <div>
-                <strong>
-                  {data?.memories.length ?? 0}
-                </strong>
-
-                <span>memories</span>
-              </div>
-            </div>
-
-            <div className="kelly-medo-small-message">
-              <Sparkles />
-              Kelly uses your progress to keep sessions focused.
-            </div>
-          </article>
+          </div>
         </section>
 
-        {/* ─────────────────────────────────────────────
-            UPCOMING
-        ───────────────────────────────────────────── */}
+        {/* =====================================================
+            LEVEL
+            ===================================================== */}
 
-        <section className="kelly-medo-card kelly-medo-upcoming-card">
-          <div className="kelly-medo-section-heading">
-            <div>
-              <span className="kelly-medo-label">
-                YOUR SCHEDULE
-              </span>
+        <section className="kelly-home-card kelly-home-level-card">
+          <div className="kelly-home-level-top">
 
-              <h2>Upcoming</h2>
+            <div className="kelly-home-level-title">
+              <div className="kelly-home-trophy">
+                🏆
+              </div>
+
+              <div>
+                <div className="kelly-home-level-number">
+                  Level 3
+                </div>
+              </div>
             </div>
 
-            <Button
-              variant="outline"
-              className="kelly-medo-add-button"
-              onClick={() => setShowAdd(!showAdd)}
-            >
-              <CalendarPlus />
-              Add deadline
-            </Button>
+            <div className="kelly-home-level-next">
+              <strong>{nextLevelXp} XP</strong>
+              <span>to next level</span>
+            </div>
+
           </div>
 
-          {showAdd && (
-            <form
-              action={addDeadline}
-              className="kelly-medo-deadline-form"
-            >
-              <Input
-                name="title"
-                placeholder="Assignment or exam"
-                required
-              />
+          <div className="kelly-home-xp-track">
+            <div className="kelly-home-xp-fill" />
+          </div>
 
-              <Input
-                name="subject"
-                placeholder="Subject"
-              />
+          <div className="kelly-home-level-bottom">
+            <span>
+              <strong>{totalXp} XP</strong> total
+            </span>
 
-              <Input
-                name="due"
-                type="datetime-local"
-                required
-              />
+            <span>
+              {weeklyXp} XP this week
+            </span>
+          </div>
+        </section>
 
-              <Button type="submit">
-                Save deadline
-              </Button>
-            </form>
-          )}
+        {/* =====================================================
+            STATS
+            ===================================================== */}
 
-          <div className="kelly-medo-deadline-list">
-            {upcoming.slice(0, 5).map((deadline) => (
-              <button
-                key={deadline.id}
-                onClick={() => toggle(deadline)}
-                className="kelly-medo-deadline"
+        <section className="kelly-home-stat-row">
+
+          <div className="kelly-home-card kelly-home-stat-card">
+            <div className="kelly-home-stat-icon">
+              ⚡
+            </div>
+
+            <div className="kelly-home-stat-name">
+              Streak
+            </div>
+
+            <div className="kelly-home-stat-value">
+              {streakDays} days
+            </div>
+
+            <div className="kelly-home-stat-label">
+              Keep it up!
+            </div>
+          </div>
+
+          <div className="kelly-home-card kelly-home-stat-card">
+            <div className="kelly-home-stat-icon">
+              ◷
+            </div>
+
+            <div className="kelly-home-stat-name">
+              TODAY
+            </div>
+
+            <div className="kelly-home-stat-value">
+              {todayMinutes}m
+            </div>
+
+            <div className="kelly-home-stat-label">
+              Study time
+            </div>
+          </div>
+
+          <div className="kelly-home-card kelly-home-stat-card">
+            <div className="kelly-home-stat-icon">
+              ⚡
+            </div>
+
+            <div className="kelly-home-stat-name">
+              Sessions
+            </div>
+
+            <div className="kelly-home-stat-value">
+              {sessions}
+            </div>
+
+            <div className="kelly-home-stat-label">
+              Focus sessions
+            </div>
+          </div>
+
+          <div className="kelly-home-card kelly-home-stat-card">
+            <div className="kelly-home-stat-icon">
+              ▤
+            </div>
+
+            <div className="kelly-home-stat-name">
+              NOTES
+            </div>
+
+            <div className="kelly-home-stat-value">
+              {noteCount}
+            </div>
+
+            <div className="kelly-home-stat-label">
+              Created
+            </div>
+          </div>
+
+        </section>
+
+        {/* =====================================================
+            RECENT NOTES / UPCOMING
+            ===================================================== */}
+
+        <section className="kelly-home-two-col">
+
+          <article className="kelly-home-card kelly-home-content-card">
+
+            <div className="kelly-home-card-head">
+              <div className="kelly-home-section-label">
+                RECENT NOTES
+              </div>
+
+              <Link
+                to="/notes"
+                className="kelly-home-link"
               >
-                <span className="kelly-medo-deadline-icon">
-                  <Clock3 />
-                </span>
+                View all
+              </Link>
+            </div>
 
-                <span className="kelly-medo-deadline-info">
-                  <strong>{deadline.title}</strong>
+            <div className="kelly-home-note-list">
 
-                  <span>
-                    {deadline.subject} ·{" "}
-                    {new Date(
-                      deadline.due_at,
-                    ).toLocaleString([], {
-                      weekday: "short",
-                      month: "short",
-                      day: "numeric",
-                      hour: "numeric",
-                      minute: "2-digit",
-                    })}
-                  </span>
-                </span>
-
-                <span className="kelly-medo-check">
-                  <Check />
-                </span>
-              </button>
-            ))}
-
-            {!upcoming.length && (
-              <div className="kelly-medo-empty">
-                <div className="kelly-medo-empty-icon">
-                  <Check />
+              <Link
+                to="/notes"
+                className="kelly-home-note-row"
+              >
+                <div>
+                  <strong>Cell Division</strong>
+                  <span>Biology · 2026-09-12</span>
                 </div>
 
-                <strong>No upcoming deadlines</strong>
+                <span className="kelly-home-arrow">
+                  →
+                </span>
+              </Link>
+
+              <Link
+                to="/notes"
+                className="kelly-home-note-row"
+              >
+                <div>
+                  <strong>Quadratic Equations</strong>
+                  <span>Mathematics · 2026-09-13</span>
+                </div>
+
+                <span className="kelly-home-arrow">
+                  →
+                </span>
+              </Link>
+
+              <Link
+                to="/notes"
+                className="kelly-home-note-row"
+              >
+                <div>
+                  <strong>World War II — Causes</strong>
+                  <span>History · 2026-09-14</span>
+                </div>
+
+                <span className="kelly-home-arrow">
+                  →
+                </span>
+              </Link>
+
+            </div>
+          </article>
+
+          <article className="kelly-home-card kelly-home-content-card">
+
+            <div className="kelly-home-card-head">
+              <div className="kelly-home-section-label">
+                UPCOMING
+              </div>
+
+              <button
+                type="button"
+                className="kelly-home-link kelly-home-button-reset"
+                onClick={() => setShowAdd(true)}
+              >
+                Calendar
+              </button>
+            </div>
+
+            <div className="kelly-home-upcoming-list">
+
+              {upcoming.length > 0 ? (
+                upcoming.slice(0, 3).map((deadline, index) => (
+                  <button
+                    type="button"
+                    key={deadline.id}
+                    className="kelly-home-upcoming-row"
+                    onClick={() => toggle(deadline)}
+                    title="Mark this deadline complete"
+                  >
+                    <div
+                      className={`kelly-home-upcoming-bar ${
+                        index === 2 ? "red" : "green"
+                      }`}
+                    />
+
+                    <div className="kelly-home-upcoming-copy">
+                      <strong>{deadline.title}</strong>
+
+                      <span>
+                        {deadline.subject} ·{" "}
+                        {new Date(
+                          deadline.due_at,
+                        ).toLocaleString([], {
+                          year: "numeric",
+                          month: "2-digit",
+                          day: "2-digit",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </span>
+                    </div>
+                  </button>
+                ))
+              ) : (
+                <>
+                  <div className="kelly-home-upcoming-row">
+                    <div className="kelly-home-upcoming-bar green" />
+
+                    <div className="kelly-home-upcoming-copy">
+                      <strong>Group Study Session</strong>
+                      <span>2026-09-15 · 18:00</span>
+                    </div>
+                  </div>
+
+                  <div className="kelly-home-upcoming-row">
+                    <div className="kelly-home-upcoming-bar green" />
+
+                    <div className="kelly-home-upcoming-copy">
+                      <strong>Biology Essay Due</strong>
+                      <span>2026-09-16 · 23:59</span>
+                    </div>
+                  </div>
+
+                  <div className="kelly-home-upcoming-row">
+                    <div className="kelly-home-upcoming-bar red" />
+
+                    <div className="kelly-home-upcoming-copy">
+                      <strong>Mathematics Exam</strong>
+                      <span>2026-09-18 · 09:00</span>
+                    </div>
+                  </div>
+                </>
+              )}
+
+            </div>
+          </article>
+
+        </section>
+
+        {/* =====================================================
+            LAST QUIZ / FRIENDS
+            ===================================================== */}
+
+        <section className="kelly-home-two-col">
+
+          <article className="kelly-home-card kelly-home-content-card">
+
+            <div className="kelly-home-card-head">
+              <div className="kelly-home-section-label">
+                LAST QUIZ
+              </div>
+
+              <button
+                type="button"
+                className="kelly-home-link kelly-home-button-reset"
+                disabled
+              >
+                View quiz
+              </button>
+            </div>
+
+            <div className="kelly-home-quiz-name">
+              Biology Basics
+            </div>
+
+            <div className="kelly-home-quiz-summary">
+
+              <div>
+                <strong className="kelly-home-score">
+                  3/4
+                </strong>
 
                 <span>
-                  Nice. Your schedule is clear for now.
+                  SCORE
                 </span>
               </div>
-            )}
-          </div>
+
+              <div>
+                <strong className="kelly-home-quiz-xp">
+                  +60
+                </strong>
+
+                <span>
+                  XP EARNED
+                </span>
+              </div>
+
+            </div>
+          </article>
+
+          <article className="kelly-home-card kelly-home-content-card">
+
+            <div className="kelly-home-card-head">
+              <div className="kelly-home-section-label">
+                FRIENDS STUDYING
+              </div>
+
+              <button
+                type="button"
+                className="kelly-home-link kelly-home-button-reset"
+                disabled
+              >
+                View friends
+              </button>
+            </div>
+
+            <div className="kelly-home-friend-row">
+
+              <div className="kelly-home-friend-avatar">
+                S
+              </div>
+
+              <div>
+                <strong>Sarah</strong>
+
+                <span className="kelly-home-studying">
+                  Studying Biology
+                </span>
+              </div>
+
+            </div>
+          </article>
+
         </section>
 
-        {/* ─────────────────────────────────────────────
+        {/* =====================================================
             QUICK ACTIONS
-        ───────────────────────────────────────────── */}
+            ===================================================== */}
 
-        <section className="kelly-medo-quick-grid">
-          <Link
-            to="/dashboard"
-            className="kelly-medo-quick-card blue-card"
-          >
-            <div className="kelly-medo-quick-icon">
-              <BookOpen />
-            </div>
+        <section className="kelly-home-quick-wrap">
 
-            <div>
-              <strong>Start studying</strong>
-              <span>
-                Begin a guided session with Kelly.
+          <div className="kelly-home-section-label">
+            QUICK ACTIONS
+          </div>
+
+          <div className="kelly-home-quick-row">
+
+            <Link
+              to="/notes"
+              className="kelly-home-quick-action"
+            >
+              <span className="kelly-home-quick-icon">
+                ▤
               </span>
-            </div>
 
-            <ArrowRight />
-          </Link>
+              <strong>
+                New Note
+              </strong>
+            </Link>
 
-          <div className="kelly-medo-quick-card pink-card">
-            <div className="kelly-medo-quick-icon">
-              <Sparkles />
-            </div>
-
-            <div>
-              <strong>Kelly remembers</strong>
-              <span>
-                {data?.memories.length ?? 0} details are currently
-                shaping your sessions.
+            <button
+              type="button"
+              className="kelly-home-quick-action"
+              disabled
+            >
+              <span className="kelly-home-quick-icon">
+                🧠
               </span>
+
+              <strong>
+                Start Quiz
+              </strong>
+            </button>
+
+            <button
+              type="button"
+              className="kelly-home-quick-action"
+              disabled
+            >
+              <span className="kelly-home-quick-icon">
+                ◷
+              </span>
+
+              <strong>
+                Start Timer
+              </strong>
+            </button>
+
+            <Link
+              to="/study"
+              className="kelly-home-quick-action"
+            >
+              <span className="kelly-home-quick-icon">
+                🎙
+              </span>
+
+              <strong>
+                Listen
+              </strong>
+            </Link>
+
+          </div>
+
+        </section>
+
+        {/* =====================================================
+            ADD DEADLINE
+            ===================================================== */}
+
+        {showAdd && (
+          <div className="kelly-home-modal-backdrop">
+            <div className="kelly-home-modal">
+
+              <div className="kelly-home-modal-head">
+                <div>
+                  <span className="kelly-home-section-label">
+                    YOUR SCHEDULE
+                  </span>
+
+                  <h2>
+                    Add deadline
+                  </h2>
+                </div>
+
+                <button
+                  type="button"
+                  className="kelly-home-modal-close"
+                  onClick={() => setShowAdd(false)}
+                  aria-label="Close"
+                >
+                  ×
+                </button>
+              </div>
+
+              <form
+                action={addDeadline}
+                className="kelly-home-deadline-form"
+              >
+                <label>
+                  <span>Title</span>
+
+                  <input
+                    name="title"
+                    placeholder="Assignment or exam"
+                    required
+                  />
+                </label>
+
+                <label>
+                  <span>Subject</span>
+
+                  <input
+                    name="subject"
+                    placeholder="Subject"
+                  />
+                </label>
+
+                <label>
+                  <span>Due date</span>
+
+                  <input
+                    name="due"
+                    type="datetime-local"
+                    required
+                  />
+                </label>
+
+                <div className="kelly-home-modal-actions">
+                  <button
+                    type="button"
+                    className="kelly-home-modal-cancel"
+                    onClick={() => setShowAdd(false)}
+                  >
+                    Cancel
+                  </button>
+
+                  <button
+                    type="submit"
+                    className="kelly-home-modal-save"
+                  >
+                    <Plus />
+                    Save deadline
+                  </button>
+                </div>
+              </form>
+
             </div>
           </div>
-        </section>
+        )}
+
       </div>
     </AppShell>
   );
