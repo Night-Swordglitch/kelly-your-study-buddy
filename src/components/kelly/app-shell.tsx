@@ -21,13 +21,13 @@ const items = [
     icon: Home,
   },
   {
-    to: "/work" as const,
-    label: "My work",
+    to: "/notes" as const,
+    label: "Notes",
     icon: BookOpen,
   },
   {
-    to: "/memory" as const,
-    label: "Memory",
+    to: "/work" as const,
+    label: "My work",
     icon: Brain,
   },
   {
