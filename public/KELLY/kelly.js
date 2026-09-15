@@ -50,6 +50,19 @@
   // ─────────────────────────────────────────────
 
   window.showPage = function (pageId) {
+    // Tell the parent React router which KELLY page is active.
+    try {
+      window.parent.postMessage(
+        {
+          type: "kelly:request-navigation",
+          page: pageId,
+        },
+        window.location.origin,
+      );
+    } catch (error) {
+      console.warn("[KELLY] Could not notify parent router:", error);
+    }
+
     APP_PAGES.forEach((id) => {
       const page = document.getElementById(`page-${id}`);
 
@@ -661,6 +674,7 @@ window.handleGoogleAuth = function () {
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',render);
   else render();
 })();
+
 
 
 
