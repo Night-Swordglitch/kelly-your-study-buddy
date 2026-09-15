@@ -1980,7 +1980,27 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
 }
 
 </style>
+<style id="kelly-home-only-lock">
+#view-app .side-link:not([data-page="home"]) {
+    opacity: 0.35 !important;
+    cursor: not-allowed !important;
+    pointer-events: none !important;
+}
 
+#view-app .side-link[data-page="home"] {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+}
+
+#view-app .app-page:not(#page-home) {
+    display: none !important;
+}
+
+#view-app #page-home {
+    display: block !important;
+}
+</style>
 </head>
 <body>
 
@@ -3076,6 +3096,5 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
 
 </body>
 </html>
-
 
 
