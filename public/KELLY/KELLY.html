@@ -2961,6 +2961,17 @@ body {
         <div class="kelly-mount" data-mood="happy" data-theme="gold" data-size="26"></div>
         <span class="logo-word">KELLY</span>
       </button>
+
+      <div class="sidebar-level">
+        <div class="sidebar-level-row">
+          <span>Lv 3</span>
+          <span>1180 XP</span>
+        </div>
+        <div class="sidebar-xp-track">
+          <div class="sidebar-xp-fill"></div>
+        </div>
+      </div>
+
       <nav class="side-nav">
 
   <button class="side-link" data-page="home" onclick="showPage('home')">
@@ -3011,10 +3022,6 @@ body {
   </div>
 
 </nav>
-      <div class="sidebar-kelly" onclick="openKellyPanel()">
-        <div class="kelly-mount user-kelly" data-mood="happy" data-theme="gold" data-accessory="none" data-size="44"></div>
-        <div class="sk-text"><b id="sidebar-kelly-name">KELLY</b><span id="sidebar-streak-text">🔥 6-day streak</span></div>
-      </div>
     </aside>
 
     <div class="app-main">
@@ -3060,7 +3067,7 @@ body {
           </div>
 
           <div>
-            <div class="claude-eyebrow">LEVEL</div>
+            
             <div class="claude-level-number">
               Level 3
             </div>
@@ -3104,7 +3111,7 @@ body {
         </div>
 
         <div class="claude-stat-name">
-          STREAK
+          Streak
         </div>
 
         <div class="claude-stat-value">
@@ -3144,7 +3151,7 @@ body {
         </div>
 
         <div class="claude-stat-name">
-          SESSIONS
+          Sessions
         </div>
 
         <div class="claude-stat-value">
@@ -3212,7 +3219,7 @@ body {
           >
             <div>
               <strong>Cell Division</strong>
-              <span>Biology · Updated today</span>
+              <span>Biology · 2026-09-12</span>
             </div>
 
             <span class="claude-arrow">
@@ -3226,7 +3233,7 @@ body {
           >
             <div>
               <strong>Quadratic Equations</strong>
-              <span>Mathematics · Updated yesterday</span>
+              <span>Mathematics · 2026-09-13</span>
             </div>
 
             <span class="claude-arrow">
@@ -3240,7 +3247,7 @@ body {
           >
             <div>
               <strong>World War II — Causes</strong>
-              <span>History · Updated 2 days ago</span>
+              <span>History · 2026-09-14</span>
             </div>
 
             <span class="claude-arrow">
@@ -3279,7 +3286,7 @@ body {
 
             <div class="claude-upcoming-copy">
               <strong>Group Study Session</strong>
-              <span>Today · 7:00 PM</span>
+              <span>2026-09-15 · 18:00</span>
             </div>
 
           </div>
@@ -3290,7 +3297,7 @@ body {
 
             <div class="claude-upcoming-copy">
               <strong>Biology Essay Due</strong>
-              <span>Tomorrow · 11:59 PM</span>
+              <span>2026-09-16 · 23:59</span>
             </div>
 
           </div>
@@ -3301,7 +3308,7 @@ body {
 
             <div class="claude-upcoming-copy">
               <strong>Mathematics Exam</strong>
-              <span>Friday · 9:00 AM</span>
+              <span>2026-09-18 · 09:00</span>
             </div>
 
           </div>
@@ -4710,5 +4717,345 @@ body {
 
 
 
+
+
+
+<style id="kelly-regression-correction-20260915">
+
+/* ============================================================
+   KELLY REGRESSION CORRECTION
+   Shared sidebar + dense Home + Notes controls
+   ============================================================ */
+
+/* ---------------- SIDEBAR ---------------- */
+
+#view-app .app-shell {
+  grid-template-columns: 172px minmax(0, 1fr) !important;
+}
+
+#view-app .sidebar {
+  width: 172px !important;
+  min-width: 172px !important;
+  max-width: 172px !important;
+  box-sizing: border-box !important;
+  padding: 14px 10px !important;
+  background: #0d0d13 !important;
+  border-right: 1px solid #20202a !important;
+}
+
+#view-app .sidebar-logo {
+  width: 100% !important;
+  padding: 4px 8px 8px !important;
+  margin: 0 0 4px !important;
+  min-height: 32px !important;
+}
+
+#view-app .sidebar-logo .kelly-mount {
+  flex-shrink: 0;
+}
+
+#view-app .logo-word {
+  color: #f8f7fb !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+}
+
+/* XP / level row restored under logo */
+
+#view-app .sidebar-level {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 8px 8px;
+}
+
+#view-app .sidebar-level-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: #878793;
+  font-size: 9.5px;
+  line-height: 1.2;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+#view-app .sidebar-level-row span:first-child {
+  color: #b49cff;
+}
+
+#view-app .sidebar-xp-track {
+  width: 100%;
+  height: 2px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #24202f;
+}
+
+#view-app .sidebar-xp-fill {
+  width: 61%;
+  height: 100%;
+  border-radius: inherit;
+  background: #8b5cf6;
+}
+
+/* Navigation */
+
+#view-app .side-nav {
+  gap: 2px !important;
+}
+
+#view-app .side-link {
+  width: 100% !important;
+  min-height: 32px !important;
+  padding: 6px 8px !important;
+  border-radius: 8px !important;
+  gap: 9px !important;
+  color: #878793 !important;
+  font-size: 10.5px !important;
+  font-weight: 600 !important;
+  background: transparent !important;
+}
+
+#view-app .side-link .sl-icon {
+  width: 17px !important;
+  height: 17px !important;
+}
+
+#view-app .side-link:hover {
+  background: #15151d !important;
+  color: #e8e7ef !important;
+}
+
+#view-app .side-link.active {
+  background: rgba(139, 92, 246, 0.12) !important;
+  color: #b49cff !important;
+}
+
+#view-app .side-link.active .sl-icon {
+  color: #8b5cf6 !important;
+}
+
+/* Settings stays pinned at bottom, with no KELLY card underneath */
+
+#view-app .side-nav-bottom {
+  margin-top: auto !important;
+  padding-top: 8px !important;
+  border-top: 1px solid #20202a !important;
+}
+
+#view-app .sidebar-kelly {
+  display: none !important;
+}
+
+
+/* ---------------- HOME LEVEL ---------------- */
+
+#page-home .claude-level-title {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+#page-home .claude-trophy {
+  margin: 0 !important;
+}
+
+#page-home .claude-level-number {
+  margin: 0 !important;
+}
+
+#page-home .claude-eyebrow {
+  display: none !important;
+}
+
+
+/* ---------------- HOME STATS ---------------- */
+
+#page-home .claude-stat-card {
+  padding: 14px 16px !important;
+}
+
+#page-home .claude-stat-icon {
+  display: inline-flex !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 5px 0 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  vertical-align: middle !important;
+}
+
+#page-home .claude-stat-name {
+  display: inline-flex !important;
+  align-items: center !important;
+  font-size: 10px !important;
+  line-height: 1.2 !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  color: #878793 !important;
+}
+
+#page-home .claude-stat-value {
+  margin-top: 6px !important;
+}
+
+#page-home .claude-stat-label {
+  margin-top: 2px !important;
+}
+
+
+/* ---------------- HOME DENSITY ---------------- */
+
+#page-home .claude-dashboard {
+  padding: 24px 28px 34px !important;
+}
+
+#page-home .claude-welcome {
+  margin-bottom: 16px !important;
+}
+
+#page-home .claude-level-card {
+  padding: 16px !important;
+  margin-bottom: 12px !important;
+}
+
+#page-home .claude-stat-row {
+  gap: 8px !important;
+  margin-bottom: 12px !important;
+}
+
+#page-home .claude-two-col {
+  gap: 10px !important;
+  margin-bottom: 12px !important;
+}
+
+#page-home .claude-content-card {
+  padding: 14px !important;
+}
+
+#page-home .claude-card-head {
+  margin-bottom: 10px !important;
+}
+
+#page-home .claude-note-row,
+#page-home .claude-upcoming-row {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+
+/* ---------------- NOTES ---------------- */
+
+/* Remove any old selected/grey treatment from the first note.
+   Purple remains the only active accent. */
+
+#page-notes .kelly-note-item.active,
+#page-notes .kelly-note-item.selected,
+#page-notes .kelly-note-row.active,
+#page-notes .kelly-note-row.selected,
+#page-notes [aria-selected="true"] {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Keep the Notes list dark even when a row is selected */
+
+#page-notes .kelly-note-item,
+#page-notes .kelly-note-row {
+  background: transparent;
+}
+
+#page-notes .kelly-note-item:hover,
+#page-notes .kelly-note-row:hover {
+  background: #15151d !important;
+}
+
+
+/* Edit button */
+
+#page-notes #kelly-edit-note {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+}
+
+#page-notes #kelly-edit-note::before {
+  content: "✎";
+  font-size: 15px;
+  line-height: 1;
+}
+
+
+/* Delete button */
+
+#page-notes #kelly-delete-note {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  color: #ff8585 !important;
+  background: rgba(239, 68, 68, 0.10) !important;
+  border-color: rgba(239, 68, 68, 0.28) !important;
+}
+
+#page-notes #kelly-delete-note:hover {
+  color: #ff9d9d !important;
+  background: rgba(239, 68, 68, 0.16) !important;
+}
+
+#page-notes #kelly-delete-note::before {
+  content: "▣";
+  font-size: 13px;
+  line-height: 1;
+}
+
+
+/* Dense Notes layout */
+
+#page-notes .kelly-notes-header {
+  padding-top: 14px !important;
+  padding-bottom: 10px !important;
+}
+
+#page-notes .kelly-notes-search {
+  margin-bottom: 10px !important;
+}
+
+#page-notes .kelly-note-reader {
+  padding: 24px 28px !important;
+}
+
+#page-notes .kelly-note-detail-top {
+  margin-bottom: 18px !important;
+}
+
+
+/* ---------------- MOBILE ---------------- */
+
+@media (max-width: 760px) {
+
+  #view-app .app-shell {
+    grid-template-columns: 1fr !important;
+  }
+
+  #view-app .sidebar {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+  }
+
+  #view-app .sidebar-level {
+    max-width: 100%;
+  }
+
+  #view-app .side-nav {
+    gap: 2px !important;
+  }
+
+}
+
+</style>
 
 
