@@ -1980,27 +1980,9 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
 }
 
 </style>
-<style id="kelly-home-only-lock">
-#view-app .side-link:not([data-page="home"]) {
-    opacity: 0.35 !important;
-    cursor: not-allowed !important;
-    pointer-events: none !important;
-}
 
-#view-app .side-link[data-page="home"] {
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    cursor: pointer !important;
-}
+<style id="kelly-home-only-lock"> #view-app .side-link:not([data-page="home"]) { opacity: 0.35 !important; cursor: not-allowed !important; pointer-events: none !important; } #view-app .side-link[data-page="home"] { opacity: 1 !important; pointer-events: auto !important; cursor: pointer !important; } #view-app .app-page:not(#page-home) { display: none !important; } #view-app #page-home { display: block !important; } </style>
 
-#view-app .app-page:not(#page-home) {
-    display: none !important;
-}
-
-#view-app #page-home {
-    display: block !important;
-}
-</style>
 </head>
 <body>
 
@@ -3072,30 +3054,15 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
         </section>
 
 <script src="/KELLY/kelly.js"></script>
-<script id="kelly-home-only-lock-js">
-(function () {
-    document.addEventListener("click", function (event) {
-        const button = event.target.closest(".side-link");
 
-        if (!button) {
-            return;
-        }
+<script id="kelly-home-only-lock-js"> (function () { document.addEventListener("click", function (event) { const button = event.target.closest(".side-link"); if (!button) { return; } const page = button.getAttribute("data-page"); if (page !== "home") { event.preventDefault(); event.stopImmediatePropagation(); return false; } }, true); })(); </script>
 
-        const page = button.getAttribute("data-page");
-
-        if (page !== "home") {
-            event.preventDefault();
-            event.stopImmediatePropagation();
-            return false;
-        }
-    }, true);
-})();
-</script>
 
 <script id="kelly-button-lock"> (function () { function block(event) { const target = event.target; if ( target.closest("button") || target.closest("a") || target.closest("[role='button']") || target.closest("input[type='submit']") || target.closest("input[type='button']") ) { event.preventDefault(); event.stopImmediatePropagation(); } } [ "click", "dblclick", "mousedown", "mouseup", "pointerdown", "pointerup", "touchstart", "touchend", "keydown" ].forEach(function (eventName) { document.addEventListener(eventName, block, true); }); document.addEventListener("submit", function (event) { event.preventDefault(); event.stopImmediatePropagation(); }, true); })(); </script>
 
 </body>
 </html>
+
 
 
 
