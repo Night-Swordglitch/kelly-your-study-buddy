@@ -89,47 +89,121 @@
   // LOGIN
   // ─────────────────────────────────────────────
 
-  window.handleLogin = function (event) {
-    if (event) {
-      event.preventDefault();
-    }
+window.handleLogin = async function (event) {
+  if (event) {
+    event.preventDefault();
+  }
 
-    // Real Supabase authentication is handled by
-    // the existing React /auth route.
-    window.parent.location.href = "/auth?mode=login";
+  const form = event?.target || document.querySelector("#view-login form");
 
+  if (!form) {
+    showToast("Login form not found.");
     return false;
-  };
+  }
 
-  window.handleForgotPassword = function () {
-    window.parent.location.href = "/auth?mode=forgot";
-  };
+  const email =
+    form.querySelector('input[type="email"]')?.value?.trim() || "";
 
-  // ─────────────────────────────────────────────
-  // SIGNUP
-  // ─────────────────────────────────────────────
+  const password =
+    form.querySelector('input[type="password"]')?.value || "";
 
-  window.handleSignup = function (event) {
-    if (event) {
-      event.preventDefault();
-    }
-
-    // Real Supabase authentication is handled by
-    // the existing React /auth route.
-    window.parent.location.href = "/auth?mode=signup";
-
+  if (!email || !password) {
+    showToast("Enter your email and password.");
     return false;
-  };
+  }
 
-  // ─────────────────────────────────────────────
-  // GOOGLE AUTH
-  // ─────────────────────────────────────────────
+  if (!window.parent.KellyAuth) {
+    showToast("Authentication is not available.");
+    return false;
+  }
 
-  window.handleGoogleAuth = function (mode) {
-    const target = mode === "signup" ? "signup" : "login";
+  showToast("Logging you in...");
 
-    window.parent.location.href = `/auth?mode=${target}&provider=google`;
-  };
+  const result = await window.parent.KellyAuth.login(email, password);
+
+  if (result.error) {
+    showToast(result.error);
+    return false;
+  }
+
+  showToast("Welcome back!");
+
+  setTimeout(() => {
+    showRoot("view-app");
+    showPage("home");
+  }, 400);
+
+  return false;
+};
+
+
+window.handleSignup = async function (event) {
+  if (event) {
+    event.preventDefault();
+  }
+
+  const form = event?.target || document.querySelector("#view-signup form");
+
+  if (!form) {
+    showToast("Signup form not found.");
+    return false;
+  }
+
+  const inputs = [...form.querySelectorAll("input")];
+
+  const name =
+    form.querySelector('input[name="name"]')?.value?.trim() ||
+    inputs.find((input) => input.type === "text")?.value?.trim() ||
+    "";
+
+  const email =
+    form.querySelector('input[type="email"]')?.value?.trim() || "";
+
+  const passwordInputs = form.querySelectorAll('input[type="password"]');
+
+  const password = passwordInputs[0]?.value || "";
+
+  if (!name || !email || !password) {
+    showToast("Fill in all required fields.");
+    return false;
+  }
+
+  if (!window.parent.KellyAuth) {
+    showToast("Authentication is not available.");
+    return false;
+  }
+
+  showToast("Creating your account...");
+
+  const result = await window.parent.KellyAuth.signup(
+    name,
+    email,
+    password
+  );
+
+  if (result.error) {
+    showToast(result.error);
+    return false;
+  }
+
+  if (!result.session) {
+    showToast("Account created. Check your email to confirm it.");
+    return false;
+  }
+
+  showToast("Account created!");
+
+  setTimeout(() => {
+    startOnboarding();
+  }, 500);
+
+  return false;
+};
+
+
+window.handleGoogleAuth = function () {
+  showToast("Google sign-in will be connected next.");
+};
 
   // ─────────────────────────────────────────────
   // ONBOARDING
