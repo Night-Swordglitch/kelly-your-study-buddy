@@ -2568,18 +2568,6 @@ body {
     visibility: hidden !important;
   }
 </style>
-<style id="kelly-sidebar-icon-fix">
-#view-app .sidebar-logo .kelly-sidebar-icon {
-  width: 36px !important;
-  height: 36px !important;
-  min-width: 36px !important;
-  max-width: 36px !important;
-  flex: 0 0 36px !important;
-  display: block !important;
-  object-fit: contain !important;
-  border-radius: 10px !important;
-}
-</style>
 </head>
 <body class="kelly-startup-pending">
 
@@ -2976,7 +2964,7 @@ body {
 
     <aside class="sidebar">
       <button class="sidebar-logo" onclick="showPage('home')">
-        <img class="kelly-sidebar-icon" src="/KELLY/kelly-sidebar.png" alt="KELLY">
+        <div class="kelly-mount" data-mood="happy" data-theme="gold" data-size="26"></div>
         <span class="logo-word">KELLY</span>
       </button>
 
@@ -5347,7 +5335,6 @@ body {
   color: #87809f !important;
 }
 </style>
-
 
 
 
