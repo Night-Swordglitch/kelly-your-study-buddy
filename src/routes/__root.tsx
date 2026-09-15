@@ -103,7 +103,7 @@ export const Route =
           content: "width=device-width, initial-scale=1",
         },
         {
-          title: "Kelly â€” Your Study Buddy",
+          title: "KELLY - Your Study Buddy",
         },
         {
           name: "description",
@@ -116,7 +116,7 @@ export const Route =
         },
         {
           property: "og:title",
-          content: "Kelly â€” Your Study Buddy",
+          content: "KELLY - Your Study Buddy",
         },
         {
           property: "og:description",
@@ -182,3 +182,4 @@ function RootComponent() {
     </QueryClientProvider>
   );
 }
+
