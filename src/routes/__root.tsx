@@ -1,4 +1,4 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+﻿import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
@@ -103,7 +103,7 @@ export const Route =
           content: "width=device-width, initial-scale=1",
         },
         {
-          title: "Kelly — Your Study Buddy",
+          title: "Kelly â€” Your Study Buddy",
         },
         {
           name: "description",
@@ -116,7 +116,7 @@ export const Route =
         },
         {
           property: "og:title",
-          content: "Kelly — Your Study Buddy",
+          content: "Kelly â€” Your Study Buddy",
         },
         {
           property: "og:description",
@@ -143,12 +143,6 @@ export const Route =
           rel: "icon",
           href: "/favicon.ico",
           type: "image/x-icon",
-        },
-
-        {
-          rel: "icon",
-          href: "/favicon.png",
-          type: "image/png",
         },
       ],
     }),
