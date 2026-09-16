@@ -54,7 +54,7 @@ const ITEMS: SidebarItem[] = [
   },
 ];
 
-function getActivePage(pathname: string) {
+function getActivePage(pathname: string): string {
   if (pathname === "/dashboard" || pathname === "/") return "home";
   if (pathname.startsWith("/notes")) return "notes";
   if (pathname.startsWith("/study")) return "study";

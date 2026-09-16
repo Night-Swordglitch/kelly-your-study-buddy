@@ -1,20 +1,3 @@
-$bgFix = @'
-html, body {
-  background: #0a0a0f;
-}
-#root {
-  background: #0a0a0f;
-  min-height: 100vh;
-}
-
-'@
-
-$filePath = "src\styles.css"
-$content = Get-Content -Path $filePath -Raw -Encoding UTF8
-$newContent = $bgFix + $content
-Set-Content -Path $filePath -Value $newContent -Encoding UTF8 -NoNewline
-Write-Host "Dark background fix added to top of styles.css."
-
 /* =========================================================
    KELLY APP — DARK DASHBOARD + SIDEBAR + NOTES
    ========================================================= */
