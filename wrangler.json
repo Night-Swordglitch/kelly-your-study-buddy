@@ -1,0 +1,8 @@
+﻿{
+  "$schema": "https://unpkg.com/wrangler@latest/config-schema.json",
+  "name": "night-swordglitch-kelly-your-study-buddy",
+  "compatibility_date": "2026-09-15",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ]
+}

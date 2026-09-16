@@ -4730,6 +4730,19 @@ body {
 })();
 
 </script>
+
+<script id="kelly-scroll-fix">
+window.scrollToSection = function (sectionId) {
+  const el = document.getElementById(sectionId);
+  if (!el) {
+    console.warn('scrollToSection: no element with id', sectionId);
+    return;
+  }
+  const navHeight = 72;
+  const top = el.getBoundingClientRect().top + window.scrollY - navHeight;
+  window.scrollTo({ top: top, behavior: 'smooth' });
+};
+</script>
 </body>
 </html>
 
