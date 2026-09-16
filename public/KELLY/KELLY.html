@@ -4743,6 +4743,33 @@ window.scrollToSection = function (sectionId) {
   window.scrollTo({ top: top, behavior: 'smooth' });
 };
 </script>
+
+<script id="kelly-auth-bridge">
+window.addEventListener('message', function (event) {
+  if (event.origin !== window.location.origin) return;
+  var data = event.data;
+  if (!data) return;
+
+  if (data.type === 'kelly:force-auth') {
+    if (data.page === 'login') {
+      showRoot('view-login');
+    } else if (data.page === 'signup') {
+      showRoot('view-signup');
+    }
+  }
+});
+
+var _originalShowRoot = window.showRoot;
+window.showRoot = function (viewId) {
+  _originalShowRoot(viewId);
+
+  if (viewId === 'view-login') {
+    window.parent.postMessage({ type: 'kelly:request-navigation', page: 'login' }, window.location.origin);
+  } else if (viewId === 'view-signup') {
+    window.parent.postMessage({ type: 'kelly:request-navigation', page: 'signup' }, window.location.origin);
+  }
+};
+</script>
 </body>
 </html>
 

@@ -42,6 +42,8 @@ const VALID_PAGES = [
   "calendar",
   "progress",
   "profile",
+  "login",
+  "signup",
 ] as const;
 
 type KellyPage = (typeof VALID_PAGES)[number];
@@ -110,7 +112,10 @@ export function KellyIframe() {
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   const isLandingRoute = location.pathname === "/";
-  const page = pathToPage(location.pathname);
+  const isAuthRoute = location.pathname === "/login" || location.pathname === "/signup";
+  const page = isAuthRoute
+    ? (location.pathname.replace("/", "") as "login" | "signup")
+    : pathToPage(location.pathname);
 
   useEffect(() => {
     setupKellyAuthBridge();
@@ -124,11 +129,19 @@ export function KellyIframe() {
     }
 
     const sendPage = () => {
+      let messageType: string;
+
+      if (isLandingRoute) {
+        messageType = "kelly:force-landing";
+      } else if (isAuthRoute) {
+        messageType = "kelly:force-auth";
+      } else {
+        messageType = "kelly:set-page";
+      }
+
       iframe.contentWindow?.postMessage(
         {
-          type: isLandingRoute
-            ? "kelly:force-landing"
-            : "kelly:set-page",
+          type: messageType,
           page,
         },
         window.location.origin,
@@ -141,7 +154,7 @@ export function KellyIframe() {
     return () => {
       iframe.removeEventListener("load", sendPage);
     };
-  }, [page, isLandingRoute]);
+  }, [page, isLandingRoute, isAuthRoute]);
 
   useEffect(() => {
     const handleKellyNavigation = (event: MessageEvent) => {
