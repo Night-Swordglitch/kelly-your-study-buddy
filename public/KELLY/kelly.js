@@ -621,16 +621,21 @@ window.handleGoogleAuth = function () {
     if (parentPath === "/") {
       showRoot("view-landing");
     } else if (session) {
+      const routePage = parentPath.replace(/^\/+/, "").split("/")[0];
       let lastPage = "home";
 
-      try {
-        const savedPage = localStorage.getItem("kelly:last-page");
+      if (APP_PAGES.includes(routePage)) {
+        lastPage = routePage;
+      } else {
+        try {
+          const savedPage = localStorage.getItem("kelly:last-page");
 
-        if (savedPage && APP_PAGES.includes(savedPage)) {
-          lastPage = savedPage;
+          if (savedPage && APP_PAGES.includes(savedPage)) {
+            lastPage = savedPage;
+          }
+        } catch (error) {
+          console.warn("[KELLY] Could not read last page:", error);
         }
-      } catch (error) {
-        console.warn("[KELLY] Could not read last page:", error);
       }
 
       showRoot("view-app");
@@ -684,6 +689,8 @@ window.handleGoogleAuth = function () {
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',render);
   else render();
 })();
+
+
 
 
 
