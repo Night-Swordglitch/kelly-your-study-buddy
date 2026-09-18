@@ -1,0 +1,178 @@
+<div class="root-view active" id="view-landing">
+
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <button class="logo" onclick="goTop()">
+        <div class="kelly-mount" data-mood="happy" data-theme="gold" data-size="36"></div>
+        <span class="logo-word">KELLY</span>
+      </button>
+      <div class="nav-links" id="nav-links-desktop">
+        <button class="nav-link" onclick="scrollToSection('who-kelly')">Who's KELLY?</button>
+        <button class="nav-link" onclick="scrollToSection('how-it-works')">How It Works</button>
+        <button class="nav-link" onclick="scrollToSection('features')">Features</button>
+        <button class="nav-link" onclick="scrollToSection('study-together')">Study Together</button>
+      </div>
+      <div class="nav-actions">
+        <button class="nav-link" style="display:none" id="nav-login-text" onclick="showRoot('view-login')">Login</button>
+        <button class="btn btn-ghost btn-sm" onclick="showRoot('view-login')">Login</button>
+        <button class="btn btn-primary btn-sm" onclick="showRoot('view-signup')">Get Started</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <span class="eyebrow gold"><span class="dot"></span>Your AI study companion</span>
+        <h1 style="margin-top:18px">Meet KELLY. Your studies, finally figured out.</h1>
+        <p class="hero-lede">Record lectures. Turn them into notes. Get quizzed. Fix your weaknesses. Study with friends. KELLY brings your entire study life together.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary btn-lg" onclick="showRoot('view-signup')">Get Started</button>
+          <button class="btn btn-ghost-light btn-lg" onclick="scrollToSection('who-kelly')">Who's KELLY?</button>
+        </div>
+        <div class="hero-note">
+          <span>🎓</span> Built for university &amp; polytechnic students — free to start.
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="glow"></div>
+        <div class="hero-chip hero-chip-1">💬 "Let's fix Chapter 3 together"</div>
+        <div class="hero-mascot-wrap">
+          <div class="kelly-mount" data-mood="waving" data-theme="gold" data-size="300"></div>
+        </div>
+        <div class="hero-chip hero-chip-2">🔥 6-day streak</div>
+      </div>
+    </div>
+
+    <div class="container" style="position:relative;">
+      <div class="process-strip" id="process-strip"></div>
+    </div>
+    <div class="hero-spacer"></div>
+  </header>
+
+  <!-- WHO'S KELLY -->
+  <section class="section" id="who-kelly">
+    <div class="container">
+      <div class="kelly-intro">
+        <div class="kelly-intro-copy">
+          <span class="eyebrow">The character behind the product</span>
+          <h2 style="margin-top:18px;">So... who's KELLY?</h2>
+          <p>KELLY isn't just another AI chatbot. <strong>KELLY is your personal study companion</strong> — the one who organises your lectures, helps you understand the hard topics, builds your quizzes and flashcards, and notices exactly what you're struggling with.</p>
+          <p>Every subject you bring to KELLY, every quiz you take, every lecture you record — KELLY remembers it. The more you study together, the better KELLY understands your learning journey, and the more useful it becomes at telling you what to do next.</p>
+          <button class="btn btn-primary" style="margin-top:8px" onclick="showRoot('view-signup')">Get Started</button>
+        </div>
+        <div class="kelly-stage">
+          <div class="kelly-stage-bg"></div>
+          <div class="speech-bubble b1">"Don't worry. Let's figure this out together."</div>
+          <div class="kelly-mount" data-mood="thinking" data-theme="gold" data-size="260" style="position:relative;z-index:2;"></div>
+          <div class="speech-bubble b2">"You've been struggling with this topic. Want to try again?"</div>
+          <div class="speech-bubble b3">"Your exam is in 3 days. Here's what I think you should focus on."</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section section-tint" id="how-it-works">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow mint">Five steps, one connected system</span>
+        <h2 style="margin-top:18px;">How KELLY works</h2>
+        <p>Not five separate tools. One journey — from messy lecture material to knowing exactly what to study tonight.</p>
+      </div>
+      <div class="flow-list" id="flow-list"></div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">What KELLY can do</span>
+        <h2 style="margin-top:18px;">Everything your study routine was missing</h2>
+        <p>Every feature feeds the same brain. Nothing here is a standalone tool — it all connects back to what KELLY knows about you.</p>
+      </div>
+      <div class="bento-grid" id="features-grid"></div>
+    </div>
+  </section>
+
+  <!-- STUDY TOGETHER -->
+  <section class="social-band" id="study-together">
+    <div class="container">
+      <div class="social-inner">
+        <div class="social-copy">
+          <span class="eyebrow gold" style="background:rgba(255,176,32,.14);color:var(--gold);">Study together</span>
+          <h2 style="margin-top:18px;">Studying alone is optional.</h2>
+          <p>Add friends, build a study group, and turn revision into something you actually look forward to. It's a light layer on top of studying — not another social feed to scroll.</p>
+          <div class="social-feature-grid" id="social-feature-grid"></div>
+          <button class="btn btn-white btn-lg" onclick="showRoot('view-signup')">Get Started</button>
+        </div>
+        <div class="social-visual">
+          <div class="lb-preview">
+            <div class="lbp-head">This week</div>
+            <div id="lb-preview-rows"></div>
+          </div>
+          <div class="challenge-preview">
+            <div class="cp-top">
+              <div class="cp-avatar">S</div>
+              <strong style="font-size:13.5px;">Sarah</strong>
+            </div>
+            <p>challenged you to a Business Quiz</p>
+            <div class="cp-meta">10 Questions</div>
+            <button class="btn btn-coral btn-sm btn-block" onclick="showRoot('view-signup')">Accept Challenge</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="cta-band">
+    <div class="container">
+      <div class="cta-mascot-row">
+        <div class="kelly-mount" data-mood="celebrating" data-theme="gold" data-size="120"></div>
+      </div>
+      <h2>Ready to actually get your studying figured out?</h2>
+      <p>Free to start. No credit card. Just bring your first lecture or set of notes.</p>
+      <button class="btn btn-primary btn-lg" onclick="showRoot('view-signup')">Meet KELLY</button>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="flex items-center" style="gap:10px;">
+            <div class="kelly-mount" data-mood="happy" data-theme="gold" data-size="30"></div>
+            <span class="logo-word" style="color:#fff;">KELLY</span>
+          </div>
+          <p>Your personal AI study companion — for lectures, notes, quizzes, and everything in between.</p>
+        </div>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <h4>Product</h4>
+            <button onclick="scrollToSection('how-it-works')">How It Works</button>
+            <button onclick="scrollToSection('features')">Features</button>
+            <button onclick="scrollToSection('study-together')">Study Together</button>
+          </div>
+          <div class="footer-col">
+            <h4>Account</h4>
+            <button onclick="showRoot('view-login')">Login</button>
+            <button onclick="showRoot('view-signup')">Get Started</button>
+          </div>
+          <div class="footer-col">
+            <h4>Company</h4>
+            <a href="#" onclick="return false;">About</a>
+            <a href="#" onclick="return false;">Privacy</a>
+            <a href="#" onclick="return false;">Terms</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 KELLY. Made for students who'd rather be doing anything else.</span>
+        <span>Built with 🔔 + 🐾</span>
+      </div>
+    </div>
+  </footer>
+</div>

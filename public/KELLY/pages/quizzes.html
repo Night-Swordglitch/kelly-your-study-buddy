@@ -1,0 +1,18 @@
+        <section class="app-page" id="page-quizzes">
+          <h1 style="font-size:24px;margin-bottom:20px;">Quizzes</h1>
+          <div class="dash-grid">
+            <div class="card full">
+              <div class="card-head"><h3>Create a Quiz</h3></div>
+              <div class="config-row">
+                <div class="config-group"><label>Subject</label><div class="config-chip-group" id="qz-subject-chips"></div></div>
+                <div class="config-group"><label>Difficulty</label><div class="config-chip-group" id="qz-difficulty-chips"></div></div>
+                <div class="config-group"><label>Number of Questions</label><div class="config-chip-group" id="qz-count-chips"></div></div>
+                <div class="config-group"><label>Question Type</label><div class="config-chip-group" id="qz-type-chips"></div></div>
+              </div>
+              <button class="btn btn-primary btn-lg" onclick="generateQuizFromConfig()">Generate Quiz</button>
+            </div>
+            <div class="card"><div class="card-head"><h3>Suggested For You</h3></div><div id="qz-suggested"></div></div>
+            <div class="card"><div class="card-head"><h3>Challenges</h3></div><div id="qz-challenges"></div></div>
+            <div class="card full"><div class="card-head"><h3>Recent Quizzes</h3></div><div id="qz-history"></div></div>
+          </div>
+        </section>

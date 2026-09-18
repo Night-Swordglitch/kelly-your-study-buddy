@@ -1,0 +1,106 @@
+<div class="root-view" id="view-onboarding">
+  <div class="onboarding-shell">
+    <div class="onboarding-top">
+      <button class="logo" onclick="showRoot('view-landing')">
+        <div class="kelly-mount" data-mood="happy" data-theme="gold" data-size="26"></div>
+        <span class="logo-word">KELLY</span>
+      </button>
+      <div class="onboarding-progress" id="onboarding-progress"></div>
+      <button class="link-btn" onclick="skipOnboarding()">Skip for now</button>
+    </div>
+    <div class="onboarding-body">
+
+      <div class="onboarding-step active" id="ob-step-1">
+        <div class="ob-card">
+          <div class="kelly-mount" data-mood="waving" data-theme="gold" data-size="170" style="margin:0 auto 4px;"></div>
+          <h1>Hey, I'm KELLY.</h1>
+          <p class="ob-desc">I know — school throws a lot at you. Lectures, slides, deadlines, five subjects all fighting for your attention at once. I'm here to help you make sense of it, one subject at a time, so you always know what to focus on next.</p>
+          <div class="ob-actions"><button class="btn btn-primary btn-lg" onclick="obNext()">Nice to meet you</button></div>
+        </div>
+      </div>
+
+      <div class="onboarding-step" id="ob-step-2">
+        <div class="ob-card left">
+          <div class="flex items-center" style="gap:14px;margin-bottom:4px;">
+            <div class="kelly-mount" data-mood="thinking" data-theme="gold" data-size="58"></div>
+            <h1 style="margin:0;font-size:25px;">What are you studying?</h1>
+          </div>
+          <p class="ob-desc">Pick everything you're taking this term. You can always add more later.</p>
+          <div class="chip-grid left-align" id="ob-subject-chips"></div>
+          <div class="custom-subject-row">
+            <input type="text" id="ob-custom-subject" placeholder="Add a custom subject...">
+            <button class="btn btn-ghost btn-sm" onclick="obAddCustomSubject()">Add</button>
+          </div>
+          <div class="ob-actions split" style="margin-top:30px;">
+            <button class="btn btn-ghost" onclick="obBack()">Back</button>
+            <button class="btn btn-primary" onclick="obNext()">Continue</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="onboarding-step" id="ob-step-3">
+        <div class="ob-card left">
+          <div class="flex items-center" style="gap:14px;margin-bottom:4px;">
+            <div class="kelly-mount" data-mood="focused" data-theme="gold" data-size="58"></div>
+            <h1 style="margin:0;font-size:25px;">When are your important dates?</h1>
+          </div>
+          <p class="ob-desc">Tests, exams, assignment deadlines — add what's coming up so I can help you prepare in time.</p>
+          <div class="date-form-row">
+            <select id="ob-date-type">
+              <option>Test</option><option>Exam</option><option>Assignment</option>
+            </select>
+            <select id="ob-date-subject"></select>
+            <input type="date" id="ob-date-value">
+            <button class="btn btn-primary btn-sm" onclick="obAddDate()">Add</button>
+          </div>
+          <div class="date-list" id="ob-date-list"></div>
+          <div class="ob-actions split" style="margin-top:6px;">
+            <button class="btn btn-ghost" onclick="obBack()">Back</button>
+            <button class="btn btn-primary" onclick="obNext()">Continue</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="onboarding-step" id="ob-step-4">
+        <div class="ob-card">
+          <div class="kelly-mount" data-mood="happy" data-theme="gold" data-size="86" style="margin:0 auto 8px;"></div>
+          <h1>When do you usually study?</h1>
+          <p class="ob-desc">Pick all that apply — I'll time my reminders around this instead of nagging you at random hours.</p>
+          <div class="studytime-grid" id="ob-studytime-grid"></div>
+          <div class="ob-actions split">
+            <button class="btn btn-ghost" onclick="obBack()">Back</button>
+            <button class="btn btn-primary" onclick="obNext()">Continue</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="onboarding-step" id="ob-step-5">
+        <div class="ob-card left" style="max-width:660px;">
+          <h1 style="text-align:center;">Create your KELLY</h1>
+          <p class="ob-desc" style="text-align:center;margin-bottom:30px;">Make it yours — it'll look like this everywhere I show up.</p>
+          <div class="kelly-customizer">
+            <div class="customizer-preview">
+              <div id="ob-kelly-preview" class="kelly-mount" data-mood="happy" data-theme="gold" data-accessory="none" data-size="140"></div>
+              <input type="text" class="customizer-nickname" id="ob-nickname" placeholder="KELLY" maxlength="16">
+            </div>
+            <div>
+              <div class="customizer-group">
+                <h4>Colour</h4>
+                <div class="swatch-row" id="ob-swatches"></div>
+              </div>
+              <div class="customizer-group">
+                <h4>Accessory</h4>
+                <div class="accessory-row" id="ob-accessories"></div>
+              </div>
+            </div>
+          </div>
+          <div class="ob-actions split" style="margin-top:6px;">
+            <button class="btn btn-ghost" onclick="obBack()">Back</button>
+            <button class="btn btn-primary btn-lg" onclick="finishOnboarding()">Let's Start Studying</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

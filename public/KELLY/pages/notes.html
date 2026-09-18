@@ -1,0 +1,107 @@
+<section class="app-page" id="page-notes">
+
+  <div class="kelly-notes-page">
+
+    <aside class="kelly-notes-list">
+
+      <div class="kelly-notes-header">
+        <h1>Notes</h1>
+
+        <button type="button" class="kelly-notes-new" id="kelly-new-note">
+          <span>+</span>
+          New
+        </button>
+      </div>
+
+      <div class="kelly-notes-search">
+        <span class="kelly-notes-search-icon">⌕</span>
+
+        <input
+          type="search"
+          id="kelly-notes-search"
+          placeholder="Search notes..."
+          autocomplete="off"
+        >
+      </div>
+
+      <div
+        class="kelly-note-items"
+        id="kelly-note-items"
+      ></div>
+
+    </aside>
+
+    <main class="kelly-note-reader">
+
+      <div
+        class="kelly-notes-empty"
+        id="kelly-notes-empty"
+      >
+
+        <div class="kelly-notes-empty-icon">
+          <span></span>
+        </div>
+
+        <p>Select a note to read it</p>
+
+        <button
+          type="button"
+          class="kelly-create-note"
+          id="kelly-create-first-note"
+        >
+          Create your first note
+        </button>
+
+      </div>
+
+      <article
+        class="kelly-note-detail"
+        id="kelly-note-detail"
+        hidden
+      >
+
+        <div class="kelly-note-detail-top">
+
+          <div>
+            <h1 id="kelly-detail-title"></h1>
+
+            <div
+              class="kelly-detail-meta"
+              id="kelly-detail-meta"
+            ></div>
+          </div>
+
+          <div class="kelly-detail-actions">
+
+            <button
+              type="button"
+              class="kelly-note-action"
+              id="kelly-edit-note"
+            >
+              Edit
+            </button>
+
+            <button
+              type="button"
+              class="kelly-note-action kelly-note-delete"
+              id="kelly-delete-note"
+            >
+              Delete
+            </button>
+
+          </div>
+
+        </div>
+
+        <div
+          class="kelly-note-sections"
+          id="kelly-note-sections"
+        ></div>
+
+      </article>
+
+    </main>
+
+  </div>
+
+</section>

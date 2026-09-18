@@ -1,0 +1,31 @@
+        <section class="app-page" id="page-mission">
+          <div id="mission-active-view">
+            <div class="mission-hero">
+              <div class="kelly-mount user-kelly" data-mood="focused" data-theme="gold" data-accessory="none" data-size="72"></div>
+              <div style="flex:1;min-width:220px;">
+                <h1 id="mission-title">Today's Mission: Master Chapter 3</h1>
+                <p id="mission-subtitle">Business — Scarcity &amp; Trade-offs</p>
+                <div class="mission-progress-track"><div class="mission-progress-fill" id="mission-progress-fill"></div></div>
+              </div>
+            </div>
+            <div class="mission-steps" id="mission-steps"></div>
+          </div>
+          <div class="hidden" id="mission-complete-view">
+            <div class="mission-complete-wrap">
+              <div class="kelly-mount" data-mood="celebrating" data-theme="gold" data-size="126" style="margin:0 auto;"></div>
+              <h1 style="margin-top:14px;">Mission Complete! 🎉</h1>
+              <div class="mission-xp-badge">⚡ +<span id="mission-xp-earned">60</span> XP</div>
+              <div class="mission-improve">
+                <div class="text-center">
+                  <div class="faint" style="font-size:12px;font-weight:700;letter-spacing:.03em;">CHAPTER 3 CONFIDENCE</div>
+                  <div class="mi-num"><span style="color:var(--coral);">38%</span> → <span style="color:var(--mint-dk);" id="mission-improve-num">61%</span></div>
+                </div>
+              </div>
+              <div class="kelly-message-bubble" style="background:var(--violet-50);border:1px solid var(--violet-100);color:var(--ink);margin:0 auto 22px;max-width:440px;" id="mission-recommend-text">Nice work! Chapter 4: Market Structures hasn't been touched yet — want to start there next, or take a short break?</div>
+              <div class="results-actions">
+                <button class="btn btn-ghost" onclick="showPage('home')">Back to Home</button>
+                <button class="btn btn-primary" onclick="startNextChapterFromMission()">Study Chapter 4 Next</button>
+              </div>
+            </div>
+          </div>
+        </section>

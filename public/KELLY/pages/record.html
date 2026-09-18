@@ -1,0 +1,41 @@
+        <section class="app-page" id="page-record">
+          <div class="card">
+            <div class="record-stage" id="record-stage-setup">
+              <h2 style="margin-bottom:6px;">Record a Lecture</h2>
+              <p class="muted" style="margin-bottom:6px;">I'll turn this into a transcript, notes, flashcards and a quiz — automatically.</p>
+              <div class="record-subject-select"><select id="record-subject-select"></select></div>
+              <button class="record-orb" id="record-orb-btn" onclick="toggleRecording()">🎙️</button>
+              <div class="record-timer" id="record-timer">00:00</div>
+              <div class="record-status" id="record-status">Tap to start recording</div>
+              <div class="record-waveform" id="record-waveform"></div>
+              <div class="record-controls" id="record-controls" style="display:none;">
+                <button class="btn btn-ghost" onclick="pauseRecording()" id="record-pause-btn">Pause</button>
+                <button class="btn btn-coral" onclick="stopRecording()">Stop Recording</button>
+              </div>
+            </div>
+            <div class="processing-panel hidden" id="record-processing">
+              <div class="kelly-mount" data-mood="thinking" data-theme="gold" data-size="106" style="margin:0 auto;"></div>
+              <h2 style="margin-top:16px;">KELLY is working on it...</h2>
+              <div class="processing-steps" id="processing-steps"></div>
+            </div>
+            <div class="hidden" id="record-reveal">
+              <div class="reveal-header">
+                <div class="kelly-mount" data-mood="celebrating" data-theme="gold" data-size="96" style="margin:0 auto;"></div>
+                <h2 style="margin-top:14px;">Lecture processed! 🎉</h2>
+                <p class="muted">One recording, turned into a full study system.</p>
+              </div>
+              <div class="tab-bar" id="reveal-tabs"></div>
+              <div id="reveal-panels">
+                <div class="tab-panel active" id="reveal-panel-transcript"></div>
+                <div class="tab-panel" id="reveal-panel-summary"></div>
+                <div class="tab-panel" id="reveal-panel-notes"></div>
+                <div class="tab-panel" id="reveal-panel-concepts"></div>
+                <div class="tab-panel" id="reveal-panel-flashcards"></div>
+                <div class="tab-panel" id="reveal-panel-quiz"></div>
+              </div>
+              <div class="text-center" style="margin-top:24px;">
+                <button class="btn btn-primary" onclick="resetRecordPage(); showPage('subjects');">Back to Subjects</button>
+              </div>
+            </div>
+          </div>
+        </section>

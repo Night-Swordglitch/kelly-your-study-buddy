@@ -1,0 +1,34 @@
+        <section class="app-page" id="page-study">
+          <h1 style="font-size:24px;margin-bottom:6px;">Let's study.</h1>
+          <p class="muted" style="margin-bottom:8px;">Here's what I'd focus on today.</p>
+          <div class="card" style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:18px;">
+            <div class="kelly-mount" data-mood="focused" data-theme="gold" data-size="76"></div>
+            <div style="flex:1;min-width:200px;">
+              <h3 style="margin-bottom:4px;" id="study-hub-mission-title">Today's Mission: Master Chapter 3</h3>
+              <p class="muted" style="font-size:14px;" id="study-hub-mission-sub">Business — Scarcity &amp; Trade-offs · about 30 minutes</p>
+            </div>
+            <button class="btn btn-primary" onclick="showPage('mission')">Start Mission</button>
+          </div>
+          <div class="study-hub-grid">
+            <div class="study-action-card" onclick="resetRecordPage(); showPage('record')">
+              <div class="sac-icon" style="background:var(--coral);" data-icon="mic"></div>
+              <h4>Record a Lecture</h4>
+            </div>
+            <div class="study-action-card" onclick="showPage('quizzes')">
+              <div class="sac-icon" style="background:var(--violet);" data-icon="check"></div>
+              <h4>Take a Quiz</h4>
+            </div>
+            <div class="study-action-card" onclick="showPage('flashcards')">
+              <div class="sac-icon" style="background:var(--mint);" data-icon="layers"></div>
+              <h4>Review Flashcards</h4>
+            </div>
+            <div class="study-action-card" onclick="openKellyPanel()">
+              <div class="sac-icon" style="background:var(--gold);" data-icon="chat"></div>
+              <h4>Ask KELLY Something</h4>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3>Recent Study Sessions</h3></div>
+            <div id="study-hub-history"></div>
+          </div>
+        </section>
