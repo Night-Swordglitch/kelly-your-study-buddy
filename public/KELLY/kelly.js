@@ -718,14 +718,19 @@ window.handleGoogleAuth = async function () {
       console.warn("[KELLY] Could not read parent URL:", error);
     }
 
+const cleanParentPath = parentPath.replace(/^\/+/, "").split("/")[0];
+
     if (parentPath === "/") {
       showRoot("view-landing");
+    } else if (cleanParentPath === "login") {
+      showRoot("view-login");
+    } else if (cleanParentPath === "signup") {
+      showRoot("view-signup");
     } else if (session) {
-      const routePage = parentPath.replace(/^\/+/, "").split("/")[0];
       let lastPage = "home";
 
-      if (APP_PAGES.includes(routePage)) {
-        lastPage = routePage;
+      if (APP_PAGES.includes(cleanParentPath)) {
+        lastPage = cleanParentPath;
       } else {
         try {
           const savedPage = localStorage.getItem("kelly:last-page");

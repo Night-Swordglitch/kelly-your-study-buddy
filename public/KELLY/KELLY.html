@@ -4756,6 +4756,20 @@ window.addEventListener('message', function (event) {
     } else if (data.page === 'signup') {
       showRoot('view-signup');
     }
+    return;
+  }
+
+  if (data.type === 'kelly:force-landing') {
+    showRoot('view-landing');
+    return;
+  }
+
+  if (data.type === 'kelly:set-page') {
+    if (typeof data.page === 'string') {
+      showRoot('view-app');
+      showPage(data.page);
+    }
+    return;
   }
 });
 
@@ -4767,6 +4781,8 @@ window.showRoot = function (viewId) {
     window.parent.postMessage({ type: 'kelly:request-navigation', page: 'login' }, window.location.origin);
   } else if (viewId === 'view-signup') {
     window.parent.postMessage({ type: 'kelly:request-navigation', page: 'signup' }, window.location.origin);
+  } else if (viewId === 'view-landing') {
+    window.parent.postMessage({ type: 'kelly:request-navigation', page: 'landing' }, window.location.origin);
   }
 };
 </script>

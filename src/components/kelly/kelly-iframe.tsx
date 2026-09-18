@@ -324,12 +324,18 @@ export function KellyIframe() {
 
       if (
         typeof requestedPage !== "string" ||
-        !(VALID_PAGES as readonly string[]).includes(requestedPage)
+        (requestedPage !== "landing" &&
+          !(VALID_PAGES as readonly string[]).includes(requestedPage))
       ) {
         return;
       }
 
-      const targetPath = requestedPage === "home" ? "/home" : `/${requestedPage}`;
+      const targetPath =
+        requestedPage === "home"
+          ? "/home"
+          : requestedPage === "landing"
+            ? "/"
+            : `/${requestedPage}`;
 
       if (location.pathname !== targetPath) {
         navigate({
