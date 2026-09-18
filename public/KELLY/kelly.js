@@ -228,8 +228,89 @@ window.handleSignup = async function (event) {
 };
 
 
-window.handleGoogleAuth = function () {
-  showToast("Google sign-in will be connected next.");
+window.handleGoogleAuth = async function () {
+  if (
+    !window.parent.KellyAuth ||
+    typeof window.parent.KellyAuth.loginWithGoogle !== "function"
+  ) {
+    showToast("Authentication is not available.");
+    return;
+  }
+
+  showToast("Opening Google sign-in...");
+
+  const result = await window.parent.KellyAuth.loginWithGoogle();
+
+  // Case: this email already has a password account. Ask for that
+  // password so we can link the Google credential to the same UID
+  // instead of creating a second account.
+  if (result.error === "ACCOUNT_EXISTS_NEEDS_PASSWORD") {
+    const password = window.prompt(
+      `An account already exists for ${
+        result.email || "this email"
+      } with a password. Enter that password to link Google to it:`,
+    );
+
+    if (!password) {
+      showToast("Google sign-in cancelled.");
+      return;
+    }
+
+    const linkResult = await window.parent.KellyAuth.completeAccountLinking(
+      password,
+    );
+
+    if (linkResult.error) {
+      showToast(linkResult.error);
+      return;
+    }
+
+    showToast("Google linked to your existing account!");
+    showRoot("view-app");
+    showPage("home");
+    return;
+  }
+
+  if (result.error) {
+    showToast(result.error);
+    return;
+  }
+
+  // Case: brand-new Google account. Still go through KELLY's normal
+  // onboarding, and offer a password once onboarding finishes.
+  if (result.isNewUser) {
+    pendingPasswordLink = true;
+    startOnboarding();
+    return;
+  }
+
+  // Case: existing Google-only account with no password yet. Not
+  // blocking — offer to add one, but let them in either way.
+  if (result.needsPassword) {
+    setTimeout(() => {
+      const wants = window.confirm(
+        "Add a password so you can also log in with email? (optional)",
+      );
+
+      if (wants) {
+        const password = window.prompt("Choose a password:");
+
+        if (password) {
+          window.parent.KellyAuth.linkPassword(password).then((r) => {
+            if (r.error) {
+              showToast(r.error);
+            } else {
+              showToast("Password added!");
+            }
+          });
+        }
+      }
+    }, 600);
+  }
+
+  showToast("Welcome!");
+  showRoot("view-app");
+  showPage("home");
 };
 
   // ─────────────────────────────────────────────
@@ -237,6 +318,7 @@ window.handleGoogleAuth = function () {
   // ─────────────────────────────────────────────
 
   let onboardingStep = 0;
+  let pendingPasswordLink = false;
 
   const onboardingSteps = [
     "ob-step-1",
@@ -295,6 +377,24 @@ window.handleGoogleAuth = function () {
   };
 
   window.finishOnboarding = function () {
+    if (pendingPasswordLink) {
+      pendingPasswordLink = false;
+
+      const password = window.prompt(
+        "Create a password so you can also log in with email + password (optional):",
+      );
+
+      if (password) {
+        window.parent.KellyAuth.linkPassword(password).then((r) => {
+          if (r.error) {
+            showToast(r.error);
+          } else {
+            showToast("Password added!");
+          }
+        });
+      }
+    }
+
     showRoot("view-app");
     showPage("home");
   };
@@ -689,11 +789,3 @@ window.handleGoogleAuth = function () {
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',render);
   else render();
 })();
-
-
-
-
-
-
-
-

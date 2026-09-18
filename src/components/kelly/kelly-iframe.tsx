@@ -1,17 +1,64 @@
 ﻿import { useLocation, useNavigate } from "@tanstack/react-router";
-import { createClient } from "@supabase/supabase-js";
 import { useEffect, useRef } from "react";
+import { initializeApp, getApps, getApp } from "firebase/app";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  signOut,
+  onAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithPopup,
+  linkWithCredential,
+  EmailAuthProvider,
+  type AuthCredential,
+  type User,
+} from "firebase/auth";
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+};
 
-if (!supabaseUrl || !supabaseKey) {
-  throw new Error(
-    "Missing VITE_SUPABASE_URL or VITE_SUPABASE_PUBLISHABLE_KEY.",
-  );
+for (const [key, value] of Object.entries(firebaseConfig)) {
+  if (!value) {
+    throw new Error(`Missing Firebase config value: ${key}`);
+  }
 }
 
-const supabase = createClient(supabaseUrl, supabaseKey);
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// Holds a Google credential temporarily when Firebase reports that the
+// email already has a password account — we need it to finish linking
+// once the user proves ownership by entering their password.
+let pendingGoogleCredential: AuthCredential | null = null;
+let pendingGoogleEmail: string | null = null;
+
+function firebaseErrorMessage(error: unknown): string {
+  const code = (error as { code?: string })?.code ?? "";
+
+  switch (code) {
+    case "auth/invalid-credential":
+    case "auth/wrong-password":
+      return "Incorrect email or password.";
+    case "auth/user-not-found":
+      return "No account found with that email.";
+    case "auth/email-already-in-use":
+      return "An account with that email already exists.";
+    case "auth/weak-password":
+      return "Password should be at least 6 characters.";
+    case "auth/popup-closed-by-user":
+      return "Google sign-in was closed before finishing.";
+    default:
+      return (error as { message?: string })?.message ?? "Something went wrong.";
+  }
+}
 
 declare global {
   interface Window {
@@ -25,6 +72,16 @@ declare global {
         email: string,
         password: string,
       ) => Promise<{ error: string | null; session: boolean }>;
+      loginWithGoogle: () => Promise<{
+        error: string | null;
+        email?: string;
+        isNewUser: boolean;
+        needsPassword: boolean;
+      }>;
+      completeAccountLinking: (
+        password: string,
+      ) => Promise<{ error: string | null }>;
+      linkPassword: (password: string) => Promise<{ error: string | null }>;
       logout: () => Promise<void>;
       getSession: () => Promise<{ session: unknown }>;
     };
@@ -62,46 +119,136 @@ function pathToPage(pathname: string): KellyPage {
   return "home";
 }
 
+function hasPasswordProvider(user: User): boolean {
+  return user.providerData.some((p) => p.providerId === "password");
+}
+
 function setupKellyAuthBridge() {
   window.KellyAuth = {
     async login(email, password) {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      return {
-        error: error?.message ?? null,
-      };
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        return { error: null };
+      } catch (error) {
+        return { error: firebaseErrorMessage(error) };
+      }
     },
 
     async signup(name, email, password) {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            display_name: name,
-          },
-        },
-      });
+      try {
+        const credential = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password,
+        );
 
-      return {
-        error: error?.message ?? null,
-        session: Boolean(data.session),
-      };
+        if (name) {
+          await updateProfile(credential.user, { displayName: name });
+        }
+
+        return { error: null, session: true };
+      } catch (error) {
+        return { error: firebaseErrorMessage(error), session: false };
+      }
+    },
+
+    async loginWithGoogle() {
+      const provider = new GoogleAuthProvider();
+
+      try {
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+
+        // Firebase marks the very first sign-in for a brand-new user with
+        // matching creation/last-sign-in timestamps.
+        const isNewUser =
+          user.metadata.creationTime === user.metadata.lastSignInTime;
+
+        return {
+          error: null,
+          isNewUser,
+          needsPassword: !hasPasswordProvider(user),
+        };
+      } catch (error) {
+        const code = (error as { code?: string })?.code;
+
+        if (code === "auth/account-exists-with-different-credential") {
+          // Firebase blocked the Google sign-in because this email already
+          // has a password account. Stash the Google credential so we can
+          // link it once the user confirms their password.
+          pendingGoogleCredential = GoogleAuthProvider.credentialFromError(
+            error as Parameters<typeof GoogleAuthProvider.credentialFromError>[0],
+          );
+          pendingGoogleEmail =
+            (error as { customData?: { email?: string } })?.customData
+              ?.email ?? null;
+
+          return {
+            error: "ACCOUNT_EXISTS_NEEDS_PASSWORD",
+            email: pendingGoogleEmail ?? undefined,
+            isNewUser: false,
+            needsPassword: false,
+          };
+        }
+
+        return {
+          error: firebaseErrorMessage(error),
+          isNewUser: false,
+          needsPassword: false,
+        };
+      }
+    },
+
+    async completeAccountLinking(password) {
+      if (!pendingGoogleCredential || !pendingGoogleEmail) {
+        return { error: "No pending Google sign-in to link." };
+      }
+
+      try {
+        const result = await signInWithEmailAndPassword(
+          auth,
+          pendingGoogleEmail,
+          password,
+        );
+
+        await linkWithCredential(result.user, pendingGoogleCredential);
+
+        pendingGoogleCredential = null;
+        pendingGoogleEmail = null;
+
+        return { error: null };
+      } catch (error) {
+        return { error: firebaseErrorMessage(error) };
+      }
+    },
+
+    async linkPassword(password) {
+      const user = auth.currentUser;
+
+      if (!user || !user.email) {
+        return { error: "No signed-in user to add a password to." };
+      }
+
+      try {
+        const credential = EmailAuthProvider.credential(user.email, password);
+        await linkWithCredential(user, credential);
+        return { error: null };
+      } catch (error) {
+        return { error: firebaseErrorMessage(error) };
+      }
     },
 
     async logout() {
-      await supabase.auth.signOut();
+      await signOut(auth);
     },
 
     async getSession() {
-      const { data } = await supabase.auth.getSession();
-
-      return {
-        session: data.session,
-      };
+      return new Promise((resolve) => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+          unsubscribe();
+          resolve({ session: user ? { user } : null });
+        });
+      });
     },
   };
 }
@@ -112,7 +259,8 @@ export function KellyIframe() {
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   const isLandingRoute = location.pathname === "/";
-  const isAuthRoute = location.pathname === "/login" || location.pathname === "/signup";
+  const isAuthRoute =
+    location.pathname === "/login" || location.pathname === "/signup";
   const page = isAuthRoute
     ? (location.pathname.replace("/", "") as "login" | "signup")
     : pathToPage(location.pathname);
@@ -181,10 +329,7 @@ export function KellyIframe() {
         return;
       }
 
-      const targetPath =
-        requestedPage === "home"
-          ? "/home"
-          : `/${requestedPage}`;
+      const targetPath = requestedPage === "home" ? "/home" : `/${requestedPage}`;
 
       if (location.pathname !== targetPath) {
         navigate({
@@ -231,5 +376,3 @@ export function KellyIframe() {
     </div>
   );
 }
-
-
