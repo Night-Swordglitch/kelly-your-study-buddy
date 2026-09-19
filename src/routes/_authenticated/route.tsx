@@ -1,8 +1,10 @@
-import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+﻿import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { getCurrentUser } from "@/lib/firebase";
+import { AppShell } from "@/components/kelly/app-shell";
 
 export const Route = createFileRoute("/_authenticated")({
   ssr: false,
+
   beforeLoad: async () => {
     const user = await getCurrentUser();
 
@@ -12,5 +14,10 @@ export const Route = createFileRoute("/_authenticated")({
 
     return { user };
   },
-  component: () => <Outlet />,
+
+  component: () => (
+    <AppShell>
+      <Outlet />
+    </AppShell>
+  ),
 });

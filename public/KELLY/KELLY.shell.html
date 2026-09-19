@@ -1,4 +1,4 @@
-﻿  <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -458,7 +458,7 @@
   }
 }
 /* ============================================================
-   KELLY — design tokens
+   KELLY Ã¢â‚¬â€ design tokens
    ============================================================ */
 :root{
   --ink:        #1A1730;
@@ -629,7 +629,7 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
 .progress-fill.gold{ background:var(--gold); }
 
 /* ============================================================
-   LANDING — Top nav
+   LANDING Ã¢â‚¬â€ Top nav
    ============================================================ */
 .site-nav{
   position:sticky; top:0; z-index:80; background:rgba(252,251,255,.86); backdrop-filter:blur(14px);
@@ -645,7 +645,7 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
 .menu-toggle{ display:none; }
 
 /* ============================================================
-   LANDING — Hero
+   LANDING Ã¢â‚¬â€ Hero
    ============================================================ */
 .hero{
   position:relative; overflow:hidden;
@@ -746,7 +746,7 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
 .flow-body p{ color:var(--ink-soft); font-size:15.5px; line-height:1.6; max-width:52ch; }
 
 /* ============================================================
-   Features — bento grid
+   Features Ã¢â‚¬â€ bento grid
    ============================================================ */
 .bento-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
 .feature-card{
@@ -837,7 +837,7 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
 .footer-col a:hover,.footer-col button:hover{ color:#fff; }
 .footer-bottom{ display:flex; justify-content:space-between; align-items:center; padding-top:22px; color:#726C9C; font-size:13px; flex-wrap:wrap; gap:10px; }
 /* ============================================================
-   AUTH — Login / Signup
+   AUTH Ã¢â‚¬â€ Login / Signup
    ============================================================ */
 .auth-shell{ min-height:100vh; display:grid; grid-template-columns:1fr 1fr; }
 .auth-side{
@@ -1108,7 +1108,7 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
 .mission-step-detail{ margin-top:18px; padding-top:18px; border-top:1px solid var(--line); }
 .mission-note-list{ margin-bottom:16px; }
 .mission-note-list li{ font-size:14px; color:var(--ink-soft); padding:6px 0 6px 20px; position:relative; line-height:1.5; }
-.mission-note-list li::before{ content:'•'; position:absolute; left:4px; color:var(--violet); font-weight:800; }
+.mission-note-list li::before{ content:'Ã¢â‚¬Â¢'; position:absolute; left:4px; color:var(--violet); font-weight:800; }
 .mission-flash-row{ display:flex; gap:14px; overflow-x:auto; padding:6px 2px 14px; }
 .mission-complete-wrap{ text-align:center; padding:26px 10px; }
 .mission-xp-badge{ display:inline-flex; align-items:center; gap:8px; background:var(--gold-50); color:var(--gold-dk); font-weight:800; font-family:var(--font-display); padding:10px 20px; border-radius:var(--r-pill); font-size:17px; margin:16px 0; }
@@ -1142,7 +1142,7 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
 .due-badge{ background:var(--coral-50); color:var(--coral-dk); font-size:11.5px; font-weight:800; padding:4px 9px; border-radius:var(--r-pill); }
 
 /* ============================================================
-   QUIZZES — config / taking / results
+   QUIZZES Ã¢â‚¬â€ config / taking / results
    ============================================================ */
 .config-row{ display:flex; flex-direction:column; gap:18px; margin-bottom:22px; }
 .config-group label{ display:block; font-size:13px; font-weight:700; color:var(--ink-soft); margin-bottom:9px; }
@@ -1302,7 +1302,7 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
 .toggle-switch.on::after{ transform:translateX(19px); }
 
 /* ============================================================
-   ASK KELLY — FAB + slide-in panel
+   ASK KELLY Ã¢â‚¬â€ FAB + slide-in panel
    ============================================================ */
 .kelly-fab{ position:fixed; bottom:28px; right:28px; width:64px; height:64px; border-radius:50%; background:var(--violet); box-shadow:var(--shadow-violet); border:none; cursor:pointer; z-index:150; display:flex; align-items:center; justify-content:center; transition:transform .2s; }
 .kelly-fab:hover{ transform:scale(1.06); }
@@ -1344,7 +1344,7 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.12
 <style id="kelly-claude-dashboard-overrides">
 
 /* ============================================================
-   KELLY — CLAUDE DASHBOARD
+   KELLY Ã¢â‚¬â€ CLAUDE DASHBOARD
    Scoped mostly to Home so the rest of the app survives.
    ============================================================ */
 
@@ -2674,7 +2674,7 @@ body {
     Notes
   </button>
 
-  <button class="side-link" data-page="listen" onclick="showPage('listen')">
+  <button class="side-link" data-page="listen" onclick="window.parent.location.href='/listen';">
     <span class="sl-icon" data-icon="mic"></span>
     Listen &amp; Transcribe
   </button>
@@ -2718,8 +2718,8 @@ body {
       <div class="app-topbar">
         <h2 id="app-page-title">Home</h2>
         <div class="topbar-right">
-          <div class="stat-chip">⚡ <span id="topbar-xp">1,180</span> XP</div>
-          <div class="stat-chip">🔥 <span id="topbar-streak">6</span></div>
+          <div class="stat-chip">Ã¢Å¡Â¡ <span id="topbar-xp">1,180</span> XP</div>
+          <div class="stat-chip">Ã°Å¸â€Â¥ <span id="topbar-streak">6</span></div>
           <div class="topbar-avatar" onclick="showPage('profile')" id="topbar-avatar">A</div>
         </div>
       </div>
@@ -2770,12 +2770,12 @@ body {
 
 
 
-<script id="kelly-static-app-lock"> (function () { document.addEventListener("click", function (event) { const app = event.target.closest("#view-app"); if (!app) { return; } const sideLink = event.target.closest(".side-link"); const activeNotesPage = app.querySelector("#page-notes.active"); const activeHomePage = app.querySelector("#page-home.active"); if (sideLink) { const page = sideLink.getAttribute("data-page"); if (page === "home" || page === "notes") { return; } event.preventDefault(); event.stopImmediatePropagation(); return; } if (activeNotesPage || activeHomePage) { return; } event.preventDefault(); event.stopImmediatePropagation(); }, true); })(); </script>
+<script id="kelly-static-app-lock"> (function () { document.addEventListener("click", function (event) { const app = event.target.closest("#view-app"); if (!app) { return; } const sideLink = event.target.closest(".side-link"); const activeNotesPage = app.querySelector("#page-notes.active"); const activeHomePage = app.querySelector("#page-home.active"); if (sideLink) { const page = sideLink.getAttribute("data-page"); if (page === "listen") { event.preventDefault(); event.stopImmediatePropagation(); window.parent.location.href = "/listen"; return; } if (page === "home" || page === "notes") { return; } event.preventDefault(); event.stopImmediatePropagation(); return; } if (activeNotesPage || activeHomePage) { return; } event.preventDefault(); event.stopImmediatePropagation(); }, true); })(); </script>
 
 <style id="kelly-notes-layout-fix">
 
 /* ============================================================
-   KELLY NOTES — EXACT DARK WORKSPACE
+   KELLY NOTES Ã¢â‚¬â€ EXACT DARK WORKSPACE
    Keeps the existing global KELLY sidebar untouched.
    ============================================================ */
 
@@ -3140,7 +3140,7 @@ body {
             ],
 
             keyPoints: [
-                "The standard form of a quadratic equation is ax² + bx + c = 0.",
+                "The standard form of a quadratic equation is axÃ‚Â² + bx + c = 0.",
                 "Factorisation can be used when the quadratic can be split into suitable factors.",
                 "The quadratic formula works for any quadratic equation.",
                 "The discriminant helps determine the number and type of roots.",
@@ -3156,7 +3156,7 @@ body {
                 {
                     term: "Discriminant",
                     definition:
-                        "The expression b² − 4ac, which indicates the nature of the roots."
+                        "The expression bÃ‚Â² Ã¢Ë†â€™ 4ac, which indicates the nature of the roots."
                 },
                 {
                     term: "Root",
@@ -3175,7 +3175,7 @@ body {
 
         {
             id: "ww2-causes",
-            title: "World War II — Causes",
+            title: "World War II Ã¢â‚¬â€ Causes",
             subject: "History",
             chapter: "Chapter 12",
             date: "2026-09-08",
@@ -3294,7 +3294,7 @@ body {
                     </div>
 
                     <span class="kelly-note-chevron">
-                        ›
+                        Ã¢â‚¬Âº
                     </span>
 
                 </button>
@@ -3361,8 +3361,8 @@ body {
             <span class="meta-subject-${escapeHtml(note.color)}">
                 ${escapeHtml(note.subject)}
             </span>
-            · ${escapeHtml(note.chapter)}
-            · ${escapeHtml(note.date)}
+            Ã‚Â· ${escapeHtml(note.chapter)}
+            Ã‚Â· ${escapeHtml(note.date)}
         `;
 
         const sections = [];
@@ -3476,7 +3476,7 @@ body {
                             <div class="kelly-takeaway">
 
                                 <span class="kelly-takeaway-check">
-                                    ✓
+                                    Ã¢Å“â€œ
                                 </span>
 
                                 <span>
@@ -4015,7 +4015,7 @@ window.showRoot = function (viewId) {
 }
 
 #page-notes #kelly-edit-note::before {
-  content: "✎";
+  content: "Ã¢Å“Å½";
   font-size: 15px;
   line-height: 1;
 }
@@ -4038,7 +4038,7 @@ window.showRoot = function (viewId) {
 }
 
 #page-notes #kelly-delete-note::before {
-  content: "▣";
+  content: "Ã¢â€“Â£";
   font-size: 13px;
   line-height: 1;
 }
@@ -4096,7 +4096,7 @@ window.showRoot = function (viewId) {
 <style id="kelly-sidebar-spec-final">
 
 /* ============================================================
-   LOGO — 36px PURPLE ROUNDED SQUARE + CAT
+   LOGO Ã¢â‚¬â€ 36px PURPLE ROUNDED SQUARE + CAT
    ============================================================ */
 
 #view-app .sidebar-logo {
@@ -4134,7 +4134,7 @@ window.showRoot = function (viewId) {
 
 /* Cat icon */
 #view-app .sidebar-logo .kelly-mount::after {
-  content: "🐱" !important;
+  content: "Ã°Å¸ÂÂ±" !important;
   display: block !important;
   font-size: 18px !important;
   line-height: 1 !important;
@@ -4150,7 +4150,7 @@ window.showRoot = function (viewId) {
 
 
 /* ============================================================
-   NAV ICONS — MUTED PURPLE/GRAY OUTLINE
+   NAV ICONS Ã¢â‚¬â€ MUTED PURPLE/GRAY OUTLINE
    ============================================================ */
 
 #view-app .side-link {
@@ -4191,7 +4191,7 @@ window.showRoot = function (viewId) {
 
 
 /* ============================================================
-   ACTIVE NAV — WHITE ICON + WHITE TEXT
+   ACTIVE NAV Ã¢â‚¬â€ WHITE ICON + WHITE TEXT
    ============================================================ */
 
 #view-app .side-link.active {
@@ -4222,7 +4222,7 @@ window.showRoot = function (viewId) {
 
 
 /* ============================================================
-   HOVER — KEEP MUTED UNTIL ACTIVE
+   HOVER Ã¢â‚¬â€ KEEP MUTED UNTIL ACTIVE
    ============================================================ */
 
 #view-app .side-link:hover {
@@ -4236,7 +4236,7 @@ window.showRoot = function (viewId) {
 
 
 /* ============================================================
-   SETTINGS — SAME ICON TREATMENT
+   SETTINGS Ã¢â‚¬â€ SAME ICON TREATMENT
    ============================================================ */
 
 #view-app .side-nav-bottom .side-link {
@@ -4259,7 +4259,7 @@ window.showRoot = function (viewId) {
 
 
 /* ============================================================
-   IMPORTANT — DO NOT CHANGE THE XP ROW / DIVIDER
+   IMPORTANT Ã¢â‚¬â€ DO NOT CHANGE THE XP ROW / DIVIDER
    ============================================================ */
 
 #view-app .sidebar-level {
@@ -4292,7 +4292,7 @@ window.showRoot = function (viewId) {
 #view-app .app-content{min-width:0!important}
 </style>
 <style id="kelly-final-active-nav">
-/* FINAL KELLY ACTIVE NAV — ONE STYLE EVERYWHERE */
+/* FINAL KELLY ACTIVE NAV Ã¢â‚¬â€ ONE STYLE EVERYWHERE */
 
 #view-app .side-link,
 #view-app .side-nav-bottom .side-link{

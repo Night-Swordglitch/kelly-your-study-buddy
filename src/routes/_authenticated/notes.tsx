@@ -1,6 +1,11 @@
 ﻿import { createFileRoute } from "@tanstack/react-router";
-import { KellyIframe } from "@/components/kelly/kelly-iframe";
+import { NotesPage } from "@/components/kelly/notes-page";
+import { AppShell } from "@/components/kelly/app-shell";
 
 export const Route = createFileRoute("/_authenticated/notes")({
-  component: KellyIframe,
+  component: () => (
+    <AppShell>
+      <NotesPage />
+    </AppShell>
+  ),
 });

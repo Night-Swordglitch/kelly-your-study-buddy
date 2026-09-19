@@ -1,14 +1,5 @@
-﻿:root {
-  --violet: #5B4EF0;
-  --violet-dk: #4238CC;
-  --violet-lt: #8B82FF;
-  --r-pill: 999px;
-  --shadow-violet: 0 12px 26px rgba(91,78,240,.32);
-  --font-display: 'Sora', 'Inter', system-ui, -apple-system, sans-serif;
-  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
-}
 /* =========================================================
-   KELLY APP ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â DARK DASHBOARD + SIDEBAR + NOTES
+   KELLY APP Ã¢â‚¬â€ DARK DASHBOARD + SIDEBAR + NOTES
    ========================================================= */
 
 .kelly-app {
@@ -75,12 +66,10 @@
   border-radius: 12px;
 }
 
-.kelly-sidebar-avatar img {
-  width: 36px;
-  height: 36px;
-  display: block;
-  object-fit: cover;
-  border-radius: 12px;
+.kelly-sidebar-avatar > .kelly-character {
+  width: 36px !important;
+  height: 36px !important;
+  flex: 0 0 36px;
 }
 
 .kelly-sidebar-word {
@@ -300,8 +289,8 @@
 .kelly-medo-card {
   position: relative;
   z-index: 1;
-  background: #13131f;
-  border: 1px solid #1e1e2e;
+  background: #101016;
+  border: 1px solid #24242e;
   border-radius: 14px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.018);
   padding: 20px;
@@ -996,8 +985,8 @@
   display: grid;
   grid-template-columns: 208px minmax(0, 1fr);
   overflow: hidden;
-  background: #0d0d14;
-  color: #ebe6e0;
+  background: #0a0a0f;
+  color: #f4f3f8;
   font-family: var(--font-body, 'Inter', system-ui, -apple-system, sans-serif);
 }
 
@@ -1006,7 +995,7 @@
   min-height: 0;
   height: 100vh;
   overflow: auto;
-  background: #0d0d14;
+  background: #0a0a0f;
 }
 
 .kelly-page-intro {
@@ -1088,7 +1077,7 @@
 }
 
 /* ============================================================
-   KELLY HOME ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â POLISHED REACT MIGRATION
+   KELLY HOME Ã¢â‚¬â€ POLISHED REACT MIGRATION
    Source: public/KELLY/KELLY.html
    ============================================================ */
 
@@ -1846,7 +1835,7 @@
 }
 
 /* ============================================================
-   KELLY LANDING ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â REACT ROOT
+   KELLY LANDING Ã¢â‚¬â€ REACT ROOT
    ============================================================ */
 
 .kelly-landing {
@@ -3157,8 +3146,8 @@
 .kelly-listen-page {
   min-height: 100%;
   padding: 34px 38px 50px;
-  background: #0d0d14;
-  color: #e8e8f0;
+  background: #0a0a0f;
+  color: #f8f7fb;
   font-family: var(--font-body);
 }
 
@@ -3187,8 +3176,8 @@
   min-height: 420px;
   padding: 22px;
   box-sizing: border-box;
-  background: #13131f;
-  border: 1px solid #1e1e2e;
+  background: #101016;
+  border: 1px solid #24242e;
   border-radius: 14px;
   box-shadow:
     0 12px 32px rgba(0, 0, 0, 0.22),
@@ -3340,12 +3329,13 @@
   padding: 0 19px;
   border: 0;
   border-radius: var(--r-pill);
-  background: #7C6AF5;
+  background: var(--violet);
   color: #ffffff;
   font-family: var(--font-body);
   font-size: 12px;
   font-weight: 650;
   cursor: pointer;
+  box-shadow: var(--shadow-violet);
   transition:
     background 120ms ease,
     transform 120ms ease,
@@ -3420,8 +3410,8 @@
   gap: 13px;
   padding: 13px 15px;
   box-sizing: border-box;
-  background: #13131f;
-  border: 1px solid #1e1e2e;
+  background: #101016;
+  border: 1px solid #24242e;
   border-radius: 14px;
 }
 
@@ -3548,8 +3538,8 @@
 }
 
 .kelly-home-card {
-  background: #13131f;
-  border: 1px solid #1e1e2e;
+  background: #101016;
+  border: 1px solid #24242e;
   border-radius: 14px;
   box-shadow:
     0 12px 32px rgba(0, 0, 0, 0.22),
@@ -4457,659 +4447,5 @@
   .kelly-notes-page-react .kelly-note-detail-top {
     flex-direction: column;
   }
-}
-
-
-
-/* ============================================================
-   KELLY CHARACTER GÃ¯Â¿Â½Ã¯Â¿Â½ MODERN COMPONENT
-   ============================================================ */
-
-.kelly-character {
-  position: relative;
-
-  display: inline-block;
-
-  flex-shrink: 0;
-
-  width: 76px;
-  height: 76px;
-
-  animation:
-    kelly-character-breathe 3.4s ease-in-out infinite;
-}
-
-.kelly-character-sm {
-  width: 42px;
-  height: 42px;
-}
-
-.kelly-character-lg {
-  width: 170px;
-  height: 170px;
-}
-
-@keyframes kelly-character-breathe {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-3px);
-  }
-}
-
-
-/* ============================================================
-   CHARACTER AURA
-   ============================================================ */
-
-.kelly-character-aura {
-  position: absolute;
-
-  inset: 10%;
-
-  border-radius: 50%;
-
-  background:
-    rgba(244, 201, 93, 0.22);
-
-  filter: blur(12px);
-}
-
-
-/* ============================================================
-   CHARACTER BODY
-   ============================================================ */
-
-.kelly-character-body {
-  position: absolute;
-
-  inset: 12%;
-
-  border-radius:
-    42% 42% 46% 46%;
-
-  background:
-    linear-gradient(
-      145deg,
-      #a9cce8 0%,
-      #78a9d8 58%,
-      #6297c9 100%
-    );
-
-  box-shadow:
-    inset 0 5px 10px rgba(255, 255, 255, 0.35),
-    0 9px 0 rgba(83, 130, 166, 0.18);
-
-  overflow: visible;
-}
-
-
-/* ============================================================
-   CHARACTER EARS
-   ============================================================ */
-
-.kelly-character-ear {
-  position: absolute;
-
-  top: 18%;
-
-  width: 25%;
-  height: 32%;
-
-  background: #78a9d8;
-
-  border-radius: 50%;
-}
-
-.kelly-character-ear-left {
-  left: -13%;
-  transform: rotate(-18deg);
-}
-
-.kelly-character-ear-right {
-  right: -13%;
-  transform: rotate(18deg);
-}
-
-
-/* ============================================================
-   CHARACTER EYES
-   ============================================================ */
-
-.kelly-character-eye {
-  position: absolute;
-
-  top: 39%;
-
-  width: 11%;
-  height: 14%;
-
-  border-radius: 50%;
-
-  background: #30302d;
-
-  animation:
-    kelly-blink 5s infinite;
-}
-
-.kelly-character-eye-left {
-  left: 29%;
-}
-
-.kelly-character-eye-right {
-  right: 29%;
-}
-
-@keyframes kelly-blink {
-  0%,
-  43%,
-  48%,
-  100% {
-    transform: scaleY(1);
-  }
-
-  45%,
-  46% {
-    transform: scaleY(0.08);
-  }
-}
-
-
-/* ============================================================
-   CHARACTER CHEEKS
-   ============================================================ */
-
-.kelly-character-cheek {
-  position: absolute;
-
-  top: 55%;
-
-  width: 15%;
-  height: 8%;
-
-  border-radius: 999px;
-
-  background:
-    rgba(238, 146, 125, 0.60);
-}
-
-.kelly-character-cheek-left {
-  left: 14%;
-}
-
-.kelly-character-cheek-right {
-  right: 14%;
-}
-
-
-/* ============================================================
-   CHARACTER MOUTH
-   ============================================================ */
-
-.kelly-character-mouth {
-  position: absolute;
-
-  left: 50%;
-  top: 58%;
-
-  width: 20%;
-  height: 11%;
-
-  transform: translateX(-50%);
-
-  border-bottom: 3px solid #30302d;
-
-  border-radius: 0 0 50% 50%;
-}
-
-
-/* ============================================================
-   CHARACTER ANTENNA
-   ============================================================ */
-
-.kelly-character-antenna {
-  position: absolute;
-
-  left: 50%;
-  top: 0;
-
-  width: 3px;
-  height: 17%;
-
-  transform: translateX(-50%);
-
-  background: var(--kelly-blue-dark);
-}
-
-.kelly-character-antenna span {
-  position: absolute;
-
-  left: 50%;
-  top: -5px;
-
-  width: 11px;
-  height: 11px;
-
-  transform: translateX(-50%);
-
-  border-radius: 50%;
-
-  background: var(--kelly-yellow);
-
-  box-shadow:
-    0 0 10px rgba(244, 201, 93, 0.55);
-
-  animation:
-    kelly-character-antenna-pulse 2s ease-in-out infinite;
-}
-
-@keyframes kelly-character-antenna-pulse {
-  0%,
-  100% {
-    transform: translateX(-50%) scale(1);
-  }
-
-  50% {
-    transform: translateX(-50%) scale(1.18);
-  }
-}
-
-
-/* ============================================================
-   CHARACTER SHADOW
-   ============================================================ */
-
-.kelly-character-shadow {
-  position: absolute;
-
-  left: 18%;
-  right: 18%;
-  bottom: 1%;
-
-  height: 9%;
-
-  border-radius: 50%;
-
-  background:
-    rgba(56, 49, 79, 0.12);
-
-  filter: blur(4px);
-
-  z-index: -1;
-}
-
-
-/* ============================================================
-   CHARACTER THINKING
-   ============================================================ */
-
-.kelly-character-thoughts {
-  position: absolute;
-
-  right: -12%;
-  top: 0;
-
-  display: flex;
-
-  gap: 4px;
-
-  align-items: flex-end;
-}
-
-.kelly-character-thoughts span {
-  display: block;
-
-  width: 7px;
-  height: 7px;
-
-  border-radius: 50%;
-
-  background: var(--kelly-blue);
-}
-
-.kelly-character-thoughts span:nth-child(1) {
-  width: 5px;
-  height: 5px;
-}
-
-.kelly-character-thoughts span:nth-child(2) {
-  width: 8px;
-  height: 8px;
-}
-
-.kelly-character-thoughts span:nth-child(3) {
-  width: 11px;
-  height: 11px;
-}
-
-
-/* ============================================================
-   CHARACTER ALERT
-   ============================================================ */
-
-.kelly-character-alert {
-  position: absolute;
-
-  right: -7%;
-  top: -5%;
-
-  width: 25%;
-
-  aspect-ratio: 1;
-
-  display: grid;
-  place-items: center;
-
-  border-radius: 50%;
-
-  background: var(--kelly-coral);
-
-  color: white;
-
-  font-size: 65%;
-  font-weight: 800;
-
-  box-shadow:
-    0 5px 14px rgba(210, 126, 53, 0.20);
-}
-
-
-/* ============================================================
-   CHARACTER HAPPY
-   ============================================================ */
-
-.kelly-character-sparkles {
-  position: absolute;
-
-  right: -12%;
-  top: -7%;
-
-  color: #d9a82e;
-
-  font-weight: 800;
-}
-
-.kelly-character-sparkles span:first-child {
-  font-size: 22px;
-}
-
-.kelly-character-sparkles span:last-child {
-  position: absolute;
-
-  left: -8px;
-  top: 15px;
-
-  font-size: 13px;
-}
-
-
-/* ============================================================
-   CHARACTER MOODS
-   ============================================================ */
-
-.kelly-character-thinking .kelly-character-body {
-  background:
-    linear-gradient(
-      145deg,
-      #b9d8ec,
-      #86b6dc
-    );
-
-  animation:
-    kelly-thinking 1.7s ease-in-out infinite;
-}
-
-.kelly-character-happy .kelly-character-body {
-  background:
-    linear-gradient(
-      145deg,
-      #b9dced,
-      #78b89b
-    );
-
-  animation:
-    kelly-happy 1.8s ease-in-out infinite;
-}
-
-.kelly-character-concerned .kelly-character-body {
-  background:
-    linear-gradient(
-      145deg,
-      #f1b2a3,
-      #df8e7b
-    );
-}
-
-@keyframes kelly-thinking {
-  0%,
-  100% {
-    transform: rotate(0deg);
-  }
-
-  50% {
-    transform: rotate(-2deg) translateY(-2px);
-  }
-}
-
-@keyframes kelly-happy {
-  0%,
-  100% {
-    transform: translateY(0) rotate(0deg);
-  }
-
-  30% {
-    transform: translateY(-6px) rotate(-2deg);
-  }
-
-  60% {
-    transform: translateY(-3px) rotate(2deg);
-  }
-}
-
-
-/* â”€â”€ KELLY Listen recording actions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-
-.kelly-listen-record-actions {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  width: 100%;
-  margin-top: 4px;
-}
-
-.kelly-listen-action-button {
-  min-height: 40px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 9px 14px;
-  border: 1px solid #2b2b3d;
-  border-radius: 11px;
-  background: #191922;
-  color: #e8e8f0;
-  font-family: var(--font-body, "Inter", system-ui, sans-serif);
-  font-size: 13px;
-  font-weight: 650;
-  line-height: 1;
-  cursor: pointer;
-  transition:
-    background 0.15s ease,
-    border-color 0.15s ease,
-    transform 0.15s ease;
-}
-
-.kelly-listen-action-button:hover {
-  background: #20202c;
-  border-color: #3b3b50;
-  transform: translateY(-1px);
-}
-
-.kelly-listen-action-button.is-primary {
-  background: #7c6af5;
-  border-color: #7c6af5;
-  color: #ffffff;
-}
-
-.kelly-listen-action-button.is-primary:hover {
-  background: #8878f7;
-  border-color: #8878f7;
-}
-
-.kelly-listen-action-button.is-danger {
-  color: #ff8585;
-  border-color: rgba(255, 90, 90, 0.25);
-}
-
-.kelly-listen-action-button.is-danger:hover {
-  background: rgba(255, 90, 90, 0.08);
-  border-color: rgba(255, 90, 90, 0.4);
-}
-
-.kelly-listen-feedback {
-  position: fixed;
-  left: 50%;
-  bottom: 28px;
-  z-index: 100;
-  transform: translateX(-50%);
-  padding: 11px 17px;
-  border: 1px solid #303044;
-  border-radius: 12px;
-  background: #171721;
-  color: #e8e8f0;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
-  font-family: var(--font-body, "Inter", system-ui, sans-serif);
-  font-size: 13px;
-  font-weight: 600;
-  animation: kellyListenFeedbackIn 0.2s ease-out;
-}
-
-.kelly-listen-xp-toast {
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
-  z-index: 101;
-  padding: 9px 13px;
-  border: 1px solid rgba(124, 106, 245, 0.35);
-  border-radius: 10px;
-  background: rgba(30, 26, 58, 0.96);
-  color: #a99fff;
-  font-family: var(--font-body, "Inter", system-ui, sans-serif);
-  font-size: 12px;
-  font-weight: 750;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
-}
-
-@keyframes kellyListenFeedbackIn {
-  from {
-    opacity: 0;
-    transform: translate(-50%, 8px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-}
-
-
-
-/* KELLY recording controls */
-.kelly-listen-stop-button {
-  background: #2A1010 !important;
-  color: #AE4E4E !important;
-  border: 0;
-  box-shadow: none !important;
-}
-
-.kelly-listen-stop-button svg {
-  color: #AE4E4E !important;
-  fill: #AE4E4E !important;
-}
-
-.kelly-listen-pause-button {
-  background: #1E1E2E !important;
-  color: #9B9BA6 !important;
-  border: 0;
-  box-shadow: none !important;
-}
-
-.kelly-listen-pause-button svg {
-  color: #9B9BA6 !important;
-  stroke: #9B9BA6 !important;
-}
-
-
-/* KELLY recording controls */
-.kelly-listen-recording-controls {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.kelly-listen-pause-button,
-.kelly-listen-stop-button {
-  min-height: 42px;
-  padding: 0 17px;
-  border: 0;
-  border-radius: var(--r-pill);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 650;
-  cursor: pointer;
-  box-shadow: none !important;
-}
-
-.kelly-listen-pause-button {
-  background: #1E1E2E !important;
-  color: #9B9BA6 !important;
-}
-
-.kelly-listen-pause-icon {
-  color: #9B9BA6;
-  stroke: #9B9BA6;
-}
-
-.kelly-listen-stop-button {
-  background: #2A1010 !important;
-  color: #AE4E4E !important;
-}
-
-.kelly-listen-stop-icon {
-  width: 12px;
-  height: 12px;
-  background: #AE4E4E;
-  border-radius: 2px;
-  flex: 0 0 auto;
-}
-
-
-
-.kelly-listen-continue-button {
-  min-height: 42px;
-  padding: 0 17px;
-  border: 0;
-  border-radius: var(--r-pill);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  background: #7C6AF5;
-  color: #ffffff;
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 650;
-  cursor: pointer;
-  box-shadow: none !important;
 }
 
