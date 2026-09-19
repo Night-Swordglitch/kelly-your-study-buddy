@@ -12,6 +12,8 @@ import {
   signInWithPopup,
   linkWithCredential,
   EmailAuthProvider,
+  sendEmailVerification,
+  getAdditionalUserInfo,
   type AuthCredential,
   type User,
 } from "firebase/auth";
@@ -83,6 +85,7 @@ declare global {
       ) => Promise<{ error: string | null }>;
       linkPassword: (password: string) => Promise<{ error: string | null }>;
       logout: () => Promise<void>;
+      resendVerificationEmail: () => Promise<{ error: string | null }>;
       getSession: () => Promise<{ session: unknown }>;
     };
   }
@@ -146,6 +149,12 @@ function setupKellyAuthBridge() {
           await updateProfile(credential.user, { displayName: name });
         }
 
+        try {
+          await sendEmailVerification(credential.user);
+        } catch (verifyError) {
+          console.warn("[KELLY] Could not send verification email:", verifyError);
+        }
+
         return { error: null, session: true };
       } catch (error) {
         return { error: firebaseErrorMessage(error), session: false };
@@ -159,10 +168,12 @@ function setupKellyAuthBridge() {
         const result = await signInWithPopup(auth, provider);
         const user = result.user;
 
-        // Firebase marks the very first sign-in for a brand-new user with
-        // matching creation/last-sign-in timestamps.
-        const isNewUser =
-          user.metadata.creationTime === user.metadata.lastSignInTime;
+        // Use Firebase's own flag from the sign-in response rather than
+        // comparing user.metadata timestamps -- the cached metadata on
+        // the client doesn't always refresh reliably after a popup
+        // sign-in, which can misreport a returning user as new.
+        const additionalInfo = getAdditionalUserInfo(result);
+        const isNewUser = additionalInfo?.isNewUser ?? false;
 
         return {
           error: null,
@@ -188,7 +199,7 @@ function setupKellyAuthBridge() {
             ...(pendingGoogleEmail ? { email: pendingGoogleEmail } : {}),
             isNewUser: false,
             needsPassword: false,
-          };;
+          };
         }
 
         return {
@@ -240,6 +251,21 @@ function setupKellyAuthBridge() {
 
     async logout() {
       await signOut(auth);
+    },
+
+    async resendVerificationEmail() {
+      const user = auth.currentUser;
+
+      if (!user) {
+        return { error: "No signed-in user found." };
+      }
+
+      try {
+        await sendEmailVerification(user);
+        return { error: null };
+      } catch (error) {
+        return { error: firebaseErrorMessage(error) };
+      }
     },
 
     async getSession() {
