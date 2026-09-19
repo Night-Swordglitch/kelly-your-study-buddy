@@ -377,24 +377,6 @@ window.handleGoogleAuth = async function () {
   };
 
   window.finishOnboarding = function () {
-    if (pendingPasswordLink) {
-      pendingPasswordLink = false;
-
-      const password = window.prompt(
-        "Create a password so you can also log in with email + password (optional):",
-      );
-
-      if (password) {
-        window.parent.KellyAuth.linkPassword(password).then((r) => {
-          if (r.error) {
-            showToast(r.error);
-          } else {
-            showToast("Password added!");
-          }
-        });
-      }
-    }
-
     showRoot("view-app");
     showPage("home");
   };
