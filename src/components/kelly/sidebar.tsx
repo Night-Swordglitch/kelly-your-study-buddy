@@ -1,4 +1,5 @@
-﻿import { useLocation, useNavigate } from "@tanstack/react-router";
+﻿import { useState } from "react";
+import { useLocation, useNavigate } from "@tanstack/react-router";
 import {
   CalendarDays,
   Clock3,
@@ -84,6 +85,7 @@ export function KellySidebar() {
   const location = useLocation();
   const navigate = useNavigate();
   const { xp } = useKellyXP();
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   const activePage = getActivePage(location.pathname);
 
@@ -165,25 +167,55 @@ export function KellySidebar() {
 
       {/* ── Bottom / Settings ─────────────────────────────────── */}
       <div className="kelly-sidebar-bottom">
-        <button
-          type="button"
-          className={`kelly-sidebar-link${
-            activePage === "settings" ? " active" : ""
-          }`}
-          disabled
-          aria-current={
-            activePage === "settings" ? "page" : undefined
-          }
-        >
-          <Settings
-            className="kelly-sidebar-icon"
-            size={16}
-            strokeWidth={2}
-          />
+        <div className="kelly-settings-wrapper">
+          <button
+            type="button"
+            className="kelly-sidebar-link kelly-settings-trigger"
+            onMouseEnter={() => setSettingsOpen(true)}
+            onMouseLeave={() => {
+              window.setTimeout(() => {
+                const hovered = document.querySelector(".kelly-settings-popup:hover");
+                if (!hovered) {
+                  setSettingsOpen(false);
+                }
+              }, 40);
+            }}
+          >
+            <Settings
+              className="kelly-sidebar-icon"
+              size={16}
+              strokeWidth={2}
+            />
 
-          <span>Settings</span>
-        </button>
+            <span>Settings</span>
+          </button>
+
+          {settingsOpen && (
+            <div
+              className="kelly-settings-popup"
+              onMouseEnter={() => setSettingsOpen(true)}
+              onMouseLeave={() => setSettingsOpen(false)}
+            >
+              <button
+                type="button"
+                className="kelly-settings-logout"
+                onClick={async () => {
+                  await window.KellyAuth?.logout();
+                  window.location.href = "/";
+                }}
+              >
+                Log out
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </aside>
   );
 }
+
+
+
+
+
+
