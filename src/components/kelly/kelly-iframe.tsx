@@ -185,10 +185,10 @@ function setupKellyAuthBridge() {
 
           return {
             error: "ACCOUNT_EXISTS_NEEDS_PASSWORD",
-            email: pendingGoogleEmail ?? undefined,
+            ...(pendingGoogleEmail ? { email: pendingGoogleEmail } : {}),
             isNewUser: false,
             needsPassword: false,
-          };
+          };;
         }
 
         return {
