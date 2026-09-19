@@ -2582,6 +2582,41 @@ body {
   border-radius: 10px !important;
 }
 </style>
+<style id="kelly-auth-feedback">
+.btn-spinner {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: middle;
+  animation: kelly-spin 0.6s linear infinite;
+}
+
+@keyframes kelly-spin {
+  to { transform: rotate(360deg); }
+}
+
+.btn-primary[disabled] {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
+.auth-error-msg {
+  display: none;
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+  color: #ff8585;
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: left;
+}
+</style>
 </head>
 <body class="kelly-startup-pending">
 

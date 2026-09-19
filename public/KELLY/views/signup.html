@@ -1,4 +1,4 @@
-<div class="root-view" id="view-signup">a
+<div class="root-view" id="view-signup">
   <div class="auth-shell">
     <div class="auth-side">
       <button class="icon-btn on-dark auth-back" onclick="showRoot('view-landing')">‹</button>
@@ -29,7 +29,11 @@
             <label for="signup-password">Password</label>
             <input type="password" id="signup-password" required placeholder="At least 8 characters">
           </div>
-          <button type="submit" class="btn btn-primary btn-lg btn-block">Create Account</button>
+          <button type="submit" class="btn btn-primary btn-lg btn-block" id="signup-submit-btn">
+            <span class="btn-spinner" id="signup-spinner"></span>
+            <span class="btn-label">Create Account</span>
+          </button>
+          <div class="auth-error-msg" id="signup-error"></div>
         </form>
         <div class="form-divider"><span>or</span></div>
         <button class="btn btn-ghost btn-block" style="gap:10px;" onclick="handleGoogleAuth('signup')">

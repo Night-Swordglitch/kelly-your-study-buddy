@@ -1,4 +1,4 @@
-(() => {
+﻿(() => {
   "use strict";
 
   // ─────────────────────────────────────────────
@@ -116,6 +116,34 @@
   // LOGIN
   // ─────────────────────────────────────────────
 
+function setAuthButtonLoading(buttonId, isLoading) {
+  const btn = document.getElementById(buttonId);
+
+  if (!btn) return;
+
+  const spinner = btn.querySelector(".btn-spinner");
+
+  btn.disabled = isLoading;
+
+  if (spinner) {
+    spinner.style.display = isLoading ? "inline-block" : "none";
+  }
+}
+
+function showAuthError(errorId, message) {
+  const el = document.getElementById(errorId);
+
+  if (!el) return;
+
+  if (message) {
+    el.textContent = message;
+    el.style.display = "block";
+  } else {
+    el.textContent = "";
+    el.style.display = "none";
+  }
+}
+
 window.handleLogin = async function (event) {
   if (event) {
     event.preventDefault();
@@ -128,6 +156,8 @@ window.handleLogin = async function (event) {
     return false;
   }
 
+  showAuthError("login-error", "");
+
   const email =
     form.querySelector('input[type="email"]')?.value?.trim() || "";
 
@@ -135,21 +165,22 @@ window.handleLogin = async function (event) {
     form.querySelector('input[type="password"]')?.value || "";
 
   if (!email || !password) {
-    showToast("Enter your email and password.");
+    showAuthError("login-error", "Enter your email and password.");
     return false;
   }
 
   if (!window.parent.KellyAuth) {
-    showToast("Authentication is not available.");
+    showAuthError("login-error", "Authentication is not available.");
     return false;
   }
 
-  showToast("Logging you in...");
+  setAuthButtonLoading("login-submit-btn", true);
 
   const result = await window.parent.KellyAuth.login(email, password);
 
   if (result.error) {
-    showToast(result.error);
+    setAuthButtonLoading("login-submit-btn", false);
+    showAuthError("login-error", result.error);
     return false;
   }
 
@@ -169,83 +200,58 @@ window.handleSignup = async function (event) {
     event.preventDefault();
   }
 
-  const form =
-    event?.target ||
-    document.querySelector(
-      "#view-signup form",
-    );
+  const form = event?.target || document.querySelector("#view-signup form");
 
   if (!form) {
     showToast("Signup form not found.");
     return false;
   }
 
-  const inputs = [
-    ...form.querySelectorAll("input"),
-  ];
+  showAuthError("signup-error", "");
+
+  const inputs = [...form.querySelectorAll("input")];
 
   const name =
-    form.querySelector(
-      'input[name="name"]',
-    )?.value?.trim() ||
-    inputs.find(
-      (input) => input.type === "text",
-    )?.value?.trim() ||
+    form.querySelector('input[name="name"]')?.value?.trim() ||
+    inputs.find((input) => input.type === "text")?.value?.trim() ||
     "";
 
   const email =
-    form.querySelector(
-      'input[type="email"]',
-    )?.value?.trim() || "";
+    form.querySelector('input[type="email"]')?.value?.trim() || "";
 
-  const password =
-    form.querySelector(
-      'input[type="password"]',
-    )?.value || "";
+  const passwordInputs = form.querySelectorAll('input[type="password"]');
+
+  const password = passwordInputs[0]?.value || "";
 
   if (!name || !email || !password) {
-    showToast(
-      "Fill in all required fields.",
-    );
+    showAuthError("signup-error", "Fill in all required fields.");
     return false;
   }
 
   if (!window.parent.KellyAuth) {
-    showToast(
-      "Authentication is not available.",
-    );
+    showAuthError("signup-error", "Authentication is not available.");
     return false;
   }
 
-  showToast(
-    "Creating your account...",
+  setAuthButtonLoading("signup-submit-btn", true);
+
+  const result = await window.parent.KellyAuth.signup(
+    name,
+    email,
+    password
   );
 
-  const result =
-    await window.parent.KellyAuth.signup(
-      name,
-      email,
-      password,
-    );
-
   if (result.error) {
-    showToast(result.error);
+    setAuthButtonLoading("signup-submit-btn", false);
+    showAuthError("signup-error", result.error);
     return false;
   }
 
   if (!result.session) {
-    showToast(
-      "Account created. Check your email to confirm it.",
-    );
+    setAuthButtonLoading("signup-submit-btn", false);
+    showToast("Account created. Check your email to confirm it.");
     return false;
   }
-
-  /*
-   * The password account is already authenticated.
-   * Google can now be explicitly attached to this UID
-   * during onboarding.
-   */
-  pendingGoogleLink = true;
 
   showToast("Account created!");
 

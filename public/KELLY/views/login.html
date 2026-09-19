@@ -29,7 +29,11 @@
             <label class="checkbox-row"><input type="checkbox" style="width:15px;height:15px;">Remember me</label>
             <button type="button" class="link-btn" style="font-size:13.5px;" onclick="handleForgotPassword()">Forgot password?</button>
           </div>
-          <button type="submit" class="btn btn-primary btn-lg btn-block">Log In</button>
+          <button type="submit" class="btn btn-primary btn-lg btn-block" id="login-submit-btn">
+            <span class="btn-spinner" id="login-spinner"></span>
+            <span class="btn-label">Log In</span>
+          </button>
+          <div class="auth-error-msg" id="login-error"></div>
           <div class="inline-note" id="forgot-note">We'd send a reset link to that email — no reset needed in this preview 🙂</div>
         </form>
         <div class="form-divider"><span>or</span></div>
