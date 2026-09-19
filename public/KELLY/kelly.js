@@ -1,4 +1,4 @@
-﻿(() => {
+(() => {
   "use strict";
 
   // ─────────────────────────────────────────────
@@ -169,44 +169,64 @@ window.handleSignup = async function (event) {
     event.preventDefault();
   }
 
-  const form = event?.target || document.querySelector("#view-signup form");
+  const form =
+    event?.target ||
+    document.querySelector(
+      "#view-signup form",
+    );
 
   if (!form) {
     showToast("Signup form not found.");
     return false;
   }
 
-  const inputs = [...form.querySelectorAll("input")];
+  const inputs = [
+    ...form.querySelectorAll("input"),
+  ];
 
   const name =
-    form.querySelector('input[name="name"]')?.value?.trim() ||
-    inputs.find((input) => input.type === "text")?.value?.trim() ||
+    form.querySelector(
+      'input[name="name"]',
+    )?.value?.trim() ||
+    inputs.find(
+      (input) => input.type === "text",
+    )?.value?.trim() ||
     "";
 
   const email =
-    form.querySelector('input[type="email"]')?.value?.trim() || "";
+    form.querySelector(
+      'input[type="email"]',
+    )?.value?.trim() || "";
 
-  const passwordInputs = form.querySelectorAll('input[type="password"]');
-
-  const password = passwordInputs[0]?.value || "";
+  const password =
+    form.querySelector(
+      'input[type="password"]',
+    )?.value || "";
 
   if (!name || !email || !password) {
-    showToast("Fill in all required fields.");
+    showToast(
+      "Fill in all required fields.",
+    );
     return false;
   }
 
   if (!window.parent.KellyAuth) {
-    showToast("Authentication is not available.");
+    showToast(
+      "Authentication is not available.",
+    );
     return false;
   }
 
-  showToast("Creating your account...");
-
-  const result = await window.parent.KellyAuth.signup(
-    name,
-    email,
-    password
+  showToast(
+    "Creating your account...",
   );
+
+  const result =
+    await window.parent.KellyAuth.signup(
+      name,
+      email,
+      password,
+    );
 
   if (result.error) {
     showToast(result.error);
@@ -214,9 +234,18 @@ window.handleSignup = async function (event) {
   }
 
   if (!result.session) {
-    showToast("Account created. Check your email to confirm it.");
+    showToast(
+      "Account created. Check your email to confirm it.",
+    );
     return false;
   }
+
+  /*
+   * The password account is already authenticated.
+   * Google can now be explicitly attached to this UID
+   * during onboarding.
+   */
+  pendingGoogleLink = true;
 
   showToast("Account created!");
 
@@ -226,48 +255,305 @@ window.handleSignup = async function (event) {
 
   return false;
 };
+    window.kellyAskPassword = function (message, title) {
+    return new Promise((resolve) => {
+      const existing = document.getElementById(
+        "kelly-password-dialog",
+      );
 
+      if (existing) {
+        existing.remove();
+      }
 
+      const overlay = document.createElement("div");
+      overlay.id = "kelly-password-dialog";
+
+      Object.assign(overlay.style, {
+        position: "fixed",
+        inset: "0",
+        zIndex: "99999",
+        display: "grid",
+        placeItems: "center",
+        padding: "24px",
+        background: "rgba(0,0,0,.72)",
+        backdropFilter: "blur(8px)",
+      });
+
+      const card = document.createElement("div");
+
+      Object.assign(card.style, {
+        width: "min(420px, 100%)",
+        padding: "24px",
+        borderRadius: "18px",
+        border: "1px solid rgba(139,92,246,.28)",
+        background: "#12121a",
+        color: "#fff",
+        boxShadow: "0 24px 80px rgba(0,0,0,.45)",
+      });
+
+      const heading = document.createElement("h2");
+      heading.textContent = title || "Password";
+      heading.style.margin = "0 0 8px";
+
+      const text = document.createElement("p");
+      text.textContent = message;
+
+      Object.assign(text.style, {
+        margin: "0 0 18px",
+        opacity: "0.76",
+        lineHeight: "1.5",
+      });
+
+      const form = document.createElement("form");
+
+      const input = document.createElement("input");
+      input.type = "password";
+      input.autocomplete = "current-password";
+      input.placeholder = "Password";
+      input.required = true;
+
+      Object.assign(input.style, {
+        width: "100%",
+        boxSizing: "border-box",
+        padding: "12px 14px",
+        borderRadius: "10px",
+        border: "1px solid rgba(255,255,255,.14)",
+        background: "rgba(255,255,255,.06)",
+        color: "#fff",
+        outline: "none",
+        fontSize: "15px",
+      });
+
+      const actions = document.createElement("div");
+
+      Object.assign(actions.style, {
+        display: "flex",
+        justifyContent: "flex-end",
+        gap: "10px",
+        marginTop: "18px",
+      });
+
+      const cancel = document.createElement("button");
+      cancel.type = "button";
+      cancel.textContent = "Cancel";
+
+      Object.assign(cancel.style, {
+        padding: "10px 16px",
+        borderRadius: "10px",
+        border: "1px solid rgba(255,255,255,.12)",
+        background: "transparent",
+        color: "#fff",
+        cursor: "pointer",
+      });
+
+      const submit = document.createElement("button");
+      submit.type = "submit";
+      submit.textContent = "Continue";
+
+      Object.assign(submit.style, {
+        padding: "10px 16px",
+        borderRadius: "10px",
+        border: "0",
+        background: "#8b5cf6",
+        color: "#fff",
+        cursor: "pointer",
+        fontWeight: "600",
+      });
+
+      const cleanup = (value) => {
+        overlay.remove();
+        resolve(value);
+      };
+
+      cancel.onclick = () => cleanup(null);
+
+      form.onsubmit = (event) => {
+        event.preventDefault();
+
+        if (!input.value) {
+          input.focus();
+          return;
+        }
+
+        cleanup(input.value);
+      };
+
+      form.appendChild(input);
+      actions.appendChild(cancel);
+      actions.appendChild(submit);
+      form.appendChild(actions);
+
+      card.appendChild(heading);
+      card.appendChild(text);
+      card.appendChild(form);
+
+      overlay.appendChild(card);
+      document.body.appendChild(overlay);
+
+      requestAnimationFrame(() => {
+        input.focus();
+      });
+    });
+  };
+window.kellyOfferGoogleLink = function () {
+    return new Promise((resolve) => {
+      const existing = document.getElementById(
+        "kelly-google-link-dialog",
+      );
+
+      if (existing) {
+        existing.remove();
+      }
+
+      const overlay = document.createElement("div");
+      overlay.id = "kelly-google-link-dialog";
+
+      Object.assign(overlay.style, {
+        position: "fixed",
+        inset: "0",
+        zIndex: "99999",
+        display: "grid",
+        placeItems: "center",
+        padding: "24px",
+        background: "rgba(0,0,0,.72)",
+        backdropFilter: "blur(8px)",
+      });
+
+      const card = document.createElement("div");
+
+      Object.assign(card.style, {
+        width: "min(420px, 100%)",
+        padding: "24px",
+        borderRadius: "18px",
+        border: "1px solid rgba(139,92,246,.28)",
+        background: "#12121a",
+        color: "#fff",
+        boxShadow: "0 24px 80px rgba(0,0,0,.45)",
+      });
+
+      const heading = document.createElement("h2");
+      heading.textContent = "Connect Google";
+      heading.style.margin = "0 0 8px";
+
+      const text = document.createElement("p");
+      text.textContent =
+        "Connect your Google account to this KELLY account so you can use either sign-in method.";
+
+      Object.assign(text.style, {
+        margin: "0",
+        opacity: "0.76",
+        lineHeight: "1.5",
+      });
+
+      const actions = document.createElement("div");
+
+      Object.assign(actions.style, {
+        display: "flex",
+        justifyContent: "flex-end",
+        gap: "10px",
+        marginTop: "20px",
+      });
+
+      const skip = document.createElement("button");
+      skip.type = "button";
+      skip.textContent = "Skip";
+
+      Object.assign(skip.style, {
+        padding: "10px 16px",
+        borderRadius: "10px",
+        border: "1px solid rgba(255,255,255,.12)",
+        background: "transparent",
+        color: "#fff",
+        cursor: "pointer",
+      });
+
+      const connect = document.createElement("button");
+      connect.type = "button";
+      connect.textContent = "Connect Google";
+
+      Object.assign(connect.style, {
+        padding: "10px 16px",
+        borderRadius: "10px",
+        border: "0",
+        background: "#8b5cf6",
+        color: "#fff",
+        cursor: "pointer",
+        fontWeight: "600",
+      });
+
+      const close = (value) => {
+        overlay.remove();
+        resolve(value);
+      };
+
+      skip.onclick = () => close(false);
+
+      connect.onclick = async () => {
+        connect.disabled = true;
+        skip.disabled = true;
+        connect.textContent = "Opening Google...";
+
+        try {
+          const result =
+            await window.parent.KellyAuth.linkGoogleAccount();
+
+          close(result);
+        } catch (error) {
+          console.error(
+            "[KELLY] Google linking failed:",
+            error,
+          );
+
+          close({
+            error:
+              error?.message ||
+              "Could not connect Google.",
+          });
+        }
+      };
+
+      actions.appendChild(skip);
+      actions.appendChild(connect);
+
+      card.appendChild(heading);
+      card.appendChild(text);
+      card.appendChild(actions);
+
+      overlay.appendChild(card);
+      document.body.appendChild(overlay);
+
+      requestAnimationFrame(() => {
+        connect.focus();
+      });
+    });
+  };
 window.handleGoogleAuth = async function () {
   if (
     !window.parent.KellyAuth ||
-    typeof window.parent.KellyAuth.loginWithGoogle !== "function"
+    typeof window.parent.KellyAuth.loginWithGoogle !==
+      "function"
   ) {
-    showToast("Authentication is not available.");
+    showToast(
+      "Authentication is not available.",
+    );
     return;
   }
 
-  showToast("Opening Google sign-in...");
+  showToast(
+    "Opening Google sign-in...",
+  );
 
-  const result = await window.parent.KellyAuth.loginWithGoogle();
+  const result =
+    await window.parent.KellyAuth.loginWithGoogle();
 
-  // Case: this email already has a password account. Ask for that
-  // password so we can link the Google credential to the same UID
-  // instead of creating a second account.
-  if (result.error === "ACCOUNT_EXISTS_NEEDS_PASSWORD") {
-    const password = window.prompt(
-      `An account already exists for ${
-        result.email || "this email"
-      } with a password. Enter that password to link Google to it:`,
+  /*
+   * Login is LOGIN only.
+   * We never silently link a Google credential here.
+   */
+  if (result.error === "GOOGLE_NOT_LINKED") {
+    showToast(
+      "This Google account is not connected to this KELLY account. Log in with your KELLY email and password first, then connect Google from your account.",
     );
-
-    if (!password) {
-      showToast("Google sign-in cancelled.");
-      return;
-    }
-
-    const linkResult = await window.parent.KellyAuth.completeAccountLinking(
-      password,
-    );
-
-    if (linkResult.error) {
-      showToast(linkResult.error);
-      return;
-    }
-
-    showToast("Google linked to your existing account!");
-    showRoot("view-app");
-    showPage("home");
     return;
   }
 
@@ -276,49 +562,61 @@ window.handleGoogleAuth = async function () {
     return;
   }
 
-  // Case: brand-new Google account. Still go through KELLY's normal
-  // onboarding, and offer a password once onboarding finishes.
+  /*
+   * New Google-first account.
+   * Password setup is required during onboarding.
+   */
   if (result.isNewUser) {
     pendingPasswordLink = true;
+    pendingGoogleLink = false;
     startOnboarding();
     return;
   }
 
-  // Case: existing Google-only account with no password yet. Not
-  // blocking — offer to add one, but let them in either way.
+  /*
+   * Existing Google-only account.
+   * Offer an email/password credential.
+   */
   if (result.needsPassword) {
-    setTimeout(() => {
-      const wants = window.confirm(
-        "Add a password so you can also log in with email? (optional)",
+    const password =
+      await window.kellyAskPassword(
+        "Create a password now so you can also log in manually with your email.",
+        "Create a manual-login password",
       );
 
-      if (wants) {
-        const password = window.prompt("Choose a password:");
+    if (!password) {
+      showToast(
+        "A password is required for manual email login.",
+      );
+      return;
+    }
 
-        if (password) {
-          window.parent.KellyAuth.linkPassword(password).then((r) => {
-            if (r.error) {
-              showToast(r.error);
-            } else {
-              showToast("Password added!");
-            }
-          });
-        }
-      }
-    }, 600);
+    const linkResult =
+      await window.parent.KellyAuth.linkPassword(
+        password,
+      );
+
+    if (linkResult.error) {
+      showToast(linkResult.error);
+      return;
+    }
+
+    showToast(
+      "Password added! You can now use email login.",
+    );
   }
 
   showToast("Welcome!");
   showRoot("view-app");
   showPage("home");
 };
-
   // ─────────────────────────────────────────────
   // ONBOARDING
   // ─────────────────────────────────────────────
 
   let onboardingStep = 0;
   let pendingPasswordLink = false;
+  let pendingGoogleLink = false;
 
   const onboardingSteps = [
     "ob-step-1",
@@ -371,16 +669,99 @@ window.handleGoogleAuth = async function () {
     }
   };
 
-  window.skipOnboarding = function () {
+    window.skipOnboarding = async function () {
+    /*
+     * Google-first users cannot skip password creation.
+     */
+    if (pendingPasswordLink) {
+      await finishOnboarding();
+      return;
+    }
+
+    if (pendingGoogleLink) {
+      const result =
+        await window.kellyOfferGoogleLink();
+
+      if (result?.error) {
+        showToast(result.error);
+      } else if (result?.alreadyLinked) {
+        showToast(
+          "Google is already connected.",
+        );
+      } else if (result === true) {
+        showToast(
+          "Google connected! You can now use either login method.",
+        );
+      }
+    }
+
+    pendingGoogleLink = false;
+
     showRoot("view-app");
     showPage("home");
   };
+  window.finishOnboarding = async function () {
+    /*
+     * Google-first accounts must create a manual-login
+     * password before onboarding can finish.
+     */
+    if (pendingPasswordLink) {
+      const password =
+        await window.kellyAskPassword(
+          "Create a password now so you can also log in manually with your email.",
+          "Create a manual-login password",
+        );
 
-  window.finishOnboarding = function () {
+      if (!password) {
+        showToast(
+          "A password is required for manual email login.",
+        );
+        return;
+      }
+
+      const linkResult =
+        await window.parent.KellyAuth.linkPassword(
+          password,
+        );
+
+      if (linkResult.error) {
+        showToast(linkResult.error);
+        return;
+      }
+
+      pendingPasswordLink = false;
+
+      showToast(
+        "Password added! You can now use email login.",
+      );
+    }
+
+    /*
+     * Email/password-first users get an explicit,
+     * optional Google connection.
+     */
+    if (pendingGoogleLink) {
+      const result =
+        await window.kellyOfferGoogleLink();
+
+      if (result?.error) {
+        showToast(result.error);
+      } else if (result?.alreadyLinked) {
+        showToast(
+          "Google is already connected.",
+        );
+      } else if (result === true) {
+        showToast(
+          "Google connected! You can now use either login method.",
+        );
+      }
+
+      pendingGoogleLink = false;
+    }
+
     showRoot("view-app");
     showPage("home");
   };
-
   // ─────────────────────────────────────────────
   // CUSTOM SUBJECTS
   // ─────────────────────────────────────────────

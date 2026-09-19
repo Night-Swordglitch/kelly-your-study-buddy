@@ -1,4 +1,4 @@
-﻿import { useEffect } from "react";
+import { useEffect } from "react";
 import { KellyAvatar } from "@/components/kelly/kelly-avatar";
 import { useNavigate } from "@tanstack/react-router";
 
@@ -43,7 +43,7 @@ function LandingNav() {
           <button
             type="button"
             className="btn btn-ghost btn-sm"
-            onClick={() => navigate({ to: "/auth" })}
+            onClick={() => navigate({ to: "/login" })}
           >
             Login
           </button>
@@ -51,7 +51,7 @@ function LandingNav() {
           <button
             type="button"
             className="btn btn-primary btn-sm"
-            onClick={() => navigate({ to: "/auth" })}
+            onClick={() => navigate({ to: "/login" })}
           >
             Get Started
           </button>
@@ -85,7 +85,7 @@ function LandingHero() {
             <button
               type="button"
               className="btn btn-primary btn-lg"
-              onClick={() => navigate({ to: "/auth" })}
+              onClick={() => navigate({ to: "/login" })}
             >
               Get Started
             </button>
@@ -186,7 +186,7 @@ function WhoIsKelly() {
             <button
               type="button"
               className="btn btn-primary"
-              onClick={() => navigate({ to: "/auth" })}
+              onClick={() => navigate({ to: "/login" })}
             >
               Get Started
             </button>
@@ -414,7 +414,7 @@ function StudyTogether() {
             <button
               type="button"
               className="btn btn-white btn-lg"
-              onClick={() => navigate({ to: "/auth" })}
+              onClick={() => navigate({ to: "/login" })}
             >
               Get Started
             </button>
@@ -459,7 +459,7 @@ function StudyTogether() {
               <button
                 type="button"
                 className="btn btn-coral btn-sm btn-block"
-                onClick={() => navigate({ to: "/auth" })}
+                onClick={() => navigate({ to: "/login" })}
               >
                 Accept Challenge
               </button>
@@ -491,7 +491,7 @@ function FinalCTA() {
         <button
           type="button"
           className="btn btn-primary btn-lg"
-          onClick={() => navigate({ to: "/auth" })}
+          onClick={() => navigate({ to: "/login" })}
         >
           Meet KELLY
         </button>
@@ -539,11 +539,11 @@ function LandingFooter() {
             <div className="footer-col">
               <h4>Account</h4>
 
-              <button type="button" onClick={() => navigate({ to: "/auth" })}>
+              <button type="button" onClick={() => navigate({ to: "/login" })}>
                 Login
               </button>
 
-              <button type="button" onClick={() => navigate({ to: "/auth" })}>
+              <button type="button" onClick={() => navigate({ to: "/login" })}>
                 Get Started
               </button>
             </div>

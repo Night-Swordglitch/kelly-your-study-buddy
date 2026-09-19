@@ -18,21 +18,36 @@ export const firebaseAuth = getAuth(app);
 // This waits for the first auth-state event and resolves with the
 // current user (or null if not logged in). Used by the route guard
 // so we never render a protected page before we actually know.
-let authReadyPromise: Promise<User | null> | null = null;
+let authReadyPromise: Promise<void> | null = null;
 
-export function getCurrentUser(): Promise<User | null> {
+function waitForAuthReady(): Promise<void> {
   if (authReadyPromise) {
     return authReadyPromise;
   }
 
   authReadyPromise = new Promise((resolve) => {
-    const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
-      unsubscribe();
-      resolve(user);
-    });
+    const unsubscribe = onAuthStateChanged(
+      firebaseAuth,
+      () => {
+        unsubscribe();
+        resolve();
+      },
+    );
   });
 
   return authReadyPromise;
 }
 
+export async function getCurrentUser(): Promise<User | null> {
+  /*
+   * Wait only for Firebase's initial session restoration.
+   * After that, always read firebaseAuth.currentUser directly.
+   *
+   * This is important because the auth state can change after
+   * the initial page load (login, logout, Google linking, etc.).
+   */
+  await waitForAuthReady();
+
+  return firebaseAuth.currentUser;
+}
 export default app;

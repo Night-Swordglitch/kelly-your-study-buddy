@@ -1,4 +1,4 @@
-﻿import { useLocation, useNavigate } from "@tanstack/react-router";
+import { useLocation, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import { initializeApp, getApps, getApp } from "firebase/app";
 import {
@@ -10,10 +10,12 @@ import {
   onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
+  linkWithPopup,
   linkWithCredential,
   EmailAuthProvider,
   sendEmailVerification,
   getAdditionalUserInfo,
+  reload,
   type AuthCredential,
   type User,
 } from "firebase/auth";
@@ -80,10 +82,10 @@ declare global {
         isNewUser: boolean;
         needsPassword: boolean;
       }>;
-      completeAccountLinking: (
-        password: string,
-      ) => Promise<{ error: string | null }>;
-      linkPassword: (password: string) => Promise<{ error: string | null }>;
+      linkGoogleAccount: () => Promise<{
+        error: string | null;
+        alreadyLinked?: boolean;
+      }>;      linkPassword: (password: string) => Promise<{ error: string | null }>;
       logout: () => Promise<void>;
       resendVerificationEmail: () => Promise<{ error: string | null }>;
       getSession: () => Promise<{ session: unknown }>;
@@ -125,6 +127,11 @@ function pathToPage(pathname: string): KellyPage {
 function hasPasswordProvider(user: User): boolean {
   return user.providerData.some((p) => p.providerId === "password");
 }
+function hasGoogleProvider(user: User): boolean {
+  return user.providerData.some(
+    (p) => p.providerId === "google.com",
+  );
+}
 
 function setupKellyAuthBridge() {
   window.KellyAuth = {
@@ -165,38 +172,52 @@ function setupKellyAuthBridge() {
       const provider = new GoogleAuthProvider();
 
       try {
-        const result = await signInWithPopup(auth, provider);
+        const result = await signInWithPopup(
+          auth,
+          provider,
+        );
+
         const user = result.user;
 
-        // Use Firebase's own flag from the sign-in response rather than
-        // comparing user.metadata timestamps -- the cached metadata on
-        // the client doesn't always refresh reliably after a popup
-        // sign-in, which can misreport a returning user as new.
-        const additionalInfo = getAdditionalUserInfo(result);
-        const isNewUser = additionalInfo?.isNewUser ?? false;
+        /*
+         * Refresh providerData from Firebase before deciding
+         * whether a manual password is already attached.
+         */
+        await user.reload();
+
+        const additionalInfo =
+          getAdditionalUserInfo(result);
+
+        const isNewUser =
+          additionalInfo?.isNewUser === true;
 
         return {
           error: null,
           isNewUser,
-          needsPassword: !hasPasswordProvider(user),
+          needsPassword:
+            !hasPasswordProvider(user),
         };
       } catch (error) {
-        const code = (error as { code?: string })?.code;
+        const code =
+          (error as { code?: string })?.code ?? "";
 
-        if (code === "auth/account-exists-with-different-credential") {
-          // Firebase blocked the Google sign-in because this email already
-          // has a password account. Stash the Google credential so we can
-          // link it once the user confirms their password.
-          pendingGoogleCredential = GoogleAuthProvider.credentialFromError(
-            error as Parameters<typeof GoogleAuthProvider.credentialFromError>[0],
-          );
-          pendingGoogleEmail =
-            (error as { customData?: { email?: string } })?.customData
-              ?.email ?? null;
+        /*
+         * Login is intentionally LOGIN only.
+         * Account linking happens through linkGoogleAccount()
+         * on an already-authenticated KELLY account.
+         */
+        if (
+          code ===
+          "auth/account-exists-with-different-credential"
+        ) {
+          const email =
+            (error as {
+              customData?: { email?: string };
+            })?.customData?.email ?? null;
 
           return {
-            error: "ACCOUNT_EXISTS_NEEDS_PASSWORD",
-            ...(pendingGoogleEmail ? { email: pendingGoogleEmail } : {}),
+            error: "GOOGLE_NOT_LINKED",
+            ...(email ? { email } : {}),
             isNewUser: false,
             needsPassword: false,
           };
@@ -210,45 +231,221 @@ function setupKellyAuthBridge() {
       }
     },
 
-    async completeAccountLinking(password) {
-      if (!pendingGoogleCredential || !pendingGoogleEmail) {
-        return { error: "No pending Google sign-in to link." };
-      }
-
-      try {
-        const result = await signInWithEmailAndPassword(
-          auth,
-          pendingGoogleEmail,
-          password,
-        );
-
-        await linkWithCredential(result.user, pendingGoogleCredential);
-
-        pendingGoogleCredential = null;
-        pendingGoogleEmail = null;
-
-        return { error: null };
-      } catch (error) {
-        return { error: firebaseErrorMessage(error) };
-      }
-    },
-
-    async linkPassword(password) {
+    async linkGoogleAccount() {
       const user = auth.currentUser;
 
       if (!user || !user.email) {
-        return { error: "No signed-in user to add a password to." };
+        return {
+          error:
+            "You must be signed in before connecting Google.",
+        };
+      }
+
+      await user.reload();
+
+      if (hasGoogleProvider(user)) {
+        return {
+          error: null,
+          alreadyLinked: true,
+        };
       }
 
       try {
-        const credential = EmailAuthProvider.credential(user.email, password);
-        await linkWithCredential(user, credential);
-        return { error: null };
+        const provider = new GoogleAuthProvider();
+
+        /*
+         * This is the only explicit Google-link operation.
+         * It attaches Google to the exact currently-authenticated UID.
+         */
+        await linkWithPopup(user, provider);
+
+        await user.reload();
+
+        if (!hasGoogleProvider(user)) {
+          return {
+            error:
+              "Google could not be connected to your KELLY account.",
+          };
+        }
+
+        console.info(
+          "[KELLY AUTH] Google provider linked:",
+          {
+            uid: user.uid,
+            email: user.email,
+            providers:
+              user.providerData.map(
+                (p) => p.providerId,
+              ),
+          },
+        );
+
+        return {
+          error: null,
+          alreadyLinked: false,
+        };
       } catch (error) {
-        return { error: firebaseErrorMessage(error) };
+        const code =
+          (error as { code?: string })?.code ?? "";
+
+        if (
+          code === "auth/provider-already-linked"
+        ) {
+          return {
+            error: null,
+            alreadyLinked: true,
+          };
+        }
+
+        if (
+          code === "auth/credential-already-in-use"
+        ) {
+          return {
+            error:
+              "That Google account is already connected to another KELLY account.",
+          };
+        }
+
+        return {
+          error: firebaseErrorMessage(error),
+        };
       }
     },
+    async linkPassword(password) {
+      let user = auth.currentUser;
 
+      if (!user || !user.email) {
+        return {
+          error:
+            "No signed-in user to add a password to.",
+        };
+      }
+
+      try {
+        /*
+         * Refresh the Google-authenticated user before
+         * linking so providerData is current.
+         */
+        await user.reload();
+
+        user = auth.currentUser;
+
+        if (!user || !user.email) {
+          return {
+            error:
+              "Your Google session expired. Please sign in again.",
+          };
+        }
+
+        /*
+         * If a password is already attached, there is
+         * nothing more to do.
+         */
+        if (hasPasswordProvider(user)) {
+          console.info(
+            "[KELLY AUTH] Password already linked:",
+            {
+              uid: user.uid,
+              email: user.email,
+              providers:
+                user.providerData.map(
+                  (p) => p.providerId,
+                ),
+            },
+          );
+
+          return { error: null };
+        }
+
+        const credential =
+          EmailAuthProvider.credential(
+            user.email,
+            password,
+          );
+
+        await linkWithCredential(
+          user,
+          credential,
+        );
+
+        /*
+         * Do not trust the local providerData snapshot.
+         * Force a server refresh and verify that Firebase
+         * really persisted the password provider.
+         */
+        await user.reload();
+
+        const refreshedUser =
+          auth.currentUser;
+
+        if (
+          !refreshedUser ||
+          !hasPasswordProvider(
+            refreshedUser,
+          )
+        ) {
+          console.error(
+            "[KELLY AUTH] Password link reported success but password provider is missing:",
+            {
+              uid:
+                refreshedUser?.uid ??
+                user.uid,
+              email:
+                refreshedUser?.email ??
+                user.email,
+              providers:
+                refreshedUser?.providerData?.map(
+                  (p) => p.providerId,
+                ) ?? [],
+            },
+          );
+
+          return {
+            error:
+              "Firebase did not save the manual-login password. Please try again.",
+          };
+        }
+
+        console.info(
+          "[KELLY AUTH] Password provider linked:",
+          {
+            uid: refreshedUser.uid,
+            email: refreshedUser.email,
+            providers:
+              refreshedUser.providerData.map(
+                (p) => p.providerId,
+              ),
+          },
+        );
+
+        return { error: null };
+      } catch (error) {
+        console.error(
+          "[KELLY AUTH] Password linking failed:",
+          {
+            code:
+              (error as {
+                code?: string;
+              })?.code,
+            message:
+              (error as {
+                message?: string;
+              })?.message,
+            uid: user?.uid,
+            email: user?.email,
+            providers:
+              user?.providerData?.map(
+                (p) => p.providerId,
+              ),
+          },
+        );
+
+        return {
+          error:
+            firebaseErrorMessage(error),
+        };
+      }
+    },
     async logout() {
       await signOut(auth);
     },
