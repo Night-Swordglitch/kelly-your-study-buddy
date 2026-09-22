@@ -6955,3 +6955,76 @@
 .kelly-calendar-modal{animation:none}
 }
 /* KELLY CALENDAR PAGE END */
+
+/* KELLY NOTES — MOBILE RESPONSIVE */
+@media (max-width: 760px) {
+  .kelly-notes-page,
+  .kelly-notes-page-react {
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .kelly-notes-list,
+  .kelly-notes-page-react .kelly-notes-list {
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    max-height: 42vh;
+    position: relative;
+    top: auto;
+  }
+
+  .kelly-note-reader {
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 24px 20px 60px;
+  }
+
+  .kelly-note-detail-top {
+    flex-wrap: wrap;
+  }
+
+  .kelly-notes-page-react .kelly-note-reader {
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 24px 20px 60px;
+  }
+}
+
+/* KELLY NOTES — MOBILE RESPONSIVE END */
+/* KELLY NOTES — MOBILE RESPONSIVE */
+@media (max-width: 760px) {
+  .kelly-notes-page,
+  .kelly-notes-page-react {
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .kelly-notes-list,
+  .kelly-notes-page-react .kelly-notes-list {
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    max-height: 42vh;
+    position: relative;
+    top: auto;
+  }
+
+  .kelly-note-reader,
+  .kelly-notes-page-react .kelly-note-reader {
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 24px 20px 60px;
+  }
+
+  .kelly-note-detail-top {
+    flex-wrap: wrap;
+  }
+}
+
+/* KELLY NOTES — MOBILE RESPONSIVE END */
