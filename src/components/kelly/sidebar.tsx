@@ -57,6 +57,7 @@ const ITEMS: SidebarItem[] = [
     id: "timer",
     label: "Timer",
     icon: Clock3,
+    to: "/timer",
   },
   {
     id: "calendar",
@@ -214,6 +215,8 @@ export function KellySidebar() {
     </aside>
   );
 }
+
+
 
 
 

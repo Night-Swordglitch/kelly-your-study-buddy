@@ -31,6 +31,7 @@ import { Route as AuthenticatedQuizzesRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedStudyRouteImport } from './routes/_authenticated/study'
 import { Route as AuthenticatedSubjectsRouteImport } from './routes/_authenticated/subjects'
 import { Route as AuthenticatedTimedChallengeRouteImport } from './routes/_authenticated/timed-challenge'
+import { Route as AuthenticatedTimerRouteImport } from './routes/_authenticated/timer'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -142,6 +143,11 @@ const AuthenticatedTimedChallengeRoute =
     path: '/timed-challenge',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedTimerRoute = AuthenticatedTimerRouteImport.update({
+  id: '/timer',
+  path: '/timer',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -164,6 +170,7 @@ export interface FileRoutesByFullPath {
   '/study': typeof AuthenticatedStudyRoute
   '/subjects': typeof AuthenticatedSubjectsRoute
   '/timed-challenge': typeof AuthenticatedTimedChallengeRoute
+  '/timer': typeof AuthenticatedTimerRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -186,6 +193,7 @@ export interface FileRoutesByTo {
   '/study': typeof AuthenticatedStudyRoute
   '/subjects': typeof AuthenticatedSubjectsRoute
   '/timed-challenge': typeof AuthenticatedTimedChallengeRoute
+  '/timer': typeof AuthenticatedTimerRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -211,6 +219,7 @@ export interface FileRoutesById {
   '/_authenticated/study': typeof AuthenticatedStudyRoute
   '/_authenticated/subjects': typeof AuthenticatedSubjectsRoute
   '/_authenticated/timed-challenge': typeof AuthenticatedTimedChallengeRoute
+  '/_authenticated/timer': typeof AuthenticatedTimerRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -235,6 +244,7 @@ export interface FileRouteTypes {
     | '/study'
     | '/subjects'
     | '/timed-challenge'
+    | '/timer'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -257,6 +267,7 @@ export interface FileRouteTypes {
     | '/study'
     | '/subjects'
     | '/timed-challenge'
+    | '/timer'
   id:
     | '__root__'
     | '/'
@@ -281,6 +292,7 @@ export interface FileRouteTypes {
     | '/_authenticated/study'
     | '/_authenticated/subjects'
     | '/_authenticated/timed-challenge'
+    | '/_authenticated/timer'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -445,6 +457,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedTimedChallengeRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/timer': {
+      id: '/_authenticated/timer'
+      path: '/timer'
+      fullPath: '/timer'
+      preLoaderRoute: typeof AuthenticatedTimerRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -480,6 +499,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedStudyRoute: typeof AuthenticatedStudyRoute
   AuthenticatedSubjectsRoute: typeof AuthenticatedSubjectsRoute
   AuthenticatedTimedChallengeRoute: typeof AuthenticatedTimedChallengeRoute
+  AuthenticatedTimerRoute: typeof AuthenticatedTimerRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -500,6 +520,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedStudyRoute: AuthenticatedStudyRoute,
   AuthenticatedSubjectsRoute: AuthenticatedSubjectsRoute,
   AuthenticatedTimedChallengeRoute: AuthenticatedTimedChallengeRoute,
+  AuthenticatedTimerRoute: AuthenticatedTimerRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
