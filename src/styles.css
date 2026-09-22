@@ -6658,3 +6658,300 @@
 }
 
 /* KELLY FRIENDS PAGE END */
+
+/* KELLY TIMER PAGE START */
+.kelly-timer-page{min-height:100%;padding:34px 38px 48px;box-sizing:border-box;color:#f8f7fb}
+.kelly-timer-header{margin-bottom:24px}
+.kelly-timer-header h1{margin:0;color:#f8f7fb;font-size:28px;line-height:1.15;font-weight:750;letter-spacing:-.02em}
+.kelly-timer-mode-switcher{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:22px}
+.kelly-timer-mode-button{min-height:42px;padding:10px 14px;border:0;border-radius:10px;background:#1b1b25;color:#85859a;font:inherit;font-size:13px;font-weight:650;cursor:pointer}
+.kelly-timer-mode-button:hover{background:#242432;color:#d7d6e1}
+.kelly-timer-mode-button.active{background:#7c5cff;color:#fff}
+.kelly-timer-custom-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:18px}
+.kelly-timer-custom-fields label{display:flex;flex-direction:column;gap:7px}
+.kelly-timer-custom-fields span{color:#77778b;font-size:12px;font-weight:650}
+.kelly-timer-custom-fields input{width:100%;min-height:42px;padding:0 13px;box-sizing:border-box;border:1px solid #30303d;border-radius:9px;outline:none;background:#15151e;color:#f8f7fb;font:inherit;font-size:14px}
+.kelly-timer-custom-fields input:focus{border-color:#7c5cff}
+.kelly-timer-custom-fields input:disabled{opacity:.6}
+.kelly-timer-subject-row{display:flex;align-items:center;gap:12px;margin-bottom:28px}
+.kelly-timer-subject-row label{color:#77778b;font-size:13px;font-weight:650}
+.kelly-timer-subject-row select{min-width:180px;min-height:40px;padding:0 34px 0 12px;border:1px solid #30303d;border-radius:9px;outline:none;background:#15151e;color:#f8f7fb;font:inherit;font-size:13px;cursor:pointer}
+.kelly-timer-subject-row select:focus{border-color:#7c5cff}
+.kelly-timer-display{display:flex;flex-direction:column;align-items:center}
+.kelly-timer-ring{width:240px;height:240px;padding:5px;box-sizing:border-box;border-radius:50%;display:grid;place-items:center}
+.kelly-timer-ring-inner{width:100%;height:100%;border-radius:50%;background:#0f0f17;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.kelly-timer-ring-inner strong{color:#fff;font-size:43px;line-height:1;font-weight:800;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.kelly-timer-ring-inner span{margin-top:10px;color:#a78bfa;font-size:14px;font-weight:700}
+.kelly-timer-controls{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:22px}
+.kelly-timer-reset{width:42px;height:42px;display:grid;place-items:center;border:1px solid #30303d;border-radius:10px;background:#181820;color:#aaa9ba;cursor:pointer}
+.kelly-timer-reset:hover{color:#fff;background:#22222d}
+.kelly-timer-start{min-height:42px;padding:0 20px;display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:999px;background:#7c5cff;color:#fff;font:inherit;font-size:14px;font-weight:750;cursor:pointer}
+.kelly-timer-start:hover{background:#8b6cff}
+.kelly-timer-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:30px}
+.kelly-timer-stat-card{min-height:82px;padding:14px;box-sizing:border-box;border-radius:11px;background:#171720;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.kelly-timer-stat-card strong{color:#f8f7fb;font-size:20px;line-height:1;font-weight:800;font-variant-numeric:tabular-nums}
+.kelly-timer-stat-card strong.violet{color:#a78bfa}
+.kelly-timer-stat-card strong.amber{color:#f59e0b}
+.kelly-timer-stat-card span{margin-top:7px;color:#77778b;font-size:11px;font-weight:600}
+.kelly-timer-friends-card{margin-top:14px;padding:18px;border-radius:11px;background:#171720}
+.kelly-timer-friends-heading{display:flex;align-items:center;gap:9px;color:#fff}
+.kelly-timer-friends-heading svg{color:#7c5cff}
+.kelly-timer-friends-heading strong{font-size:14px;font-weight:750}
+.kelly-timer-invite{width:100%;min-height:42px;margin-top:16px;border:0;border-radius:9px;background:#211c3c;color:#a78bfa;font:inherit;font-size:13px;font-weight:750;cursor:pointer}
+.kelly-timer-invite:hover{background:#2a234d}
+@media (max-width:620px){
+.kelly-timer-page{padding:26px 20px 40px}
+.kelly-timer-mode-switcher{grid-template-columns:1fr}
+.kelly-timer-ring{width:220px;height:220px}
+.kelly-timer-ring-inner strong{font-size:38px}
+.kelly-timer-subject-row{align-items:flex-start;flex-direction:column}
+.kelly-timer-subject-row select{width:100%}
+}
+/* KELLY TIMER PAGE END */
+
+/* KELLY TIMER INVITE MODAL */
+.kelly-timer-invite-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.68);
+}
+
+.kelly-timer-invite-modal {
+  width: min(460px, 100%);
+  max-height: min(620px, 90vh);
+  overflow: auto;
+  padding: 22px;
+  box-sizing: border-box;
+  border: 1px solid #30303d;
+  border-radius: 14px;
+  background: #111119;
+  color: #f8f7fb;
+}
+
+.kelly-timer-invite-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.kelly-timer-invite-modal-header h2 {
+  margin: 0;
+  color: #fff;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.kelly-timer-invite-modal-header p {
+  margin: 6px 0 0;
+  color: #77778b;
+  font-size: 12px;
+}
+
+.kelly-timer-invite-close {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #30303d;
+  border-radius: 8px;
+  background: #191923;
+  color: #aaa9ba;
+  cursor: pointer;
+}
+
+.kelly-timer-invite-close:hover {
+  color: #fff;
+  background: #242432;
+}
+
+.kelly-timer-invite-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.kelly-timer-friend-option {
+  width: 100%;
+  min-height: 58px;
+  padding: 9px 11px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  border: 1px solid #292936;
+  border-radius: 10px;
+  background: #181820;
+  color: #f8f7fb;
+  text-align: left;
+  cursor: pointer;
+}
+
+.kelly-timer-friend-option:hover {
+  background: #20202b;
+}
+
+.kelly-timer-friend-option.selected {
+  border-color: #7c5cff;
+  background: #211c3c;
+}
+
+.kelly-timer-friend-avatar {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.kelly-timer-friend-info {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.kelly-timer-friend-info strong {
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.kelly-timer-friend-info small {
+  color: #77778b;
+  font-size: 11px;
+}
+
+.kelly-timer-friend-check {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #3a3948;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.kelly-timer-friend-option.selected .kelly-timer-friend-check {
+  border-color: #7c5cff;
+  background: #7c5cff;
+}
+
+.kelly-timer-send-invites {
+  width: 100%;
+  min-height: 42px;
+  margin-top: 18px;
+  border: 0;
+  border-radius: 9px;
+  background: #7c5cff;
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.kelly-timer-send-invites:hover:not(:disabled) {
+  background: #8b6cff;
+}
+
+.kelly-timer-send-invites:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* KELLY CALENDAR PAGE START */
+.kelly-calendar-page{min-height:100%;padding:34px 38px 48px;box-sizing:border-box;color:#f8f7fb}
+.kelly-calendar-header{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:24px}
+.kelly-calendar-header h1{margin:0;color:#f8f7fb;font-size:28px;line-height:1.15;font-weight:750;letter-spacing:-.02em}
+.kelly-calendar-new-event{min-height:42px;padding:0 16px;display:inline-flex;align-items:center;justify-content:center;gap:7px;border:0;border-radius:9px;background:#7c5cff;color:#fff;font:inherit;font-size:13px;font-weight:750;cursor:pointer}
+.kelly-calendar-new-event:hover{background:#8b6cff}
+.kelly-calendar-layout{display:grid;grid-template-columns:minmax(0,1.85fr) minmax(280px,1fr);gap:18px;align-items:start}
+.kelly-calendar-card,.kelly-calendar-detail-card{background:#15151e;border:1px solid #242430;border-radius:13px;padding:20px;box-sizing:border-box}
+.kelly-calendar-month-header{display:grid;grid-template-columns:40px 1fr 40px;align-items:center;margin-bottom:18px}
+.kelly-calendar-month-header strong{text-align:center;color:#fff;font-size:17px;font-weight:800}
+.kelly-calendar-month-arrow{width:38px;height:38px;display:grid;place-items:center;border:1px solid #30303d;border-radius:9px;background:#1b1b25;color:#aaa9ba;cursor:pointer}
+.kelly-calendar-month-arrow:hover{background:#242432;color:#fff}
+.kelly-calendar-weekdays{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));margin-bottom:7px}
+.kelly-calendar-weekdays span{text-align:center;color:#77778b;font-size:11px;font-weight:700}
+.kelly-calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+.kelly-calendar-cell{min-width:0;min-height:66px;padding:8px 5px;display:flex;flex-direction:column;align-items:center;border:1px solid transparent;border-radius:9px;background:#111119;color:#f8f7fb;cursor:pointer}
+.kelly-calendar-cell:hover{background:#1d1d28}
+.kelly-calendar-cell.empty{background:transparent;cursor:default}
+.kelly-calendar-cell.selected{border-color:#7c5cff;background:rgba(124,92,255,.13)}
+.kelly-calendar-day-number{font-size:13px;line-height:1;font-weight:750}
+.kelly-calendar-cell.selected .kelly-calendar-day-number{color:#a78bfa}
+.kelly-calendar-event-dots{min-height:8px;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:3px}
+.kelly-calendar-event-dot{width:5px;height:5px;border-radius:50%}
+.kelly-calendar-legend{display:flex;flex-wrap:wrap;gap:12px 18px;margin-top:18px;padding-top:15px;border-top:1px solid #292936}
+.kelly-calendar-legend span{display:inline-flex;align-items:center;gap:6px;color:#85859a;font-size:11px;font-weight:600}
+.kelly-calendar-legend i{width:6px;height:6px;border-radius:50%;display:inline-block}
+.kelly-calendar-detail-card{min-height:100%}
+.kelly-calendar-detail-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.kelly-calendar-detail-header strong{color:#fff;font-size:16px;font-weight:800}
+.kelly-calendar-day-add{width:32px;height:32px;display:grid;place-items:center;border:0;border-radius:50%;background:#7c5cff;color:#fff;cursor:pointer}
+.kelly-calendar-day-add:hover{background:#8b6cff}
+.kelly-calendar-events{display:flex;flex-direction:column;gap:10px}
+.kelly-calendar-empty-state{min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;color:#5f5f73;font-size:13px}
+.kelly-calendar-empty-state svg{color:#494958}
+.kelly-calendar-event-card{padding:14px;border:1px solid;border-radius:10px}
+.kelly-calendar-event-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.kelly-calendar-event-top>strong{min-width:0;color:#f8f7fb;font-size:13px;font-weight:750;line-height:1.35}
+.kelly-calendar-event-actions{display:flex;align-items:center;gap:4px;flex:0 0 auto}
+.kelly-calendar-event-actions button{width:27px;height:27px;display:grid;place-items:center;border:0;border-radius:7px;background:rgba(255,255,255,.05);color:#85859a;cursor:pointer}
+.kelly-calendar-event-actions button:hover{background:rgba(255,255,255,.09);color:#fff}
+.kelly-calendar-event-actions button.delete{color:#ef4444}
+.kelly-calendar-event-actions button.delete:hover{background:rgba(239,68,68,.12);color:#f87171}
+.kelly-calendar-event-time{display:flex;align-items:center;gap:6px;margin-top:12px;font-size:12px;font-weight:700}
+.kelly-calendar-event-category{margin-top:8px;font-size:11px;font-weight:800}
+.kelly-calendar-event-card p{margin:7px 0 0;color:#85859a;font-size:11px;line-height:1.45}
+.kelly-calendar-modal-overlay{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:24px;box-sizing:border-box;background:rgba(0,0,0,.68)}
+.kelly-calendar-modal{width:min(480px,100%);max-height:90vh;overflow:auto;padding:22px;box-sizing:border-box;border:1px solid #30303d;border-radius:14px;background:#111119;color:#f8f7fb;animation:kellyCalendarModalIn .16s ease-out}
+@keyframes kellyCalendarModalIn{from{opacity:0;transform:translateY(5px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+.kelly-calendar-modal-header{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:20px}
+.kelly-calendar-modal-header strong{color:#fff;font-size:19px;font-weight:800}
+.kelly-calendar-modal-close{width:34px;height:34px;display:grid;place-items:center;border:1px solid #30303d;border-radius:8px;background:#191923;color:#aaa9ba;cursor:pointer}
+.kelly-calendar-modal-close:hover{color:#fff;background:#242432}
+.kelly-calendar-field{display:flex;flex-direction:column;gap:7px;min-width:0}
+.kelly-calendar-field>span{color:#77778b;font-size:12px;font-weight:650}
+.kelly-calendar-field input,.kelly-calendar-field select,.kelly-calendar-field textarea{width:100%;box-sizing:border-box;border:1px solid #30303d;border-radius:9px;outline:none;background:#15151e;color:#f8f7fb;font:inherit;font-size:13px}
+.kelly-calendar-field input,.kelly-calendar-field select{min-height:42px;padding:0 12px}
+.kelly-calendar-field textarea{padding:10px 12px;resize:vertical;min-height:82px}
+.kelly-calendar-field input:focus,.kelly-calendar-field select:focus,.kelly-calendar-field textarea:focus{border-color:#7c5cff}
+.kelly-calendar-field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.kelly-calendar-field-row+.kelly-calendar-field{margin-bottom:14px}
+.kelly-calendar-field:first-of-type{margin-bottom:0}
+.kelly-calendar-modal-actions{display:flex;gap:10px;margin-top:20px}
+.kelly-calendar-add-button{flex:1;min-height:42px;border:0;border-radius:9px;background:#7c5cff;color:#fff;font:inherit;font-size:13px;font-weight:750;cursor:pointer}
+.kelly-calendar-add-button:hover{background:#8b6cff}
+.kelly-calendar-cancel-button{min-width:105px;min-height:42px;border:1px solid #30303d;border-radius:9px;background:#1b1b25;color:#85859a;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.kelly-calendar-cancel-button:hover{background:#242432;color:#d7d6e1}
+@media (max-width:850px){
+.kelly-calendar-layout{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+.kelly-calendar-page{padding:26px 20px 40px}
+.kelly-calendar-header{align-items:flex-start}
+.kelly-calendar-header h1{font-size:25px}
+.kelly-calendar-new-event{padding:0 12px}
+.kelly-calendar-card,.kelly-calendar-detail-card{padding:15px}
+.kelly-calendar-cell{min-height:57px;padding:7px 3px}
+.kelly-calendar-field-row{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+.kelly-calendar-modal{animation:none}
+}
+/* KELLY CALENDAR PAGE END */
