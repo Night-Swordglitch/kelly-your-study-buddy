@@ -11,7 +11,6 @@ import {
   BookOpen,
   Settings,
   Menu,
-  X,
 } from "lucide-react";
 import { useKellyXP } from "@/components/kelly/app-shell";
 
@@ -39,15 +38,20 @@ function getActivePage(pathname: string): string {
   if (pathname.startsWith("/listen")) return "listen";
   if (pathname.startsWith("/study")) return "study";
   if (pathname.startsWith("/quizzes")) return "quizzes";
+
   if (
     pathname.startsWith("/games") ||
     pathname.startsWith("/memory-match") ||
     pathname.startsWith("/quick-quiz")
-  ) return "games";
+  ) {
+    return "games";
+  }
+
   if (pathname.startsWith("/calendar")) return "calendar";
   if (pathname.startsWith("/friends")) return "friends";
   if (pathname.startsWith("/timer")) return "timer";
   if (pathname.startsWith("/settings")) return "settings";
+
   return "home";
 }
 
@@ -58,118 +62,130 @@ export function KellySidebar() {
 
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
-const activePage = getActivePage(location.pathname);
+
+  const activePage = getActivePage(location.pathname);
 
   const goTo = (item: SidebarItem) => {
-    if (!item.to) return;avigate({ to: item.to });
+    if (!item.to) return;
+    navigate({ to: item.to });
   };
 
   return (
-    <>
-<aside className={`kelly-sidebar ${collapsed ? "collapsed" : "expanded"}`}>
-        <div className="kelly-sidebar-header">
-          <button
-            type="button"
-            className="kelly-sidebar-logo"
-            onClick={() => navigate({ to: "/dashboard" })}
-            aria-label="Go to KELLY Home"
-          >
-            <span className="kelly-sidebar-avatar">
-              <img src="/KELLY/kelly-sidebar.png" alt="KELLY" />
-            </span>
-            <span className="kelly-sidebar-word">KELLY</span>
-          </button>
-        </div><button        type="button"n        className="kelly-sidebar-menu-button"n        onClick={() => setCollapsed((current) => !current)}n        aria-label="Toggle sidebar"n      ><Menu          className="kelly-sidebar-icon"n          size={16}n          strokeWidth={2}n        /></button><div className="kelly-sidebar-level">
-          <div className="kelly-sidebar-level-row">
-            <span className="kelly-sidebar-level-name">Lv 3</span>
-            <span className="kelly-sidebar-level-xp">{xp} XP</span>
-          </div>
+    <aside
+      className={`kelly-sidebar${collapsed ? " collapsed" : " expanded"}`}
+    >
+      <div className="kelly-sidebar-header">
+        <button
+          type="button"
+          className="kelly-sidebar-logo"
+          onClick={() => navigate({ to: "/dashboard" })}
+          aria-label="Go to KELLY Home"
+        >
+          <span className="kelly-sidebar-avatar">
+            <img src="/KELLY/kelly-sidebar.png" alt="KELLY" />
+          </span>
+          <span className="kelly-sidebar-word">KELLY</span>
+        </button>
+      </div>
 
-          <div className="kelly-sidebar-xp-track">
-            <div className="kelly-sidebar-xp-fill" />
-          </div>
+      <button
+        type="button"
+        className="kelly-sidebar-menu-button"
+        onClick={() => setCollapsed((current) => !current)}
+        aria-label="Toggle sidebar"
+      >
+        <Menu
+          className="kelly-sidebar-icon"
+          size={16}
+          strokeWidth={2}
+        />
+      </button>
+
+      <div className="kelly-sidebar-level">
+        <div className="kelly-sidebar-level-row">
+          <span className="kelly-sidebar-level-name">Lv 3</span>
+          <span className="kelly-sidebar-level-xp">{xp} XP</span>
         </div>
 
-        <nav className="kelly-sidebar-nav" aria-label="KELLY navigation">
-          {ITEMS.map((item) => {
-            const Icon = item.icon;
-            const active = activePage === item.id;
+        <div className="kelly-sidebar-xp-track">
+          <div className="kelly-sidebar-xp-fill" />
+        </div>
+      </div>
 
-            return (
-              <button
-                key={item.id}
-                type="button"
-                className={`kelly-sidebar-link${active ? " active" : ""}`}
-                onClick={() => goTo(item)}
-                disabled={!item.to}
-                aria-current={active ? "page" : undefined}
-                title={collapsed ? item.label : undefined}
-              >
-                <Icon
-                  className="kelly-sidebar-icon"
-                  size={16}
-                  strokeWidth={2}
-                />
-                <span>{item.label}</span>
-              </button>
-            );
-          })}
-        </nav>
+      <nav
+        className="kelly-sidebar-nav"
+        aria-label="KELLY navigation"
+      >
+        {ITEMS.map((item) => {
+          const Icon = item.icon;
+          const active = activePage === item.id;
 
-        <div className="kelly-sidebar-bottom">
-          <div className="kelly-settings-wrapper">
+          return (
             <button
+              key={item.id}
               type="button"
-              className="kelly-sidebar-link kelly-settings-trigger"
-              onMouseEnter={() => setSettingsOpen(true)}
-              onMouseLeave={() => {
-                window.setTimeout(() => {
-                  const hovered = document.querySelector(
-                    ".kelly-settings-popup:hover"
-                  );
-
-                  if (!hovered) setSettingsOpen(false);
-                }, 40);
-              }}
-              title={collapsed ? "Settings" : undefined}
+              className={`kelly-sidebar-link${active ? " active" : ""}`}
+              onClick={() => goTo(item)}
+              disabled={!item.to}
+              aria-current={active ? "page" : undefined}
             >
-              <Settings
+              <Icon
                 className="kelly-sidebar-icon"
                 size={16}
                 strokeWidth={2}
               />
-              <span>Settings</span>
+              <span>{item.label}</span>
             </button>
+          );
+        })}
+      </nav>
 
-            {settingsOpen && (
-              <div
-                className="kelly-settings-popup"
-                onMouseEnter={() => setSettingsOpen(true)}
-                onMouseLeave={() => setSettingsOpen(false)}
+      <div className="kelly-sidebar-bottom">
+        <div className="kelly-settings-wrapper">
+          <button
+            type="button"
+            className="kelly-sidebar-link kelly-settings-trigger"
+            onMouseEnter={() => setSettingsOpen(true)}
+            onMouseLeave={() => {
+              window.setTimeout(() => {
+                const hovered = document.querySelector(
+                  ".kelly-settings-popup:hover"
+                );
+
+                if (!hovered) {
+                  setSettingsOpen(false);
+                }
+              }, 40);
+            }}
+          >
+            <Settings
+              className="kelly-sidebar-icon"
+              size={16}
+              strokeWidth={2}
+            />
+            <span>Settings</span>
+          </button>
+
+          {settingsOpen && (
+            <div
+              className="kelly-settings-popup"
+              onMouseEnter={() => setSettingsOpen(true)}
+              onMouseLeave={() => setSettingsOpen(false)}
+            >
+              <button
+                type="button"
+                className="kelly-settings-logout"
+                onClick={async () => {
+                  await window.KellyAuth?.logout();
+                  window.location.href = "/";
+                }}
               >
-                <button
-                  type="button"
-                  className="kelly-settings-logout"
-                  onClick={async () => {
-                    await window.KellyAuth?.logout();
-                    window.location.href = "/";
-                  }}
-                >
-                  Log out
-                </button>
-              </div>
-            )}
-          </div>
+                Log out
+              </button>
+            </div>
+          )}
         </div>
-      </aside>
-    </>
+      </div>
+    </aside>
   );
 }
-
-
-
-
-
-
-
-
