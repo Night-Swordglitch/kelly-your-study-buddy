@@ -1,6 +1,7 @@
 ﻿import { createFileRoute } from "@tanstack/react-router";
-import { KellyIframe } from "@/components/kelly/kelly-iframe";
+
+import { QuizPage } from "@/components/kelly/quiz-page";
 
 export const Route = createFileRoute("/_authenticated/quizzes")({
-  component: KellyIframe,
+  component: QuizPage,
 });

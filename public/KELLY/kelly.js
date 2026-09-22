@@ -19,6 +19,9 @@
     "subjects",
     "study",
     "quizzes",
+    "create-quiz",
+    "quiz-taking",
+    "quiz-results",
     "flashcards",
     "groups",
     "calendar",
@@ -978,27 +981,547 @@ window.handleGoogleAuth = async function () {
   }
 
   // ─────────────────────────────────────────────
-  // QUIZ PLACEHOLDERS
   // ─────────────────────────────────────────────
+// QUIZ ENGINE
+// ─────────────────────────────────────────────
 
-  window.generateQuizFromConfig = function () {
-    showToast("Quiz generation will be connected next.");
+const KELLY_QUIZ_HISTORY_KEY = "kelly-quiz-history";
+
+const KELLY_QUIZZES = [
+  {
+    id: "biology-basics",
+    title: "Biology Basics",
+    subject: "Biology",
+    questions: [
+      {
+        question: "Which organelle is known as the powerhouse of the cell?",
+        options: [
+          "Nucleus",
+          "Mitochondria",
+          "Ribosome",
+          "Cell membrane"
+        ],
+        correctIndex: 1
+      },
+      {
+        question: "What process do plants use to convert light energy into chemical energy?",
+        options: [
+          "Respiration",
+          "Digestion",
+          "Photosynthesis",
+          "Fermentation"
+        ],
+        correctIndex: 2
+      },
+      {
+        question: "Which molecule carries genetic information in most living organisms?",
+        options: [
+          "DNA",
+          "Glucose",
+          "ATP",
+          "Water"
+        ],
+        correctIndex: 0
+      },
+      {
+        question: "Which blood cells help defend the body against infection?",
+        options: [
+          "Red blood cells",
+          "Platelets",
+          "White blood cells",
+          "Plasma cells"
+        ],
+        correctIndex: 2
+      }
+    ]
+  },
+  {
+    id: "algebra-review",
+    title: "Algebra Review",
+    subject: "Mathematics",
+    questions: [
+      {
+        question: "What is x if 3x + 6 = 21?",
+        options: [
+          "3",
+          "5",
+          "7",
+          "9"
+        ],
+        correctIndex: 1
+      },
+      {
+        question: "Simplify: 4x + 3x - 2.",
+        options: [
+          "7x - 2",
+          "x + 1",
+          "7x + 2",
+          "12x - 2"
+        ],
+        correctIndex: 0
+      },
+      {
+        question: "If y = 2x + 1, what is y when x = 4?",
+        options: [
+          "7",
+          "8",
+          "9",
+          "10"
+        ],
+        correctIndex: 2
+      }
+    ]
+  }
+];
+
+let activeQuiz = null;
+let activeQuizIndex = 0;
+let activeQuizAnswers = [];
+
+function getQuizHistory() {
+  const seedHistory = [
+    {
+      title: "Biology Basics",
+      date: "2026-09-12",
+      score: 3,
+      total: 4,
+      xp: 60,
+    },
+    {
+      title: "Algebra Review",
+      date: "2026-09-10",
+      score: 2,
+      total: 3,
+      xp: 40,
+    },
+  ];
+
+  try {
+    const raw = localStorage.getItem(KELLY_QUIZ_HISTORY_KEY);
+
+    if (!raw) {
+      localStorage.setItem(
+        KELLY_QUIZ_HISTORY_KEY,
+        JSON.stringify(seedHistory)
+      );
+      return seedHistory;
+    }
+
+    const parsed = JSON.parse(raw);
+
+    if (!Array.isArray(parsed)) {
+      localStorage.setItem(
+        KELLY_QUIZ_HISTORY_KEY,
+        JSON.stringify(seedHistory)
+      );
+      return seedHistory;
+    }
+
+    return parsed;
+  } catch (error) {
+    console.warn("[KELLY] Could not read quiz history:", error);
+    return seedHistory;
+  }
+}
+
+function saveQuizHistory(history) {
+  try {
+    localStorage.setItem(
+      KELLY_QUIZ_HISTORY_KEY,
+      JSON.stringify(history)
+    );
+  } catch (error) {
+    console.warn("[KELLY] Could not save quiz history:", error);
+  }
+}
+
+function getQuizById(id) {
+  return KELLY_QUIZZES.find((quiz) => quiz.id === id) || null;
+}
+
+function formatQuizDate(dateValue) {
+  const date = new Date(dateValue);
+
+  if (Number.isNaN(date.getTime())) {
+    return "Unknown date";
+  }
+
+  return date.toLocaleDateString(undefined, {
+    day: "numeric",
+    month: "short",
+    year: "numeric"
+  });
+}
+
+function escapeQuizHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function renderQuizList() {
+  const list = document.getElementById("qz-quiz-list");
+  const history = document.getElementById("qz-history");
+
+  if (!list || !history) {
+    return;
+  }
+
+  list.innerHTML = KELLY_QUIZZES.map((quiz) => `
+    <div class="qz-quiz-card">
+      <button
+        type="button"
+        class="qz-quiz-delete"
+        aria-label="Delete ${escapeQuizHtml(quiz.title)}"
+        title="Delete quiz"
+        onclick="deleteQuiz('${quiz.id}')"
+      >
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 6h18"></path>
+          <path d="M8 6V4h8v2"></path>
+          <path d="M19 6l-1 14H6L5 6"></path>
+          <path d="M10 11v5"></path>
+          <path d="M14 11v5"></path>
+        </svg>
+      </button>
+
+      <div class="qz-quiz-content">
+        <h3 class="qz-quiz-title">
+          ${escapeQuizHtml(quiz.title)}
+        </h3>
+
+        <p class="qz-quiz-meta">
+          ${escapeQuizHtml(quiz.subject)} · ${quiz.questions.length} questions
+        </p>
+
+        <button
+          type="button"
+          class="qz-quiz-start"
+          onclick="startQuiz('${quiz.id}')"
+        >
+          <span aria-hidden="true">▷</span>
+          Start Quiz
+        </button>
+      </div>
+    </div>
+  `).join("");
+
+  const quizHistory = getQuizHistory();
+
+  if (!quizHistory.length) {
+    history.innerHTML = `
+      <div class="muted" style="padding:4px 0;">
+        No quizzes attempted yet.
+      </div>
+    `;
+    return;
+  }
+
+  history.innerHTML = quizHistory.map((result, index) => {
+    const ratio = result.total > 0
+      ? result.score / result.total
+      : 0;
+
+    const scoreClass =
+      ratio >= 0.75
+        ? "qz-history-score-strong"
+        : "qz-history-score-mid";
+
+    return `
+      <button
+        type="button"
+        class="qz-history-row"
+        onclick="reviewQuizHistory(${index})"
+      >
+        <span class="qz-history-icon" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            width="18"
+            height="18"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M9.5 3a3.5 3.5 0 0 0-3.4 4.3A3.5 3.5 0 0 0 5 13.8a3.5 3.5 0 0 0 3.5 5.2h1v2h5v-2h1a3.5 3.5 0 0 0 3.5-5.2 3.5 3.5 0 0 0-1.1-6.5A3.5 3.5 0 0 0 14.5 3a3.5 3.5 0 0 0-5 0Z"></path>
+            <path d="M9 10h.01"></path>
+            <path d="M15 10h.01"></path>
+            <path d="M9 14c1.5 1 4.5 1 6 0"></path>
+          </svg>
+        </span>
+
+        <span class="qz-history-copy">
+          <strong class="qz-history-name">
+            ${escapeQuizHtml(result.title)}
+          </strong>
+          <span class="qz-history-date">
+            ${escapeQuizHtml(String(result.date))}
+          </span>
+        </span>
+
+        <span class="qz-history-result">
+          <strong class="qz-history-score ${scoreClass}">
+            ${result.score}/${result.total}
+          </strong>
+          <span class="qz-history-xp">
+            +${result.xp} XP
+          </span>
+        </span>
+
+        <span class="qz-history-arrow" aria-hidden="true">›</span>
+      </button>
+    `;
+  }).join("");
+}
+window.createQuizComingSoon = function () {
+  showPage("create-quiz");
+};
+window.generateQuizFromCreatePage = function () {
+  showToast("Quiz generation coming soon");
+};
+
+window.deleteQuiz = function (id) {
+  const quiz = getQuizById(id);
+
+  if (!quiz) {
+    return;
+  }
+
+  showToast(`${quiz.title} is a built-in quiz and cannot be deleted yet.`);
+};
+
+window.startQuiz = function (id) {
+  const quiz = getQuizById(id);
+
+  if (!quiz) {
+    showToast("Quiz not found.");
+    return;
+  }
+
+  activeQuiz = quiz;
+  activeQuizIndex = 0;
+  activeQuizAnswers = new Array(quiz.questions.length).fill(null);
+
+  showPage("quiz-taking");
+  renderCurrentQuizQuestion();
+};
+
+function renderCurrentQuizQuestion() {
+  if (!activeQuiz) {
+    return;
+  }
+
+  const label = document.getElementById("qt-progress-label");
+  const fill = document.getElementById("qt-progress-fill");
+  const card = document.getElementById("qt-question-card");
+  const nextButton = document.getElementById("qt-next-btn");
+
+  if (!label || !fill || !card || !nextButton) {
+    return;
+  }
+
+  const question = activeQuiz.questions[activeQuizIndex];
+  const total = activeQuiz.questions.length;
+  const questionNumber = activeQuizIndex + 1;
+
+  label.textContent = `Question ${questionNumber} of ${total}`;
+  fill.style.width = `${(questionNumber / total) * 100}%`;
+
+  card.innerHTML = `
+    <h3>${escapeQuizHtml(question.question)}</h3>
+
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      ${question.options.map((option, optionIndex) => {
+        const selected =
+          activeQuizAnswers[activeQuizIndex] === optionIndex;
+
+        const letter = String.fromCharCode(65 + optionIndex);
+
+        return `
+          <button
+            type="button"
+            class="quiz-answer-option"
+            data-option-index="${optionIndex}"
+            style="
+              width:100%;
+              display:flex;
+              align-items:center;
+              gap:12px;
+              padding:13px 14px;
+              border:1px solid ${selected ? "var(--violet)" : "var(--line)"};
+              border-radius:12px;
+              background:${selected ? "var(--violet-soft)" : "#fff"};
+              color:var(--ink);
+              text-align:left;
+              cursor:pointer;
+              font:inherit;
+            "
+          >
+            <span style="
+              width:28px;
+              height:28px;
+              flex:0 0 28px;
+              display:flex;
+              align-items:center;
+              justify-content:center;
+              border-radius:8px;
+              background:${selected ? "var(--violet)" : "var(--violet-soft)"};
+              color:${selected ? "#fff" : "var(--violet)"};
+              font-weight:800;
+              font-size:13px;
+            ">${letter}</span>
+
+            <span style="font-size:14px;">
+              ${escapeQuizHtml(option)}
+            </span>
+          </button>
+        `;
+      }).join("")}
+    </div>
+  `;
+
+  card.querySelectorAll(".quiz-answer-option").forEach((button) => {
+    button.addEventListener("click", () => {
+      const selectedIndex = Number(button.dataset.optionIndex);
+
+      if (!Number.isInteger(selectedIndex)) {
+        return;
+      }
+
+      activeQuizAnswers[activeQuizIndex] = selectedIndex;
+      renderCurrentQuizQuestion();
+    });
+  });
+
+  nextButton.disabled =
+    activeQuizAnswers[activeQuizIndex] === null;
+
+  nextButton.textContent =
+    questionNumber === total
+      ? "Finish Quiz"
+      : "Next Question";
+}
+
+window.nextQuizQuestion = function () {
+  if (!activeQuiz) {
+    return;
+  }
+
+  if (activeQuizAnswers[activeQuizIndex] === null) {
+    return;
+  }
+
+  const isLastQuestion =
+    activeQuizIndex === activeQuiz.questions.length - 1;
+
+  if (!isLastQuestion) {
+    activeQuizIndex += 1;
+    renderCurrentQuizQuestion();
+    return;
+  }
+
+  finishQuiz();
+};
+
+function finishQuiz() {
+  if (!activeQuiz) {
+    return;
+  }
+
+  let score = 0;
+
+  activeQuiz.questions.forEach((question, index) => {
+    if (activeQuizAnswers[index] === question.correctIndex) {
+      score += 1;
+    }
+  });
+
+  const xp = score * 20;
+
+  const result = {
+    quizId: activeQuiz.id,
+    title: activeQuiz.title,
+    score,
+    total: activeQuiz.questions.length,
+    xp,
+    date: new Date().toISOString()
   };
 
-  window.nextQuizQuestion = function () {
-    showToast("Quiz engine will be connected next.");
-  };
+  const history = getQuizHistory();
+  history.unshift(result);
+  saveQuizHistory(history);
 
-  window.exitQuiz = function () {
+  showToast(`Quiz complete! +${xp} XP`);
+  activeQuiz = null;
+  activeQuizIndex = 0;
+  activeQuizAnswers = [];
+
+  showPage("quizzes");
+  renderQuizList();
+}
+
+window.exitQuiz = function () {
+  if (!activeQuiz) {
     showPage("quizzes");
-  };
+    return;
+  }
 
-  window.reviewWeakAreasWithKelly = function () {
-    openKellyPanel();
-  };
+  const confirmed = window.confirm(
+    "Exit this quiz? Your current answers will be lost."
+  );
 
-  // ─────────────────────────────────────────────
-  // FLASHCARDS
+  if (!confirmed) {
+    return;
+  }
+
+  activeQuiz = null;
+  activeQuizIndex = 0;
+  activeQuizAnswers = [];
+
+  showPage("quizzes");
+  renderQuizList();
+};
+
+window.reviewQuizHistory = function (index) {
+  const history = getQuizHistory();
+  const result = history[index];
+
+  if (!result) {
+    return;
+  }
+
+  showToast(
+    `${result.title}: ${result.score}/${result.total} · +${result.xp} XP`
+  );
+};
+
+window.renderQuizzesPage = function () {
+  renderQuizList();
+};
+
+// Render the list whenever the Quizzes page is shown.
+const originalShowPageForQuiz = window.showPage;
+
+if (typeof originalShowPageForQuiz === "function") {
+  window.showPage = function (pageId) {
+    originalShowPageForQuiz(pageId);
+
+    if (pageId === "quizzes") {
+      renderQuizList();
+    }
+  };
+}
+
+// ─────────────────────────────────────────────
+// FLASHCARDS
+// ─────────────────────────────────────────────
+
   // ─────────────────────────────────────────────
 
   window.flipFlashcard = function (card) {
@@ -1163,3 +1686,9 @@ const cleanParentPath = parentPath.replace(/^\/+/, "").split("/")[0];
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',render);
   else render();
 })();
+
+
+
+
+
+

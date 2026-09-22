@@ -155,6 +155,12 @@ export function ListenTranscribePage() {
     resetRecorder();
   };
 
+  const handleDeleteRecording = (id: string) => {
+    setRecordings((current) =>
+      current.filter((recordingItem) => recordingItem.id !== id),
+    );
+  };
+
   return (
     <section className="kelly-listen-page">
       <header className="kelly-listen-header">
@@ -371,6 +377,16 @@ export function ListenTranscribePage() {
                   <span>{recordingItem.date}</span>
                 </div>
               </div>
+
+              <button
+                type="button"
+                className="kelly-listen-recording-delete"
+                onClick={() => handleDeleteRecording(recordingItem.id)}
+                aria-label={`Delete ${recordingItem.title}`}
+                title="Delete recording"
+              >
+                <Trash2 size={16} strokeWidth={2} />
+              </button>
             </article>
           ))}
         </div>
@@ -384,4 +400,6 @@ export function ListenTranscribePage() {
     </section>
   );
 }
+
+
 

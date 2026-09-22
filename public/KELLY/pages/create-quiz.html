@@ -1,0 +1,77 @@
+﻿<section class="app-page" id="page-create-quiz">
+  <div style="max-width:760px;margin:0 auto;padding:34px 38px 50px;">
+
+    <button
+      type="button"
+      class="link-btn"
+      onclick="showPage('quizzes')"
+      style="display:inline-flex;align-items:center;gap:6px;margin-bottom:22px;"
+    >
+      ← Back
+    </button>
+
+    <h1 style="margin:0 0 28px;font-size:24px;color:#f8f7fb;">
+      Create Quiz
+    </h1>
+
+    <div class="card" style="padding:22px;">
+
+      <div style="margin-bottom:22px;">
+        <label
+          for="cq-title"
+          style="display:block;margin-bottom:8px;font-size:12px;font-weight:700;color:#f5f4fa;"
+        >
+          Title
+        </label>
+
+        <input
+          id="cq-title"
+          type="text"
+          placeholder="Enter quiz title"
+          style="width:100%;box-sizing:border-box;"
+        />
+      </div>
+
+      <div style="margin-bottom:22px;">
+        <label
+          for="cq-subject"
+          style="display:block;margin-bottom:8px;font-size:12px;font-weight:700;color:#f5f4fa;"
+        >
+          Subject
+        </label>
+
+        <select id="cq-subject" style="width:100%;box-sizing:border-box;">
+          <option value="Biology">Biology</option>
+          <option value="Mathematics">Mathematics</option>
+          <option value="History">History</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom:28px;">
+        <label
+          for="cq-note"
+          style="display:block;margin-bottom:8px;font-size:12px;font-weight:700;color:#f5f4fa;"
+        >
+          From Note (optional)
+        </label>
+
+        <select id="cq-note" style="width:100%;box-sizing:border-box;">
+          <option value="">Generate from subject</option>
+          <option value="Cell Division">Cell Division</option>
+          <option value="Quadratic Equations">Quadratic Equations</option>
+          <option value="World War II — Causes">World War II — Causes</option>
+        </select>
+      </div>
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        onclick="generateQuizFromCreatePage()"
+        style="width:100%;"
+      >
+        Generate Quiz
+      </button>
+
+    </div>
+  </div>
+</section>

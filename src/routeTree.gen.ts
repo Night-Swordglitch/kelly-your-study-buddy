@@ -17,15 +17,20 @@ import { Route as AuthSignupRouteImport } from './routes/_auth/signup'
 import { Route as AuthenticatedCalendarRouteImport } from './routes/_authenticated/calendar'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedFlashcardsRouteImport } from './routes/_authenticated/flashcards'
+import { Route as AuthenticatedFriendsRouteImport } from './routes/_authenticated/friends'
+import { Route as AuthenticatedGamesRouteImport } from './routes/_authenticated/games'
 import { Route as AuthenticatedGroupsRouteImport } from './routes/_authenticated/groups'
 import { Route as AuthenticatedHomeRouteImport } from './routes/_authenticated/home'
 import { Route as AuthenticatedListenRouteImport } from './routes/_authenticated/listen'
+import { Route as AuthenticatedMemoryMatchRouteImport } from './routes/_authenticated/memory-match'
 import { Route as AuthenticatedNotesRouteImport } from './routes/_authenticated/notes'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedProgressRouteImport } from './routes/_authenticated/progress'
+import { Route as AuthenticatedQuickQuizRouteImport } from './routes/_authenticated/quick-quiz'
 import { Route as AuthenticatedQuizzesRouteImport } from './routes/_authenticated/quizzes'
 import { Route as AuthenticatedStudyRouteImport } from './routes/_authenticated/study'
 import { Route as AuthenticatedSubjectsRouteImport } from './routes/_authenticated/subjects'
+import { Route as AuthenticatedTimedChallengeRouteImport } from './routes/_authenticated/timed-challenge'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -65,6 +70,16 @@ const AuthenticatedFlashcardsRoute = AuthenticatedFlashcardsRouteImport.update({
   path: '/flashcards',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedFriendsRoute = AuthenticatedFriendsRouteImport.update({
+  id: '/friends',
+  path: '/friends',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedGamesRoute = AuthenticatedGamesRouteImport.update({
+  id: '/games',
+  path: '/games',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedGroupsRoute = AuthenticatedGroupsRouteImport.update({
   id: '/groups',
   path: '/groups',
@@ -80,6 +95,12 @@ const AuthenticatedListenRoute = AuthenticatedListenRouteImport.update({
   path: '/listen',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedMemoryMatchRoute =
+  AuthenticatedMemoryMatchRouteImport.update({
+    id: '/memory-match',
+    path: '/memory-match',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedNotesRoute = AuthenticatedNotesRouteImport.update({
   id: '/notes',
   path: '/notes',
@@ -93,6 +114,11 @@ const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
 const AuthenticatedProgressRoute = AuthenticatedProgressRouteImport.update({
   id: '/progress',
   path: '/progress',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedQuickQuizRoute = AuthenticatedQuickQuizRouteImport.update({
+  id: '/quick-quiz',
+  path: '/quick-quiz',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedQuizzesRoute = AuthenticatedQuizzesRouteImport.update({
@@ -110,6 +136,12 @@ const AuthenticatedSubjectsRoute = AuthenticatedSubjectsRouteImport.update({
   path: '/subjects',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedTimedChallengeRoute =
+  AuthenticatedTimedChallengeRouteImport.update({
+    id: '/timed-challenge',
+    path: '/timed-challenge',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -118,15 +150,20 @@ export interface FileRoutesByFullPath {
   '/calendar': typeof AuthenticatedCalendarRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/flashcards': typeof AuthenticatedFlashcardsRoute
+  '/friends': typeof AuthenticatedFriendsRoute
+  '/games': typeof AuthenticatedGamesRoute
   '/groups': typeof AuthenticatedGroupsRoute
   '/home': typeof AuthenticatedHomeRoute
   '/listen': typeof AuthenticatedListenRoute
+  '/memory-match': typeof AuthenticatedMemoryMatchRoute
   '/notes': typeof AuthenticatedNotesRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/progress': typeof AuthenticatedProgressRoute
+  '/quick-quiz': typeof AuthenticatedQuickQuizRoute
   '/quizzes': typeof AuthenticatedQuizzesRoute
   '/study': typeof AuthenticatedStudyRoute
   '/subjects': typeof AuthenticatedSubjectsRoute
+  '/timed-challenge': typeof AuthenticatedTimedChallengeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -135,15 +172,20 @@ export interface FileRoutesByTo {
   '/calendar': typeof AuthenticatedCalendarRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/flashcards': typeof AuthenticatedFlashcardsRoute
+  '/friends': typeof AuthenticatedFriendsRoute
+  '/games': typeof AuthenticatedGamesRoute
   '/groups': typeof AuthenticatedGroupsRoute
   '/home': typeof AuthenticatedHomeRoute
   '/listen': typeof AuthenticatedListenRoute
+  '/memory-match': typeof AuthenticatedMemoryMatchRoute
   '/notes': typeof AuthenticatedNotesRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/progress': typeof AuthenticatedProgressRoute
+  '/quick-quiz': typeof AuthenticatedQuickQuizRoute
   '/quizzes': typeof AuthenticatedQuizzesRoute
   '/study': typeof AuthenticatedStudyRoute
   '/subjects': typeof AuthenticatedSubjectsRoute
+  '/timed-challenge': typeof AuthenticatedTimedChallengeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -155,15 +197,20 @@ export interface FileRoutesById {
   '/_authenticated/calendar': typeof AuthenticatedCalendarRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/flashcards': typeof AuthenticatedFlashcardsRoute
+  '/_authenticated/friends': typeof AuthenticatedFriendsRoute
+  '/_authenticated/games': typeof AuthenticatedGamesRoute
   '/_authenticated/groups': typeof AuthenticatedGroupsRoute
   '/_authenticated/home': typeof AuthenticatedHomeRoute
   '/_authenticated/listen': typeof AuthenticatedListenRoute
+  '/_authenticated/memory-match': typeof AuthenticatedMemoryMatchRoute
   '/_authenticated/notes': typeof AuthenticatedNotesRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/progress': typeof AuthenticatedProgressRoute
+  '/_authenticated/quick-quiz': typeof AuthenticatedQuickQuizRoute
   '/_authenticated/quizzes': typeof AuthenticatedQuizzesRoute
   '/_authenticated/study': typeof AuthenticatedStudyRoute
   '/_authenticated/subjects': typeof AuthenticatedSubjectsRoute
+  '/_authenticated/timed-challenge': typeof AuthenticatedTimedChallengeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -174,15 +221,20 @@ export interface FileRouteTypes {
     | '/calendar'
     | '/dashboard'
     | '/flashcards'
+    | '/friends'
+    | '/games'
     | '/groups'
     | '/home'
     | '/listen'
+    | '/memory-match'
     | '/notes'
     | '/profile'
     | '/progress'
+    | '/quick-quiz'
     | '/quizzes'
     | '/study'
     | '/subjects'
+    | '/timed-challenge'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -191,15 +243,20 @@ export interface FileRouteTypes {
     | '/calendar'
     | '/dashboard'
     | '/flashcards'
+    | '/friends'
+    | '/games'
     | '/groups'
     | '/home'
     | '/listen'
+    | '/memory-match'
     | '/notes'
     | '/profile'
     | '/progress'
+    | '/quick-quiz'
     | '/quizzes'
     | '/study'
     | '/subjects'
+    | '/timed-challenge'
   id:
     | '__root__'
     | '/'
@@ -210,15 +267,20 @@ export interface FileRouteTypes {
     | '/_authenticated/calendar'
     | '/_authenticated/dashboard'
     | '/_authenticated/flashcards'
+    | '/_authenticated/friends'
+    | '/_authenticated/games'
     | '/_authenticated/groups'
     | '/_authenticated/home'
     | '/_authenticated/listen'
+    | '/_authenticated/memory-match'
     | '/_authenticated/notes'
     | '/_authenticated/profile'
     | '/_authenticated/progress'
+    | '/_authenticated/quick-quiz'
     | '/_authenticated/quizzes'
     | '/_authenticated/study'
     | '/_authenticated/subjects'
+    | '/_authenticated/timed-challenge'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -285,6 +347,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFlashcardsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/friends': {
+      id: '/_authenticated/friends'
+      path: '/friends'
+      fullPath: '/friends'
+      preLoaderRoute: typeof AuthenticatedFriendsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/games': {
+      id: '/_authenticated/games'
+      path: '/games'
+      fullPath: '/games'
+      preLoaderRoute: typeof AuthenticatedGamesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/groups': {
       id: '/_authenticated/groups'
       path: '/groups'
@@ -304,6 +380,13 @@ declare module '@tanstack/react-router' {
       path: '/listen'
       fullPath: '/listen'
       preLoaderRoute: typeof AuthenticatedListenRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/memory-match': {
+      id: '/_authenticated/memory-match'
+      path: '/memory-match'
+      fullPath: '/memory-match'
+      preLoaderRoute: typeof AuthenticatedMemoryMatchRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/notes': {
@@ -327,6 +410,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedProgressRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/quick-quiz': {
+      id: '/_authenticated/quick-quiz'
+      path: '/quick-quiz'
+      fullPath: '/quick-quiz'
+      preLoaderRoute: typeof AuthenticatedQuickQuizRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/quizzes': {
       id: '/_authenticated/quizzes'
       path: '/quizzes'
@@ -346,6 +436,13 @@ declare module '@tanstack/react-router' {
       path: '/subjects'
       fullPath: '/subjects'
       preLoaderRoute: typeof AuthenticatedSubjectsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/timed-challenge': {
+      id: '/_authenticated/timed-challenge'
+      path: '/timed-challenge'
+      fullPath: '/timed-challenge'
+      preLoaderRoute: typeof AuthenticatedTimedChallengeRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
   }
@@ -369,30 +466,40 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedCalendarRoute: typeof AuthenticatedCalendarRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedFlashcardsRoute: typeof AuthenticatedFlashcardsRoute
+  AuthenticatedFriendsRoute: typeof AuthenticatedFriendsRoute
+  AuthenticatedGamesRoute: typeof AuthenticatedGamesRoute
   AuthenticatedGroupsRoute: typeof AuthenticatedGroupsRoute
   AuthenticatedHomeRoute: typeof AuthenticatedHomeRoute
   AuthenticatedListenRoute: typeof AuthenticatedListenRoute
+  AuthenticatedMemoryMatchRoute: typeof AuthenticatedMemoryMatchRoute
   AuthenticatedNotesRoute: typeof AuthenticatedNotesRoute
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
   AuthenticatedProgressRoute: typeof AuthenticatedProgressRoute
+  AuthenticatedQuickQuizRoute: typeof AuthenticatedQuickQuizRoute
   AuthenticatedQuizzesRoute: typeof AuthenticatedQuizzesRoute
   AuthenticatedStudyRoute: typeof AuthenticatedStudyRoute
   AuthenticatedSubjectsRoute: typeof AuthenticatedSubjectsRoute
+  AuthenticatedTimedChallengeRoute: typeof AuthenticatedTimedChallengeRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedCalendarRoute: AuthenticatedCalendarRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedFlashcardsRoute: AuthenticatedFlashcardsRoute,
+  AuthenticatedFriendsRoute: AuthenticatedFriendsRoute,
+  AuthenticatedGamesRoute: AuthenticatedGamesRoute,
   AuthenticatedGroupsRoute: AuthenticatedGroupsRoute,
   AuthenticatedHomeRoute: AuthenticatedHomeRoute,
   AuthenticatedListenRoute: AuthenticatedListenRoute,
+  AuthenticatedMemoryMatchRoute: AuthenticatedMemoryMatchRoute,
   AuthenticatedNotesRoute: AuthenticatedNotesRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedProgressRoute: AuthenticatedProgressRoute,
+  AuthenticatedQuickQuizRoute: AuthenticatedQuickQuizRoute,
   AuthenticatedQuizzesRoute: AuthenticatedQuizzesRoute,
   AuthenticatedStudyRoute: AuthenticatedStudyRoute,
   AuthenticatedSubjectsRoute: AuthenticatedSubjectsRoute,
+  AuthenticatedTimedChallengeRoute: AuthenticatedTimedChallengeRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

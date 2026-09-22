@@ -1,14 +1,27 @@
-        <section class="app-page" id="page-quiz-taking">
-          <div class="quiz-stage">
-            <div class="quiz-progress-top">
-              <span id="qt-progress-label">Question 1 of 10</span>
-              <button class="link-btn" style="font-size:13px;" onclick="exitQuiz()">Exit Quiz</button>
-            </div>
-            <div class="progress-track" style="margin-bottom:26px;"><div class="progress-fill" id="qt-progress-fill"></div></div>
-            <div class="quiz-question-card" id="qt-question-card"></div>
-            <div class="quiz-nav-row">
-              <div></div>
-              <button class="btn btn-primary" id="qt-next-btn" onclick="nextQuizQuestion()" disabled>Next Question</button>
-            </div>
-          </div>
-        </section>
+﻿<section class="app-page" id="page-quiz-taking">
+  <div class="quiz-stage">
+    <div class="quiz-progress-top">
+      <span id="qt-progress-label">Question 1 of 1</span>
+      <button class="link-btn" style="font-size:13px;" onclick="exitQuiz()">Exit</button>
+    </div>
+
+    <div class="progress-track" style="margin-bottom:26px;">
+      <div class="progress-fill" id="qt-progress-fill" style="width:0%;"></div>
+    </div>
+
+    <div class="quiz-question-card" id="qt-question-card"></div>
+
+    <div class="quiz-nav-row">
+      <div></div>
+      <button
+        class="btn btn-primary"
+        id="qt-next-btn"
+        type="button"
+        onclick="nextQuizQuestion()"
+        disabled
+      >
+        Next Question
+      </button>
+    </div>
+  </div>
+</section>
