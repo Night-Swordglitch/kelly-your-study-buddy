@@ -1026,66 +1026,7 @@
   font-size: 13px;
 }
 
-@media (max-width: 760px) {
-  .kelly-app-shell {
-    grid-template-columns: 1fr;
-  }
-
-  .kelly-sidebar {
-    width: 100%;
-    max-width: none;
-    min-width: 0;
-    height: auto;
-    min-height: auto;
-
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: auto;
-    z-index: 50;
-
-    padding: 6px 8px;
-    border-right: 0;
-    border-top: 1px solid rgba(139, 92, 246, 0.1);
-  }
-
-  .kelly-sidebar-logo,
-  .kelly-sidebar-level,
-  .kelly-sidebar-bottom {
-    display: none;
-  }
-
-  .kelly-sidebar-nav {
-    flex-direction: row;
-    gap: 3px;
-    justify-content: space-between;
-  }
-
-  .kelly-sidebar-link {
-    height: 42px;
-    min-height: 42px;
-    justify-content: center;
-    flex-direction: column;
-    gap: 3px;
-    padding: 4px;
-    font-size: 8px;
-  }
-
-  .kelly-sidebar-link:nth-child(n + 6) {
-    display: none;
-  }
-
-  .kelly-sidebar-icon {
-    width: 16px;
-    height: 16px;
-  }
-
-  .kelly-app-main {
-    height: 100vh;
-    padding-bottom: 54px;
-  }
-}
+/* Superseded by the single "KELLY SIDEBAR — RESPONSIVE" block further down. */
 
 /* ============================================================
    KELLY HOME ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â POLISHED REACT MIGRATION
@@ -7028,250 +6969,34 @@
 }
 
 /* KELLY NOTES — MOBILE RESPONSIVE END */
-/* KELLY — MOBILE VIEWPORT FOUNDATION */
-@media (max-width: 760px) {
-  html,
-  body,
-  #root {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    overflow-x: hidden;
-  }
+/* ============================================================
+   KELLY SIDEBAR — RESPONSIVE (single source of truth)
 
-  .kelly-app-shell {
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    height: 100dvh;
-    min-height: 100dvh;
-    overflow: hidden;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-  }
+   Breakpoints:
+     Desktop  (>=1024px): sidebar is static, full width (208px).
+       The existing hamburger can still manually collapse it to
+       a 72px icon rail if the person wants more screen space —
+       main content reflows via the :has() rule below.
+     Tablet   (768px–1023px): sidebar DEFAULTS to the 72px icon
+       rail. Hamburger expands it; expanded state floats ABOVE
+       the content (position: fixed) instead of pushing it, so
+       the page doesn't jump.
+     Mobile   (<768px): sidebar is an off-canvas drawer, fully
+       hidden by default. The floating hamburger (rendered in
+       AppShell, outside the <aside>) opens it over a dark
+       scrim. Selecting a nav item or tapping the scrim closes it.
+   ============================================================ */
 
-  .kelly-app-main {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    height: 100%;
-    min-height: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
-    box-sizing: border-box;
-    padding-bottom: 54px;
-  }
-
-  .kelly-sidebar {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
-  }
-}
-
-/* KELLY — MOBILE VIEWPORT FOUNDATION END */
-/* KELLY SIDEBAR — RESPONSIVE COLLAPSE */
-@media (min-width: 761px) and (max-width: 1000px) {
-  .kelly-app-shell {
+/* Desktop: manual collapse still reflows the grid (no JS needed). */
+@media (min-width: 1024px) {
+  .kelly-app-shell:has(.kelly-sidebar.collapsed) {
     grid-template-columns: 72px minmax(0, 1fr);
   }
-
-  .kelly-sidebar {
-    width: 72px;
-    min-width: 72px;
-    overflow: visible;
-  }
-
-  .kelly-sidebar.expanded {
-    width: 208px;
-    min-width: 208px;
-    position: relative;
-    z-index: 60;
-  }
-
-  .kelly-sidebar.collapsed .kelly-sidebar-word,
-  .kelly-sidebar.collapsed .kelly-sidebar-level,
-  .kelly-sidebar.collapsed .kelly-sidebar-link span,
-  .kelly-sidebar.collapsed .kelly-sidebar-bottom span {
-    display: none;
-  }
-
-  .kelly-sidebar.collapsed .kelly-sidebar-logo {
-    justify-content: center;
-  }
-
-  .kelly-sidebar.collapsed .kelly-sidebar-link {
-    justify-content: center;
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .kelly-sidebar-toggle {
-    display: flex;
-  }
 }
 
-@media (max-width: 760px) {
-  .kelly-app-shell {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .kelly-sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 72px;
-    min-width: 72px;
-    height: 100dvh;
-    z-index: 100;
-    overflow: visible;
-    border-right: 1px solid rgba(139, 92, 246, 0.1);
-    border-top: 0;
-  }
-
-  .kelly-sidebar.collapsed {
-    width: 72px;
-    min-width: 72px;
-  }
-
-  .kelly-sidebar.expanded {
-    width: 208px;
-    min-width: 208px;
-    box-shadow: 12px 0 30px rgba(0, 0, 0, 0.28);
-  }
-
-  .kelly-sidebar-header {
-    padding-top: 52px;
-  }
-
-  .kelly-sidebar.collapsed .kelly-sidebar-word,
-  .kelly-sidebar.collapsed .kelly-sidebar-level,
-  .kelly-sidebar.collapsed .kelly-sidebar-link span,
-  .kelly-sidebar.collapsed .kelly-sidebar-bottom span {
-    display: none;
-  }
-
-  .kelly-sidebar.collapsed .kelly-sidebar-logo {
-    justify-content: center;
-  }
-
-  .kelly-sidebar.collapsed .kelly-sidebar-link {
-    justify-content: center;
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .kelly-sidebar.expanded .kelly-sidebar-link {
-    justify-content: flex-start;
-  }
-
-  .kelly-sidebar-toggle {
-    display: flex;
-  }
-
-  .kelly-app-main {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    margin-left: 72px;
-    width: calc(100% - 72px);
-    padding-bottom: 24px;
-    box-sizing: border-box;
-  }
-}
-
-/* KELLY SIDEBAR — RESPONSIVE COLLAPSE END */
-/* KELLY SIDEBAR — COLLAPSE TOGGLE */
-.kelly-sidebar-toggle {
-  display: none;
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  z-index: 5;
-  width: 36px;
-  height: 36px;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  border: 0;
-  border-radius: 9px;
-  background: rgba(124, 106, 245, 0.10);
-  color: #aaa7c7;
-  cursor: pointer;
-}
-
-.kelly-sidebar-toggle:hover {
-  background: rgba(124, 106, 245, 0.18);
-  color: #e8e8f0;
-}
-
-.kelly-sidebar.collapsed .kelly-sidebar-toggle {
-  right: 18px;
-}
-
-/* KELLY SIDEBAR — COLLAPSE TOGGLE END */
-/* KELLY — FORCE SIDEBAR MENU BUTTON */
-@media (max-width: 1000px) {
-  .kelly-sidebar-toggle {
-    display: flex !important;
-    position: absolute !important;
-    top: 12px !important;
-    right: 10px !important;
-    width: 40px !important;
-    height: 40px !important;
-    z-index: 999 !important;
-    align-items: center !important;
-    justify-content: center !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-  }
-
-  .kelly-sidebar.collapsed .kelly-sidebar-toggle {
-    right: 16px !important;
-  }
-
-  .kelly-sidebar.collapsed {
-    width: 72px !important;
-    min-width: 72px !important;
-    transform: translateX(0) !important;
-  }
-
-  .kelly-sidebar.expanded {
-    width: 208px !important;
-    min-width: 208px !important;
-    transform: translateX(0) !important;
-  }
-
-  .kelly-sidebar.collapsed .kelly-sidebar-word,
-  .kelly-sidebar.collapsed .kelly-sidebar-level,
-  .kelly-sidebar.collapsed .kelly-sidebar-link span {
-    display: none !important;
-  }
-
-  .kelly-sidebar.collapsed .kelly-sidebar-logo,
-  .kelly-sidebar.collapsed .kelly-sidebar-link {
-    justify-content: center !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-
-  .kelly-sidebar.collapsed .kelly-sidebar-bottom span {
-    display: none !important;
-  }
-
-  .kelly-app-main {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin-left: 0 !important;
-  }
-}
-
-/* KELLY — UNIVERSAL SIDEBAR TOGGLE */
 .kelly-sidebar {
   position: relative;
+  transition: width 180ms ease, transform 220ms ease;
 }
 
 .kelly-sidebar-menu-button {
@@ -7282,93 +7007,23 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  gap: 12px;
   border: 0;
   border-radius: 8px;
   background: transparent;
-  color: #aaa7c7;
+  color: #8888aa;
   cursor: pointer;
 }
 
 .kelly-sidebar-menu-button:hover {
-  background: rgba(139, 92, 246, 0.12);
+  background: rgba(124, 106, 245, 0.1);
   color: #e8e8f0;
 }
 
-.kelly-sidebar.collapsed {
-  width: 72px;
-  min-width: 72px;
-}
-
 .kelly-sidebar.collapsed .kelly-sidebar-word,
 .kelly-sidebar.collapsed .kelly-sidebar-level,
-.kelly-sidebar.collapsed .kelly-sidebar-link span {
-  display: none;
-}
-
-.kelly-sidebar.collapsed .kelly-sidebar-logo,
-.kelly-sidebar.collapsed .kelly-sidebar-link {
-  justify-content: center;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.kelly-sidebar.collapsed .kelly-sidebar-menu-button {
-  justify-content: center;
-  padding: 0;
-}
-
-.kelly-sidebar.expanded {
-  width: 208px;
-  min-width: 208px;
-}
-
-/* Keep the main content aligned with the sidebar on larger screens */
-@media (min-width: 1001px) {
-  .kelly-app-shell {
-    grid-template-columns: 208px minmax(0, 1fr);
-  }
-}
-
-/* On smaller screens the sidebar remains part of the layout */
-@media (max-width: 1000px) {
-  .kelly-app-shell {
-    grid-template-columns: 208px minmax(0, 1fr);
-  }
-
-  .kelly-app-main {
-    width: 100%;
-    min-width: 0;
-  }
-}
-/* KELLY — UNIVERSAL SIDEBAR TOGGLE END */
-
-/* KELLY — CLEAN SIDEBAR MENU */
-.kelly-sidebar-menu-button {
-  width: 100%;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 0 16px;
-  margin: 2px 0 4px;
-  border: 0;
-  background: transparent;
-  color: inherit;
-  cursor: pointer;
-}
-
-.kelly-sidebar-menu-button:hover {
-  background: rgba(139, 92, 246, 0.08);
-}
-
-.kelly-sidebar.collapsed {
-  width: 72px;
-  min-width: 72px;
-}
-
-.kelly-sidebar.collapsed .kelly-sidebar-word,
-.kelly-sidebar.collapsed .kelly-sidebar-level,
-.kelly-sidebar.collapsed .kelly-sidebar-link span {
+.kelly-sidebar.collapsed .kelly-sidebar-link span,
+.kelly-sidebar.collapsed .kelly-sidebar-bottom span {
   display: none;
 }
 
@@ -7380,8 +7035,144 @@
   padding-right: 0;
 }
 
-.kelly-sidebar.expanded {
-  width: 208px;
-  min-width: 208px;
+/* ---------- Tablet: default to icon rail, expand as an overlay ---------- */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .kelly-app-shell {
+    grid-template-columns: 72px minmax(0, 1fr);
+  }
+
+  .kelly-sidebar {
+    width: 72px;
+    min-width: 72px;
+  }
+
+  .kelly-sidebar.collapsed .kelly-sidebar-word,
+  .kelly-sidebar.collapsed .kelly-sidebar-level,
+  .kelly-sidebar.collapsed .kelly-sidebar-link span,
+  .kelly-sidebar.collapsed .kelly-sidebar-bottom span {
+    display: none;
+  }
+
+  .kelly-sidebar.expanded {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 208px;
+    min-width: 208px;
+    z-index: 60;
+    box-shadow: 12px 0 30px rgba(0, 0, 0, 0.3);
+  }
 }
-/* KELLY — CLEAN SIDEBAR MENU END */
+
+/* ---------- Mobile: off-canvas drawer ---------- */
+@media (max-width: 767px) {
+  html,
+  body,
+  #root {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .kelly-app-shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .kelly-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 208px;
+    min-width: 208px;
+    height: 100dvh;
+    z-index: 100;
+    transform: translateX(-100%);
+    box-shadow: 12px 0 30px rgba(0, 0, 0, 0.35);
+  }
+
+  /* On mobile "expanded" means the drawer is OPEN. */
+  .kelly-sidebar.expanded {
+    transform: translateX(0);
+  }
+
+  /* Collapsed state never hides text on mobile — the drawer is
+     either fully open (showing everything) or fully offscreen. */
+  .kelly-sidebar.collapsed .kelly-sidebar-word,
+  .kelly-sidebar.collapsed .kelly-sidebar-level,
+  .kelly-sidebar.collapsed .kelly-sidebar-link span,
+  .kelly-sidebar.collapsed .kelly-sidebar-bottom span {
+    display: revert;
+  }
+
+  .kelly-sidebar.collapsed .kelly-sidebar-logo,
+  .kelly-sidebar.collapsed .kelly-sidebar-link,
+  .kelly-sidebar.collapsed .kelly-sidebar-menu-button {
+    justify-content: flex-start;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .kelly-app-main {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* In-sidebar hamburger is redundant on mobile — the floating
+     trigger below handles opening; keep it for closing though. */
+  .kelly-sidebar-menu-button {
+    display: flex;
+  }
+}
+
+/* ---------- Floating mobile trigger + scrim (rendered in AppShell) ---------- */
+.kelly-mobile-menu-button {
+  display: none;
+}
+
+.kelly-sidebar-backdrop {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .kelly-mobile-menu-button {
+    display: flex;
+    position: fixed;
+    top: 14px;
+    left: 14px;
+    z-index: 120;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 10px;
+    background: #111118;
+    border: 1px solid rgba(139, 92, 246, 0.18);
+    color: #8888aa;
+    cursor: pointer;
+  }
+
+  .kelly-mobile-menu-button:hover {
+    color: #e8e8f0;
+    background: rgba(124, 106, 245, 0.12);
+  }
+
+  .kelly-mobile-menu-button .kelly-sidebar-icon {
+    color: inherit;
+  }
+}
+
+@media (max-width: 767px) {
+  .kelly-sidebar-backdrop.open {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    background: rgba(0, 0, 0, 0.55);
+  }
+}
+/* ============================================================
+   KELLY SIDEBAR — RESPONSIVE END
+   ============================================================ */

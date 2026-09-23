@@ -12,7 +12,10 @@ import {
   Settings,
   Menu,
 } from "lucide-react";
-import { useKellyXP } from "@/components/kelly/app-shell";
+import {
+  useKellyXP,
+  useKellySidebarUI,
+} from "@/components/kelly/app-shell";
 
 type SidebarItem = {
   id: string;
@@ -59,15 +62,22 @@ export function KellySidebar() {
   const location = useLocation();
   const navigate = useNavigate();
   const { xp } = useKellyXP();
+  const { collapsed, setCollapsed } = useKellySidebarUI();
 
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [collapsed, setCollapsed] = useState(false);
 
   const activePage = getActivePage(location.pathname);
 
   const goTo = (item: SidebarItem) => {
     if (!item.to) return;
     navigate({ to: item.to });
+
+    // On mobile the sidebar is a drawer — close it after navigating
+    // so the person actually sees the page they picked. Harmless on
+    // desktop/tablet since this only affects layout under 768px.
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
+      setCollapsed(true);
+    }
   };
 
   return (
@@ -78,7 +88,15 @@ export function KellySidebar() {
         <button
           type="button"
           className="kelly-sidebar-logo"
-          onClick={() => navigate({ to: "/dashboard" })}
+          onClick={() => {
+            navigate({ to: "/dashboard" });
+            if (
+              typeof window !== "undefined" &&
+              window.innerWidth < 768
+            ) {
+              setCollapsed(true);
+            }
+          }}
           aria-label="Go to KELLY Home"
         >
           <span className="kelly-sidebar-avatar">
@@ -91,7 +109,7 @@ export function KellySidebar() {
       <button
         type="button"
         className="kelly-sidebar-menu-button"
-        onClick={() => setCollapsed((current) => !current)}
+        onClick={() => setCollapsed(!collapsed)}
         aria-label="Toggle sidebar"
       >
         <Menu
