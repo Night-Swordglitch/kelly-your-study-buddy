@@ -1,10 +1,11 @@
-﻿import { useEffect, useMemo, useState } from "react";
+﻿import { useEffect, useMemo, useRef, useState } from "react";
 import { useKellyXP } from "@/components/kelly/app-shell";
 import {
   ChevronDown,
   Clock,
   Mic,
   Pause,
+  Play,
   Save,
   StickyNote,
   Trash2,
@@ -25,6 +26,7 @@ type PreviousRecording = {
   title: string;
   duration: string;
   date: string;
+  audioUrl?: string | undefined;
 };
 
 const INITIAL_RECORDINGS: PreviousRecording[] = [
@@ -63,6 +65,17 @@ export function ListenTranscribePage() {
   const { addXP } = useKellyXP();
   const [feedback, setFeedback] = useState("");
 
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioStreamRef = useRef<MediaStream | null>(null);
+  const audioChunksRef = useRef<Blob[]>([]);
+  const recordedAudioUrlRef = useRef<string | null>(null);
+
+  const [activePlaybackId, setActivePlaybackId] = useState<string | null>(null);
+  const [playbackCurrentSeconds, setPlaybackCurrentSeconds] = useState(0);
+  const [playbackTotalSeconds, setPlaybackTotalSeconds] = useState(0);
+  const [isPlaybackPlaying, setIsPlaybackPlaying] = useState(false);
+
   useEffect(() => {
     if (!recording) return;
 
@@ -96,14 +109,123 @@ export function ListenTranscribePage() {
     [recording, recordingStopped],
   );
 
-  const resetRecorder = () => {
+  const parseDuration = (value: string) => {
+    const parts = value.split(":").map(Number);
+
+    if (
+      parts.length !== 2 ||
+      parts.some((part) => !Number.isFinite(part))
+    ) {
+      return 0;
+    }
+
+    return Math.max(
+      0,
+      (parts[0] ?? 0) * 60 + (parts[1] ?? 0),
+    );
+  };
+
+  const finishAudioCapture = () => {
+    if (recordedAudioUrlRef.current) {
+      return recordedAudioUrlRef.current;
+    }
+
+    if (audioChunksRef.current.length === 0) {
+      return null;
+    }
+
+    const recorder = audioRecorderRef.current;
+    const mimeType = recorder?.mimeType || "audio/webm";
+
+    const blob = new Blob(audioChunksRef.current, {
+      type: mimeType,
+    });
+
+    recordedAudioUrlRef.current = URL.createObjectURL(blob);
+
+    return recordedAudioUrlRef.current;
+  };
+
+  const startAudioCapture = async () => {
+    if (
+      !navigator.mediaDevices?.getUserMedia ||
+      !("MediaRecorder" in window)
+    ) {
+      return false;
+    }
+
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: true,
+      });
+
+      audioStreamRef.current = stream;
+      audioChunksRef.current = [];
+
+      const mimeType = MediaRecorder.isTypeSupported(
+        "audio/webm;codecs=opus",
+      )
+        ? "audio/webm;codecs=opus"
+        : "";
+
+      const recorder = mimeType
+        ? new MediaRecorder(stream, { mimeType })
+        : new MediaRecorder(stream);
+
+      recorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          audioChunksRef.current.push(event.data);
+        }
+      };
+
+      recorder.onstop = () => {
+        finishAudioCapture();
+      };
+
+      audioRecorderRef.current = recorder;
+      recorder.start();
+
+      return true;
+    } catch {
+      setFeedback("Replay audio could not access the microphone.");
+      return false;
+    }
+  };
+
+  const resetRecorder = (clearAudio = true) => {
+    if (audioRecorderRef.current) {
+      try {
+        if (audioRecorderRef.current.state !== "inactive") {
+          audioRecorderRef.current.stop();
+        }
+      } catch {
+        // Ignore recorder shutdown errors.
+      }
+    }
+
+    audioRecorderRef.current = null;
+
+    audioStreamRef.current?.getTracks().forEach((track) => {
+      track.stop();
+    });
+
+    audioStreamRef.current = null;
+    audioChunksRef.current = [];
+
+    if (clearAudio && recordedAudioUrlRef.current) {
+      URL.revokeObjectURL(recordedAudioUrlRef.current);
+      recordedAudioUrlRef.current = null;
+    }
+
     setRecording(false);
     setPaused(false);
     setRecordingStopped(false);
     setElapsedSeconds(0);
   };
 
-  const handleStartRecording = () => {
+  const handleStartRecording = async () => {
+    await startAudioCapture();
+
     setRecording(true);
     setPaused(false);
     setRecordingStopped(false);
@@ -114,9 +236,17 @@ export function ListenTranscribePage() {
     setRecording(false);
     setPaused(false);
     setRecordingStopped(true);
+
+    if (audioRecorderRef.current?.state === "recording") {
+      audioRecorderRef.current.stop();
+    }
   };
 
   const handleContinueRecording = () => {
+    if (audioRecorderRef.current?.state === "paused") {
+      audioRecorderRef.current.resume();
+    }
+
     setPaused(false);
     setRecording(true);
     setRecordingStopped(false);
@@ -126,19 +256,26 @@ export function ListenTranscribePage() {
     setRecording(false);
     setPaused(true);
     setRecordingStopped(false);
+
+    if (audioRecorderRef.current?.state === "recording") {
+      audioRecorderRef.current.pause();
+    }
   };
 
   const handleSave = (asNote = false) => {
     const duration = formatElapsedTime(elapsedSeconds);
+    const audioUrl = finishAudioCapture();
 
     const newRecording: PreviousRecording = {
       id: `${subject.toLowerCase()}-${Date.now()}`,
       title: `${subject} Recording`,
       duration,
       date: formatDate(),
+      audioUrl: audioUrl ?? undefined,
     };
 
     setRecordings((current) => [newRecording, ...current]);
+
     addXP(25);
 
     setFeedback(
@@ -147,19 +284,128 @@ export function ListenTranscribePage() {
         : "Recording saved • +25 XP",
     );
 
-    resetRecorder();
+    recordedAudioUrlRef.current = null;
+    resetRecorder(false);
   };
 
   const handleDiscard = () => {
     setFeedback("Recording discarded");
-    resetRecorder();
+    resetRecorder(true);
+  };
+
+  const handleReplay = (recordingItem: PreviousRecording) => {
+    if (!recordingItem.audioUrl) {
+      return;
+    }
+
+    const isSameRecording =
+      activePlaybackId === recordingItem.id;
+
+    if (isSameRecording && isPlaybackPlaying) {
+      audioRef.current?.pause();
+      setIsPlaybackPlaying(false);
+      return;
+    }
+
+    audioRef.current?.pause();
+
+    const audio = new Audio();
+    audio.preload = "auto";
+    audio.src = recordingItem.audioUrl;
+    audioRef.current = audio;
+
+    setActivePlaybackId(recordingItem.id);
+    setPlaybackCurrentSeconds(0);
+    setPlaybackTotalSeconds(
+      parseDuration(recordingItem.duration),
+    );
+
+    audio.onloadedmetadata = () => {
+      if (Number.isFinite(audio.duration)) {
+        setPlaybackTotalSeconds(audio.duration);
+      }
+    };
+
+    audio.ontimeupdate = () => {
+      setPlaybackCurrentSeconds(
+        Number.isFinite(audio.currentTime)
+          ? audio.currentTime
+          : 0,
+      );
+    };
+
+    audio.onplay = () => {
+      setIsPlaybackPlaying(true);
+    };
+
+    audio.onpause = () => {
+      setIsPlaybackPlaying(false);
+    };
+
+    audio.onended = () => {
+      setIsPlaybackPlaying(false);
+      setPlaybackCurrentSeconds(0);
+    };
+
+    audio.onerror = (event) => {
+      console.error("Replay audio failed:", event);
+      setIsPlaybackPlaying(false);
+    };
+
+    void audio.play().catch((error) => {
+      console.error("Replay playback failed:", error);
+      setIsPlaybackPlaying(false);
+    });
   };
 
   const handleDeleteRecording = (id: string) => {
-    setRecordings((current) =>
-      current.filter((recordingItem) => recordingItem.id !== id),
-    );
+    setRecordings((current) => {
+      const target = current.find(
+        (recordingItem) => recordingItem.id === id,
+      );
+
+      if (target?.audioUrl) {
+        URL.revokeObjectURL(target.audioUrl);
+      }
+
+      return current.filter(
+        (recordingItem) => recordingItem.id !== id,
+      );
+    });
+
+    if (activePlaybackId === id) {
+      audioRef.current?.pause();
+      audioRef.current = null;
+      setActivePlaybackId(null);
+      setIsPlaybackPlaying(false);
+      setPlaybackCurrentSeconds(0);
+      setPlaybackTotalSeconds(0);
+    }
   };
+
+  const playbackProgress =
+    playbackTotalSeconds > 0
+      ? Math.min(
+          100,
+          Math.max(
+            0,
+            (playbackCurrentSeconds / playbackTotalSeconds) * 100,
+          ),
+        )
+      : 0;
+
+  useEffect(() => {
+    return () => {
+      audioRef.current?.pause();
+      audioStreamRef.current?.getTracks().forEach((track) => {
+        track.stop();
+      });
+
+      if (recordedAudioUrlRef.current) {
+        URL.revokeObjectURL(recordedAudioUrlRef.current);
+      }
+    };
+  }, []);
 
   return (
     <section className="kelly-listen-page">
@@ -376,6 +622,67 @@ export function ListenTranscribePage() {
                   <span className="kelly-listen-recording-dot">·</span>
                   <span>{recordingItem.date}</span>
                 </div>
+
+                {recordingItem.audioUrl && (
+                  <div className="kelly-listen-replay-wrap">
+                    <button
+                      type="button"
+                      className="kelly-listen-replay-button"
+                      onClick={() => handleReplay(recordingItem)}
+                      aria-label={
+                        isPlaybackPlaying &&
+                        activePlaybackId === recordingItem.id
+                          ? `Pause ${recordingItem.title}`
+                          : `Replay ${recordingItem.title}`
+                      }
+                    >
+                      {isPlaybackPlaying &&
+                      activePlaybackId === recordingItem.id ? (
+                        <Pause size={12} strokeWidth={2.2} />
+                      ) : (
+                        <Play size={12} strokeWidth={2.2} />
+                      )}
+
+                      <span>
+                        {isPlaybackPlaying &&
+                        activePlaybackId === recordingItem.id
+                          ? "Pause"
+                          : "Replay"}
+                      </span>
+                    </button>
+
+                    {activePlaybackId === recordingItem.id && (
+                      <div className="kelly-listen-replay-player is-open">
+                        <span className="kelly-listen-replay-time">
+                          {formatElapsedTime(playbackCurrentSeconds)}
+                        </span>
+
+                        <div
+                          className="kelly-listen-replay-track"
+                          aria-hidden="true"
+                        >
+                          <span
+                            className="kelly-listen-replay-fill"
+                            style={{
+                              width: `${playbackProgress}%`,
+                            }}
+                          />
+
+                          <span
+                            className="kelly-listen-replay-dot"
+                            style={{
+                              left: `${playbackProgress}%`,
+                            }}
+                          />
+                        </div>
+
+                        <span className="kelly-listen-replay-time">
+                          {formatElapsedTime(playbackTotalSeconds || parseDuration(recordingItem.duration))}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
 
               <button
@@ -400,6 +707,11 @@ export function ListenTranscribePage() {
     </section>
   );
 }
+
+
+
+
+
 
 
 

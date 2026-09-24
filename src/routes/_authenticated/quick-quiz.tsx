@@ -1,6 +1,6 @@
-﻿import { useState } from "react";
+﻿import { useEffect, useState } from "react";
+import { Clock3, Zap } from "lucide-react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Zap } from "lucide-react";
 import { useKellyXP } from "@/components/kelly/app-shell";
 
 const QUESTIONS = [
@@ -32,6 +32,7 @@ const QUESTIONS = [
 ];
 
 const LAST_GAME_STORAGE_KEY = "kelly-last-game";
+const RETURN_COUNTDOWN_SECONDS = 10;
 
 type Toast = {
   id: number;
@@ -48,6 +49,9 @@ export function QuickQuizPage() {
   const [finished, setFinished] = useState(false);
   const [finalScore, setFinalScore] = useState(0);
   const [sessionXP, setSessionXP] = useState(0);
+  const [returnCountdown, setReturnCountdown] = useState(
+    RETURN_COUNTDOWN_SECONDS,
+  );
   const [toasts, setToasts] = useState<Toast[]>([]);
 
   const currentQuestion = QUESTIONS[currentIndex];
@@ -64,6 +68,8 @@ export function QuickQuizPage() {
   };
 
   const finishGame = (completedScore: number) => {
+    if (finished) return;
+
     const xp = Math.max(10, 20 + completedScore * 10);
 
     addXP(xp);
@@ -78,6 +84,7 @@ export function QuickQuizPage() {
 
     setFinalScore(completedScore);
     setSessionXP(xp);
+    setReturnCountdown(RETURN_COUNTDOWN_SECONDS);
     setFinished(true);
 
     const firstToastId = Date.now();
@@ -116,6 +123,24 @@ export function QuickQuizPage() {
     setSelectedIndex(null);
   };
 
+  useEffect(() => {
+    if (!finished) return;
+
+    const interval = window.setInterval(() => {
+      setReturnCountdown((current) => {
+        if (current <= 1) {
+          window.clearInterval(interval);
+          navigate({ to: "/games" });
+          return 0;
+        }
+
+        return current - 1;
+      });
+    }, 1000);
+
+    return () => window.clearInterval(interval);
+  }, [finished, navigate]);
+
   return (
     <section className="kelly-flashcards-page">
       <div className="kelly-flashcards-header">
@@ -126,6 +151,7 @@ export function QuickQuizPage() {
         >
           ← Back
         </button>
+
         <h1>Quick Quiz</h1>
       </div>
 
@@ -155,13 +181,33 @@ export function QuickQuizPage() {
             </div>
           </div>
 
-          <button
-            type="button"
-            className="kelly-flashcards-complete-button"
-            onClick={() => navigate({ to: "/games" })}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: "20px",
+            }}
           >
-            Back to Games
-          </button>
+            <button
+              type="button"
+              className="kelly-flashcards-complete-button"
+              onClick={() => navigate({ to: "/games" })}
+            >
+              Return
+              <span
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  marginLeft: "8px",
+                  gap: "4px",
+                }}
+              >
+                <Clock3 size={14} strokeWidth={2.2} />
+                {returnCountdown}s
+              </span>
+            </button>
+          </div>
         </div>
       ) : (
         <>

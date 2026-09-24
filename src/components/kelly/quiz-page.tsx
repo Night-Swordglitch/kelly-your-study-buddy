@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { useKellyXP } from "@/components/kelly/app-shell";
 
 type QuizQuestion = {
@@ -175,12 +175,15 @@ function XIcon() {
 export function QuizPage() {
   const { addXP } = useKellyXP();
 
-  const [view, setView] = useState<"list" | "create" | "taking">("list");
+  const [view, setView] = useState<"list" | "create" | "taking" | "complete">("list");
   const [activeQuiz, setActiveQuiz] = useState<Quiz | null>(null);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
   const [history, setHistory] = useState<QuizHistory[]>(loadHistory);
   const [notice, setNotice] = useState("");
+  const [finalScore, setFinalScore] = useState(0);
+  const [sessionXP, setSessionXP] = useState(0);
+  const [returnCountdown, setReturnCountdown] = useState(10);
 
   const notify = (message: string) => {
     setNotice(message);
@@ -238,6 +241,91 @@ export function QuizPage() {
     notify(`Quiz complete! +${xp} XP`);
   };
 
+  useEffect(() => {
+    if (view !== "complete") return;
+
+    const interval = window.setInterval(() => {
+      setReturnCountdown((current) => {
+        if (current <= 1) {
+          window.clearInterval(interval);
+          window.location.href = "/games";
+          return 0;
+        }
+
+        return current - 1;
+      });
+    }, 1000);
+
+    return () => window.clearInterval(interval);
+  }, [view]);
+
+  if (view === "complete" && activeQuiz) {
+    return (
+      <>
+        <style>{styles}</style>
+
+        <section className="qz-page">
+          <div className="kelly-flashcards-complete">
+            <div
+              className="kelly-flashcards-complete-icon"
+              aria-hidden="true"
+            >
+              🎉
+            </div>
+
+            <h2>Session complete!</h2>
+
+            <p>
+              You answered {finalScore}/{activeQuiz.questions.length} questions correctly.
+            </p>
+
+            <div className="kelly-flashcards-results">
+              <div className="kelly-flashcards-result-card">
+                <span>Score</span>
+                <strong>
+                  {finalScore}/{activeQuiz.questions.length}
+                </strong>
+              </div>
+
+              <div className="kelly-flashcards-result-card">
+                <span>XP earned</span>
+                <strong className="xp">+{sessionXP} XP</strong>
+              </div>
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: "20px",
+              }}
+            >
+              <button
+                type="button"
+                className="kelly-flashcards-complete-button"
+                onClick={() => {
+                  window.location.href = "/games";
+                }}
+              >
+                Return
+                <span
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    marginLeft: "8px",
+                    gap: "4px",
+                  }}
+                >
+                  🕒 {returnCountdown}s
+                </span>
+              </button>
+            </div>
+          </div>
+        </section>
+      </>
+    );
+  }
   if (view === "create") {
     return (
       <>
@@ -279,7 +367,9 @@ export function QuizPage() {
 
   if (view === "taking" && activeQuiz) {
     const question = activeQuiz.questions[questionIndex];
-    const selected = answers[questionIndex];
+    if (!question) return;
+
+    const selected = answers[questionIndex] ?? -1;
     const answered = selected >= 0;
     const correct = selected === question.correctIndex;
     const total = activeQuiz.questions.length;
@@ -1077,3 +1167,6 @@ const styles = `
   }
 }
 `;
+
+
+

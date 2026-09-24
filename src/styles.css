@@ -3384,6 +3384,7 @@
 }
 
 .kelly-listen-recording-info {
+  flex: 1;
   min-width: 0;
 }
 
@@ -6974,42 +6975,91 @@
 }
 
 /* KELLY NOTES — MOBILE RESPONSIVE END */
-/* ============================================================
-   KELLY SIDEBAR — RESPONSIVE (single source of truth)
 
-   Breakpoints:
-     Desktop      (>=1024px): sidebar is static, full width (208px).
-       The in-sidebar hamburger can still manually collapse it to
-       a 72px icon rail if the person wants more screen space —
-       main content reflows via the :has() rule below.
-     Tablet+Mobile (<1024px): sidebar DEFAULTS to a 72px icon rail
-       (KELLY logo + nav icons stay visible, just without labels —
-       nothing is ever fully hidden). The ONE hamburger, inside the
-       rail itself, expands it to 208px as an overlay above the
-       content (doesn't push/reflow the page). It stays expanded
-       until the person taps the dark scrim behind it or hits that
-       same hamburger again — selecting a nav item does NOT auto-
-       close it, so tapping through several pages keeps it open.
+/* ============================================================
+   KELLY SIDEBAR — RESPONSIVE / COLLAPSE
+   The sidebar itself is the moving window.
+   Contents never resize, slide, fade, or reflow.
    ============================================================ */
 
-/* Desktop: manual collapse still reflows the grid (no JS needed). */
+/* Desktop: the grid follows the sidebar width. */
 @media (min-width: 1024px) {
+  .kelly-app-shell {
+    grid-template-columns: 208px minmax(0, 1fr);
+    transition: grid-template-columns 240ms ease;
+  }
+
   .kelly-app-shell:has(.kelly-sidebar.collapsed) {
-    grid-template-columns: 72px minmax(0, 1fr);
+    grid-template-columns: 57px minmax(0, 1fr);
   }
 }
 
+/* The sidebar is the clipping window. */
 .kelly-sidebar {
   position: relative;
-  transition: width 220ms ease, transform 220ms ease;
+  width: 208px;
+  min-width: 208px;
+  overflow: hidden;
+  box-sizing: border-box;
+  transition:
+    width 240ms cubic-bezier(0.4, 0, 0.2, 1),
+    min-width 240ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* The base rule hardcodes 208px — collapsed needs to actually
-   shrink the sidebar itself, not just the grid column around it,
-   or it visually spills over into the content next to it. */
+/* Collapsed = simply a narrower window. */
 .kelly-sidebar.collapsed {
-  width: 72px;
-  min-width: 72px;
+  width: 57px;
+  min-width: 57px;
+}
+
+/*
+ * IMPORTANT:
+ * Keep the internal sidebar at its natural 208px layout.
+ * This is what makes the animation behave like a blanket:
+ * the contents stay where they were and the sidebar clips them.
+ */
+.kelly-sidebar-header,
+.kelly-sidebar-nav,
+.kelly-sidebar-bottom {
+  min-width: 208px;
+}
+
+/* Keep every existing icon exactly 16px. */
+.kelly-sidebar-icon {
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  min-height: 16px;
+  flex: 0 0 16px;
+}
+
+/*
+ * Do NOT hide the labels with display:none.
+ * They remain underneath the clipping window.
+ */
+/* XP fades independently while the sidebar mask closes. */
+.kelly-sidebar-level {
+  transition: opacity 240ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.kelly-sidebar.collapsed .kelly-sidebar-level {
+  opacity: 0;
+}
+
+/* Preserve the original icon position and size. */
+.kelly-sidebar.collapsed .kelly-sidebar-link {
+  min-width: 208px;
+}
+
+/* Keep the logo at its normal full layout. */
+.kelly-sidebar.collapsed .kelly-sidebar-logo {
+  min-width: 208px;
+}
+
+/* Keep the menu button at its normal layout. */
+.kelly-sidebar-menu-button {
+  min-width: 208px;
+  box-sizing: border-box;
 }
 
 .kelly-sidebar-menu-button {
@@ -7032,43 +7082,13 @@
   background: rgba(124, 106, 245, 0.1);
   color: #e8e8f0;
 }
-
-/* Seamless collapse AND expand: nothing about the icon or the
-   label itself ever changes — no opacity, no width, no position.
-   They're both pinned at their natural full-expanded size and
-   place, permanently. It's the ROW (the button) that narrows,
-   with overflow:hidden acting as a mask sliding across — like a
-   blanket being pulled over/off something that never itself moves. */
-.kelly-sidebar-header,
-.kelly-sidebar-link {
-  overflow: hidden;
+/* Settings remains inside the same fixed-width content area. */
+.kelly-sidebar.collapsed .kelly-sidebar-bottom {
+  min-width: 208px;
 }
 
-.kelly-sidebar-word,
-.kelly-sidebar-link > span:last-child {
-  flex-shrink: 0;
-  white-space: nowrap;
-}
+/* ---------- Tablet + Mobile ---------- */
 
-/* The XP/level block is a separate full-width row (not part of
-   the icon+label line), so it can just fade out rather than
-   needing the same width-collapse treatment. */
-.kelly-sidebar-level {
-  opacity: 1;
-  transition: opacity 160ms ease;
-}
-
-.kelly-sidebar.collapsed .kelly-sidebar-level {
-  opacity: 0;
-  pointer-events: none;
-  height: 0;
-  flex-basis: 0;
-  padding: 0;
-  overflow: hidden;
-  transition: opacity 120ms ease, height 220ms ease, flex-basis 220ms ease, padding 220ms ease;
-}
-
-/* ---------- Tablet + Mobile: icon rail by default, expand as an overlay ---------- */
 @media (max-width: 1023px) {
   html,
   body,
@@ -7079,12 +7099,19 @@
   }
 
   .kelly-app-shell {
-    grid-template-columns: 72px minmax(0, 1fr);
+    grid-template-columns: 57px minmax(0, 1fr);
   }
 
+  /*
+   * Mobile uses the same 72px window.
+   * Expanded becomes a 208px overlay.
+   */
   .kelly-sidebar {
-    width: 72px;
-    min-width: 72px;
+    width: 60px;
+    min-width: 60px;
+    transition:
+      width 240ms cubic-bezier(0.4, 0, 0.2, 1),
+      min-width 240ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .kelly-sidebar.expanded {
@@ -7105,9 +7132,7 @@
   }
 }
 
-/* Dark scrim behind the expanded overlay below 1024px. Tapping it
-   collapses the sidebar back to the icon rail (rendered in AppShell,
-   as a sibling of <aside> so it can sit above the page content). */
+/* Dark scrim for the expanded mobile sidebar. */
 .kelly-sidebar-backdrop {
   display: none;
 }
@@ -7121,6 +7146,568 @@
     background: rgba(0, 0, 0, 0.55);
   }
 }
+
 /* ============================================================
    KELLY SIDEBAR — RESPONSIVE END
    ============================================================ */
+
+
+
+
+
+
+
+
+
+
+
+
+/* ============================================================
+   KELLY LISTEN — RECORDING REPLAY
+   ============================================================ */
+
+.kelly-listen-replay-wrap {
+  margin-top: 7px;
+}
+
+.kelly-listen-replay-button {
+  min-height: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #9b8cff;
+  font-family: var(--font-body, "Inter", system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    color 150ms ease,
+    transform 150ms ease;
+}
+
+.kelly-listen-replay-button:hover {
+  color: #b8aeff;
+  transform: translateY(-1px);
+}
+
+.kelly-listen-replay-button:active {
+  transform: translateY(0);
+}
+
+.kelly-listen-replay-player {
+  width: 100%;
+  max-height: 0;
+  margin-top: 0;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) 34px;
+  align-items: center;
+  gap: 9px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+  transition:
+    max-height 220ms cubic-bezier(0.4, 0, 0.2, 1),
+    margin-top 220ms ease,
+    opacity 180ms ease,
+    transform 220ms ease;
+}
+
+.kelly-listen-replay-player.is-open {
+  max-height: 28px;
+  margin-top: 7px;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.kelly-listen-replay-time {
+  min-width: 38px;
+  color: #777789;
+  font-family: var(--font-body, "Inter", system-ui, sans-serif);
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.kelly-listen-replay-track {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: #2a2a3a;
+  overflow: visible;
+}
+
+.kelly-listen-replay-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0;
+  border-radius: inherit;
+  background: #7c6af5;
+  transition: width 100ms linear;
+}
+
+.kelly-listen-replay-dot {
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #a99fff;
+  box-shadow:
+    0 0 0 2px rgba(124, 106, 245, 0.13),
+    0 0 10px rgba(124, 106, 245, 0.32);
+  transform: translate(-50%, -50%);
+  transition: left 100ms linear;
+}
+
+@media (max-width: 560px) {
+  .kelly-listen-replay-player {
+    grid-template-columns: 32px minmax(0, 1fr) 32px;
+    gap: 7px;
+  }
+
+  .kelly-listen-replay-time {
+  min-width: 38px;
+  color: #777789;
+  font-family: var(--font-body, "Inter", system-ui, sans-serif);
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-align: center;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kelly-listen-replay-player,
+  .kelly-listen-replay-button,
+  .kelly-listen-replay-fill,
+  .kelly-listen-replay-dot {
+    transition: none;
+  }
+}
+
+
+
+
+
+}
+
+
+/* Replay timer refinement */
+.kelly-listen-replay-player {
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  gap: 14px;
+}
+
+.kelly-listen-replay-time {
+  min-width: 44px;
+  color: #858598;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+  .kelly-listen-replay-player {
+    grid-template-columns: 38px minmax(0, 1fr) 38px;
+    gap: 10px;
+  }
+
+  .kelly-listen-replay-time {
+    min-width: 38px;
+    font-size: 10px;
+  }
+}
+
+
+/* Replay bar — give the left timer extra breathing room */
+.kelly-listen-replay-track {
+  width: calc(100% - 8px);
+  margin-left: 8px;
+}
+
+
+/* Replay bar — final left spacing refinement */
+.kelly-listen-replay-track {
+  width: calc(100% - 14px);
+  margin-left: 14px;
+}
+
+
+/* ============================================================
+   KELLY — IMPOSTOR GAME
+   ============================================================ */
+
+.kelly-impostor-page {
+  min-height: 100%;
+  padding: 34px 38px 48px;
+  box-sizing: border-box;
+  color: #f8f7fb;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.kelly-impostor-content {
+  width: min(640px, 100%);
+  margin: 0 auto;
+}
+
+.kelly-impostor-intro {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.kelly-impostor-icon {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 52px;
+  border: 1px solid #30294a;
+  border-radius: 14px;
+  background: #15131f;
+  font-size: 26px;
+}
+
+.kelly-impostor-intro h2 {
+  margin: 0 0 5px;
+  color: #f8f7fb;
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.kelly-impostor-intro p {
+  margin: 0;
+  color: #77778b;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.kelly-impostor-panel {
+  padding: 20px;
+  border: 1px solid #272532;
+  border-radius: 14px;
+  background: #111118;
+}
+
+.kelly-impostor-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  color: #a78bfa;
+}
+
+.kelly-impostor-panel-header div {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+}
+
+.kelly-impostor-panel-header h3 {
+  margin: 0;
+  color: #f8f7fb;
+  font-size: 14px;
+}
+
+.kelly-impostor-panel-header span {
+  color: #69697d;
+  font-size: 11px;
+}
+
+.kelly-impostor-player-list {
+  display: grid;
+  gap: 9px;
+}
+
+.kelly-impostor-player-row {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  align-items: center;
+  gap: 9px;
+}
+
+.kelly-impostor-player-row > span {
+  color: #646477;
+  font-size: 11px;
+  text-align: center;
+}
+
+.kelly-impostor-player-row input {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  min-height: 40px;
+  padding: 0 12px;
+  border: 1px solid #2a2935;
+  border-radius: 9px;
+  background: #0d0d13;
+  color: #eeeef5;
+  font: inherit;
+  font-size: 13px;
+  outline: none;
+}
+
+.kelly-impostor-player-row input:focus {
+  border-color: #514273;
+}
+
+.kelly-impostor-player-actions,
+.kelly-impostor-result-actions,
+.kelly-impostor-vote-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.kelly-impostor-secondary-button,
+.kelly-impostor-primary-button {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 15px;
+  border-radius: 9px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease,
+    transform 150ms ease;
+}
+
+.kelly-impostor-primary-button {
+  width: 100%;
+  margin-top: 16px;
+  border: 1px solid #6551ad;
+  background: #221b38;
+  color: #e8e4ff;
+}
+
+.kelly-impostor-primary-button:hover:not(:disabled) {
+  background: #2b2147;
+  border-color: #7963cd;
+  transform: translateY(-1px);
+}
+
+.kelly-impostor-secondary-button {
+  border: 1px solid #2b2a36;
+  background: #16161e;
+  color: #a0a0b2;
+}
+
+.kelly-impostor-secondary-button:hover:not(:disabled) {
+  border-color: #3c3a4c;
+  color: #e8e8f0;
+}
+
+.kelly-impostor-secondary-button.large {
+  min-width: 150px;
+}
+
+.kelly-impostor-primary-button:disabled,
+.kelly-impostor-secondary-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.kelly-impostor-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin: 15px 0 0;
+  color: #626273;
+  font-size: 10px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.kelly-impostor-rule svg {
+  flex: 0 0 auto;
+}
+
+.kelly-impostor-progress {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+  color: #77778b;
+  font-size: 12px;
+}
+
+.kelly-impostor-progress span:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.kelly-impostor-reveal-card {
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  box-sizing: border-box;
+  border: 1px solid #2a2837;
+  border-radius: 16px;
+  background: #111118;
+  text-align: center;
+}
+
+.kelly-impostor-reveal-name {
+  margin-bottom: 24px;
+  color: #a78bfa;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.kelly-impostor-hidden-icon,
+.kelly-impostor-role-icon {
+  margin-bottom: 14px;
+  font-size: 38px;
+}
+
+.kelly-impostor-reveal-card h2 {
+  margin: 0 0 7px;
+  color: #f8f7fb;
+  font-size: 20px;
+}
+
+.kelly-impostor-reveal-card p {
+  margin: 0;
+  color: #77778b;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.kelly-impostor-reveal-card strong {
+  color: #d8d4f0;
+}
+
+.kelly-impostor-role {
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+}
+
+.kelly-impostor-role.impostor {
+  color: #f1a0bf;
+}
+
+.kelly-impostor-role.normal {
+  color: #a78bfa;
+}
+
+.kelly-impostor-result-status {
+  margin: 18px 0 0;
+  color: #858598;
+  font-size: 12px;
+  text-align: center;
+}
+
+.kelly-impostor-toasts {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.kelly-impostor-toast {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 9px 13px;
+  border: 1px solid #30294a;
+  border-radius: 10px;
+  background: #15131f;
+  color: #e8e5f2;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.kelly-impostor-toast svg {
+  color: #a78bfa;
+}
+
+@media (max-width: 760px) {
+  .kelly-impostor-page {
+    padding: 28px 22px 40px;
+  }
+
+  .kelly-impostor-reveal-card {
+    min-height: 320px;
+    padding: 24px 18px;
+  }
+
+  .kelly-impostor-panel {
+    padding: 16px;
+  }
+
+  .kelly-impostor-toasts {
+    top: 14px;
+    right: 14px;
+    left: 14px;
+  }
+
+  .kelly-impostor-toast {
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 520px) {
+  .kelly-impostor-intro {
+    align-items: flex-start;
+  }
+
+  .kelly-impostor-player-actions,
+  .kelly-impostor-result-actions,
+  .kelly-impostor-vote-actions {
+    flex-direction: column;
+  }
+
+  .kelly-impostor-secondary-button,
+  .kelly-impostor-secondary-button.large {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kelly-impostor-secondary-button,
+  .kelly-impostor-primary-button {
+    transition: none;
+  }
+}

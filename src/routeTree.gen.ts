@@ -21,6 +21,7 @@ import { Route as AuthenticatedFriendsRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedGamesRouteImport } from './routes/_authenticated/games'
 import { Route as AuthenticatedGroupsRouteImport } from './routes/_authenticated/groups'
 import { Route as AuthenticatedHomeRouteImport } from './routes/_authenticated/home'
+import { Route as AuthenticatedImpostorRouteImport } from './routes/_authenticated/impostor'
 import { Route as AuthenticatedListenRouteImport } from './routes/_authenticated/listen'
 import { Route as AuthenticatedMemoryMatchRouteImport } from './routes/_authenticated/memory-match'
 import { Route as AuthenticatedNotesRouteImport } from './routes/_authenticated/notes'
@@ -89,6 +90,11 @@ const AuthenticatedGroupsRoute = AuthenticatedGroupsRouteImport.update({
 const AuthenticatedHomeRoute = AuthenticatedHomeRouteImport.update({
   id: '/home',
   path: '/home',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedImpostorRoute = AuthenticatedImpostorRouteImport.update({
+  id: '/impostor',
+  path: '/impostor',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedListenRoute = AuthenticatedListenRouteImport.update({
@@ -160,6 +166,7 @@ export interface FileRoutesByFullPath {
   '/games': typeof AuthenticatedGamesRoute
   '/groups': typeof AuthenticatedGroupsRoute
   '/home': typeof AuthenticatedHomeRoute
+  '/impostor': typeof AuthenticatedImpostorRoute
   '/listen': typeof AuthenticatedListenRoute
   '/memory-match': typeof AuthenticatedMemoryMatchRoute
   '/notes': typeof AuthenticatedNotesRoute
@@ -183,6 +190,7 @@ export interface FileRoutesByTo {
   '/games': typeof AuthenticatedGamesRoute
   '/groups': typeof AuthenticatedGroupsRoute
   '/home': typeof AuthenticatedHomeRoute
+  '/impostor': typeof AuthenticatedImpostorRoute
   '/listen': typeof AuthenticatedListenRoute
   '/memory-match': typeof AuthenticatedMemoryMatchRoute
   '/notes': typeof AuthenticatedNotesRoute
@@ -209,6 +217,7 @@ export interface FileRoutesById {
   '/_authenticated/games': typeof AuthenticatedGamesRoute
   '/_authenticated/groups': typeof AuthenticatedGroupsRoute
   '/_authenticated/home': typeof AuthenticatedHomeRoute
+  '/_authenticated/impostor': typeof AuthenticatedImpostorRoute
   '/_authenticated/listen': typeof AuthenticatedListenRoute
   '/_authenticated/memory-match': typeof AuthenticatedMemoryMatchRoute
   '/_authenticated/notes': typeof AuthenticatedNotesRoute
@@ -234,6 +243,7 @@ export interface FileRouteTypes {
     | '/games'
     | '/groups'
     | '/home'
+    | '/impostor'
     | '/listen'
     | '/memory-match'
     | '/notes'
@@ -257,6 +267,7 @@ export interface FileRouteTypes {
     | '/games'
     | '/groups'
     | '/home'
+    | '/impostor'
     | '/listen'
     | '/memory-match'
     | '/notes'
@@ -282,6 +293,7 @@ export interface FileRouteTypes {
     | '/_authenticated/games'
     | '/_authenticated/groups'
     | '/_authenticated/home'
+    | '/_authenticated/impostor'
     | '/_authenticated/listen'
     | '/_authenticated/memory-match'
     | '/_authenticated/notes'
@@ -387,6 +399,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedHomeRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/impostor': {
+      id: '/_authenticated/impostor'
+      path: '/impostor'
+      fullPath: '/impostor'
+      preLoaderRoute: typeof AuthenticatedImpostorRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/listen': {
       id: '/_authenticated/listen'
       path: '/listen'
@@ -489,6 +508,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedGamesRoute: typeof AuthenticatedGamesRoute
   AuthenticatedGroupsRoute: typeof AuthenticatedGroupsRoute
   AuthenticatedHomeRoute: typeof AuthenticatedHomeRoute
+  AuthenticatedImpostorRoute: typeof AuthenticatedImpostorRoute
   AuthenticatedListenRoute: typeof AuthenticatedListenRoute
   AuthenticatedMemoryMatchRoute: typeof AuthenticatedMemoryMatchRoute
   AuthenticatedNotesRoute: typeof AuthenticatedNotesRoute
@@ -510,6 +530,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedGamesRoute: AuthenticatedGamesRoute,
   AuthenticatedGroupsRoute: AuthenticatedGroupsRoute,
   AuthenticatedHomeRoute: AuthenticatedHomeRoute,
+  AuthenticatedImpostorRoute: AuthenticatedImpostorRoute,
   AuthenticatedListenRoute: AuthenticatedListenRoute,
   AuthenticatedMemoryMatchRoute: AuthenticatedMemoryMatchRoute,
   AuthenticatedNotesRoute: AuthenticatedNotesRoute,

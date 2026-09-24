@@ -21,6 +21,12 @@ const GAMES = [
     to: "/timed-challenge",
   },
   {
+    icon: "🎭",
+    title: "Impostor",
+    description: "One player is the impostor",
+    to: "/impostor",
+  },
+  {
     icon: "🎴",
     title: "Flashcards",
     description: "Flip cards to test your memory",
@@ -109,6 +115,7 @@ export function GamesPage() {
     </section>
   );
 }
+
 
 
 
