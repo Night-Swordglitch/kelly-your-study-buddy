@@ -7711,3 +7711,589 @@
     transition: none;
   }
 }
+
+
+/* ============================================================
+   KELLY — FRIEND PROFILE
+   ============================================================ */
+
+.kelly-friend-row-clickable {
+  cursor: pointer;
+}
+
+.kelly-friend-row-clickable:hover {
+  background: rgba(124, 106, 245, 0.045);
+}
+
+.kelly-friend-row-clickable:focus-visible {
+  outline: 2px solid rgba(124, 106, 245, 0.65);
+  outline-offset: -2px;
+}
+
+.kelly-friend-profile-page {
+  min-height: 100%;
+  padding: 34px 38px 48px;
+  box-sizing: border-box;
+  color: #f8f7fb;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.kelly-friend-profile-content {
+  width: min(680px, 100%);
+  margin: 0 auto;
+}
+
+.kelly-friend-profile-hero {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.kelly-friend-profile-avatar {
+  width: 72px;
+  height: 72px;
+  flex: 0 0 72px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 27px;
+  font-weight: 800;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.24);
+}
+
+.kelly-friend-profile-identity {
+  min-width: 0;
+}
+
+.kelly-friend-profile-name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.kelly-friend-profile-name-row h2 {
+  margin: 0;
+  color: #f8f7fb;
+  font-size: 24px;
+  line-height: 1.15;
+  font-weight: 800;
+}
+
+.kelly-friend-profile-trophy {
+  color: #a78bfa;
+  flex: 0 0 auto;
+}
+
+.kelly-friend-profile-status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 7px;
+  color: #858598;
+  font-size: 12px;
+}
+
+.kelly-friend-profile-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.kelly-friend-profile-stat {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid #272532;
+  border-radius: 13px;
+  background: #111118;
+}
+
+.kelly-friend-profile-stat-icon {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 13px;
+  border-radius: 8px;
+  background: #191725;
+  color: #a78bfa;
+}
+
+.kelly-friend-profile-stat-label {
+  display: block;
+  margin-bottom: 5px;
+  color: #69697d;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.kelly-friend-profile-stat strong {
+  display: block;
+  color: #f0eef8;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.kelly-friend-profile-section {
+  padding: 20px;
+  border: 1px solid #272532;
+  border-radius: 14px;
+  background: #111118;
+}
+
+.kelly-friend-profile-section-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #23212d;
+  color: #a78bfa;
+}
+
+.kelly-friend-profile-section-heading span {
+  display: block;
+  margin-bottom: 4px;
+  color: #69697d;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.kelly-friend-profile-section-heading h3 {
+  margin: 0;
+  color: #f1eff8;
+  font-size: 15px;
+}
+
+.kelly-friend-profile-info-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 17px 0;
+}
+
+.kelly-friend-profile-info-row div {
+  min-width: 0;
+}
+
+.kelly-friend-profile-info-row span {
+  display: block;
+  margin-bottom: 5px;
+  color: #69697d;
+  font-size: 10px;
+}
+
+.kelly-friend-profile-info-row strong {
+  color: #e8e6f0;
+  font-size: 13px;
+}
+
+.kelly-friend-profile-presence {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 13px;
+  border-radius: 10px;
+  background: #0d0d13;
+}
+
+.kelly-friend-profile-presence .kelly-friends-status-dot {
+  margin-top: 4px;
+}
+
+.kelly-friend-profile-presence strong,
+.kelly-friend-profile-presence span {
+  display: block;
+}
+
+.kelly-friend-profile-presence strong {
+  margin-bottom: 4px;
+  color: #dedce8;
+  font-size: 12px;
+}
+
+.kelly-friend-profile-presence span {
+  color: #666679;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.kelly-friend-profile-message {
+  width: 100%;
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+  border: 1px solid #2b2938;
+  border-radius: 10px;
+  background: #16151d;
+  color: #79788a;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.kelly-friend-profile-message span {
+  color: #555465;
+  font-size: 10px;
+  font-weight: 650;
+}
+
+.kelly-friend-profile-missing {
+  width: min(520px, 100%);
+  margin: 60px auto 0;
+  padding: 30px;
+  border: 1px solid #272532;
+  border-radius: 14px;
+  background: #111118;
+  text-align: center;
+  color: #77778b;
+}
+
+.kelly-friend-profile-missing svg {
+  color: #8e87b4;
+}
+
+.kelly-friend-profile-missing h2 {
+  margin: 12px 0 7px;
+  color: #eeeaf7;
+  font-size: 18px;
+}
+
+.kelly-friend-profile-missing p {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+@media (max-width: 680px) {
+  .kelly-friend-profile-page {
+    padding: 28px 22px 40px;
+  }
+
+  .kelly-friend-profile-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .kelly-friend-profile-stat {
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1fr);
+    column-gap: 11px;
+    align-items: center;
+  }
+
+  .kelly-friend-profile-stat-icon {
+    grid-row: span 2;
+    margin-bottom: 0;
+  }
+
+  .kelly-friend-profile-stat-label {
+    margin-bottom: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .kelly-friend-profile-hero {
+    align-items: flex-start;
+  }
+
+  .kelly-friend-profile-avatar {
+    width: 62px;
+    height: 62px;
+    flex-basis: 62px;
+    font-size: 23px;
+  }
+
+  .kelly-friend-profile-name-row h2 {
+    font-size: 21px;
+  }
+
+  .kelly-friend-profile-section {
+    padding: 16px;
+  }
+
+  .kelly-friend-profile-info-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kelly-friend-row-clickable {
+    transition: none;
+  }
+}
+
+
+/* ============================================================
+   KELLY — FRIEND CHAT
+   ============================================================ */
+
+.kelly-friend-profile-message {
+  transition:
+    background 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease,
+    transform 150ms ease;
+}
+
+.kelly-friend-profile-message:hover {
+  background: #1c1927;
+  border-color: #40365d;
+  color: #c4b8f5;
+  transform: translateY(-1px);
+}
+
+.kelly-friend-chat {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 120;
+  width: min(360px, calc(100vw - 48px));
+  height: min(520px, calc(100vh - 48px));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #302b40;
+  border-radius: 16px;
+  background: #111118;
+  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.48);
+  animation: kelly-friend-chat-in 180ms ease-out;
+}
+
+@keyframes kelly-friend-chat-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.kelly-friend-chat-header {
+  min-height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 14px;
+  border-bottom: 1px solid #272532;
+  background: #14131b;
+}
+
+.kelly-friend-chat-person {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.kelly-friend-chat-avatar {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.kelly-friend-chat-person strong {
+  display: block;
+  color: #eeeaf7;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.kelly-friend-chat-person span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 4px;
+  color: #6f6d7e;
+  font-size: 12px;
+}
+
+.kelly-friend-chat-close {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #777588;
+  cursor: pointer;
+}
+
+.kelly-friend-chat-close:hover {
+  background: #1d1b25;
+  color: #e7e3f0;
+}
+
+.kelly-friend-chat-messages {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 9px;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.kelly-friend-chat-empty {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: #5f5d6d;
+  text-align: center;
+}
+
+.kelly-friend-chat-empty svg {
+  margin-bottom: 4px;
+  color: #746b91;
+}
+
+.kelly-friend-chat-empty strong {
+  color: #aaa6b7;
+  font-size: 14px;
+}
+
+.kelly-friend-chat-empty span {
+  max-width: 210px;
+  color: #5f5d6d;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.kelly-friend-chat-message {
+  max-width: 78%;
+  padding: 9px 12px;
+  border-radius: 12px 12px 4px 12px;
+  background: #28203f;
+  color: #e8e2f8;
+  font-size: 14px;
+  line-height: 1.45;
+  align-self: flex-end;
+}
+
+.kelly-friend-chat-compose {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border-top: 1px solid #272532;
+  background: #14131b;
+}
+
+.kelly-friend-chat-compose input {
+  min-width: 0;
+  flex: 1;
+  height: 38px;
+  box-sizing: border-box;
+  padding: 0 11px;
+  border: 1px solid #292735;
+  border-radius: 9px;
+  outline: none; font-size: 14px;
+  background: #0d0d13;
+  color: #ebe9f2;
+  font: inherit;
+  font-size: 11px;
+}
+
+.kelly-friend-chat-compose input::placeholder {
+  color: #5c5a6a;
+}
+
+.kelly-friend-chat-compose input:focus {
+  border-color: #514273;
+}
+
+.kelly-friend-chat-compose button {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #574487;
+  border-radius: 9px;
+  background: #211a35;
+  color: #c7baf0;
+  cursor: pointer;
+}
+
+.kelly-friend-chat-compose button:hover:not(:disabled) {
+  background: #2a2144;
+}
+
+.kelly-friend-chat-compose button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+@media (max-width: 560px) {
+  .kelly-friend-chat {
+    right: 10px;
+    bottom: 10px;
+    width: calc(100vw - 20px);
+    height: min(500px, calc(100vh - 20px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kelly-friend-chat {
+    animation: none;
+  }
+
+  .kelly-friend-profile-message {
+    transition: none;
+  }
+}
+
+/* KELLY — FRIEND CHAT — GLOBAL TEXT SIZE */
+.kelly-friend-chat {
+  font-size: 14px;
+}
+
+.kelly-friend-chat-person strong {
+  font-size: 16px;
+}
+
+.kelly-friend-chat-person span {
+  font-size: 12px;
+}
+
+.kelly-friend-chat-empty strong {
+  font-size: 14px;
+}
+
+.kelly-friend-chat-empty span {
+  font-size: 11px;
+}
+
+.kelly-friend-chat-message {
+  font-size: 14px;
+}
+
+.kelly-friend-chat-compose input {
+  font-size: 14px;
+}
+
+.kelly-friend-chat-compose input::placeholder {
+  font-size: 14px;
+}
