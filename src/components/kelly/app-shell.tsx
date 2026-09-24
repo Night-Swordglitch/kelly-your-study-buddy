@@ -4,7 +4,6 @@
   useState,
   type ReactNode,
 } from "react";
-import { Menu } from "lucide-react";
 import { KellySidebar } from "@/components/kelly/sidebar";
 
 type KellyMood = "idle" | "happy" | "concerned";
@@ -16,9 +15,9 @@ export type KellyXPContext = {
 
 const KellyXPContext = createContext<KellyXPContext | null>(null);
 
-// Shared across KellySidebar (the <aside> itself) and AppShell (the
-// floating mobile trigger + scrim, which must live outside the <aside>
-// so they're still reachable/visible while the sidebar is off-canvas).
+// Shared across KellySidebar (the one true toggle button lives inside
+// it) and AppShell (the dark scrim behind the expanded overlay, which
+// must live outside <aside> so it can sit above the page content).
 export type KellySidebarUIContext = {
   collapsed: boolean;
   setCollapsed: (value: boolean) => void;
@@ -121,24 +120,9 @@ export function AppShell({
           className={`kelly-app-shell kelly-mood-${mood}`}
           data-kelly-mood={mood}
         >
-          {/* Floating trigger: only visible <1024px via CSS. Lives
-              outside <aside> so it's reachable even while the
-              sidebar is off-canvas on mobile. */}
-          <button
-            type="button"
-            className="kelly-mobile-menu-button"
-            onClick={() => setCollapsed(false)}
-            aria-label="Open menu"
-          >
-            <Menu
-              className="kelly-sidebar-icon"
-              size={18}
-              strokeWidth={2}
-            />
-          </button>
-
-          {/* Dark scrim behind the mobile drawer; tapping it closes
-              the sidebar. Only rendered/visible when open + mobile. */}
+          {/* Dark scrim behind the expanded overlay below 1024px.
+              Tapping it collapses the sidebar back to the icon
+              rail. Only visible (CSS) when expanded + <1024px. */}
           <div
             className={`kelly-sidebar-backdrop${
               !collapsed ? " open" : ""

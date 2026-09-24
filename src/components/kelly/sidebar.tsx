@@ -72,12 +72,9 @@ export function KellySidebar() {
     if (!item.to) return;
     navigate({ to: item.to });
 
-    // On mobile the sidebar is a drawer — close it after navigating
-    // so the person actually sees the page they picked. Harmless on
-    // desktop/tablet since this only affects layout under 768px.
-    if (typeof window !== "undefined" && window.innerWidth < 768) {
-      setCollapsed(true);
-    }
+    // Deliberately does NOT auto-collapse: the person can tap
+    // through several pages with the sidebar staying open, and
+    // only closes it via the scrim or the toggle button itself.
   };
 
   return (

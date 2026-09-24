@@ -12,7 +12,7 @@
    ========================================================= */
 
 .kelly-app {
-  min-height: 100vh;
+  min-height: 100dvh;
   background: #0a0a0f;
   color: #f8f7fb;
   display: flex;
@@ -27,7 +27,7 @@
 .kelly-sidebar {
   width: 208px;
   min-width: 208px;
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -234,7 +234,7 @@
 .kelly-main {
   flex: 1;
   min-width: 0;
-  min-height: 100vh;
+  min-height: 100dvh;
   background: #0a0a0f;
 }
 
@@ -245,7 +245,7 @@
 .kelly-medo-dashboard {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: 100dvh;
   padding: 24px 28px 40px;
   box-sizing: border-box;
 }
@@ -704,7 +704,7 @@
   display: grid;
   grid-template-columns: 340px minmax(0, 1fr);
   width: 100%;
-  min-height: 100vh;
+  min-height: 100dvh;
   background: #0a0a0f;
   color: #f5f3fa;
 }
@@ -712,7 +712,7 @@
 .kelly-notes-list {
   width: 340px;
   min-width: 340px;
-  height: 100vh;
+  height: 100dvh;
   position: sticky;
   top: 0;
   overflow-y: auto;
@@ -988,11 +988,13 @@
    ============================================================ */
 
 .kelly-app-shell {
+  /* position: fixed + inset: 0 (no explicit width/height) is the
+     most reliable way to fill the TRUE visible mobile viewport —
+     top/right/bottom/left:0 track the real screen edges directly
+     as the browser chrome shows/hides, which is more bulletproof
+     across real devices than any vh/dvh value, even dvh itself. */
   position: fixed;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
-  min-height: 100vh;
   display: grid;
   grid-template-columns: 208px minmax(0, 1fr);
   overflow: hidden;
@@ -1002,9 +1004,12 @@
 }
 
 .kelly-app-main {
+  /* No explicit height: as the single grid row's item, it stretches
+     to fill exactly as much height as .kelly-app-shell actually has —
+     which is now always correct, since the shell above has none of
+     the vh-unit fragility either. */
   min-width: 0;
   min-height: 0;
-  height: 100vh;
   overflow: auto;
   background: #0d0d14;
 }
@@ -1794,7 +1799,7 @@
   position: relative;
 
   width: 100%;
-  min-height: 100vh;
+  min-height: 100dvh;
 
   overflow: hidden;
 
@@ -1951,7 +1956,7 @@
   z-index: 2;
 
   width: min(1080px, calc(100% - 84px));
-  min-height: calc(100vh - 76px);
+  min-height: calc(100dvh - 76px);
 
   margin: 0 auto;
 
@@ -2255,7 +2260,7 @@
    ========================================================= */
 
 .kelly-landing {
-  min-height: 100vh;
+  min-height: 100dvh;
   background: #fcfbff;
   color: #19172a;
 }
@@ -3451,7 +3456,7 @@
 
 .kelly-home-dashboard {
   width: 100%;
-  min-height: 100vh;
+  min-height: 100dvh;
   padding: 34px 38px 50px;
   background:
     radial-gradient(
@@ -4152,7 +4157,7 @@
   min-width: 0;
   width: 100%;
   height: 100%;
-  min-height: 100vh;
+  min-height: 100dvh;
   box-sizing: border-box;
   padding: 34px 42px 60px;
   margin: 0;
@@ -4366,7 +4371,7 @@
   .kelly-notes-page-react {
     grid-template-columns: 1fr;
     height: auto;
-    min-height: 100vh;
+    min-height: 100dvh;
   }
 
   .kelly-notes-page-react .kelly-notes-list {
@@ -6973,18 +6978,18 @@
    KELLY SIDEBAR — RESPONSIVE (single source of truth)
 
    Breakpoints:
-     Desktop  (>=1024px): sidebar is static, full width (208px).
-       The existing hamburger can still manually collapse it to
+     Desktop      (>=1024px): sidebar is static, full width (208px).
+       The in-sidebar hamburger can still manually collapse it to
        a 72px icon rail if the person wants more screen space —
        main content reflows via the :has() rule below.
-     Tablet   (768px–1023px): sidebar DEFAULTS to the 72px icon
-       rail. Hamburger expands it; expanded state floats ABOVE
-       the content (position: fixed) instead of pushing it, so
-       the page doesn't jump.
-     Mobile   (<768px): sidebar is an off-canvas drawer, fully
-       hidden by default. The floating hamburger (rendered in
-       AppShell, outside the <aside>) opens it over a dark
-       scrim. Selecting a nav item or tapping the scrim closes it.
+     Tablet+Mobile (<1024px): sidebar DEFAULTS to a 72px icon rail
+       (KELLY logo + nav icons stay visible, just without labels —
+       nothing is ever fully hidden). The ONE hamburger, inside the
+       rail itself, expands it to 208px as an overlay above the
+       content (doesn't push/reflow the page). It stays expanded
+       until the person taps the dark scrim behind it or hits that
+       same hamburger again — selecting a nav item does NOT auto-
+       close it, so tapping through several pages keeps it open.
    ============================================================ */
 
 /* Desktop: manual collapse still reflows the grid (no JS needed). */
@@ -6996,7 +7001,15 @@
 
 .kelly-sidebar {
   position: relative;
-  transition: width 180ms ease, transform 220ms ease;
+  transition: width 220ms ease, transform 220ms ease;
+}
+
+/* The base rule hardcodes 208px — collapsed needs to actually
+   shrink the sidebar itself, not just the grid column around it,
+   or it visually spills over into the content next to it. */
+.kelly-sidebar.collapsed {
+  width: 72px;
+  min-width: 72px;
 }
 
 .kelly-sidebar-menu-button {
@@ -7020,53 +7033,43 @@
   color: #e8e8f0;
 }
 
-.kelly-sidebar.collapsed .kelly-sidebar-word,
-.kelly-sidebar.collapsed .kelly-sidebar-level,
-.kelly-sidebar.collapsed .kelly-sidebar-link span,
-.kelly-sidebar.collapsed .kelly-sidebar-bottom span {
-  display: none;
+/* Seamless collapse AND expand: nothing about the icon or the
+   label itself ever changes — no opacity, no width, no position.
+   They're both pinned at their natural full-expanded size and
+   place, permanently. It's the ROW (the button) that narrows,
+   with overflow:hidden acting as a mask sliding across — like a
+   blanket being pulled over/off something that never itself moves. */
+.kelly-sidebar-header,
+.kelly-sidebar-link {
+  overflow: hidden;
 }
 
-.kelly-sidebar.collapsed .kelly-sidebar-logo,
-.kelly-sidebar.collapsed .kelly-sidebar-link,
-.kelly-sidebar.collapsed .kelly-sidebar-menu-button {
-  justify-content: center;
-  padding-left: 0;
-  padding-right: 0;
+.kelly-sidebar-word,
+.kelly-sidebar-link > span:last-child {
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
-/* ---------- Tablet: default to icon rail, expand as an overlay ---------- */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .kelly-app-shell {
-    grid-template-columns: 72px minmax(0, 1fr);
-  }
-
-  .kelly-sidebar {
-    width: 72px;
-    min-width: 72px;
-  }
-
-  .kelly-sidebar.collapsed .kelly-sidebar-word,
-  .kelly-sidebar.collapsed .kelly-sidebar-level,
-  .kelly-sidebar.collapsed .kelly-sidebar-link span,
-  .kelly-sidebar.collapsed .kelly-sidebar-bottom span {
-    display: none;
-  }
-
-  .kelly-sidebar.expanded {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 208px;
-    min-width: 208px;
-    z-index: 60;
-    box-shadow: 12px 0 30px rgba(0, 0, 0, 0.3);
-  }
+/* The XP/level block is a separate full-width row (not part of
+   the icon+label line), so it can just fade out rather than
+   needing the same width-collapse treatment. */
+.kelly-sidebar-level {
+  opacity: 1;
+  transition: opacity 160ms ease;
 }
 
-/* ---------- Mobile: off-canvas drawer ---------- */
-@media (max-width: 767px) {
+.kelly-sidebar.collapsed .kelly-sidebar-level {
+  opacity: 0;
+  pointer-events: none;
+  height: 0;
+  flex-basis: 0;
+  padding: 0;
+  overflow: hidden;
+  transition: opacity 120ms ease, height 220ms ease, flex-basis 220ms ease, padding 220ms ease;
+}
+
+/* ---------- Tablet + Mobile: icon rail by default, expand as an overlay ---------- */
+@media (max-width: 1023px) {
   html,
   body,
   #root {
@@ -7076,10 +7079,15 @@
   }
 
   .kelly-app-shell {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: 72px minmax(0, 1fr);
   }
 
   .kelly-sidebar {
+    width: 72px;
+    min-width: 72px;
+  }
+
+  .kelly-sidebar.expanded {
     position: fixed;
     top: 0;
     left: 0;
@@ -7088,83 +7096,23 @@
     min-width: 208px;
     height: 100dvh;
     z-index: 100;
-    transform: translateX(-100%);
     box-shadow: 12px 0 30px rgba(0, 0, 0, 0.35);
-  }
-
-  /* On mobile "expanded" means the drawer is OPEN. */
-  .kelly-sidebar.expanded {
-    transform: translateX(0);
-  }
-
-  /* Collapsed state never hides text on mobile — the drawer is
-     either fully open (showing everything) or fully offscreen. */
-  .kelly-sidebar.collapsed .kelly-sidebar-word,
-  .kelly-sidebar.collapsed .kelly-sidebar-level,
-  .kelly-sidebar.collapsed .kelly-sidebar-link span,
-  .kelly-sidebar.collapsed .kelly-sidebar-bottom span {
-    display: revert;
-  }
-
-  .kelly-sidebar.collapsed .kelly-sidebar-logo,
-  .kelly-sidebar.collapsed .kelly-sidebar-link,
-  .kelly-sidebar.collapsed .kelly-sidebar-menu-button {
-    justify-content: flex-start;
-    padding-left: 16px;
-    padding-right: 16px;
   }
 
   .kelly-app-main {
     width: 100%;
     max-width: 100%;
   }
-
-  /* In-sidebar hamburger is redundant on mobile — the floating
-     trigger below handles opening; keep it for closing though. */
-  .kelly-sidebar-menu-button {
-    display: flex;
-  }
 }
 
-/* ---------- Floating mobile trigger + scrim (rendered in AppShell) ---------- */
-.kelly-mobile-menu-button {
-  display: none;
-}
-
+/* Dark scrim behind the expanded overlay below 1024px. Tapping it
+   collapses the sidebar back to the icon rail (rendered in AppShell,
+   as a sibling of <aside> so it can sit above the page content). */
 .kelly-sidebar-backdrop {
   display: none;
 }
 
 @media (max-width: 1023px) {
-  .kelly-mobile-menu-button {
-    display: flex;
-    position: fixed;
-    top: 14px;
-    left: 14px;
-    z-index: 120;
-    width: 40px;
-    height: 40px;
-    align-items: center;
-    justify-content: center;
-    border: 0;
-    border-radius: 10px;
-    background: #111118;
-    border: 1px solid rgba(139, 92, 246, 0.18);
-    color: #8888aa;
-    cursor: pointer;
-  }
-
-  .kelly-mobile-menu-button:hover {
-    color: #e8e8f0;
-    background: rgba(124, 106, 245, 0.12);
-  }
-
-  .kelly-mobile-menu-button .kelly-sidebar-icon {
-    color: inherit;
-  }
-}
-
-@media (max-width: 767px) {
   .kelly-sidebar-backdrop.open {
     display: block;
     position: fixed;
