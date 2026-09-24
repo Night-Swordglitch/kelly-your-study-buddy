@@ -1084,7 +1084,7 @@
 .kelly-home-card {
   box-sizing: border-box;
 
-  border: 1px solid rgba(139, 92, 246, 0.075);
+  
   border-radius: 12px;
 
   background: #101016;
@@ -1903,7 +1903,7 @@
   align-items: center;
   justify-content: center;
 
-  border: 1px solid rgba(139, 92, 246, 0.18);
+  
   border-radius: 10px;
 
   background: rgba(139, 92, 246, 0.08);
@@ -3496,7 +3496,7 @@
 
 .kelly-home-card {
   background: #13131f;
-  border: 1px solid #1e1e2e;
+  
   border-radius: 14px;
   box-shadow:
     0 12px 32px rgba(0, 0, 0, 0.22),
@@ -5117,6 +5117,32 @@
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
   transform: translateX(-50%);
   z-index: 50;
+}
+
+.kelly-settings-action {
+  width: 100%;
+  min-height: 34px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: #d7d7df;
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 160ms ease, color 160ms ease;
+}
+
+.kelly-settings-action:hover {
+  background: rgba(124, 58, 237, 0.12);
+  color: #a78bfa;
+}
+
+.kelly-settings-divider {
+  height: 1px;
+  margin: 6px 4px;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .kelly-settings-logout {
@@ -8297,3 +8323,242 @@
 .kelly-friend-chat-compose input::placeholder {
   font-size: 14px;
 }
+
+/* KELLY — HOME SCREEN ONLY — MIDNIGHT BLUE */
+.kelly-home-page {
+  background:
+  radial-gradient(
+    circle at 78% 0%,
+    rgba(139, 92, 246, 0.07),
+    transparent 30%
+  ),
+  radial-gradient(
+    circle at 12% 82%,
+    rgba(139, 92, 246, 0.07),
+    transparent 36%
+  ),
+  #0a0a0f;
+
+  color: #f8f7fb;
+}
+
+.kelly-home-page .kelly-home-card {
+  background: #13131f;
+  
+}
+.kelly-home-page h1,
+.kelly-home-page .kelly-home-level-number,
+.kelly-home-page .kelly-home-stat-value,
+.kelly-home-page .kelly-home-quiz-name,
+.kelly-home-page strong {
+  color: #f8f7fb;
+}
+
+.kelly-home-page p,
+.kelly-home-page .kelly-home-stat-label,
+.kelly-home-page .kelly-home-stat-name,
+.kelly-home-page .kelly-home-level-next span,
+.kelly-home-page .kelly-home-level-bottom,
+.kelly-home-page .kelly-home-note-row span,
+.kelly-home-page .kelly-home-upcoming-copy span,
+.kelly-home-page .kelly-home-friend-row span {
+  color: #858592;
+}
+
+.kelly-home-page .kelly-home-link {
+  color: #8b5cf6;
+}
+
+.kelly-home-page .kelly-home-link:hover {
+  color: #a78bfa;
+}
+
+.kelly-home-page .kelly-home-xp-track {
+  background: #1e1e2e;
+}
+
+.kelly-home-page .kelly-home-xp-fill {
+  background: linear-gradient(90deg, #7c3aed, #8b5cf6);
+}
+
+.kelly-home-page .kelly-home-note-row:hover {
+  background: rgba(139, 92, 246, 0.08);
+}
+
+.kelly-home-page .kelly-home-arrow {
+  color: #8b5cf6;
+}
+
+.kelly-home-page .kelly-home-quiz-xp {
+  color: #a78bfa;
+}
+
+.kelly-home-page .kelly-home-score {
+  color: #c4b5fd;
+}
+
+.kelly-home-page .kelly-home-section-label {
+  color: #a78bfa;
+}
+
+.kelly-home-page .kelly-home-stat-icon {
+  color: #8b5cf6;
+}
+
+.kelly-home-page .kelly-home-friend-avatar {
+  background: #2a2144;
+  color: #ddd6fe;
+}
+
+.kelly-home-page .kelly-home-upcoming-bar.green {
+  background: #42d58a;
+}
+
+.kelly-home-page .kelly-home-upcoming-bar.red {
+  background: #AE4E4E;
+}
+
+/* KELLY — REMOVE HOME OUTER FRAME */
+.kelly-home-page .kelly-home-dashboard {
+  background: inherit;
+}
+
+/* KELLY — Customisation Page */
+.kelly-customisation-page {
+  min-height: 100%;
+  width: 100%;
+  padding: 34px 38px 50px;
+  background:
+    radial-gradient(
+      circle at 82% 0%,
+      rgba(139, 92, 246, 0.07),
+      transparent 30%
+    ),
+    #0a0a0f;
+  color: #f8f7fb;
+}
+
+.kelly-customisation-header {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.kelly-customisation-header h1 {
+  margin: 0;
+  color: #f8f7fb;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.kelly-customisation-header p {
+  margin: 8px 0 0;
+  max-width: 680px;
+  color: #858592;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.kelly-customisation-content {
+  width: 100%;
+  max-width: 980px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.kelly-customisation-section {
+  width: 100%;
+}
+
+.kelly-customisation-section-header {
+  margin-bottom: 12px;
+}
+
+.kelly-customisation-section-header h2 {
+  margin: 0;
+  color: #f1eff7;
+  font-size: 16px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.kelly-customisation-section-header p {
+  margin: 5px 0 0;
+  color: #777784;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.kelly-customisation-card {
+  overflow: hidden;
+  background: #13131f;
+  border: 1px solid #1e1e2e;
+  border-radius: 14px;
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.018);
+}
+
+.kelly-customisation-row {
+  min-height: 74px;
+  padding: 17px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.kelly-customisation-row > div:first-child {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.kelly-customisation-row strong {
+  color: #e8e6ef;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.kelly-customisation-row span {
+  color: #777784;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.kelly-customisation-placeholder {
+  flex: 0 0 auto;
+  padding: 6px 10px;
+  border: 1px solid rgba(139, 92, 246, 0.16);
+  border-radius: 8px;
+  background: rgba(139, 92, 246, 0.06);
+  color: #8f8b9c;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.kelly-customisation-divider {
+  height: 1px;
+  margin: 0 20px;
+  background: #1e1e2e;
+}
+
+@media (max-width: 720px) {
+  .kelly-customisation-page {
+    padding: 26px 20px 40px;
+  }
+
+  .kelly-customisation-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .kelly-customisation-placeholder {
+    align-self: flex-start;
+  }
+}
+
+

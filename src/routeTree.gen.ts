@@ -17,6 +17,7 @@ import { Route as AuthSignupRouteImport } from './routes/_auth/signup'
 import { Route as AuthenticatedCalendarRouteImport } from './routes/_authenticated/calendar'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedFlashcardsRouteImport } from './routes/_authenticated/flashcards'
+import { Route as AuthenticatedFriendProfileRouteImport } from './routes/_authenticated/friend-profile'
 import { Route as AuthenticatedFriendsRouteImport } from './routes/_authenticated/friends'
 import { Route as AuthenticatedGamesRouteImport } from './routes/_authenticated/games'
 import { Route as AuthenticatedGroupsRouteImport } from './routes/_authenticated/groups'
@@ -33,6 +34,7 @@ import { Route as AuthenticatedStudyRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedSubjectsRouteImport } from './routes/_authenticated/subjects'
 import { Route as AuthenticatedTimedChallengeRouteImport } from './routes/_authenticated/timed-challenge'
 import { Route as AuthenticatedTimerRouteImport } from './routes/_authenticated/timer'
+import { Route as AuthenticatedSettingsCustomisationRouteImport } from './routes/_authenticated/settings.customisation'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -72,6 +74,12 @@ const AuthenticatedFlashcardsRoute = AuthenticatedFlashcardsRouteImport.update({
   path: '/flashcards',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedFriendProfileRoute =
+  AuthenticatedFriendProfileRouteImport.update({
+    id: '/friend-profile',
+    path: '/friend-profile',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedFriendsRoute = AuthenticatedFriendsRouteImport.update({
   id: '/friends',
   path: '/friends',
@@ -154,6 +162,12 @@ const AuthenticatedTimerRoute = AuthenticatedTimerRouteImport.update({
   path: '/timer',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedSettingsCustomisationRoute =
+  AuthenticatedSettingsCustomisationRouteImport.update({
+    id: '/settings/customisation',
+    path: '/settings/customisation',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -162,6 +176,7 @@ export interface FileRoutesByFullPath {
   '/calendar': typeof AuthenticatedCalendarRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/flashcards': typeof AuthenticatedFlashcardsRoute
+  '/friend-profile': typeof AuthenticatedFriendProfileRoute
   '/friends': typeof AuthenticatedFriendsRoute
   '/games': typeof AuthenticatedGamesRoute
   '/groups': typeof AuthenticatedGroupsRoute
@@ -178,6 +193,7 @@ export interface FileRoutesByFullPath {
   '/subjects': typeof AuthenticatedSubjectsRoute
   '/timed-challenge': typeof AuthenticatedTimedChallengeRoute
   '/timer': typeof AuthenticatedTimerRoute
+  '/settings/customisation': typeof AuthenticatedSettingsCustomisationRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -186,6 +202,7 @@ export interface FileRoutesByTo {
   '/calendar': typeof AuthenticatedCalendarRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/flashcards': typeof AuthenticatedFlashcardsRoute
+  '/friend-profile': typeof AuthenticatedFriendProfileRoute
   '/friends': typeof AuthenticatedFriendsRoute
   '/games': typeof AuthenticatedGamesRoute
   '/groups': typeof AuthenticatedGroupsRoute
@@ -202,6 +219,7 @@ export interface FileRoutesByTo {
   '/subjects': typeof AuthenticatedSubjectsRoute
   '/timed-challenge': typeof AuthenticatedTimedChallengeRoute
   '/timer': typeof AuthenticatedTimerRoute
+  '/settings/customisation': typeof AuthenticatedSettingsCustomisationRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -213,6 +231,7 @@ export interface FileRoutesById {
   '/_authenticated/calendar': typeof AuthenticatedCalendarRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/flashcards': typeof AuthenticatedFlashcardsRoute
+  '/_authenticated/friend-profile': typeof AuthenticatedFriendProfileRoute
   '/_authenticated/friends': typeof AuthenticatedFriendsRoute
   '/_authenticated/games': typeof AuthenticatedGamesRoute
   '/_authenticated/groups': typeof AuthenticatedGroupsRoute
@@ -229,6 +248,7 @@ export interface FileRoutesById {
   '/_authenticated/subjects': typeof AuthenticatedSubjectsRoute
   '/_authenticated/timed-challenge': typeof AuthenticatedTimedChallengeRoute
   '/_authenticated/timer': typeof AuthenticatedTimerRoute
+  '/_authenticated/settings/customisation': typeof AuthenticatedSettingsCustomisationRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -239,6 +259,7 @@ export interface FileRouteTypes {
     | '/calendar'
     | '/dashboard'
     | '/flashcards'
+    | '/friend-profile'
     | '/friends'
     | '/games'
     | '/groups'
@@ -255,6 +276,7 @@ export interface FileRouteTypes {
     | '/subjects'
     | '/timed-challenge'
     | '/timer'
+    | '/settings/customisation'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -263,6 +285,7 @@ export interface FileRouteTypes {
     | '/calendar'
     | '/dashboard'
     | '/flashcards'
+    | '/friend-profile'
     | '/friends'
     | '/games'
     | '/groups'
@@ -279,6 +302,7 @@ export interface FileRouteTypes {
     | '/subjects'
     | '/timed-challenge'
     | '/timer'
+    | '/settings/customisation'
   id:
     | '__root__'
     | '/'
@@ -289,6 +313,7 @@ export interface FileRouteTypes {
     | '/_authenticated/calendar'
     | '/_authenticated/dashboard'
     | '/_authenticated/flashcards'
+    | '/_authenticated/friend-profile'
     | '/_authenticated/friends'
     | '/_authenticated/games'
     | '/_authenticated/groups'
@@ -305,6 +330,7 @@ export interface FileRouteTypes {
     | '/_authenticated/subjects'
     | '/_authenticated/timed-challenge'
     | '/_authenticated/timer'
+    | '/_authenticated/settings/customisation'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -369,6 +395,13 @@ declare module '@tanstack/react-router' {
       path: '/flashcards'
       fullPath: '/flashcards'
       preLoaderRoute: typeof AuthenticatedFlashcardsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/friend-profile': {
+      id: '/_authenticated/friend-profile'
+      path: '/friend-profile'
+      fullPath: '/friend-profile'
+      preLoaderRoute: typeof AuthenticatedFriendProfileRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/friends': {
@@ -483,6 +516,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedTimerRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/settings/customisation': {
+      id: '/_authenticated/settings/customisation'
+      path: '/settings/customisation'
+      fullPath: '/settings/customisation'
+      preLoaderRoute: typeof AuthenticatedSettingsCustomisationRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -504,6 +544,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedCalendarRoute: typeof AuthenticatedCalendarRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedFlashcardsRoute: typeof AuthenticatedFlashcardsRoute
+  AuthenticatedFriendProfileRoute: typeof AuthenticatedFriendProfileRoute
   AuthenticatedFriendsRoute: typeof AuthenticatedFriendsRoute
   AuthenticatedGamesRoute: typeof AuthenticatedGamesRoute
   AuthenticatedGroupsRoute: typeof AuthenticatedGroupsRoute
@@ -520,12 +561,14 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedSubjectsRoute: typeof AuthenticatedSubjectsRoute
   AuthenticatedTimedChallengeRoute: typeof AuthenticatedTimedChallengeRoute
   AuthenticatedTimerRoute: typeof AuthenticatedTimerRoute
+  AuthenticatedSettingsCustomisationRoute: typeof AuthenticatedSettingsCustomisationRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedCalendarRoute: AuthenticatedCalendarRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedFlashcardsRoute: AuthenticatedFlashcardsRoute,
+  AuthenticatedFriendProfileRoute: AuthenticatedFriendProfileRoute,
   AuthenticatedFriendsRoute: AuthenticatedFriendsRoute,
   AuthenticatedGamesRoute: AuthenticatedGamesRoute,
   AuthenticatedGroupsRoute: AuthenticatedGroupsRoute,
@@ -542,6 +585,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedSubjectsRoute: AuthenticatedSubjectsRoute,
   AuthenticatedTimedChallengeRoute: AuthenticatedTimedChallengeRoute,
   AuthenticatedTimerRoute: AuthenticatedTimerRoute,
+  AuthenticatedSettingsCustomisationRoute:
+    AuthenticatedSettingsCustomisationRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

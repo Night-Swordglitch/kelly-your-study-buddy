@@ -45,13 +45,21 @@ function getActivePage(pathname: string): string {
   if (
     pathname.startsWith("/games") ||
     pathname.startsWith("/memory-match") ||
-    pathname.startsWith("/quick-quiz")
+    pathname.startsWith("/quick-quiz") ||
+    pathname.startsWith("/timed-challenge") ||
+    pathname.startsWith("/impostor")
   ) {
     return "games";
   }
 
   if (pathname.startsWith("/calendar")) return "calendar";
-  if (pathname.startsWith("/friends")) return "friends";
+
+  if (
+    pathname.startsWith("/friends") ||
+    pathname.startsWith("/friend-profile")
+  ) {
+    return "friends";
+  }
   if (pathname.startsWith("/timer")) return "timer";
   if (pathname.startsWith("/settings")) return "settings";
 
@@ -189,6 +197,19 @@ export function KellySidebar() {
             >
               <button
                 type="button"
+                className="kelly-settings-action"
+                onClick={() => {
+                  setSettingsOpen(false);
+                  navigate({ to: "/settings/customisation" });
+                }}
+              >
+                Customisation
+              </button>
+
+              <div className="kelly-settings-divider" />
+
+              <button
+                type="button"
                 className="kelly-settings-logout"
                 onClick={async () => {
                   await window.KellyAuth?.logout();
@@ -204,3 +225,5 @@ export function KellySidebar() {
     </aside>
   );
 }
+
+

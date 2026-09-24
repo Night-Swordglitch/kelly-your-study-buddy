@@ -1,4 +1,4 @@
-﻿import { createFileRoute } from "@tanstack/react-router";
+﻿import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import {
   Crown,
@@ -12,103 +12,13 @@ import {
   Zap,
 } from "lucide-react";
 
-type Friend = {
-  id: number;
-  name: string;
-  initial: string;
-  avatar: string;
-  status: "Studying" | "Online" | "Offline";
-  level: number;
-  xp: number;
-  topXP?: boolean;
-};
-
-const FRIENDS: Friend[] = [
-  {
-    id: 1,
-    name: "Alex",
-    initial: "A",
-    avatar: "#5b4bdb",
-    status: "Studying",
-    level: 8,
-    xp: 3240,
-    topXP: true,
-  },
-  {
-    id: 2,
-    name: "Sarah",
-    initial: "S",
-    avatar: "#2563a8",
-    status: "Online",
-    level: 6,
-    xp: 2180,
-  },
-  {
-    id: 3,
-    name: "Daniel",
-    initial: "D",
-    avatar: "#9b4dca",
-    status: "Offline",
-    level: 7,
-    xp: 2760,
-  },
-  {
-    id: 4,
-    name: "Maya",
-    initial: "M",
-    avatar: "#b45d48",
-    status: "Studying",
-    level: 5,
-    xp: 1840,
-  },
-  {
-    id: 5,
-    name: "Ryan",
-    initial: "R",
-    avatar: "#3c8c70",
-    status: "Offline",
-    level: 4,
-    xp: 1320,
-  },
-];
-
-const SUGGESTED: Friend[] = [
-  {
-    id: 101,
-    name: "Emma",
-    initial: "E",
-    avatar: "#a65a8a",
-    status: "Online",
-    level: 5,
-    xp: 1560,
-  },
-  {
-    id: 102,
-    name: "Jason",
-    initial: "J",
-    avatar: "#526b9a",
-    status: "Offline",
-    level: 6,
-    xp: 2010,
-  },
-];
-
-const RANKINGS = [
-  { rank: 2, name: "Alex", initial: "A", avatar: "#5b4bdb", level: 8, xp: 3240 },
-  { rank: 3, name: "Daniel", initial: "D", avatar: "#9b4dca", level: 7, xp: 2760 },
-  { rank: 4, name: "Sarah", initial: "S", avatar: "#2563a8", level: 6, xp: 2180 },
-  { rank: 5, name: "Maya", initial: "M", avatar: "#b45d48", level: 5, xp: 1840 },
-];
-
-const STUDYING = [
-  {
-    id: 1,
-    name: "Alex",
-    initial: "A",
-    avatar: "#5b4bdb",
-  },
-];
-
+import {
+  FRIENDS,
+  RANKINGS,
+  STUDYING,
+  SUGGESTED,
+  type Friend,
+} from "@/components/kelly/friends-data";
 type Tab = "friends" | "rankings" | "groups";
 
 function formatXP(xp: number) {
@@ -125,6 +35,7 @@ function StatusDot({ status }: { status: Friend["status"] }) {
 }
 
 export function FriendsPage() {
+  const navigate = useNavigate();
   const [tab, setTab] = useState<Tab>("friends");
   const [search, setSearch] = useState("");
   const [friends, setFriends] = useState(FRIENDS);
@@ -139,6 +50,15 @@ export function FriendsPage() {
       friend.name.toLowerCase().includes(query),
     );
   }, [friends, search]);
+
+  const openFriendProfile = (id: number) => {
+    navigate({
+      to: "/friend-profile",
+      search: {
+        id,
+      },
+    });
+  };
 
   const removeFriend = (id: number) => {
     setFriends((current) => current.filter((friend) => friend.id !== id));
@@ -214,7 +134,23 @@ export function FriendsPage() {
           <div className="kelly-friends-scroll">
             <div className="kelly-friends-list">
               {filteredFriends.map((friend) => (
-                <div className="kelly-friend-row" key={friend.id}>
+                <div
+                  className="kelly-friend-row kelly-friend-row-clickable"
+                  key={friend.id}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => openFriendProfile(friend.id)}
+                  onKeyDown={(event) => {
+                    if (
+                      event.target === event.currentTarget &&
+                      (event.key === "Enter" || event.key === " ")
+                    ) {
+                      event.preventDefault();
+                      openFriendProfile(friend.id);
+                    }
+                  }}
+                  aria-label={`View ${friend.name}'s profile`}
+                >
                   <div
                     className="kelly-friend-avatar"
                     style={{ background: friend.avatar }}
@@ -246,7 +182,10 @@ export function FriendsPage() {
                   <button
                     type="button"
                     className="kelly-friend-remove"
-                    onClick={() => removeFriend(friend.id)}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      removeFriend(friend.id);
+                    }}
                     aria-label={`Remove ${friend.name}`}
                   >
                     <X size={16} />
@@ -415,3 +354,8 @@ export function FriendsPage() {
 export const Route = createFileRoute("/_authenticated/friends")({
   component: FriendsPage,
 });
+
+
+
+
+
