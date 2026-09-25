@@ -1,4 +1,4 @@
-﻿import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useKellyTheme } from "@/components/kelly/app-shell";
 
 export const Route = createFileRoute("/_authenticated/settings/theme")({
@@ -127,10 +127,44 @@ function ThemePage() {
               ) : null}
             </div>
           </button>
+
+          <button
+            type="button"
+            className={`kelly-theme-card${
+              theme === "rose-eclipse"
+                ? " kelly-theme-card-selected"
+                : ""
+            }`}
+            onClick={() => setTheme("rose-eclipse")}
+          >
+            <div className="kelly-theme-preview kelly-theme-preview-rose">
+              <div className="kelly-theme-preview-sidebar" />
+              <div className="kelly-theme-preview-content">
+                <div className="kelly-theme-preview-line long" />
+                <div className="kelly-theme-preview-line short" />
+                <div className="kelly-theme-preview-card" />
+                <div className="kelly-theme-preview-card small" />
+              </div>
+            </div>
+
+            <div className="kelly-theme-card-info">
+              <div>
+                <strong>Rose Eclipse</strong>
+                <span>Rose / eclipse</span>
+              </div>
+
+              {theme === "rose-eclipse" ? (
+                <span className="kelly-theme-check" aria-label="Selected">
+                  ✓
+                </span>
+              ) : null}
+            </div>
+          </button>
         </section>
       </main>
     </div>
   );
 }
+
 
 
