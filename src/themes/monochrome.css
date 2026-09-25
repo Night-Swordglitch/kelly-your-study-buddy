@@ -392,30 +392,6 @@
   color: #999999;
 }
 
-[data-kelly-theme="monochrome"] .kelly-theme-preview-monochrome {
-  background:
-    radial-gradient(
-      circle at 78% 10%,
-      rgba(255, 255, 255, 0.08),
-      transparent 40%
-    ),
-    #050505;
-}
-
-[data-kelly-theme="monochrome"] .kelly-theme-preview-monochrome .kelly-theme-preview-sidebar {
-  background: #0b0b0b;
-  border-right-color: #292929;
-}
-
-[data-kelly-theme="monochrome"] .kelly-theme-preview-monochrome .kelly-theme-preview-line {
-  background: #ffffff;
-}
-
-[data-kelly-theme="monochrome"] .kelly-theme-preview-monochrome .kelly-theme-preview-card {
-  background: #151515;
-  border-color: #303030;
-}
-
 /* ------------------------------------------------------------
    GENERIC INTERACTIVE ACCENTS
    ------------------------------------------------------------ */
