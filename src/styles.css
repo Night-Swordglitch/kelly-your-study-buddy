@@ -8,7 +8,7 @@
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 }
 /* =========================================================
-   KELLY APP ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â DARK DASHBOARD + SIDEBAR + NOTES
+   KELLY APP ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â DARK DASHBOARD + SIDEBAR + NOTES
    ========================================================= */
 
 .kelly-app {
@@ -989,7 +989,7 @@
 
 .kelly-app-shell {
   /* position: fixed + inset: 0 (no explicit width/height) is the
-     most reliable way to fill the TRUE visible mobile viewport —
+     most reliable way to fill the TRUE visible mobile viewport ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â
      top/right/bottom/left:0 track the real screen edges directly
      as the browser chrome shows/hides, which is more bulletproof
      across real devices than any vh/dvh value, even dvh itself. */
@@ -1005,7 +1005,7 @@
 
 .kelly-app-main {
   /* No explicit height: as the single grid row's item, it stretches
-     to fill exactly as much height as .kelly-app-shell actually has —
+     to fill exactly as much height as .kelly-app-shell actually has ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â
      which is now always correct, since the shell above has none of
      the vh-unit fragility either. */
   min-width: 0;
@@ -1031,10 +1031,10 @@
   font-size: 13px;
 }
 
-/* Superseded by the single "KELLY SIDEBAR — RESPONSIVE" block further down. */
+/* Superseded by the single "KELLY SIDEBAR ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â RESPONSIVE" block further down. */
 
 /* ============================================================
-   KELLY HOME ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â POLISHED REACT MIGRATION
+   KELLY HOME ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â POLISHED REACT MIGRATION
    Source: public/KELLY/KELLY.html
    ============================================================ */
 
@@ -1792,7 +1792,7 @@
 }
 
 /* ============================================================
-   KELLY LANDING ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â REACT ROOT
+   KELLY LANDING ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â REACT ROOT
    ============================================================ */
 
 .kelly-landing {
@@ -4409,7 +4409,7 @@
 
 
 /* ============================================================
-   KELLY CHARACTER GÃ¯Â¿Â½Ã¯Â¿Â½ MODERN COMPONENT
+   KELLY CHARACTER GÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½ MODERN COMPONENT
    ============================================================ */
 
 .kelly-character {
@@ -4857,7 +4857,7 @@
 }
 
 
-/* â”€â”€ KELLY Listen recording actions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ KELLY Listen recording actions ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ */
 
 .kelly-listen-record-actions {
   display: flex;
@@ -5108,7 +5108,7 @@
 .kelly-settings-popup {
   position: absolute;
   left: 50%;
-  bottom: calc(100% + 8px);
+  bottom: 100%;
   width: 150px;
   padding: 6px;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -5616,7 +5616,7 @@
 }
 
 /* =========================================================
-   KELLY — MEMORY MATCH
+   KELLY ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â MEMORY MATCH
    ========================================================= */
 
 .kelly-memory-match-page {
@@ -5871,7 +5871,7 @@
 }
 
 /* =========================================================
-   KELLY — QUICK QUIZ
+   KELLY ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â QUICK QUIZ
    ========================================================= */
 
 .kelly-quick-quiz-page {
@@ -6929,7 +6929,7 @@
 }
 /* KELLY CALENDAR PAGE END */
 
-/* KELLY NOTES — MOBILE RESPONSIVE */
+/* KELLY NOTES ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â MOBILE RESPONSIVE */
 @media (max-width: 760px) {
   .kelly-notes-page,
   .kelly-notes-page-react {
@@ -6967,8 +6967,8 @@
   }
 }
 
-/* KELLY NOTES — MOBILE RESPONSIVE END */
-/* KELLY NOTES — MOBILE RESPONSIVE */
+/* KELLY NOTES ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â MOBILE RESPONSIVE END */
+/* KELLY NOTES ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â MOBILE RESPONSIVE */
 @media (max-width: 760px) {
   .kelly-notes-page,
   .kelly-notes-page-react {
@@ -7000,10 +7000,10 @@
   }
 }
 
-/* KELLY NOTES — MOBILE RESPONSIVE END */
+/* KELLY NOTES ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â MOBILE RESPONSIVE END */
 
 /* ============================================================
-   KELLY SIDEBAR — RESPONSIVE / COLLAPSE
+   KELLY SIDEBAR ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â RESPONSIVE / COLLAPSE
    The sidebar itself is the moving window.
    Contents never resize, slide, fade, or reflow.
    ============================================================ */
@@ -7174,7 +7174,7 @@
 }
 
 /* ============================================================
-   KELLY SIDEBAR — RESPONSIVE END
+   KELLY SIDEBAR ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â RESPONSIVE END
    ============================================================ */
 
 
@@ -7189,7 +7189,7 @@
 
 
 /* ============================================================
-   KELLY LISTEN — RECORDING REPLAY
+   KELLY LISTEN ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â RECORDING REPLAY
    ============================================================ */
 
 .kelly-listen-replay-wrap {
@@ -7362,14 +7362,14 @@
 }
 
 
-/* Replay bar — give the left timer extra breathing room */
+/* Replay bar ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â give the left timer extra breathing room */
 .kelly-listen-replay-track {
   width: calc(100% - 8px);
   margin-left: 8px;
 }
 
 
-/* Replay bar — final left spacing refinement */
+/* Replay bar ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â final left spacing refinement */
 .kelly-listen-replay-track {
   width: calc(100% - 14px);
   margin-left: 14px;
@@ -7377,7 +7377,7 @@
 
 
 /* ============================================================
-   KELLY — IMPOSTOR GAME
+   KELLY ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â IMPOSTOR GAME
    ============================================================ */
 
 .kelly-impostor-page {
@@ -7740,7 +7740,7 @@
 
 
 /* ============================================================
-   KELLY — FRIEND PROFILE
+   KELLY ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â FRIEND PROFILE
    ============================================================ */
 
 .kelly-friend-row-clickable {
@@ -8058,7 +8058,7 @@
 
 
 /* ============================================================
-   KELLY — FRIEND CHAT
+   KELLY ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â FRIEND CHAT
    ============================================================ */
 
 .kelly-friend-profile-message {
@@ -8291,7 +8291,7 @@
   }
 }
 
-/* KELLY — FRIEND CHAT — GLOBAL TEXT SIZE */
+/* KELLY ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â FRIEND CHAT ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â GLOBAL TEXT SIZE */
 .kelly-friend-chat {
   font-size: 14px;
 }
@@ -8324,7 +8324,7 @@
   font-size: 14px;
 }
 
-/* KELLY — HOME SCREEN ONLY — MIDNIGHT BLUE */
+/* KELLY ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â HOME SCREEN ONLY ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â MIDNIGHT BLUE */
 .kelly-home-page {
   background:
   radial-gradient(
@@ -8418,12 +8418,12 @@
   background: #AE4E4E;
 }
 
-/* KELLY — REMOVE HOME OUTER FRAME */
+/* KELLY ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â REMOVE HOME OUTER FRAME */
 .kelly-home-page .kelly-home-dashboard {
   background: inherit;
 }
 
-/* KELLY — Customisation Page */
+/* KELLY ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Customisation Page */
 .kelly-customisation-page {
   min-height: 100%;
   width: 100%;
@@ -8563,7 +8563,7 @@
 
 
 
-/* KELLY — Theme Selection Page */
+/* KELLY ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Theme Selection Page */
 .kelly-theme-page {
   min-height: 100%;
   width: 100%;
@@ -8822,7 +8822,7 @@
   }
 }
 
-/* KELLY — Customisation Clickable Rows */
+/* KELLY ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Customisation Clickable Rows */
 .kelly-customisation-clickable {
   width: 100%;
   border: 0;
@@ -8870,4 +8870,499 @@
 .kelly-customisation-clickable:hover .kelly-customisation-chevron {
   color: #a78bfa;
   transform: translateX(2px);
+}
+
+/* ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
+   KELLY PROFILE
+   ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ */
+
+.kelly-profile-page {
+  min-height: 100dvh;
+  padding: 32px;
+  background: #0a0a0f;
+  color: #ffffff;
+}
+
+.kelly-profile-header {
+  margin-bottom: 24px;
+}
+
+.kelly-profile-header h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 750;
+}
+
+.kelly-profile-header p {
+  margin: 6px 0 0;
+  color: #85838f;
+  font-size: 13px;
+}
+
+.kelly-profile-card {
+  background: #111118;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+}
+
+.kelly-profile-hero {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 24px;
+}
+
+.kelly-profile-avatar {
+  width: 72px;
+  height: 72px;
+  flex: 0 0 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 50%;
+  background: rgba(124, 58, 237, 0.16);
+  border: 1px solid rgba(139, 92, 246, 0.32);
+  color: #a78bfa;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.kelly-profile-avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.kelly-profile-identity h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.kelly-profile-email {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 7px;
+  color: #85838f;
+  font-size: 13px;
+}
+
+.kelly-profile-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.kelly-profile-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-width: 0;
+  padding: 18px;
+  background: #111118;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+}
+
+.kelly-profile-stat-icon {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgba(124, 58, 237, 0.12);
+  color: #a78bfa;
+}
+
+.kelly-profile-stat-card span {
+  display: block;
+  color: #85838f;
+  font-size: 11px;
+}
+
+.kelly-profile-stat-card strong {
+  display: block;
+  margin-top: 3px;
+  color: #ffffff;
+  font-size: 15px;
+}
+
+.kelly-profile-account {
+  margin-top: 14px;
+  padding: 22px 24px;
+}
+
+.kelly-profile-section-heading h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.kelly-profile-section-heading p {
+  margin: 5px 0 18px;
+  color: #85838f;
+  font-size: 12px;
+}
+
+.kelly-profile-account-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 48px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.kelly-profile-account-row span {
+  color: #85838f;
+  font-size: 13px;
+}
+
+.kelly-profile-account-row strong {
+  color: #d7d7df;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: right;
+}
+
+@media (max-width: 760px) {
+  .kelly-profile-page {
+    padding: 24px 18px;
+  }
+
+  .kelly-profile-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .kelly-profile-account-row {
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    padding: 12px 0;
+  }
+
+  .kelly-profile-account-row strong {
+    text-align: left;
+  }
+}
+ 
+/* Profile page */
+.kelly-profile-page {
+  min-height: 100%;
+  background: #0a0a0f;
+  color: #ffffff;
+}
+
+.kelly-profile-content {
+  padding: 0 32px 32px;
+}
+
+.kelly-profile-card {
+  max-width: 720px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  background: #14141c;
+}
+
+.kelly-profile-heading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.kelly-profile-avatar {
+  width: 64px;
+  height: 64px;
+  flex: 0 0 64px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.kelly-profile-avatar-fallback {
+  display: grid;
+  place-items: center;
+  background: rgba(124, 58, 237, 0.18);
+  color: #a78bfa;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.kelly-profile-name {
+  margin: 0;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.kelly-profile-email {
+  margin: 5px 0 0;
+  color: #85838f;
+  font-size: 13px;
+}
+
+.kelly-profile-details {
+  display: grid;
+  gap: 14px;
+}
+
+.kelly-profile-label {
+  margin-bottom: 4px;
+  color: #85838f;
+  font-size: 12px;
+}
+
+.kelly-profile-value {
+  color: #d7d7df;
+  font-size: 14px;
+}
+
+/* Profile additions */
+.kelly-profile-section-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.kelly-profile-section-header h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.kelly-profile-section-header p {
+  margin: 5px 0 0;
+  color: #85838f;
+  font-size: 12px;
+}
+
+.kelly-profile-button {
+  min-height: 34px;
+  padding: 0 14px;
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  border-radius: 9px;
+  background: rgba(139, 92, 246, 0.16);
+  color: #c4b5fd;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 160ms ease, border-color 160ms ease;
+}
+
+.kelly-profile-button:hover {
+  background: rgba(139, 92, 246, 0.24);
+  border-color: rgba(139, 92, 246, 0.55);
+}
+
+.kelly-profile-button.secondary {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: transparent;
+  color: #a1a1aa;
+}
+
+.kelly-profile-button.secondary:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.kelly-profile-identity h3 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.kelly-profile-identity p {
+  margin: 5px 0 0;
+  color: #85838f;
+  font-size: 13px;
+}
+
+.kelly-profile-edit {
+  display: grid;
+  gap: 18px;
+}
+
+.kelly-profile-field {
+  display: grid;
+  gap: 7px;
+}
+
+.kelly-profile-field label {
+  color: #85838f;
+  font-size: 12px;
+}
+
+.kelly-profile-field input {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 40px;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 9px;
+  outline: none;
+  background: #0f0f15;
+  color: #ffffff;
+  font: inherit;
+  font-size: 13px;
+}
+
+.kelly-profile-field input:focus {
+  border-color: rgba(139, 92, 246, 0.55);
+}
+
+.kelly-profile-field input:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.kelly-profile-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.kelly-profile-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.kelly-profile-stat {
+  min-height: 78px;
+  padding: 14px;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.kelly-profile-stat span {
+  display: block;
+  margin-bottom: 7px;
+  color: #85838f;
+  font-size: 11px;
+}
+
+.kelly-profile-stat strong {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+@media (max-width: 700px) {
+  .kelly-profile-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .kelly-profile-section-header {
+    flex-direction: column;
+  }
+}
+
+/* Profile dashboard layout */
+.kelly-profile-content {
+  padding: 0 32px 32px;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) repeat(3, minmax(150px, 1fr));
+  gap: 16px;
+  align-items: stretch;
+}
+
+.kelly-profile-card {
+  min-width: 0;
+  margin: 0;
+}
+
+.kelly-profile-account-card {
+  grid-column: span 2;
+  min-height: 280px;
+}
+
+.kelly-profile-stat-card {
+  min-height: 132px;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.kelly-profile-stat-label {
+  color: #85838f;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.kelly-profile-stat-large {
+  margin-top: 8px;
+  color: #ffffff;
+  font-size: 30px;
+  line-height: 1;
+  font-weight: 750;
+}
+
+.kelly-profile-stat-subtle {
+  margin-top: 8px;
+  color: #666572;
+  font-size: 11px;
+}
+
+.kelly-profile-learning-card {
+  grid-column: span 4;
+  min-height: 190px;
+}
+
+.kelly-profile-learning-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.kelly-profile-learning-grid .kelly-profile-detail {
+  min-height: 76px;
+  padding: 14px;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.025);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (max-width: 1000px) {
+  .kelly-profile-content {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .kelly-profile-account-card,
+  .kelly-profile-learning-card {
+    grid-column: span 2;
+  }
+
+  .kelly-profile-learning-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 650px) {
+  .kelly-profile-content {
+    grid-template-columns: 1fr;
+  }
+
+  .kelly-profile-account-card,
+  .kelly-profile-learning-card,
+  .kelly-profile-stat-card {
+    grid-column: span 1;
+  }
 }
