@@ -1,4 +1,4 @@
-﻿import {
+import {
   createContext,
   useContext,
   useEffect,
@@ -16,7 +16,7 @@ export type KellyXPContext = {
 
 const KellyXPContext = createContext<KellyXPContext | null>(null);
 
-export type KellyTheme = "original" | "aurora" | "monochrome";
+export type KellyTheme = "original" | "aurora" | "monochrome" | "rose-eclipse";
 
 export type KellyThemeContext = {
   theme: KellyTheme;
@@ -106,7 +106,7 @@ export function AppShell({
       KELLY_THEME_STORAGE_KEY,
     );
 
-    return stored === "aurora" || stored === "monochrome" ? stored : "original";
+    return stored === "aurora" || stored === "monochrome" || stored === "rose-eclipse" ? stored : "original";
   });
 
   useEffect(() => {
@@ -206,7 +206,3 @@ export function PageIntro({
     </div>
   );
 }
-
-
-
-

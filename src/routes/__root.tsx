@@ -1,4 +1,4 @@
-﻿import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
@@ -9,7 +9,11 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
-import appCss from "../styles.css?url";
+import "../styles.css";
+import "../themes/original.css";
+import "../themes/aurora.css";
+import "../themes/monochrome.css";
+import "../themes/rose-eclipse.css";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -135,11 +139,6 @@ export const Route =
 
       links: [
         {
-          rel: "stylesheet",
-          href: appCss,
-        },
-
-        {
           rel: "icon",
           href: "/kelly-tab.ico",
           type: "image/x-icon",
@@ -182,4 +181,3 @@ function RootComponent() {
     </QueryClientProvider>
   );
 }
-
