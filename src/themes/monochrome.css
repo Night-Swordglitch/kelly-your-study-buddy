@@ -1,0 +1,1397 @@
+/* KELLY — MONOCHROME THEME: GLOBAL */
+
+[data-kelly-theme="monochrome"] {
+  --kelly-theme-bg: #050505;
+  --kelly-theme-surface: #121212;
+  --kelly-theme-surface-2: #181818;
+  --kelly-theme-border: #2a2a2a;
+  --kelly-theme-border-soft: rgba(255, 255, 255, 0.12);
+  --kelly-theme-text: #f5f5f5;
+  --kelly-theme-text-soft: #a0a0a0;
+  --kelly-theme-muted: #707070;
+  --kelly-theme-accent: #ffffff;
+  --kelly-theme-accent-bright: #ffffff;
+  --kelly-theme-accent-soft: rgba(255, 255, 255, 0.08);
+  --kelly-theme-accent-faint: rgba(255, 255, 255, 0.04);
+}
+
+/* ------------------------------------------------------------
+   APP SHELL
+   ------------------------------------------------------------ */
+
+[data-kelly-theme="monochrome"] .kelly-app-shell,
+[data-kelly-theme="monochrome"] .kelly-app-main {
+  background: var(--kelly-theme-bg);
+  color: var(--kelly-theme-text);
+}
+
+/* ------------------------------------------------------------
+   SIDEBAR
+   ------------------------------------------------------------ */
+
+[data-kelly-theme="monochrome"] .kelly-sidebar,
+[data-kelly-theme="monochrome"] .kelly-sidebar-header,
+[data-kelly-theme="monochrome"] .kelly-sidebar-nav,
+[data-kelly-theme="monochrome"] .kelly-sidebar-bottom,
+[data-kelly-theme="monochrome"] .kelly-sidebar-level {
+  background: #0b0b0b;
+}
+
+[data-kelly-theme="monochrome"] .kelly-sidebar {
+  border-color: #242424;
+}
+
+[data-kelly-theme="monochrome"] .kelly-sidebar-logo,
+[data-kelly-theme="monochrome"] .kelly-sidebar-word {
+  color: #f5f5f5;
+}
+
+[data-kelly-theme="monochrome"] .kelly-sidebar-link {
+  color: #858585;
+}
+
+[data-kelly-theme="monochrome"] .kelly-sidebar-link:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.055);
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-sidebar-link.active {
+  background: #1b1b1b;
+  color: #ffffff;
+  border-left-color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-sidebar-link.active .kelly-sidebar-icon,
+[data-kelly-theme="monochrome"] .kelly-sidebar-level-name,
+[data-kelly-theme="monochrome"] .kelly-sidebar-xp-fill {
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-sidebar-xp-fill {
+  background: linear-gradient(90deg, #888888, #ffffff);
+}
+
+[data-kelly-theme="monochrome"] .kelly-sidebar-xp-track {
+  background: #292929;
+}
+
+/* ------------------------------------------------------------
+   SHARED TEXT / SURFACES
+   ------------------------------------------------------------ */
+
+[data-kelly-theme="monochrome"] h1,
+[data-kelly-theme="monochrome"] h2,
+[data-kelly-theme="monochrome"] h3,
+[data-kelly-theme="monochrome"] strong {
+  color: var(--kelly-theme-text);
+}
+
+[data-kelly-theme="monochrome"] button,
+[data-kelly-theme="monochrome"] input,
+[data-kelly-theme="monochrome"] textarea,
+[data-kelly-theme="monochrome"] select {
+  color: var(--kelly-theme-text);
+}
+
+[data-kelly-theme="monochrome"] svg {
+  color: currentColor;
+}
+
+/* ------------------------------------------------------------
+   HOME
+   ------------------------------------------------------------ */
+
+[data-kelly-theme="monochrome"] .kelly-home-page,
+[data-kelly-theme="monochrome"] .kelly-home-dashboard {
+  background:
+    radial-gradient(
+      circle at 78% 0%,
+      rgba(255, 255, 255, 0.07),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 12% 82%,
+      rgba(255, 255, 255, 0.025),
+      transparent 36%
+    ),
+    var(--kelly-theme-bg);
+  color: var(--kelly-theme-text);
+}
+
+[data-kelly-theme="monochrome"] .kelly-home-card,
+[data-kelly-theme="monochrome"] .kelly-home-stat-card,
+[data-kelly-theme="monochrome"] .kelly-home-content-card {
+  background: linear-gradient(145deg, #151515, #101010);
+  border-color: #292929;
+  box-shadow:
+    0 14px 36px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.025);
+}
+
+[data-kelly-theme="monochrome"] .kelly-home-welcome h1,
+[data-kelly-theme="monochrome"] .kelly-home-level-number,
+[data-kelly-theme="monochrome"] .kelly-home-stat-value,
+[data-kelly-theme="monochrome"] .kelly-home-note-row strong,
+[data-kelly-theme="monochrome"] .kelly-home-upcoming-copy strong {
+  color: #f7f7f7;
+}
+
+[data-kelly-theme="monochrome"] .kelly-home-welcome h1 span,
+[data-kelly-theme="monochrome"] .kelly-home-level-next strong,
+[data-kelly-theme="monochrome"] .kelly-home-link,
+[data-kelly-theme="monochrome"] .kelly-home-level-bottom strong {
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-home-welcome p,
+[data-kelly-theme="monochrome"] .kelly-home-level-next span,
+[data-kelly-theme="monochrome"] .kelly-home-level-bottom,
+[data-kelly-theme="monochrome"] .kelly-home-stat-label,
+[data-kelly-theme="monochrome"] .kelly-home-section-heading p {
+  color: #858585;
+}
+
+[data-kelly-theme="monochrome"] .kelly-home-section-label,
+[data-kelly-theme="monochrome"] .kelly-home-stat-name {
+  color: #8f8f8f;
+}
+
+[data-kelly-theme="monochrome"] .kelly-home-trophy,
+[data-kelly-theme="monochrome"] .kelly-home-stat-icon,
+[data-kelly-theme="monochrome"] .kelly-home-feature-icon,
+[data-kelly-theme="monochrome"] .kelly-home-feature-icon.blue,
+[data-kelly-theme="monochrome"] .kelly-home-feature-icon.pink,
+[data-kelly-theme="monochrome"] .kelly-home-feature-icon.green {
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-home-xp-track {
+  background: #282828;
+}
+
+[data-kelly-theme="monochrome"] .kelly-home-xp-fill {
+  background: linear-gradient(90deg, #8a8a8a, #ffffff);
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.18);
+}
+
+[data-kelly-theme="monochrome"] .kelly-home-feature,
+[data-kelly-theme="monochrome"] .kelly-home-final {
+  background: linear-gradient(145deg, #151515, #0d0d0d);
+  border-color: #292929;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.28);
+}
+
+[data-kelly-theme="monochrome"] .kelly-home-feature:hover {
+  border-color: #555555;
+}
+
+[data-kelly-theme="monochrome"] .kelly-home-status-dot {
+  background: #ffffff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.45);
+}
+
+[data-kelly-theme="monochrome"] .kelly-home-eyebrow {
+  color: #a0a0a0;
+}
+
+[data-kelly-theme="monochrome"] .kelly-home-section-heading h2,
+[data-kelly-theme="monochrome"] .kelly-home-section-heading h2 span,
+[data-kelly-theme="monochrome"] .kelly-home-final-copy h2,
+[data-kelly-theme="monochrome"] .kelly-home-final-copy h2 em {
+  color: #f5f5f5;
+}
+
+[data-kelly-theme="monochrome"] .kelly-home-primary {
+  background: linear-gradient(135deg, #eeeeee, #ffffff);
+  color: #080808;
+  border-color: transparent;
+  box-shadow: 0 10px 26px rgba(255, 255, 255, 0.12);
+}
+
+/* ------------------------------------------------------------
+   NOTES / STUDY / CONTENT CARDS
+   ------------------------------------------------------------ */
+
+[data-kelly-theme="monochrome"] .kelly-notes-page,
+[data-kelly-theme="monochrome"] .kelly-notes-page-react,
+[data-kelly-theme="monochrome"] .kelly-study-page,
+[data-kelly-theme="monochrome"] .kelly-flashcards-page,
+[data-kelly-theme="monochrome"] .kelly-quick-quiz-page {
+  background:
+    radial-gradient(
+      circle at 15% 0%,
+      rgba(255, 255, 255, 0.055),
+      transparent 32%
+    ),
+    var(--kelly-theme-bg);
+  color: var(--kelly-theme-text);
+}
+
+[data-kelly-theme="monochrome"] .kelly-notes-list,
+[data-kelly-theme="monochrome"] .kelly-note-reader,
+[data-kelly-theme="monochrome"] .kelly-note-detail,
+[data-kelly-theme="monochrome"] .kelly-flashcards-stage,
+[data-kelly-theme="monochrome"] .kelly-flashcards-results {
+  background: var(--kelly-theme-surface);
+  border-color: var(--kelly-theme-border);
+}
+
+[data-kelly-theme="monochrome"] .kelly-note-item:hover,
+[data-kelly-theme="monochrome"] .kelly-note-item.active {
+  background: rgba(255, 255, 255, 0.055);
+  border-color: #505050;
+}
+
+[data-kelly-theme="monochrome"] .kelly-concept-chip,
+[data-kelly-theme="monochrome"] .kelly-definition-card,
+[data-kelly-theme="monochrome"] .kelly-takeaway {
+  background: #171717;
+  border-color: #303030;
+  color: #eeeeee;
+}
+
+/* ------------------------------------------------------------
+   QUIZZES
+   ------------------------------------------------------------ */
+
+[data-kelly-theme="monochrome"] .qz-page,
+[data-kelly-theme="monochrome"] .qz-taking {
+  background:
+    radial-gradient(
+      circle at 18% 0%,
+      rgba(255, 255, 255, 0.06),
+      transparent 34%
+    ),
+    var(--kelly-theme-bg);
+  color: var(--kelly-theme-text);
+}
+
+[data-kelly-theme="monochrome"] .qz-btn,
+[data-kelly-theme="monochrome"] .qz-start-button,
+[data-kelly-theme="monochrome"] .kelly-flashcards-complete-button {
+  background: linear-gradient(135deg, #e8e8e8, #ffffff);
+  color: #080808;
+  border-color: transparent;
+  box-shadow: 0 10px 26px rgba(255, 255, 255, 0.10);
+}
+
+[data-kelly-theme="monochrome"] .qz-create-panel,
+[data-kelly-theme="monochrome"] .qz-question-card,
+[data-kelly-theme="monochrome"] .kelly-flashcards-result-card {
+  background: linear-gradient(145deg, #151515, #0e0e0e);
+  border-color: #303030;
+  box-shadow:
+    0 20px 46px rgba(0, 0, 0, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.025);
+}
+
+[data-kelly-theme="monochrome"] .qz-progress-track {
+  background: #292929;
+}
+
+[data-kelly-theme="monochrome"] .qz-progress-fill {
+  background: linear-gradient(90deg, #8a8a8a, #ffffff);
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.20);
+}
+
+[data-kelly-theme="monochrome"] .qz-answer-list > * {
+  background: #151515;
+  border-color: #303030;
+  color: #eeeeee;
+}
+
+[data-kelly-theme="monochrome"] .qz-answer-list > *:hover:not(:disabled) {
+  background: #202020;
+  border-color: #5a5a5a;
+}
+
+[data-kelly-theme="monochrome"] .qz-answer-letter,
+[data-kelly-theme="monochrome"] .qz-history-icon {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: #3c3c3c;
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .qz-history-xp,
+[data-kelly-theme="monochrome"] .qz-answer-result {
+  color: #ffffff;
+}
+
+/* ------------------------------------------------------------
+   LISTEN / GAMES / FRIENDS / CHAT / TIMER / CALENDAR
+   ------------------------------------------------------------ */
+
+[data-kelly-theme="monochrome"] .kelly-listen-page,
+[data-kelly-theme="monochrome"] .kelly-games-page,
+[data-kelly-theme="monochrome"] .kelly-friends-page,
+[data-kelly-theme="monochrome"] .kelly-friend-profile-page,
+[data-kelly-theme="monochrome"] .kelly-friend-chat-page,
+[data-kelly-theme="monochrome"] .kelly-timer-page,
+[data-kelly-theme="monochrome"] .kelly-calendar-page {
+  background:
+    radial-gradient(
+      circle at 80% 0%,
+      rgba(255, 255, 255, 0.055),
+      transparent 34%
+    ),
+    var(--kelly-theme-bg);
+  color: var(--kelly-theme-text);
+}
+
+/* Common elevated surfaces used across these pages */
+[data-kelly-theme="monochrome"] .kelly-listen-card,
+[data-kelly-theme="monochrome"] .kelly-game-card,
+[data-kelly-theme="monochrome"] .kelly-friend-card,
+[data-kelly-theme="monochrome"] .kelly-profile-card,
+[data-kelly-theme="monochrome"] .kelly-chat-card,
+[data-kelly-theme="monochrome"] .kelly-timer-card,
+[data-kelly-theme="monochrome"] .kelly-calendar-card {
+  background: linear-gradient(145deg, #151515, #0e0e0e);
+  border-color: #2d2d2d;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
+}
+
+/* ------------------------------------------------------------
+   CUSTOMISATION / THEME SETTINGS
+   ------------------------------------------------------------ */
+
+[data-kelly-theme="monochrome"] .kelly-customisation-page,
+[data-kelly-theme="monochrome"] .kelly-theme-page {
+  background:
+    radial-gradient(
+      circle at 82% 0%,
+      rgba(255, 255, 255, 0.055),
+      transparent 30%
+    ),
+    var(--kelly-theme-bg);
+  color: var(--kelly-theme-text);
+}
+
+[data-kelly-theme="monochrome"] .kelly-customisation-card,
+[data-kelly-theme="monochrome"] .kelly-theme-card {
+  background: #131313;
+  border-color: #2a2a2a;
+}
+
+[data-kelly-theme="monochrome"] .kelly-customisation-clickable:hover,
+[data-kelly-theme="monochrome"] .kelly-theme-card:hover {
+  border-color: #555555;
+  background-color: #191919;
+}
+
+[data-kelly-theme="monochrome"] .kelly-customisation-current,
+[data-kelly-theme="monochrome"] .kelly-theme-back:hover,
+[data-kelly-theme="monochrome"] .kelly-customisation-clickable:hover .kelly-customisation-chevron {
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-customisation-placeholder {
+  background: rgba(255, 255, 255, 0.045);
+  border-color: #333333;
+  color: #999999;
+}
+
+[data-kelly-theme="monochrome"] .kelly-theme-preview-monochrome {
+  background:
+    radial-gradient(
+      circle at 78% 10%,
+      rgba(255, 255, 255, 0.08),
+      transparent 40%
+    ),
+    #050505;
+}
+
+[data-kelly-theme="monochrome"] .kelly-theme-preview-monochrome .kelly-theme-preview-sidebar {
+  background: #0b0b0b;
+  border-right-color: #292929;
+}
+
+[data-kelly-theme="monochrome"] .kelly-theme-preview-monochrome .kelly-theme-preview-line {
+  background: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-theme-preview-monochrome .kelly-theme-preview-card {
+  background: #151515;
+  border-color: #303030;
+}
+
+/* ------------------------------------------------------------
+   GENERIC INTERACTIVE ACCENTS
+   ------------------------------------------------------------ */
+
+[data-kelly-theme="monochrome"] .kelly-note-action,
+[data-kelly-theme="monochrome"] .kelly-notes-new,
+[data-kelly-theme="monochrome"] .kelly-create-note {
+  background: #eeeeee;
+  color: #080808;
+  border-color: transparent;
+}
+
+[data-kelly-theme="monochrome"] .kelly-note-action:hover,
+[data-kelly-theme="monochrome"] .kelly-notes-new:hover,
+[data-kelly-theme="monochrome"] .kelly-create-note:hover {
+  background: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] input:focus,
+[data-kelly-theme="monochrome"] textarea:focus,
+[data-kelly-theme="monochrome"] select:focus {
+  border-color: #777777 !important;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06) !important;
+}
+
+/* KELLY — MONOCHROME THEME PREVIEW FIX */
+
+.kelly-theme-preview-monochrome {
+  background:
+    radial-gradient(
+      circle at 76% 8%,
+      rgba(255, 255, 255, 0.09),
+      transparent 42%
+    ),
+    #050505 !important;
+}
+
+.kelly-theme-preview-monochrome .kelly-theme-preview-sidebar {
+  background: #0b0b0b !important;
+  border-right: 1px solid #292929 !important;
+}
+
+.kelly-theme-preview-monochrome .kelly-theme-preview-content {
+  background: transparent !important;
+}
+
+.kelly-theme-preview-monochrome .kelly-theme-preview-line {
+  background: #ffffff !important;
+}
+
+.kelly-theme-preview-monochrome .kelly-theme-preview-card {
+  background: #151515 !important;
+  border: 1px solid #303030 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.025);
+}
+
+.kelly-theme-preview-monochrome .kelly-theme-preview-card.small {
+  background: #111111 !important;
+  border-color: #282828 !important;
+}
+
+
+/* KELLY — MONOCHROME THEME: PURPLE LEAK FIX */
+
+[data-kelly-theme="monochrome"] .kelly-sidebar-link.active {
+  background: #1b1b1b;
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-sidebar-link.active .kelly-sidebar-icon {
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-notes-page-react .kelly-note-item.active {
+  background: rgba(255, 255, 255, 0.055);
+  border-color: #505050;
+}
+
+[data-kelly-theme="monochrome"] .kelly-friends-tabs button.active {
+  background: #ffffff;
+  color: #050505;
+}
+
+[data-kelly-theme="monochrome"] .kelly-friends-tabs button:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.055);
+}
+
+[data-kelly-theme="monochrome"] .kelly-timer-mode-button.active {
+  background: #ffffff;
+  color: #050505;
+}
+
+[data-kelly-theme="monochrome"] .kelly-timer-friend-option.selected {
+  border-color: #ffffff;
+  background: #181818;
+}
+
+[data-kelly-theme="monochrome"] .kelly-timer-friend-option.selected .kelly-timer-friend-check {
+  border-color: #ffffff;
+  background: #ffffff;
+  color: #050505;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-cell.selected {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-cell.selected .kelly-calendar-day-number {
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-timer-ring-inner span,
+[data-kelly-theme="monochrome"] .kelly-timer-stat-card strong.violet,
+[data-kelly-theme="monochrome"] .kelly-timer-invite,
+[data-kelly-theme="monochrome"] .kelly-impostor-role.normal,
+[data-kelly-theme="monochrome"] .kelly-impostor-toast svg,
+[data-kelly-theme="monochrome"] .kelly-friend-profile-trophy,
+[data-kelly-theme="monochrome"] .kelly-quick-quiz-score,
+[data-kelly-theme="monochrome"] .kelly-quick-quiz-next,
+[data-kelly-theme="monochrome"] .kelly-timed-challenge-points,
+[data-kelly-theme="monochrome"] .kelly-timed-challenge-toast svg,
+[data-kelly-theme="monochrome"] .kelly-friends-ranking-caption strong {
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-timer-invite {
+  background: #181818;
+}
+
+[data-kelly-theme="monochrome"] .kelly-timer-invite:hover {
+  background: #242424;
+}
+
+[data-kelly-theme="monochrome"] .kelly-friends-ranking-caption strong {
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-friends-ranking-caption,
+[data-kelly-theme="monochrome"] .kelly-friends-ranking-caption strong {
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-theme-card:hover {
+  border-color: rgba(255, 255, 255, 0.38);
+}
+
+[data-kelly-theme="monochrome"] .kelly-theme-card-selected {
+  border-color: rgba(255, 255, 255, 0.72);
+  box-shadow:
+    0 14px 34px rgba(0, 0, 0, 0.24),
+    0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+[data-kelly-theme="monochrome"] .kelly-theme-back:hover,
+[data-kelly-theme="monochrome"] .kelly-customisation-clickable:hover .kelly-customisation-chevron {
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-customisation-clickable:hover {
+  background: rgba(255, 255, 255, 0.055);
+}
+
+[data-kelly-theme="monochrome"] .kelly-customisation-clickable:focus-visible {
+  outline-color: rgba(255, 255, 255, 0.55);
+}
+
+
+/* KELLY — MONOCHROME THEME: COMPLETE PURPLE COVERAGE */
+
+/* -- Shared accent / progress ------------------------------- */
+
+[data-kelly-theme="monochrome"] .kelly-xp-progress-fill,
+[data-kelly-theme="monochrome"] .kelly-progress-fill,
+[data-kelly-theme="monochrome"] .kelly-study-progress-fill {
+  background: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-sidebar-progress-fill {
+  background: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-sidebar-progress,
+[data-kelly-theme="monochrome"] .kelly-progress-track {
+  background: #242424;
+}
+
+[data-kelly-theme="monochrome"] .kelly-sidebar-xp,
+[data-kelly-theme="monochrome"] .kelly-xp,
+[data-kelly-theme="monochrome"] .kelly-xp-value {
+  color: #ffffff;
+}
+
+/* -- Sidebar ------------------------------------------------- */
+
+[data-kelly-theme="monochrome"] .kelly-sidebar-link.active {
+  background: #1b1b1b;
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-sidebar-link.active .kelly-sidebar-icon {
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-sidebar-accent,
+[data-kelly-theme="monochrome"] .kelly-sidebar-link::before {
+  background: #ffffff;
+}
+
+/* -- Notes --------------------------------------------------- */
+
+[data-kelly-theme="monochrome"] .kelly-notes-page-react .kelly-note-item.active {
+  background: rgba(255, 255, 255, 0.055);
+  border-color: #505050;
+}
+
+[data-kelly-theme="monochrome"] .kelly-notes-page-react .kelly-note-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+[data-kelly-theme="monochrome"] .kelly-notes-page-react .kelly-notes-search input:focus {
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06);
+}
+
+[data-kelly-theme="monochrome"] .kelly-notes-page-react .kelly-note-action:hover {
+  border-color: rgba(255, 255, 255, 0.45);
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-note-tag {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+}
+
+/* -- Listen -------------------------------------------------- */
+
+[data-kelly-theme="monochrome"] .kelly-listen-action-button.is-primary {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #050505;
+}
+
+[data-kelly-theme="monochrome"] .kelly-listen-action-button.is-primary:hover {
+  background: #e8e8e8;
+  border-color: #e8e8e8;
+}
+
+[data-kelly-theme="monochrome"] .kelly-listen-progress-fill {
+  background: #ffffff;
+}
+
+/* -- Games / Flashcards ------------------------------------- */
+
+[data-kelly-theme="monochrome"] .kelly-games-header-icon,
+[data-kelly-theme="monochrome"] .kelly-last-game-badge svg,
+[data-kelly-theme="monochrome"] .kelly-quick-quiz-score,
+[data-kelly-theme="monochrome"] .kelly-quick-quiz-next,
+[data-kelly-theme="monochrome"] .kelly-timed-challenge-points {
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-game-card:focus-visible,
+[data-kelly-theme="monochrome"] .kelly-flashcards-back:focus-visible,
+[data-kelly-theme="monochrome"] .kelly-flashcard:focus-visible,
+[data-kelly-theme="monochrome"] .kelly-flashcard-action:focus-visible,
+[data-kelly-theme="monochrome"] .kelly-memory-match-back:focus-visible,
+[data-kelly-theme="monochrome"] .kelly-memory-card:focus-visible,
+[data-kelly-theme="monochrome"] .kelly-quick-quiz-back:focus-visible,
+[data-kelly-theme="monochrome"] .kelly-quick-quiz-option:focus-visible {
+  outline-color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-flashcard,
+[data-kelly-theme="monochrome"] .kelly-memory-card {
+  border-color: #404040;
+  box-shadow: 0 0 24px rgba(255, 255, 255, 0.05);
+}
+
+[data-kelly-theme="monochrome"] .kelly-flashcard-title,
+[data-kelly-theme="monochrome"] .kelly-quick-quiz-score {
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-game-primary-button,
+[data-kelly-theme="monochrome"] .kelly-quick-quiz-next,
+[data-kelly-theme="monochrome"] .kelly-timed-challenge-button {
+  background: #ffffff;
+  color: #050505;
+}
+
+[data-kelly-theme="monochrome"] .kelly-timed-challenge-timer svg {
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-timed-challenge-progress-fill {
+  background: #ffffff;
+}
+
+/* -- Friends ------------------------------------------------- */
+
+[data-kelly-theme="monochrome"] .kelly-friends-tabs button.active {
+  background: #ffffff;
+  color: #050505;
+}
+
+[data-kelly-theme="monochrome"] .kelly-friends-tabs button:hover {
+  background: rgba(255, 255, 255, 0.055);
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-friend-add {
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-friend-add:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+[data-kelly-theme="monochrome"] .kelly-ranking-you {
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.07);
+}
+
+[data-kelly-theme="monochrome"] .kelly-ranking-you-avatar {
+  background: #ffffff;
+  color: #050505;
+}
+
+[data-kelly-theme="monochrome"] .kelly-study-session-start:hover {
+  background: rgba(255, 255, 255, 0.055);
+  border-color: #ffffff;
+}
+
+/* -- Timer --------------------------------------------------- */
+
+[data-kelly-theme="monochrome"] .kelly-timer-mode-button.active {
+  background: #ffffff;
+  color: #050505;
+}
+
+[data-kelly-theme="monochrome"] .kelly-timer-custom-fields input:focus,
+[data-kelly-theme="monochrome"] .kelly-timer-subject-row select:focus {
+  border-color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-timer-start {
+  background: #ffffff;
+  color: #050505;
+}
+
+[data-kelly-theme="monochrome"] .kelly-timer-start:hover {
+  background: #e8e8e8;
+}
+
+[data-kelly-theme="monochrome"] .kelly-timer-friends-heading svg {
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-timer-invite {
+  background: #181818;
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-timer-invite:hover {
+  background: #242424;
+}
+
+[data-kelly-theme="monochrome"] .kelly-timer-friend-option.selected {
+  border-color: #ffffff;
+  background: #181818;
+}
+
+[data-kelly-theme="monochrome"] .kelly-timer-friend-option.selected .kelly-timer-friend-check {
+  border-color: #ffffff;
+  background: #ffffff;
+  color: #050505;
+}
+
+[data-kelly-theme="monochrome"] .kelly-timer-ring-inner span,
+[data-kelly-theme="monochrome"] .kelly-timer-stat-card strong.violet {
+  color: #ffffff;
+}
+
+/* -- Calendar ------------------------------------------------ */
+
+[data-kelly-theme="monochrome"] .kelly-calendar-new-event,
+[data-kelly-theme="monochrome"] .kelly-calendar-day-add,
+[data-kelly-theme="monochrome"] .kelly-calendar-add-button {
+  background: #ffffff;
+  color: #050505;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-new-event:hover,
+[data-kelly-theme="monochrome"] .kelly-calendar-day-add:hover,
+[data-kelly-theme="monochrome"] .kelly-calendar-add-button:hover {
+  background: #e8e8e8;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-cell.selected {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-cell.selected .kelly-calendar-day-number {
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-field input:focus,
+[data-kelly-theme="monochrome"] .kelly-calendar-field select:focus,
+[data-kelly-theme="monochrome"] .kelly-calendar-field textarea:focus {
+  border-color: #ffffff;
+}
+
+/* -- Quiz ---------------------------------------------------- */
+
+[data-kelly-theme="monochrome"] .qz-history-icon,
+[data-kelly-theme="monochrome"] .qz-history-xp {
+  color: #ffffff;
+}
+
+/* -- Challenge / Impostor ----------------------------------- */
+
+[data-kelly-theme="monochrome"] .kelly-impostor-role.normal,
+[data-kelly-theme="monochrome"] .kelly-impostor-toast svg,
+[data-kelly-theme="monochrome"] .kelly-timed-challenge-toast svg {
+  color: #ffffff;
+}
+
+/* -- Friend profile / rankings ------------------------------- */
+
+[data-kelly-theme="monochrome"] .kelly-friend-profile-trophy,
+[data-kelly-theme="monochrome"] .kelly-friends-ranking-caption,
+[data-kelly-theme="monochrome"] .kelly-friends-ranking-caption strong {
+  color: #ffffff;
+}
+
+/* -- Legacy/shared purple surfaces --------------------------- */
+
+[data-kelly-theme="monochrome"] .kelly-accent,
+[data-kelly-theme="monochrome"] .kelly-violet,
+[data-kelly-theme="monochrome"] .violet,
+[data-kelly-theme="monochrome"] .purple {
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-accent-bg,
+[data-kelly-theme="monochrome"] .kelly-violet-bg,
+[data-kelly-theme="monochrome"] .purple-bg {
+  background: #ffffff;
+  color: #050505;
+}
+
+[data-kelly-theme="monochrome"] .kelly-accent-border,
+[data-kelly-theme="monochrome"] .kelly-violet-border {
+  border-color: #ffffff;
+}
+
+/* -- Settings / Customisation ------------------------------- */
+
+[data-kelly-theme="monochrome"] .kelly-theme-card:hover {
+  border-color: rgba(255, 255, 255, 0.38);
+}
+
+[data-kelly-theme="monochrome"] .kelly-theme-card-selected {
+  border-color: rgba(255, 255, 255, 0.72);
+  box-shadow:
+    0 14px 34px rgba(0, 0, 0, 0.24),
+    0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+[data-kelly-theme="monochrome"] .kelly-theme-back:hover,
+[data-kelly-theme="monochrome"] .kelly-customisation-clickable:hover .kelly-customisation-chevron {
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-customisation-clickable:hover {
+  background: rgba(255, 255, 255, 0.055);
+}
+
+[data-kelly-theme="monochrome"] .kelly-customisation-clickable:focus-visible {
+  outline-color: rgba(255, 255, 255, 0.55);
+}
+
+
+/* KELLY — MONOCHROME THEME: GAMES LISTEN CALENDAR FINAL */
+
+/* -- GAMES --------------------------------------------------- */
+
+[data-kelly-theme="monochrome"] .kelly-games-header-icon,
+[data-kelly-theme="monochrome"] .kelly-last-game-badge svg,
+[data-kelly-theme="monochrome"] .kelly-flashcard-title,
+[data-kelly-theme="monochrome"] .kelly-quick-quiz-score,
+[data-kelly-theme="monochrome"] .kelly-quick-quiz-next,
+[data-kelly-theme="monochrome"] .kelly-timed-challenge-points {
+  color: #ffffff !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-game-card:focus-visible,
+[data-kelly-theme="monochrome"] .kelly-flashcards-back:focus-visible,
+[data-kelly-theme="monochrome"] .kelly-flashcard:focus-visible,
+[data-kelly-theme="monochrome"] .kelly-flashcard-action:focus-visible,
+[data-kelly-theme="monochrome"] .kelly-memory-match-back:focus-visible,
+[data-kelly-theme="monochrome"] .kelly-memory-card:focus-visible,
+[data-kelly-theme="monochrome"] .kelly-quick-quiz-back:focus-visible,
+[data-kelly-theme="monochrome"] .kelly-quick-quiz-option:focus-visible {
+  outline-color: #ffffff !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-flashcard,
+[data-kelly-theme="monochrome"] .kelly-memory-card {
+  border-color: #404040 !important;
+  box-shadow: 0 0 28px rgba(255, 255, 255, 0.05) !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-flashcard-action,
+[data-kelly-theme="monochrome"] .kelly-quick-quiz-option,
+[data-kelly-theme="monochrome"] .kelly-timed-challenge-option {
+  border-color: #303030;
+}
+
+[data-kelly-theme="monochrome"] .kelly-game-card.active,
+[data-kelly-theme="monochrome"] .kelly-flashcard.active,
+[data-kelly-theme="monochrome"] .kelly-quick-quiz-option.selected,
+[data-kelly-theme="monochrome"] .kelly-timed-challenge-option.selected {
+  border-color: #ffffff !important;
+  background: #181818 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-game-primary-button,
+[data-kelly-theme="monochrome"] .kelly-quick-quiz-next,
+[data-kelly-theme="monochrome"] .kelly-timed-challenge-button,
+[data-kelly-theme="monochrome"] .kelly-flashcard-primary {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #050505 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-game-primary-button:hover,
+[data-kelly-theme="monochrome"] .kelly-quick-quiz-next:hover,
+[data-kelly-theme="monochrome"] .kelly-timed-challenge-button:hover,
+[data-kelly-theme="monochrome"] .kelly-flashcard-primary:hover {
+  background: #e8e8e8 !important;
+  border-color: #e8e8e8 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-timed-challenge-timer svg,
+[data-kelly-theme="monochrome"] .kelly-timed-challenge-toast svg {
+  color: #ffffff !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-timed-challenge-progress-fill {
+  background: #ffffff !important;
+}
+
+/* -- LISTEN -------------------------------------------------- */
+
+[data-kelly-theme="monochrome"] .kelly-listen-action-button.is-primary,
+[data-kelly-theme="monochrome"] .kelly-listen-primary,
+[data-kelly-theme="monochrome"] .kelly-listen-save-button,
+[data-kelly-theme="monochrome"] .kelly-listen-record-button {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #050505 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-listen-action-button.is-primary:hover,
+[data-kelly-theme="monochrome"] .kelly-listen-primary:hover,
+[data-kelly-theme="monochrome"] .kelly-listen-save-button:hover,
+[data-kelly-theme="monochrome"] .kelly-listen-record-button:hover {
+  background: #e8e8e8 !important;
+  border-color: #e8e8e8 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-listen-progress-fill,
+[data-kelly-theme="monochrome"] .kelly-listen-progress-bar > div {
+  background: #ffffff !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-listen-icon,
+[data-kelly-theme="monochrome"] .kelly-listen-header-icon,
+[data-kelly-theme="monochrome"] .kelly-listen-status-icon {
+  color: #ffffff !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-listen-tab.active,
+[data-kelly-theme="monochrome"] .kelly-listen-mode.active {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #050505 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-listen-tab:hover,
+[data-kelly-theme="monochrome"] .kelly-listen-mode:hover {
+  background: rgba(255, 255, 255, 0.055) !important;
+  color: #ffffff !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-listen-card,
+[data-kelly-theme="monochrome"] .kelly-listen-recording-card {
+  border-color: #303030;
+}
+
+/* -- CALENDAR ------------------------------------------------ */
+
+[data-kelly-theme="monochrome"] .kelly-calendar-new-event,
+[data-kelly-theme="monochrome"] .kelly-calendar-day-add,
+[data-kelly-theme="monochrome"] .kelly-calendar-add-button {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #050505 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-new-event:hover,
+[data-kelly-theme="monochrome"] .kelly-calendar-day-add:hover,
+[data-kelly-theme="monochrome"] .kelly-calendar-add-button:hover {
+  background: #e8e8e8 !important;
+  border-color: #e8e8e8 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-cell.selected {
+  border-color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-cell.selected .kelly-calendar-day-number {
+  color: #ffffff !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-field input:focus,
+[data-kelly-theme="monochrome"] .kelly-calendar-field select:focus,
+[data-kelly-theme="monochrome"] .kelly-calendar-field textarea:focus {
+  border-color: #ffffff !important;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06) !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-event,
+[data-kelly-theme="monochrome"] .kelly-calendar-event.selected {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #050505 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-event:hover {
+  background: #e8e8e8 !important;
+  border-color: #e8e8e8 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-nav button:hover,
+[data-kelly-theme="monochrome"] .kelly-calendar-view-toggle button.active {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.055) !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-header-icon,
+[data-kelly-theme="monochrome"] .kelly-calendar-nav-icon {
+  color: #ffffff !important;
+}
+
+
+/* KELLY — MONOCHROME THEME: ACTUAL GAMES LISTEN CALENDAR SELECTORS */
+
+/* -- LISTEN — actual purple selectors ----------------------- */
+
+[data-kelly-theme="monochrome"] .kelly-listen-action-button.is-primary,
+[data-kelly-theme="monochrome"] .kelly-listen-continue-button {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #050505 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-listen-action-button.is-primary:hover,
+[data-kelly-theme="monochrome"] .kelly-listen-continue-button:hover {
+  background: #e8e8e8 !important;
+  border-color: #e8e8e8 !important;
+  color: #050505 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-listen-xp-toast {
+  border-color: rgba(255, 255, 255, 0.24) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+}
+
+/* -- GAMES — actual purple selectors ------------------------ */
+
+[data-kelly-theme="monochrome"] .kelly-games-header-icon,
+[data-kelly-theme="monochrome"] .kelly-game-xp,
+[data-kelly-theme="monochrome"] .kelly-last-game-badge svg,
+[data-kelly-theme="monochrome"] .kelly-flashcard-answer {
+  color: #ffffff !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-game-card:focus-visible,
+[data-kelly-theme="monochrome"] .kelly-flashcards-back:focus-visible,
+[data-kelly-theme="monochrome"] .kelly-flashcard:focus-visible,
+[data-kelly-theme="monochrome"] .kelly-flashcard-action:focus-visible,
+[data-kelly-theme="monochrome"] .kelly-memory-match-back:focus-visible,
+[data-kelly-theme="monochrome"] .kelly-memory-card:focus-visible {
+  outline-color: #ffffff !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-flashcard.flipped {
+  background: #181818 !important;
+  border-color: #ffffff !important;
+  box-shadow: 0 0 28px rgba(255, 255, 255, 0.05) !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-flashcards-complete-button {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #050505 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-flashcards-complete-button:hover {
+  background: #e8e8e8 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-last-game-badge {
+  border-color: #303030 !important;
+  background: #151515 !important;
+}
+
+/* Memory Match */
+
+[data-kelly-theme="monochrome"] .kelly-memory-card.flipped {
+  background: #181818 !important;
+  border-color: #ffffff !important;
+  box-shadow: 0 0 24px rgba(255, 255, 255, 0.05) !important;
+}
+
+/* -- CALENDAR — actual purple selectors --------------------- */
+
+[data-kelly-theme="monochrome"] .kelly-calendar-new-event,
+[data-kelly-theme="monochrome"] .kelly-calendar-day-add,
+[data-kelly-theme="monochrome"] .kelly-calendar-add-button {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #050505 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-new-event:hover,
+[data-kelly-theme="monochrome"] .kelly-calendar-day-add:hover,
+[data-kelly-theme="monochrome"] .kelly-calendar-add-button:hover {
+  background: #e8e8e8 !important;
+  border-color: #e8e8e8 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-cell.selected {
+  border-color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-cell.selected .kelly-calendar-day-number {
+  color: #ffffff !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-field input:focus,
+[data-kelly-theme="monochrome"] .kelly-calendar-field select:focus,
+[data-kelly-theme="monochrome"] .kelly-calendar-field textarea:focus {
+  border-color: #ffffff !important;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06) !important;
+}
+
+
+/* KELLY — MONOCHROME THEME: LISTEN CALENDAR EXACT PURPLE CLEANUP */
+
+/* -- LISTEN -------------------------------------------------- */
+
+[data-kelly-theme="monochrome"] .kelly-listen-action-button.is-primary {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #050505 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-listen-action-button.is-primary:hover {
+  background: #e8e8e8 !important;
+  border-color: #e8e8e8 !important;
+  color: #050505 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-listen-xp-toast {
+  border-color: rgba(255, 255, 255, 0.24) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-listen-continue-button {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #050505 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-listen-continue-button:hover {
+  background: #e8e8e8 !important;
+  border-color: #e8e8e8 !important;
+  color: #050505 !important;
+}
+
+/* -- CALENDAR ------------------------------------------------ */
+
+[data-kelly-theme="monochrome"] .kelly-calendar-new-event {
+  background: #ffffff !important;
+  color: #050505 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-new-event:hover {
+  background: #e8e8e8 !important;
+  color: #050505 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-cell.selected {
+  border-color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-cell.selected .kelly-calendar-day-number {
+  color: #ffffff !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-day-add {
+  background: #ffffff !important;
+  color: #050505 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-day-add:hover {
+  background: #e8e8e8 !important;
+  color: #050505 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-field input:focus,
+[data-kelly-theme="monochrome"] .kelly-calendar-field select:focus,
+[data-kelly-theme="monochrome"] .kelly-calendar-field textarea:focus {
+  border-color: #ffffff !important;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06) !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-add-button {
+  background: #ffffff !important;
+  color: #050505 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-add-button:hover {
+  background: #e8e8e8 !important;
+  color: #050505 !important;
+}
+
+
+/* KELLY — MONOCHROME THEME: RECORDINGS + CALENDAR SURFACES */
+
+[data-kelly-theme="monochrome"] .kelly-listen-recording-row {
+  background: #121212 !important;
+  border-color: #2a2a2a !important;
+  color: #f5f5f5 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-listen-recording-row:hover {
+  background: #181818 !important;
+  border-color: #3a3a3a !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-listen-recording-icon {
+  background: rgba(255, 255, 255, 0.07) !important;
+  color: #ffffff !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-listen-recording-info strong {
+  color: #f5f5f5 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-listen-recording-meta {
+  color: #a0a0a0 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-cell {
+  background: #121212 !important;
+  color: #f5f5f5 !important;
+  border-color: transparent !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-cell:hover {
+  background: #1b1b1b !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-cell.empty {
+  background: transparent !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-cell.selected {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: #ffffff !important;
+}
+
+
+/* KELLY — MONOCHROME THEME: CALENDAR EVENT SURFACE */
+
+[data-kelly-theme="monochrome"] .kelly-calendar-event-card {
+  background: #121212 !important;
+  border-color: #2a2a2a !important;
+  color: #f5f5f5 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-event-card:hover {
+  background: #181818 !important;
+  border-color: #3a3a3a !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-event-top > strong {
+  color: #f5f5f5 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-event-card p {
+  color: #a0a0a0 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-event-actions button {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #a0a0a0 !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-calendar-event-actions button:hover {
+  background: rgba(255, 255, 255, 0.09) !important;
+  color: #ffffff !important;
+}
+
+
+/* KELLY — MONOCHROME: HOME QUICK ACTION ICONS */
+
+[data-kelly-theme="monochrome"] .kelly-home-page .kelly-home-quick-icon {
+  color: #ffffff !important;
+}
+
+/* KELLY — MONOCHROME: HOME QUICK ACTION ICON BACKGROUNDS */
+
+[data-kelly-theme="monochrome"] .kelly-home-page .kelly-home-quick-icon {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+}
+
+/* KELLY — MONOCHROME: HOME QUICK ACTION CARD BORDERS */
+
+[data-kelly-theme="monochrome"] .kelly-home-page .kelly-home-quick-action {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-home-page .kelly-home-quick-action:hover {
+  border-color: rgba(255, 255, 255, 0.22) !important;
+}
+
+/* KELLY — MONOCHROME: HOME QUICK ACTION CARD SURFACE */
+
+[data-kelly-theme="monochrome"] .kelly-home-page .kelly-home-quick-action {
+  background: var(--kelly-theme-surface) !important;
+  border-color: var(--kelly-theme-border-soft) !important;
+  color: var(--kelly-theme-text) !important;
+}
+
+[data-kelly-theme="monochrome"] .kelly-home-page .kelly-home-quick-action:hover {
+  background: var(--kelly-theme-surface-2) !important;
+  border-color: var(--kelly-theme-border) !important;
+  color: var(--kelly-theme-text) !important;
+}
+
+/* KELLY — MONOCHROME: HOME QUIZ XP */
+
+[data-kelly-theme="monochrome"] .kelly-home-page .kelly-home-quiz-xp {
+  color: var(--kelly-theme-accent-bright) !important;
+}
+
+/* KELLY — MONOCHROME: CALENDAR DETAIL CARD */
+
+[data-kelly-theme="monochrome"] .kelly-calendar-detail-card {
+  background: var(--kelly-theme-surface) !important;
+  border-color: var(--kelly-theme-border) !important;
+  color: var(--kelly-theme-text) !important;
+}

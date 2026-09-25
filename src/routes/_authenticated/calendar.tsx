@@ -1,4 +1,5 @@
 ﻿import { createFileRoute } from "@tanstack/react-router";
+import { useKellyTheme } from "@/components/kelly/app-shell";
 import { useMemo, useState } from "react";
 import {
   CalendarDays,
@@ -40,6 +41,21 @@ const CATEGORY_BG: Record<Category, string> = {
   Class: "rgba(124,92,255,.10)",
   Deadline: "rgba(236,72,153,.10)",
   Study: "rgba(34,197,94,.10)",
+};
+const MONOCHROME_CATEGORY_COLORS: Record<Category, string> = {
+  Assignment: "#ffffff",
+  Exam: "#ffffff",
+  Class: "#ffffff",
+  Deadline: "#ffffff",
+  Study: "#ffffff",
+};
+
+const MONOCHROME_CATEGORY_BG: Record<Category, string> = {
+  Assignment: "rgba(255,255,255,.055)",
+  Exam: "rgba(255,255,255,.065)",
+  Class: "rgba(255,255,255,.055)",
+  Deadline: "rgba(255,255,255,.06)",
+  Study: "rgba(255,255,255,.05)",
 };
 
 const SEEDED_EVENTS: CalendarEvent[] = [
@@ -119,6 +135,17 @@ function formatPanelDate(key: string) {
 }
 
 function CalendarPage() {
+  const { theme } = useKellyTheme();
+
+  const categoryColors =
+    theme === "monochrome"
+      ? MONOCHROME_CATEGORY_COLORS
+      : CATEGORY_COLORS;
+
+  const categoryBackgrounds =
+    theme === "monochrome"
+      ? MONOCHROME_CATEGORY_BG
+      : CATEGORY_BG;
   const today = todayKey();
 
   const [viewDate, setViewDate] = useState(() => {
@@ -329,7 +356,7 @@ function CalendarPage() {
                         key={event.id}
                         className="kelly-calendar-event-dot"
                         style={{
-                          background: CATEGORY_COLORS[event.category],
+                          background: categoryColors[event.category],
                         }}
                       />
                     ))}
@@ -344,7 +371,7 @@ function CalendarPage() {
               <span key={item}>
                 <i
                   style={{
-                    background: CATEGORY_COLORS[item],
+                    background: categoryColors[item],
                   }}
                 />
                 {item}
@@ -379,8 +406,8 @@ function CalendarPage() {
                   key={event.id}
                   className="kelly-calendar-event-card"
                   style={{
-                    background: CATEGORY_BG[event.category],
-                    borderColor: `${CATEGORY_COLORS[event.category]}33`,
+                    background: categoryBackgrounds[event.category],
+                    borderColor: `${categoryColors[event.category]}33`,
                   }}
                 >
                   <div className="kelly-calendar-event-top">
@@ -408,7 +435,7 @@ function CalendarPage() {
 
                   <div
                     className="kelly-calendar-event-time"
-                    style={{ color: CATEGORY_COLORS[event.category] }}
+                    style={{ color: categoryColors[event.category] }}
                   >
                     <Clock3 size={14} />
                     {event.time}
@@ -416,7 +443,7 @@ function CalendarPage() {
 
                   <div
                     className="kelly-calendar-event-category"
-                    style={{ color: CATEGORY_COLORS[event.category] }}
+                    style={{ color: categoryColors[event.category] }}
                   >
                     {event.category}
                   </div>
@@ -538,3 +565,5 @@ function CalendarPage() {
     </div>
   );
 }
+
+

@@ -1,6 +1,7 @@
 ﻿import {
   createContext,
   useContext,
+  useEffect,
   useState,
   type ReactNode,
 } from "react";
@@ -14,6 +15,28 @@ export type KellyXPContext = {
 };
 
 const KellyXPContext = createContext<KellyXPContext | null>(null);
+
+export type KellyTheme = "original" | "aurora" | "monochrome";
+
+export type KellyThemeContext = {
+  theme: KellyTheme;
+  setTheme: (theme: KellyTheme) => void;
+};
+
+export const KELLY_THEME_STORAGE_KEY = "kelly-theme";
+
+const KellyThemeContext =
+  createContext<KellyThemeContext | null>(null);
+
+export function useKellyTheme() {
+  const context = useContext(KellyThemeContext);
+
+  if (!context) {
+    throw new Error("useKellyTheme must be used inside AppShell");
+  }
+
+  return context;
+}
 
 // Shared across KellySidebar (the one true toggle button lives inside
 // it) and AppShell (the dark scrim behind the expanded overlay, which
@@ -74,6 +97,26 @@ export function AppShell({
 }: AppShellProps) {
   const [collapsed, setCollapsed] = useState(getInitialCollapsed);
 
+  const [theme, setTheme] = useState<KellyTheme>(() => {
+    if (typeof window === "undefined") {
+      return "original";
+    }
+
+    const stored = window.localStorage.getItem(
+      KELLY_THEME_STORAGE_KEY,
+    );
+
+    return stored === "aurora" || stored === "monochrome" ? stored : "original";
+  });
+
+  useEffect(() => {
+    document.documentElement.dataset.kellyTheme = theme;
+    window.localStorage.setItem(
+      KELLY_THEME_STORAGE_KEY,
+      theme,
+    );
+  }, [theme]);
+
   const [xp, setXP] = useState(() => {
     if (typeof window === "undefined") {
       return KELLY_INITIAL_XP;
@@ -113,8 +156,14 @@ export function AppShell({
     setCollapsed,
   };
 
+  const themeContext: KellyThemeContext = {
+    theme,
+    setTheme,
+  };
+
   return (
     <KellyXPContext.Provider value={xpContext}>
+      <KellyThemeContext.Provider value={themeContext}>
       <KellySidebarUIContext.Provider value={sidebarUIContext}>
         <div
           className={`kelly-app-shell kelly-mood-${mood}`}
@@ -138,6 +187,7 @@ export function AppShell({
           </main>
         </div>
       </KellySidebarUIContext.Provider>
+    </KellyThemeContext.Provider>
     </KellyXPContext.Provider>
   );
 }
@@ -156,4 +206,7 @@ export function PageIntro({
     </div>
   );
 }
+
+
+
 

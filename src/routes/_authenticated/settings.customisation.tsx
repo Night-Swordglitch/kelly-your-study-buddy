@@ -1,10 +1,12 @@
-﻿import { createFileRoute } from "@tanstack/react-router";
+﻿import { createFileRoute, useNavigate } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_authenticated/settings/customisation")({
   component: CustomisationPage,
 });
 
 function CustomisationPage() {
+  const navigate = useNavigate();
+
   return (
     <div className="kelly-customisation-page">
       <header className="kelly-customisation-header">
@@ -21,27 +23,38 @@ function CustomisationPage() {
         <section className="kelly-customisation-section">
           <div className="kelly-customisation-section-header">
             <h2>Appearance</h2>
-            <p>Choose the overall visual style of KELLY.</p>
+            <p>Choose how KELLY looks and feels.</p>
           </div>
 
           <div className="kelly-customisation-card">
-            <div className="kelly-customisation-row">
+            <button
+              type="button"
+              className="kelly-customisation-row kelly-customisation-clickable"
+              onClick={() => navigate({ to: "/settings/theme" })}
+            >
               <div>
                 <strong>Theme</strong>
-                <span>Choose the overall theme for KELLY.</span>
+                <span>
+                  Choose the overall visual style of KELLY.
+                </span>
               </div>
 
-              <div className="kelly-customisation-placeholder">
-                Coming soon
+              <div className="kelly-customisation-row-right">
+                <span className="kelly-customisation-current">
+                  KELLY Original
+                </span>
+                <span className="kelly-customisation-chevron">›</span>
               </div>
-            </div>
+            </button>
 
             <div className="kelly-customisation-divider" />
 
             <div className="kelly-customisation-row">
               <div>
                 <strong>Accent colour</strong>
-                <span>Choose the colour used for highlights and actions.</span>
+                <span>
+                  Choose the colour used for highlights and actions.
+                </span>
               </div>
 
               <div className="kelly-customisation-placeholder">
