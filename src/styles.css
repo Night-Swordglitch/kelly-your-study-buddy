@@ -8750,6 +8750,29 @@
   border: 1px solid #263d7a;
 }
 
+.kelly-theme-preview-rose {
+  background:
+    radial-gradient(
+      circle at 75% 10%,
+      rgba(236, 72, 153, 0.18),
+      transparent 42%
+    ),
+    #0d070b;
+}
+
+.kelly-theme-preview-rose .kelly-theme-preview-sidebar {
+  background: rgba(17, 9, 15, 0.88);
+  border-right: 1px solid rgba(244, 114, 182, 0.22);
+}
+
+.kelly-theme-preview-rose .kelly-theme-preview-line {
+  background: #ec4899;
+}
+
+.kelly-theme-preview-rose .kelly-theme-preview-card {
+  background: #1a0f15;
+  border: 1px solid #4a2435;
+}
 .kelly-theme-card-info {
   min-height: 58px;
   padding: 13px 8px 5px;
@@ -8848,5 +8871,3 @@
   color: #a78bfa;
   transform: translateX(2px);
 }
-
-
