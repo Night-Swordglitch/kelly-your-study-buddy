@@ -93,7 +93,7 @@ const INITIAL_NOTES: Note[] = [
       "Roots",
     ],
     keyPoints: [
-      "The standard form of a quadratic equation is ax² + bx + c = 0.",
+      "The standard form of a quadratic equation is axÂ² + bx + c = 0.",
       "Factorisation can be used when the quadratic can be split into suitable factors.",
       "The quadratic formula works for any quadratic equation.",
       "The discriminant helps determine the number and type of roots.",
@@ -108,7 +108,7 @@ const INITIAL_NOTES: Note[] = [
       {
         term: "Discriminant",
         definition:
-          "The expression b² - 4ac, which indicates the nature of the roots.",
+          "The expression bÂ² - 4ac, which indicates the nature of the roots.",
       },
       {
         term: "Root",
@@ -125,7 +125,7 @@ const INITIAL_NOTES: Note[] = [
   },
   {
     id: "ww2-causes",
-    title: "World War II — Causes",
+    title: "World War II â€” Causes",
     subject: "History",
     chapter: "Chapter 12",
     date: "2026-09-08",
@@ -207,7 +207,7 @@ export function NotesPage() {
 
     async function loadNotes() {
       try {
-        const user = getCurrentUser();
+        const user = await getCurrentUser();
 
         if (!user) {
           if (!cancelled) {
@@ -274,7 +274,7 @@ export function NotesPage() {
   const handleDelete = async () => {
     if (!selectedNoteId) return;
 
-    const user = getCurrentUser();
+    const user = await getCurrentUser();
 
     if (!user) return;
 
@@ -352,7 +352,7 @@ export function NotesPage() {
                 </div>
 
                 <span className="kelly-note-chevron" aria-hidden="true">
-                  ›
+                  â€º
                 </span>
               </button>
             ))}
@@ -386,9 +386,9 @@ export function NotesPage() {
                   <span className={metaSubjectClass(selectedNote.color)}>
                     {selectedNote.subject}
                   </span>
-                  {" · "}
+                  {" Â· "}
                   {selectedNote.chapter}
-                  {" · "}
+                  {" Â· "}
                   {selectedNote.date}
                 </div>
               </div>
@@ -408,7 +408,7 @@ export function NotesPage() {
                   className="kelly-note-action kelly-note-delete"
                   onClick={handleDelete}
                 >
-                  <span aria-hidden="true">×</span>
+                  <span aria-hidden="true">Ã—</span>
                   Delete
                 </button>
               </div>
