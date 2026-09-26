@@ -1,4 +1,11 @@
-﻿import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { getCurrentUser } from "@/lib/firebase";
+import {
+  deleteUserNote,
+  KellyNote,
+  loadUserNotes,
+  seedUserNotes,
+} from "@/lib/kelly-notes";
 
 type NoteColor = "green" | "blue" | "orange";
 
@@ -101,7 +108,7 @@ const INITIAL_NOTES: Note[] = [
       {
         term: "Discriminant",
         definition:
-          "The expression b² − 4ac, which indicates the nature of the roots.",
+          "The expression b² - 4ac, which indicates the nature of the roots.",
       },
       {
         term: "Root",
@@ -173,10 +180,78 @@ function metaSubjectClass(color: NoteColor) {
   return `meta-subject-${color}`;
 }
 
+function normalizeNote(note: KellyNote): Note {
+  return {
+    id: note.id,
+    title: note.title,
+    subject: note.subject,
+    chapter: note.chapter,
+    date: note.date,
+    color: note.color,
+    summary: note.summary,
+    keyConcepts: note.keyConcepts,
+    keyPoints: note.keyPoints,
+    definitions: note.definitions,
+    takeaways: note.takeaways,
+  };
+}
+
 export function NotesPage() {
-  const [notes, setNotes] = useState<Note[]>(INITIAL_NOTES);
+  const [notes, setNotes] = useState<Note[]>([]);
   const [selectedNoteId, setSelectedNoteId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadNotes() {
+      try {
+        const user = getCurrentUser();
+
+        if (!user) {
+          if (!cancelled) {
+            setNotes(INITIAL_NOTES);
+            setLoading(false);
+          }
+          return;
+        }
+
+        let firestoreNotes = await loadUserNotes(user.uid);
+
+        if (firestoreNotes.length === 0) {
+          await seedUserNotes(
+            user.uid,
+            INITIAL_NOTES.map((note) => ({
+              ...note,
+            })),
+          );
+
+          firestoreNotes = await loadUserNotes(user.uid);
+        }
+
+        if (!cancelled) {
+          setNotes(firestoreNotes.map(normalizeNote));
+        }
+      } catch (error) {
+        console.error("Failed to load KELLY notes:", error);
+
+        if (!cancelled) {
+          setNotes(INITIAL_NOTES);
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadNotes();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const selectedNote = useMemo(
     () => notes.find((note) => note.id === selectedNoteId) ?? null,
@@ -196,13 +271,24 @@ export function NotesPage() {
     );
   }, [notes, searchQuery]);
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (!selectedNoteId) return;
 
-    setNotes((current) =>
-      current.filter((note) => note.id !== selectedNoteId),
-    );
-    setSelectedNoteId(null);
+    const user = getCurrentUser();
+
+    if (!user) return;
+
+    try {
+      await deleteUserNote(user.uid, selectedNoteId);
+
+      setNotes((current) =>
+        current.filter((note) => note.id !== selectedNoteId),
+      );
+      setSelectedNoteId(null);
+    } catch (error) {
+      console.error("Failed to delete KELLY note:", error);
+      window.alert("Unable to delete this note right now.");
+    }
   };
 
   const handleNewNote = () => {
@@ -232,7 +318,7 @@ export function NotesPage() {
 
         <div className="kelly-notes-search">
           <span className="kelly-notes-search-icon" aria-hidden="true">
-            ⌕
+            ?
           </span>
 
           <input
@@ -246,29 +332,30 @@ export function NotesPage() {
         </div>
 
         <div className="kelly-note-items">
-          {filteredNotes.map((note) => (
-            <button
-              key={note.id}
-              type="button"
-              className={`kelly-note-item${
-                selectedNoteId === note.id ? " active" : ""
-              }`}
-              onClick={() => setSelectedNoteId(note.id)}
-            >
-              <div className="kelly-note-item-copy">
-                <strong>{note.title}</strong>
+          {!loading &&
+            filteredNotes.map((note) => (
+              <button
+                key={note.id}
+                type="button"
+                className={`kelly-note-item${
+                  selectedNoteId === note.id ? " active" : ""
+                }`}
+                onClick={() => setSelectedNoteId(note.id)}
+              >
+                <div className="kelly-note-item-copy">
+                  <strong>{note.title}</strong>
 
-                <span>
-                  <b className={subjectClass(note.color)}>{note.subject}</b>
-                  <em>{note.date}</em>
+                  <span>
+                    <b className={subjectClass(note.color)}>{note.subject}</b>
+                    <em>{note.date}</em>
+                  </span>
+                </div>
+
+                <span className="kelly-note-chevron" aria-hidden="true">
+                  ›
                 </span>
-              </div>
-
-              <span className="kelly-note-chevron" aria-hidden="true">
-                ›
-              </span>
-            </button>
-          ))}
+              </button>
+            ))}
         </div>
       </aside>
 
@@ -279,7 +366,7 @@ export function NotesPage() {
               <span />
             </div>
 
-            <p>Select a note to read it</p>
+            <p>{loading ? "Loading notes..." : "Select a note to read it"}</p>
 
             <button
               type="button"
@@ -312,7 +399,7 @@ export function NotesPage() {
                   className="kelly-note-action"
                   onClick={handleEdit}
                 >
-                  <span aria-hidden="true">✎</span>
+                  <span aria-hidden="true">?</span>
                   Edit
                 </button>
 
@@ -388,7 +475,7 @@ export function NotesPage() {
                         className="kelly-takeaway-check"
                         aria-hidden="true"
                       >
-                        ✓
+                        ?
                       </span>
 
                       <span>{takeaway}</span>
