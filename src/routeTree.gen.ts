@@ -35,6 +35,7 @@ import { Route as AuthenticatedSubjectsRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedTimedChallengeRouteImport } from './routes/_authenticated/timed-challenge'
 import { Route as AuthenticatedTimerRouteImport } from './routes/_authenticated/timer'
 import { Route as AuthenticatedSettingsCustomisationRouteImport } from './routes/_authenticated/settings.customisation'
+import { Route as AuthenticatedSettingsThemeRouteImport } from './routes/_authenticated/settings.theme'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -168,6 +169,12 @@ const AuthenticatedSettingsCustomisationRoute =
     path: '/settings/customisation',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedSettingsThemeRoute =
+  AuthenticatedSettingsThemeRouteImport.update({
+    id: '/settings/theme',
+    path: '/settings/theme',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -194,6 +201,7 @@ export interface FileRoutesByFullPath {
   '/timed-challenge': typeof AuthenticatedTimedChallengeRoute
   '/timer': typeof AuthenticatedTimerRoute
   '/settings/customisation': typeof AuthenticatedSettingsCustomisationRoute
+  '/settings/theme': typeof AuthenticatedSettingsThemeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -220,6 +228,7 @@ export interface FileRoutesByTo {
   '/timed-challenge': typeof AuthenticatedTimedChallengeRoute
   '/timer': typeof AuthenticatedTimerRoute
   '/settings/customisation': typeof AuthenticatedSettingsCustomisationRoute
+  '/settings/theme': typeof AuthenticatedSettingsThemeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -249,6 +258,7 @@ export interface FileRoutesById {
   '/_authenticated/timed-challenge': typeof AuthenticatedTimedChallengeRoute
   '/_authenticated/timer': typeof AuthenticatedTimerRoute
   '/_authenticated/settings/customisation': typeof AuthenticatedSettingsCustomisationRoute
+  '/_authenticated/settings/theme': typeof AuthenticatedSettingsThemeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -277,6 +287,7 @@ export interface FileRouteTypes {
     | '/timed-challenge'
     | '/timer'
     | '/settings/customisation'
+    | '/settings/theme'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -303,6 +314,7 @@ export interface FileRouteTypes {
     | '/timed-challenge'
     | '/timer'
     | '/settings/customisation'
+    | '/settings/theme'
   id:
     | '__root__'
     | '/'
@@ -331,6 +343,7 @@ export interface FileRouteTypes {
     | '/_authenticated/timed-challenge'
     | '/_authenticated/timer'
     | '/_authenticated/settings/customisation'
+    | '/_authenticated/settings/theme'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -523,6 +536,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsCustomisationRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/settings/theme': {
+      id: '/_authenticated/settings/theme'
+      path: '/settings/theme'
+      fullPath: '/settings/theme'
+      preLoaderRoute: typeof AuthenticatedSettingsThemeRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -562,6 +582,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedTimedChallengeRoute: typeof AuthenticatedTimedChallengeRoute
   AuthenticatedTimerRoute: typeof AuthenticatedTimerRoute
   AuthenticatedSettingsCustomisationRoute: typeof AuthenticatedSettingsCustomisationRoute
+  AuthenticatedSettingsThemeRoute: typeof AuthenticatedSettingsThemeRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -587,6 +608,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedTimerRoute: AuthenticatedTimerRoute,
   AuthenticatedSettingsCustomisationRoute:
     AuthenticatedSettingsCustomisationRoute,
+  AuthenticatedSettingsThemeRoute: AuthenticatedSettingsThemeRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

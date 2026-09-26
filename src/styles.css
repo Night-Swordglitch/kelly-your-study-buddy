@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --violet: #5B4EF0;
   --violet-dk: #4238CC;
   --violet-lt: #8B82FF;
@@ -9366,3 +9366,527 @@
     grid-column: span 1;
   }
 }
+
+/* Profile experience dashboard */
+.kelly-profile-content {
+  padding: 0 32px 40px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  align-items: stretch;
+}
+
+.kelly-profile-card {
+  min-width: 0;
+  margin: 0;
+}
+
+.kelly-profile-hero {
+  grid-column: span 3;
+  min-height: 250px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  position: relative;
+
+  width: calc(100% + 100px);
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+.kelly-profile-hero::after {
+  content: "";
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  right: -90px;
+  top: -130px;
+  border-radius: 50%;
+  background: var(--kelly-theme-accent, rgba(139, 92, 246, 0.16));
+  opacity: 0.12;
+  filter: blur(2px);
+  pointer-events: none;
+}
+
+.kelly-profile-hero-main {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  position: relative;
+  z-index: 1;
+}
+
+.kelly-profile-avatar-wrap {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.kelly-profile-avatar-wrap .kelly-profile-avatar {
+  width: 92px;
+  height: 92px;
+  flex-basis: 92px;
+  font-size: 32px;
+  box-shadow: 0 0 0 6px rgba(139, 92, 246, 0.08);
+}
+
+.kelly-profile-level-badge {
+  position: absolute;
+  right: -4px;
+  bottom: -3px;
+  min-width: 27px;
+  height: 27px;
+  padding: 0 6px;
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  border: 3px solid #14141c;
+  border-radius: 50%;
+  background: var(--kelly-theme-accent, #8b5cf6);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.kelly-profile-hero-copy h2 {
+  margin: 4px 0 4px;
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.kelly-profile-eyebrow {
+  color: #85838f;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+}
+
+.kelly-profile-tagline {
+  margin: 0;
+  color: #85838f;
+  font-size: 13px;
+}
+
+.kelly-profile-identity-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 14px;
+}
+
+.kelly-profile-identity-tags span {
+  padding: 5px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.035);
+  color: #b8b6c1;
+  font-size: 10px;
+}
+
+.kelly-profile-level {
+  margin-top: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.kelly-profile-level-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 8px;
+  color: #85838f;
+  font-size: 11px;
+}
+
+.kelly-profile-level-top strong {
+  color: #b8b6c1;
+  font-weight: 600;
+}
+
+.kelly-profile-progress,
+.kelly-profile-mini-progress,
+.kelly-profile-skill-bar {
+  height: 7px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.kelly-profile-progress div,
+.kelly-profile-mini-progress div,
+.kelly-profile-skill-bar div {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--kelly-theme-accent, #8b5cf6);
+  box-shadow: 0 0 14px rgba(139, 92, 246, 0.3);
+}
+
+.kelly-profile-progress-caption {
+  display: block;
+  margin-top: 7px;
+  color: #666572;
+  font-size: 10px;
+}
+
+.kelly-profile-account-card {
+  grid-column: span 2;
+  min-height: 250px;
+}
+
+.kelly-profile-streak-card,
+.kelly-profile-milestone-card {
+  min-height: 250px;
+  padding: 22px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.kelly-profile-card-icon {
+  margin-bottom: 13px;
+  font-size: 22px;
+}
+
+.kelly-profile-stat-label {
+  color: #85838f;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+}
+
+.kelly-profile-stat-large {
+  margin-top: 7px;
+  color: #ffffff;
+  font-size: 36px;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.kelly-profile-stat-subtle {
+  margin-top: 7px;
+  color: #666572;
+  font-size: 11px;
+}
+
+.kelly-profile-week {
+  display: flex;
+  gap: 7px;
+  margin-top: 18px;
+}
+
+.kelly-profile-day {
+  display: grid;
+  justify-items: center;
+  gap: 5px;
+  color: #55545f;
+  font-size: 8px;
+}
+
+.kelly-profile-day i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.kelly-profile-day.complete i {
+  background: var(--kelly-theme-accent, #8b5cf6);
+  box-shadow: 0 0 8px rgba(139, 92, 246, 0.35);
+}
+
+.kelly-profile-day.complete {
+  color: #a9a7b2;
+}
+
+.kelly-profile-milestone-title {
+  margin-top: 8px;
+  color: #ffffff;
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.kelly-profile-mini-progress {
+  margin-top: 18px;
+}
+
+.kelly-profile-pulse-card {
+  grid-column: span 2;
+  min-height: 230px;
+}
+
+.kelly-profile-pulse-total {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.kelly-profile-chart {
+  height: 125px;
+  display: flex;
+  align-items: end;
+  gap: 12px;
+  padding-top: 12px;
+}
+
+.kelly-profile-chart-column {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+  gap: 7px;
+}
+
+.kelly-profile-chart-bar {
+  width: 100%;
+  max-width: 28px;
+  min-height: 5px;
+  border-radius: 6px 6px 3px 3px;
+  background: var(--kelly-theme-accent, #8b5cf6);
+  opacity: 0.75;
+}
+
+.kelly-profile-chart-column span {
+  color: #666572;
+  font-size: 9px;
+}
+
+.kelly-profile-improving-card {
+  grid-column: span 2;
+  min-height: 230px;
+}
+
+.kelly-profile-skills {
+  display: grid;
+  gap: 16px;
+}
+
+.kelly-profile-skill-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 7px;
+  color: #b8b6c1;
+  font-size: 12px;
+}
+
+.kelly-profile-skill-top strong {
+  color: #85838f;
+  font-size: 11px;
+}
+
+.kelly-profile-achievements-card {
+  grid-column: span 3;
+  min-height: 230px;
+}
+
+.kelly-profile-achievement-count {
+  color: #85838f;
+  font-size: 11px;
+}
+
+.kelly-profile-achievements {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.kelly-profile-achievement {
+  min-height: 92px;
+  padding: 12px;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 11px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.kelly-profile-achievement span {
+  font-size: 22px;
+}
+
+.kelly-profile-achievement strong {
+  color: #b8b6c1;
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.kelly-profile-achievement.unlocked {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.kelly-profile-achievement.locked {
+  opacity: 0.35;
+}
+
+.kelly-profile-personality-card {
+  grid-column: span 1;
+  min-height: 230px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.kelly-profile-personality-icon {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 17px;
+  border-radius: 13px;
+  background: rgba(139, 92, 246, 0.1);
+  font-size: 23px;
+}
+
+.kelly-profile-personality-card h2 {
+  margin: 7px 0;
+  color: #ffffff;
+  font-size: 20px;
+}
+
+.kelly-profile-personality-card p {
+  margin: 0;
+  color: #85838f;
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+.kelly-profile-journey-card {
+  grid-column: 1 / -1;
+  min-height: 250px;
+}
+
+.kelly-profile-timeline {
+  display: grid;
+  gap: 0;
+}
+
+.kelly-profile-timeline-item {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 12px;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.kelly-profile-timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.kelly-profile-timeline-dot {
+  width: 9px;
+  height: 9px;
+  margin-top: 3px;
+  border: 2px solid #55545f;
+  border-radius: 50%;
+  box-sizing: border-box;
+  background: #14141c;
+  position: relative;
+  z-index: 1;
+}
+
+.kelly-profile-timeline-item:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 12px;
+  bottom: 0;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.kelly-profile-timeline-item.active .kelly-profile-timeline-dot {
+  border-color: var(--kelly-theme-accent, #8b5cf6);
+  background: var(--kelly-theme-accent, #8b5cf6);
+  box-shadow: 0 0 9px rgba(139, 92, 246, 0.3);
+}
+
+.kelly-profile-timeline-item strong {
+  color: #b8b6c1;
+  font-size: 12px;
+}
+
+.kelly-profile-timeline-item p {
+  margin: 4px 0 0;
+  color: #666572;
+  font-size: 10px;
+}
+
+@media (max-width: 1050px) {
+  .kelly-profile-content {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .kelly-profile-hero,
+  .kelly-profile-journey-card {
+    grid-column: 1 / -1;
+  }
+
+  .kelly-profile-account-card,
+  .kelly-profile-pulse-card,
+  .kelly-profile-improving-card,
+  .kelly-profile-achievements-card {
+    grid-column: span 2;
+  }
+
+  .kelly-profile-personality-card {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 700px) {
+  .kelly-profile-content {
+    grid-template-columns: 1fr;
+    padding: 0 18px 28px;
+  }
+
+  .kelly-profile-hero,
+  .kelly-profile-account-card,
+  .kelly-profile-streak-card,
+  .kelly-profile-milestone-card,
+  .kelly-profile-pulse-card,
+  .kelly-profile-improving-card,
+  .kelly-profile-achievements-card,
+  .kelly-profile-personality-card,
+  .kelly-profile-journey-card {
+    grid-column: span 1;
+  }
+
+  .kelly-profile-hero-main {
+    align-items: flex-start;
+  }
+
+  .kelly-profile-achievements {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Tighten Profile Study Style / Achievements spacing */
+
+
+
+
+
+
+
+
+
+
+
+
+/* Profile: widen Learning Identity */
+.kelly-profile-hero {
+  margin-right: -16px;
+}
+
+
+
+

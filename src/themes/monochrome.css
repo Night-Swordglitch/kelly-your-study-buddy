@@ -15,6 +15,37 @@
   --kelly-theme-accent-faint: rgba(255, 255, 255, 0.04);
 }
 
+/* Profile page */
+[data-kelly-theme="monochrome"] .kelly-profile-page {
+  background:
+    radial-gradient(
+      circle at 82% 0%,
+      rgba(255, 255, 255, 0.055),
+      transparent 30%
+    ),
+    var(--kelly-theme-bg);
+  color: var(--kelly-theme-text);
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-card {
+  background: #131313;
+  border-color: #2a2a2a;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-name,
+[data-kelly-theme="monochrome"] .kelly-profile-value {
+  color: #f5f5f5;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-email,
+[data-kelly-theme="monochrome"] .kelly-profile-label {
+  color: #858585;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-avatar-fallback {
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+}
 /* ------------------------------------------------------------
    APP SHELL
    ------------------------------------------------------------ */
@@ -25,6 +56,37 @@
   color: var(--kelly-theme-text);
 }
 
+/* Profile page */
+[data-kelly-theme="monochrome"] .kelly-profile-page {
+  background:
+    radial-gradient(
+      circle at 82% 0%,
+      rgba(255, 255, 255, 0.055),
+      transparent 30%
+    ),
+    var(--kelly-theme-bg);
+  color: var(--kelly-theme-text);
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-card {
+  background: #131313;
+  border-color: #2a2a2a;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-name,
+[data-kelly-theme="monochrome"] .kelly-profile-value {
+  color: #f5f5f5;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-email,
+[data-kelly-theme="monochrome"] .kelly-profile-label {
+  color: #858585;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-avatar-fallback {
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+}
 /* ------------------------------------------------------------
    SIDEBAR
    ------------------------------------------------------------ */
@@ -75,6 +137,37 @@
   background: #292929;
 }
 
+/* Profile page */
+[data-kelly-theme="monochrome"] .kelly-profile-page {
+  background:
+    radial-gradient(
+      circle at 82% 0%,
+      rgba(255, 255, 255, 0.055),
+      transparent 30%
+    ),
+    var(--kelly-theme-bg);
+  color: var(--kelly-theme-text);
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-card {
+  background: #131313;
+  border-color: #2a2a2a;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-name,
+[data-kelly-theme="monochrome"] .kelly-profile-value {
+  color: #f5f5f5;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-email,
+[data-kelly-theme="monochrome"] .kelly-profile-label {
+  color: #858585;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-avatar-fallback {
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+}
 /* ------------------------------------------------------------
    SHARED TEXT / SURFACES
    ------------------------------------------------------------ */
@@ -97,6 +190,37 @@
   color: currentColor;
 }
 
+/* Profile page */
+[data-kelly-theme="monochrome"] .kelly-profile-page {
+  background:
+    radial-gradient(
+      circle at 82% 0%,
+      rgba(255, 255, 255, 0.055),
+      transparent 30%
+    ),
+    var(--kelly-theme-bg);
+  color: var(--kelly-theme-text);
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-card {
+  background: #131313;
+  border-color: #2a2a2a;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-name,
+[data-kelly-theme="monochrome"] .kelly-profile-value {
+  color: #f5f5f5;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-email,
+[data-kelly-theme="monochrome"] .kelly-profile-label {
+  color: #858585;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-avatar-fallback {
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+}
 /* ------------------------------------------------------------
    HOME
    ------------------------------------------------------------ */
@@ -209,6 +333,37 @@
   box-shadow: 0 10px 26px rgba(255, 255, 255, 0.12);
 }
 
+/* Profile page */
+[data-kelly-theme="monochrome"] .kelly-profile-page {
+  background:
+    radial-gradient(
+      circle at 82% 0%,
+      rgba(255, 255, 255, 0.055),
+      transparent 30%
+    ),
+    var(--kelly-theme-bg);
+  color: var(--kelly-theme-text);
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-card {
+  background: #131313;
+  border-color: #2a2a2a;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-name,
+[data-kelly-theme="monochrome"] .kelly-profile-value {
+  color: #f5f5f5;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-email,
+[data-kelly-theme="monochrome"] .kelly-profile-label {
+  color: #858585;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-avatar-fallback {
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+}
 /* ------------------------------------------------------------
    NOTES / STUDY / CONTENT CARDS
    ------------------------------------------------------------ */
@@ -251,6 +406,37 @@
   color: #eeeeee;
 }
 
+/* Profile page */
+[data-kelly-theme="monochrome"] .kelly-profile-page {
+  background:
+    radial-gradient(
+      circle at 82% 0%,
+      rgba(255, 255, 255, 0.055),
+      transparent 30%
+    ),
+    var(--kelly-theme-bg);
+  color: var(--kelly-theme-text);
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-card {
+  background: #131313;
+  border-color: #2a2a2a;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-name,
+[data-kelly-theme="monochrome"] .kelly-profile-value {
+  color: #f5f5f5;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-email,
+[data-kelly-theme="monochrome"] .kelly-profile-label {
+  color: #858585;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-avatar-fallback {
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+}
 /* ------------------------------------------------------------
    QUIZZES
    ------------------------------------------------------------ */
@@ -318,6 +504,37 @@
   color: #ffffff;
 }
 
+/* Profile page */
+[data-kelly-theme="monochrome"] .kelly-profile-page {
+  background:
+    radial-gradient(
+      circle at 82% 0%,
+      rgba(255, 255, 255, 0.055),
+      transparent 30%
+    ),
+    var(--kelly-theme-bg);
+  color: var(--kelly-theme-text);
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-card {
+  background: #131313;
+  border-color: #2a2a2a;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-name,
+[data-kelly-theme="monochrome"] .kelly-profile-value {
+  color: #f5f5f5;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-email,
+[data-kelly-theme="monochrome"] .kelly-profile-label {
+  color: #858585;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-avatar-fallback {
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+}
 /* ------------------------------------------------------------
    LISTEN / GAMES / FRIENDS / CHAT / TIMER / CALENDAR
    ------------------------------------------------------------ */
@@ -352,6 +569,37 @@
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
 }
 
+/* Profile page */
+[data-kelly-theme="monochrome"] .kelly-profile-page {
+  background:
+    radial-gradient(
+      circle at 82% 0%,
+      rgba(255, 255, 255, 0.055),
+      transparent 30%
+    ),
+    var(--kelly-theme-bg);
+  color: var(--kelly-theme-text);
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-card {
+  background: #131313;
+  border-color: #2a2a2a;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-name,
+[data-kelly-theme="monochrome"] .kelly-profile-value {
+  color: #f5f5f5;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-email,
+[data-kelly-theme="monochrome"] .kelly-profile-label {
+  color: #858585;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-avatar-fallback {
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+}
 /* ------------------------------------------------------------
    CUSTOMISATION / THEME SETTINGS
    ------------------------------------------------------------ */
@@ -392,6 +640,37 @@
   color: #999999;
 }
 
+/* Profile page */
+[data-kelly-theme="monochrome"] .kelly-profile-page {
+  background:
+    radial-gradient(
+      circle at 82% 0%,
+      rgba(255, 255, 255, 0.055),
+      transparent 30%
+    ),
+    var(--kelly-theme-bg);
+  color: var(--kelly-theme-text);
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-card {
+  background: #131313;
+  border-color: #2a2a2a;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-name,
+[data-kelly-theme="monochrome"] .kelly-profile-value {
+  color: #f5f5f5;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-email,
+[data-kelly-theme="monochrome"] .kelly-profile-label {
+  color: #858585;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-avatar-fallback {
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+}
 /* ------------------------------------------------------------
    GENERIC INTERACTIVE ACCENTS
    ------------------------------------------------------------ */
@@ -1371,3 +1650,39 @@
   border-color: var(--kelly-theme-border) !important;
   color: var(--kelly-theme-text) !important;
 }
+
+/* Profile */
+[data-kelly-theme="monochrome"] .kelly-profile-page {
+  background: #050505;
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-card,
+[data-kelly-theme="monochrome"] .kelly-profile-stat-card {
+  background: #111111;
+  border-color: #303030;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-header p,
+[data-kelly-theme="monochrome"] .kelly-profile-email,
+[data-kelly-theme="monochrome"] .kelly-profile-stat-card span,
+[data-kelly-theme="monochrome"] .kelly-profile-section-heading p,
+[data-kelly-theme="monochrome"] .kelly-profile-account-row span {
+  color: #929292;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-avatar,
+[data-kelly-theme="monochrome"] .kelly-profile-stat-icon {
+  background: #1b1b1b;
+  border-color: #383838;
+  color: #ffffff;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-account-row {
+  border-color: #282828;
+}
+
+[data-kelly-theme="monochrome"] .kelly-profile-account-row strong {
+  color: #ffffff;
+}
+

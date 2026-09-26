@@ -153,6 +153,37 @@
   border-color: var(--kelly-theme-border-soft);
 }
 
+/* Profile page */
+[data-kelly-theme="rose-eclipse"] .kelly-profile-page {
+  background:
+    radial-gradient(
+      circle at 78% 0%,
+      rgba(236, 72, 153, 0.12),
+      transparent 32%
+    ),
+    var(--kelly-theme-bg);
+  color: var(--kelly-theme-text);
+}
+
+[data-kelly-theme="rose-eclipse"] .kelly-profile-card {
+  background: var(--kelly-theme-surface);
+  border-color: var(--kelly-theme-border);
+}
+
+[data-kelly-theme="rose-eclipse"] .kelly-profile-name,
+[data-kelly-theme="rose-eclipse"] .kelly-profile-value {
+  color: var(--kelly-theme-text);
+}
+
+[data-kelly-theme="rose-eclipse"] .kelly-profile-email,
+[data-kelly-theme="rose-eclipse"] .kelly-profile-label {
+  color: var(--kelly-theme-text-soft);
+}
+
+[data-kelly-theme="rose-eclipse"] .kelly-profile-avatar-fallback {
+  background: var(--kelly-theme-accent-soft);
+  color: var(--kelly-theme-accent-bright);
+}
 /* Customisation + Theme pages */
 [data-kelly-theme="rose-eclipse"] .kelly-customisation-page,
 [data-kelly-theme="rose-eclipse"] .kelly-theme-page {
@@ -1508,3 +1539,45 @@
   border-color: var(--kelly-theme-border) !important;
   color: var(--kelly-theme-text) !important;
 }
+
+/* Profile */
+[data-kelly-theme="rose-eclipse"] .kelly-profile-page {
+  background: var(--kelly-theme-bg);
+  color: var(--kelly-theme-text);
+}
+
+[data-kelly-theme="rose-eclipse"] .kelly-profile-card,
+[data-kelly-theme="rose-eclipse"] .kelly-profile-stat-card {
+  background: var(--kelly-theme-surface);
+  border-color: var(--kelly-theme-border);
+}
+
+[data-kelly-theme="rose-eclipse"] .kelly-profile-header p,
+[data-kelly-theme="rose-eclipse"] .kelly-profile-email,
+[data-kelly-theme="rose-eclipse"] .kelly-profile-stat-card span,
+[data-kelly-theme="rose-eclipse"] .kelly-profile-section-heading p,
+[data-kelly-theme="rose-eclipse"] .kelly-profile-account-row span {
+  color: var(--kelly-theme-text-soft);
+}
+
+[data-kelly-theme="rose-eclipse"] .kelly-profile-header h1,
+[data-kelly-theme="rose-eclipse"] .kelly-profile-identity h2,
+[data-kelly-theme="rose-eclipse"] .kelly-profile-stat-card strong {
+  color: var(--kelly-theme-text);
+}
+
+[data-kelly-theme="rose-eclipse"] .kelly-profile-avatar,
+[data-kelly-theme="rose-eclipse"] .kelly-profile-stat-icon {
+  background: var(--kelly-theme-accent-soft);
+  border-color: var(--kelly-theme-border-soft);
+  color: var(--kelly-theme-accent-bright);
+}
+
+[data-kelly-theme="rose-eclipse"] .kelly-profile-account-row {
+  border-color: var(--kelly-theme-border-soft);
+}
+
+[data-kelly-theme="rose-eclipse"] .kelly-profile-account-row strong {
+  color: var(--kelly-theme-text);
+}
+

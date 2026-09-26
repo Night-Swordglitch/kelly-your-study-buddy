@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { useLocation, useNavigate } from "@tanstack/react-router";
 import {
   CalendarDays,
@@ -63,7 +63,7 @@ function getActivePage(pathname: string): string {
   if (pathname.startsWith("/timer")) return "timer";
   if (pathname.startsWith("/settings")) return "settings";
 
-  return "home";
+  return "";
 }
 
 export function KellySidebar() {
@@ -200,6 +200,17 @@ export function KellySidebar() {
                 className="kelly-settings-action"
                 onClick={() => {
                   setSettingsOpen(false);
+                  navigate({ to: "/profile" });
+                }}
+              >
+                Profile
+              </button>
+
+              <button
+                type="button"
+                className="kelly-settings-action"
+                onClick={() => {
+                  setSettingsOpen(false);
                   navigate({ to: "/settings/customisation" });
                 }}
               >
@@ -225,5 +236,7 @@ export function KellySidebar() {
     </aside>
   );
 }
+
+
 
 
