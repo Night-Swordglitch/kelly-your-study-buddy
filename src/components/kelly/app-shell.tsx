@@ -1,4 +1,4 @@
-import {
+﻿import {
   createContext,
   useContext,
   useEffect,
@@ -6,6 +6,11 @@ import {
   type ReactNode,
 } from "react";
 import { KellySidebar } from "@/components/kelly/sidebar";
+import { getCurrentUser } from "@/lib/firebase";
+import {
+  addUserXP,
+  loadUserXP,
+} from "@/lib/kelly-progress";
 
 type KellyMood = "idle" | "happy" | "concerned";
 
@@ -133,6 +138,57 @@ export function AppShell({
       : KELLY_INITIAL_XP;
   });
 
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadXP = async () => {
+      try {
+        const user = await getCurrentUser();
+
+        if (!user || cancelled) {
+          return;
+        }
+
+        const stored = window.localStorage.getItem(
+          KELLY_XP_STORAGE_KEY,
+        );
+
+        const parsed = stored === null ? NaN : Number(stored);
+
+        const fallbackXP = Number.isFinite(parsed)
+          ? parsed
+          : KELLY_INITIAL_XP;
+
+        const firestoreXP = await loadUserXP(
+          user.uid,
+          fallbackXP,
+        );
+
+        if (cancelled) {
+          return;
+        }
+
+        setXP(firestoreXP);
+
+        window.localStorage.setItem(
+          KELLY_XP_STORAGE_KEY,
+          String(firestoreXP),
+        );
+      } catch (error) {
+        console.error(
+          "Failed to load KELLY XP from Firestore:",
+          error,
+        );
+      }
+    };
+
+    void loadXP();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const addXP = (amount: number) => {
     setXP((current) => {
       const next = current + amount;
@@ -141,6 +197,21 @@ export function AppShell({
         KELLY_XP_STORAGE_KEY,
         String(next),
       );
+
+      void getCurrentUser()
+        .then((user) => {
+          if (!user) {
+            return;
+          }
+
+          return addUserXP(user.uid, amount);
+        })
+        .catch((error) => {
+          console.error(
+            "Failed to save KELLY XP to Firestore:",
+            error,
+          );
+        });
 
       return next;
     });
