@@ -1,7 +1,12 @@
-import { useState } from "react";
-import { Brain, Flame, Lock, Mic, Moon, Target, Trophy } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Flame, Moon } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageIntro } from "@/components/kelly/app-shell";
+import { getCurrentUser } from "@/lib/firebase";
+import {
+  loadUserProfile,
+  updateUserProfile,
+} from "@/lib/kelly-profile";
 
 export const Route = createFileRoute("/_authenticated/profile")({
   component: ProfilePage,
@@ -11,6 +16,82 @@ function ProfilePage() {
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState("Muhsin");
   const [draftName, setDraftName] = useState("Muhsin");
+  const [email, setEmail] = useState("muhsin@example.com");
+  const [signInMethod, setSignInMethod] = useState("Google");
+  const [memberSince, setMemberSince] = useState("September 2026");
+  const [studyStyle, setStudyStyle] = useState("The Night Owl");
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadProfile = async () => {
+      try {
+        const user = await getCurrentUser();
+
+        if (!user || cancelled) {
+          return;
+        }
+
+        const fallbackName =
+          user.displayName?.trim() || "Muhsin";
+
+        const profile = await loadUserProfile(
+          user.uid,
+          fallbackName,
+        );
+
+        if (cancelled) {
+          return;
+        }
+
+        setName(profile.displayName);
+        setDraftName(profile.displayName);
+        setStudyStyle(profile.studyStyle);
+
+        setEmail(
+          user.email?.trim() || "No email available",
+        );
+
+        const provider = user.providerData[0]?.providerId;
+
+        setSignInMethod(
+          provider === "google.com"
+            ? "Google"
+            : provider === "password"
+              ? "Email"
+              : provider || "Unknown",
+        );
+
+        if (user.metadata.creationTime) {
+          const created = new Date(user.metadata.creationTime);
+
+          setMemberSince(
+            created.toLocaleDateString("en-SG", {
+              month: "long",
+              year: "numeric",
+            }),
+          );
+        }
+      } catch (error) {
+        console.error(
+          "Failed to load KELLY profile:",
+          error,
+        );
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    };
+
+    void loadProfile();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const handleEdit = () => {
     setDraftName(name);
@@ -22,14 +103,38 @@ function ProfilePage() {
     setEditing(false);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const trimmed = draftName.trim();
 
-    if (trimmed) {
-      setName(trimmed);
+    if (!trimmed || saving) {
+      return;
     }
 
-    setEditing(false);
+    try {
+      setSaving(true);
+
+      const user = await getCurrentUser();
+
+      if (!user) {
+        throw new Error("No authenticated KELLY user.");
+      }
+
+      await updateUserProfile(user.uid, {
+        displayName: trimmed,
+        studyStyle,
+      });
+
+      setName(trimmed);
+      setDraftName(trimmed);
+      setEditing(false);
+    } catch (error) {
+      console.error(
+        "Failed to save KELLY profile:",
+        error,
+      );
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -45,7 +150,7 @@ function ProfilePage() {
           <div className="kelly-profile-hero-main">
             <div className="kelly-profile-avatar-wrap">
               <div className="kelly-profile-avatar kelly-profile-avatar-fallback">
-                M
+                {name.charAt(0).toUpperCase()}
               </div>
               <div className="kelly-profile-level-badge">3</div>
             </div>
@@ -55,7 +160,7 @@ function ProfilePage() {
                 YOUR LEARNING IDENTITY
               </div>
 
-              <h2>{name}</h2>
+              <h2>{loading ? "Loading..." : name}</h2>
 
               <p className="kelly-profile-tagline">
                 Building momentum, one session at a time.
@@ -87,14 +192,16 @@ function ProfilePage() {
 
         {/* Learning identity */}
         <section className="kelly-profile-card kelly-profile-personality-card">
-          <div className="kelly-profile-personality-icon"><Moon size={22} /></div>
+          <div className="kelly-profile-personality-icon">
+            <Moon size={22} />
+          </div>
 
           <div>
             <span className="kelly-profile-eyebrow">
               YOUR STUDY STYLE
             </span>
 
-            <h2>The Night Owl</h2>
+            <h2>{studyStyle}</h2>
 
             <p>
               You tend to build momentum through focused sessions and
@@ -139,7 +246,7 @@ function ProfilePage() {
                 <label>Email</label>
                 <input
                   type="email"
-                  value="muhsin@example.com"
+                  value={email}
                   disabled
                   readOnly
                 />
@@ -150,6 +257,7 @@ function ProfilePage() {
                   type="button"
                   className="kelly-profile-button secondary"
                   onClick={handleCancel}
+                  disabled={saving}
                 >
                   Cancel
                 </button>
@@ -157,9 +265,10 @@ function ProfilePage() {
                 <button
                   type="button"
                   className="kelly-profile-button"
-                  onClick={handleSave}
+                  onClick={() => void handleSave()}
+                  disabled={saving}
                 >
-                  Save Changes
+                  {saving ? "Saving..." : "Save Changes"}
                 </button>
               </div>
             </div>
@@ -173,18 +282,22 @@ function ProfilePage() {
               <div className="kelly-profile-detail">
                 <div className="kelly-profile-label">Email</div>
                 <div className="kelly-profile-value">
-                  muhsin@example.com
+                  {email}
                 </div>
               </div>
 
               <div className="kelly-profile-detail">
                 <div className="kelly-profile-label">Sign-in method</div>
-                <div className="kelly-profile-value">Google</div>
+                <div className="kelly-profile-value">
+                  {signInMethod}
+                </div>
               </div>
 
               <div className="kelly-profile-detail">
                 <div className="kelly-profile-label">Member since</div>
-                <div className="kelly-profile-value">September 2026</div>
+                <div className="kelly-profile-value">
+                  {memberSince}
+                </div>
               </div>
             </div>
           )}
@@ -192,7 +305,9 @@ function ProfilePage() {
 
         {/* Streak */}
         <section className="kelly-profile-card kelly-profile-streak-card">
-          <div className="kelly-profile-card-icon"><Flame size={20} /></div>
+          <div className="kelly-profile-card-icon">
+            <Flame size={20} />
+          </div>
           <span className="kelly-profile-stat-label">CURRENT STREAK</span>
           <strong className="kelly-profile-stat-large">5</strong>
           <span className="kelly-profile-stat-subtle">days</span>
@@ -214,7 +329,9 @@ function ProfilePage() {
 
         {/* Next milestone */}
         <section className="kelly-profile-card kelly-profile-milestone-card">
-          <div className="kelly-profile-card-icon"><Flame size={20} /></div>
+          <div className="kelly-profile-card-icon">
+            <Flame size={20} />
+          </div>
           <span className="kelly-profile-stat-label">NEXT MILESTONE</span>
           <strong className="kelly-profile-milestone-title">
             Level 4
