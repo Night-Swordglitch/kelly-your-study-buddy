@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { Flame, Moon } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageIntro } from "@/components/kelly/app-shell";
@@ -7,6 +7,7 @@ import {
   loadUserProfile,
   updateUserProfile,
 } from "@/lib/kelly-profile";
+import { loadUserXP } from "@/lib/kelly-progress";
 
 export const Route = createFileRoute("/_authenticated/profile")({
   component: ProfilePage,
@@ -22,6 +23,7 @@ function ProfilePage() {
   const [studyStyle, setStudyStyle] = useState("The Night Owl");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [xp, setXp] = useState(1180);
 
   useEffect(() => {
     let cancelled = false;
@@ -37,10 +39,10 @@ function ProfilePage() {
         const fallbackName =
           user.displayName?.trim() || "Muhsin";
 
-        const profile = await loadUserProfile(
-          user.uid,
-          fallbackName,
-        );
+        const [profile, currentXP] = await Promise.all([
+          loadUserProfile(user.uid, fallbackName),
+          loadUserXP(user.uid, 1180),
+        ]);
 
         if (cancelled) {
           return;
@@ -49,6 +51,7 @@ function ProfilePage() {
         setName(profile.displayName);
         setDraftName(profile.displayName);
         setStudyStyle(profile.studyStyle);
+        setXp(currentXP);
 
         setEmail(
           user.email?.trim() || "No email available",
@@ -137,6 +140,20 @@ function ProfilePage() {
     }
   };
 
+  const levelStartXP = 1000;
+  const nextLevelXP = 1500;
+  const currentLevel = 3;
+
+  const xpIntoLevel = Math.max(0, xp - levelStartXP);
+  const levelXPRange = nextLevelXP - levelStartXP;
+
+  const progressPercent = Math.min(
+    100,
+    Math.max(0, (xpIntoLevel / levelXPRange) * 100),
+  );
+
+  const xpToNextLevel = Math.max(0, nextLevelXP - xp);
+
   return (
     <div className="kelly-profile-page">
       <PageIntro
@@ -152,7 +169,9 @@ function ProfilePage() {
               <div className="kelly-profile-avatar kelly-profile-avatar-fallback">
                 {name.charAt(0).toUpperCase()}
               </div>
-              <div className="kelly-profile-level-badge">3</div>
+              <div className="kelly-profile-level-badge">
+                {currentLevel}
+              </div>
             </div>
 
             <div className="kelly-profile-hero-copy">
@@ -167,25 +186,27 @@ function ProfilePage() {
               </p>
 
               <div className="kelly-profile-identity-tags">
-                <span>Level 3</span>
+                <span>Level {currentLevel}</span>
                 <span>5 day streak</span>
-                <span>1,180 XP</span>
+                <span>{xp.toLocaleString()} XP</span>
               </div>
             </div>
           </div>
 
           <div className="kelly-profile-level">
             <div className="kelly-profile-level-top">
-              <span>Progress to Level 4</span>
-              <strong>1,180 / 1,500 XP</strong>
+              <span>Progress to Level {currentLevel + 1}</span>
+              <strong>
+                {xp.toLocaleString()} / {nextLevelXP.toLocaleString()} XP
+              </strong>
             </div>
 
             <div className="kelly-profile-progress">
-              <div style={{ width: "79%" }} />
+              <div style={{ width: `${progressPercent}%` }} />
             </div>
 
             <span className="kelly-profile-progress-caption">
-              320 XP to go
+              {xpToNextLevel.toLocaleString()} XP to go
             </span>
           </div>
         </section>
@@ -334,14 +355,14 @@ function ProfilePage() {
           </div>
           <span className="kelly-profile-stat-label">NEXT MILESTONE</span>
           <strong className="kelly-profile-milestone-title">
-            Level 4
+            Level {currentLevel + 1}
           </strong>
           <span className="kelly-profile-stat-subtle">
-            320 XP remaining
+            {xpToNextLevel.toLocaleString()} XP remaining
           </span>
 
           <div className="kelly-profile-mini-progress">
-            <div style={{ width: "79%" }} />
+            <div style={{ width: `${progressPercent}%` }} />
           </div>
         </section>
 
@@ -460,7 +481,7 @@ function ProfilePage() {
             />
             <TimelineItem
               title="Reach Level 4"
-              description="320 XP remaining."
+              description={`${xpToNextLevel.toLocaleString()} XP remaining.`}
             />
           </div>
         </section>
