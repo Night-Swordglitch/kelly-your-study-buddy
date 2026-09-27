@@ -1,5 +1,10 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useKellyXP } from "@/components/kelly/app-shell";
+import {
+  loadQuizActivity,
+  recordQuizActivity,
+} from "@/lib/kelly-activity";
+import { getCurrentUser } from "@/lib/firebase";
 
 type QuizQuestion = {
   question: string;
@@ -185,6 +190,44 @@ export function QuizPage() {
   const [sessionXP, setSessionXP] = useState(0);
   const [returnCountdown, setReturnCountdown] = useState(10);
 
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadActivity = async () => {
+      try {
+        const user = await getCurrentUser();
+
+        if (!user) {
+          return;
+        }
+
+        const activities = await loadQuizActivity(user.uid);
+
+        if (cancelled || activities.length === 0) {
+          return;
+        }
+
+        setHistory(
+          activities.map((activity) => ({
+            title: activity.title,
+            date: activity.date,
+            score: activity.score,
+            total: activity.total,
+            xp: activity.xp,
+          })),
+        );
+      } catch (error) {
+        console.error("Failed to load KELLY quiz activity:", error);
+      }
+    };
+
+    void loadActivity();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const notify = (message: string) => {
     setNotice(message);
     window.setTimeout(() => setNotice(""), 2200);
@@ -232,6 +275,28 @@ export function QuizPage() {
 
     window.localStorage.setItem(HISTORY_KEY, JSON.stringify(nextHistory));
     setHistory(nextHistory);
+
+    void (async () => {
+      try {
+        const user = await getCurrentUser();
+
+        if (!user) {
+          return;
+        }
+
+        await recordQuizActivity(user.uid, {
+          type: "quiz",
+          title: activeQuiz.title,
+          subject: activeQuiz.subject,
+          date: result.date,
+          score: result.score,
+          total: result.total,
+          xp: result.xp,
+        });
+      } catch (error) {
+        console.error("Failed to save KELLY quiz activity:", error);
+      }
+    })();
 
     setActiveQuiz(null);
     setQuestionIndex(0);
