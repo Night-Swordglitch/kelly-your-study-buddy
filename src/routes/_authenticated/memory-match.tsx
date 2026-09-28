@@ -5,7 +5,7 @@ import { useKellyXP } from "@/components/kelly/app-shell";
 import { getCurrentUser } from "@/lib/firebase";
 import { recordGameActivity } from "@/lib/kelly-activity";
 
-const PAIRS = ["??", "??", "??", "??", "??", "??", "??", "??"];
+const PAIRS = ["🧠", "⭐", "🚀", "🎯", "🌟", "🍎", "🎮", "🧩"];
 const LAST_GAME_STORAGE_KEY = "kelly-last-game";
 
 type MemoryCard = {
@@ -104,7 +104,7 @@ export function MemoryMatchPage() {
       },
       {
         id: secondToastId,
-        text: `+${xp} XP � Memory Match complete`,
+        text: `+${xp} XP · Memory Match complete`,
       },
     ]);
 
