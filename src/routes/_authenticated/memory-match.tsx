@@ -172,7 +172,7 @@ export function MemoryMatchPage() {
           className="kelly-flashcards-back"
           onClick={() => navigate({ to: "/games" })}
         >
-          ? Back
+          &#8592; Back
         </button>
         <h1>Memory Match</h1>
       </div>
@@ -180,7 +180,7 @@ export function MemoryMatchPage() {
       {finished ? (
         <div className="kelly-flashcards-complete">
           <div className="kelly-flashcards-complete-icon" aria-hidden="true">
-            ??
+            &#127942;
           </div>
 
           <h2>Session complete!</h2>
