@@ -168,3 +168,91 @@ export async function seedQuizActivity(
     ),
   );
 }
+
+export type GameActivity = {
+  id: string;
+  type: "game";
+  game:
+    | "memory-match"
+    | "quick-quiz"
+    | "timed-challenge"
+    | "impostor";
+  title: string;
+  date: string;
+  score?: number;
+  total?: number;
+  points?: number;
+  xp: number;
+  createdAt?: unknown;
+};
+
+export async function loadGameActivity(
+  uid: string,
+): Promise<GameActivity[]> {
+  const activityQuery = query(
+    activityCollection(uid),
+    orderBy("createdAt", "desc"),
+  );
+
+  const snapshot = await getDocs(activityQuery);
+
+  return snapshot.docs
+    .map((activity) => {
+      const data = activity.data();
+
+      if (data.type !== "game") {
+        return null;
+      }
+
+      return {
+        id: activity.id,
+        type: "game" as const,
+        game:
+          data.game === "memory-match" ||
+          data.game === "quick-quiz" ||
+          data.game === "timed-challenge" ||
+          data.game === "impostor"
+            ? data.game
+            : "quick-quiz",
+        title:
+          typeof data.title === "string"
+            ? data.title
+            : "Untitled Game",
+        date:
+          typeof data.date === "string"
+            ? data.date
+            : new Date().toISOString().slice(0, 10),
+        score:
+          typeof data.score === "number"
+            ? data.score
+            : undefined,
+        total:
+          typeof data.total === "number"
+            ? data.total
+            : undefined,
+        points:
+          typeof data.points === "number"
+            ? data.points
+            : undefined,
+        xp:
+          typeof data.xp === "number"
+            ? data.xp
+            : 0,
+        createdAt: data.createdAt,
+      };
+    })
+    .filter(
+      (activity): activity is GameActivity =>
+        activity !== null,
+    );
+}
+
+export async function recordGameActivity(
+  uid: string,
+  activity: Omit<GameActivity, "createdAt">,
+): Promise<void> {
+  await addDoc(activityCollection(uid), {
+    ...activity,
+    createdAt: serverTimestamp(),
+  });
+}
