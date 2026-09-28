@@ -1,4 +1,4 @@
-﻿import {
+import {
   addDoc,
   collection,
   getDocs,
@@ -19,6 +19,16 @@ export type QuizActivity = {
   score: number;
   total: number;
   xp: number;
+  createdAt?: unknown;
+};
+
+export type RecordingActivity = {
+  id: string;
+  type: "recording";
+  title: string;
+  subject?: string;
+  date: string;
+  duration: string;
   createdAt?: unknown;
 };
 
@@ -79,6 +89,62 @@ export async function loadQuizActivity(
 export async function recordQuizActivity(
   uid: string,
   activity: Omit<QuizActivity, "id" | "createdAt">,
+): Promise<void> {
+  await addDoc(activityCollection(uid), {
+    ...activity,
+    createdAt: serverTimestamp(),
+  });
+}
+
+export async function loadRecordingActivity(
+  uid: string,
+): Promise<RecordingActivity[]> {
+  const activityQuery = query(
+    activityCollection(uid),
+    orderBy("createdAt", "desc"),
+  );
+
+  const snapshot = await getDocs(activityQuery);
+
+  return snapshot.docs
+    .map((activity) => {
+      const data = activity.data();
+
+      if (data.type !== "recording") {
+        return null;
+      }
+
+      return {
+        id: activity.id,
+        type: "recording" as const,
+        title:
+          typeof data.title === "string"
+            ? data.title
+            : "Untitled Recording",
+        subject:
+          typeof data.subject === "string"
+            ? data.subject
+            : undefined,
+        date:
+          typeof data.date === "string"
+            ? data.date
+            : new Date().toISOString().slice(0, 10),
+        duration:
+          typeof data.duration === "string"
+            ? data.duration
+            : "00:00",
+        createdAt: data.createdAt,
+      };
+    })
+    .filter(
+      (activity): activity is RecordingActivity =>
+        activity !== null,
+    );
+}
+
+export async function recordRecordingActivity(
+  uid: string,
+  activity: Omit<RecordingActivity, "createdAt">,
 ): Promise<void> {
   await addDoc(activityCollection(uid), {
     ...activity,

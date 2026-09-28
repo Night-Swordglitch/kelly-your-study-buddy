@@ -1,5 +1,10 @@
-﻿import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useKellyXP } from "@/components/kelly/app-shell";
+import { getCurrentUser } from "@/lib/firebase";
+import {
+  loadRecordingActivity,
+  recordRecordingActivity,
+} from "@/lib/kelly-activity";
 import {
   ChevronDown,
   Clock,
@@ -64,6 +69,41 @@ export function ListenTranscribePage() {
     useState<PreviousRecording[]>(INITIAL_RECORDINGS);
   const { addXP } = useKellyXP();
   const [feedback, setFeedback] = useState("");
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadRecordings = async () => {
+      try {
+        const user = await getCurrentUser();
+        if (!user) return;
+
+        const activities = await loadRecordingActivity(user.uid);
+
+        if (cancelled || activities.length === 0) return;
+
+        setRecordings(
+          activities.map((activity) => ({
+            id: activity.id,
+            title: activity.title,
+            duration: activity.duration,
+            date: activity.date,
+          })),
+        );
+      } catch (error) {
+        console.error(
+          "Failed to load KELLY recording activity:",
+          error,
+        );
+      }
+    };
+
+    void loadRecordings();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const audioRecorderRef = useRef<MediaRecorder | null>(null);
@@ -262,12 +302,13 @@ export function ListenTranscribePage() {
     }
   };
 
-  const handleSave = (asNote = false) => {
+  const handleSave = async (asNote = false) => {
     const duration = formatElapsedTime(elapsedSeconds);
     const audioUrl = finishAudioCapture();
+    const recordingId = `${subject.toLowerCase()}-${Date.now()}`;
 
     const newRecording: PreviousRecording = {
-      id: `${subject.toLowerCase()}-${Date.now()}`,
+      id: recordingId,
       title: `${subject} Recording`,
       duration,
       date: formatDate(),
@@ -277,6 +318,26 @@ export function ListenTranscribePage() {
     setRecordings((current) => [newRecording, ...current]);
 
     addXP(25);
+
+    try {
+      const user = await getCurrentUser();
+
+      if (user) {
+        await recordRecordingActivity(user.uid, {
+          id: recordingId,
+          type: "recording",
+          title: newRecording.title,
+          subject,
+          date: newRecording.date,
+          duration: newRecording.duration,
+        });
+      }
+    } catch (error) {
+      console.error(
+        "Failed to save KELLY recording activity:",
+        error,
+      );
+    }
 
     setFeedback(
       asNote
@@ -707,11 +768,3 @@ export function ListenTranscribePage() {
     </section>
   );
 }
-
-
-
-
-
-
-
-
