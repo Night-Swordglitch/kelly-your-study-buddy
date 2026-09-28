@@ -1,9 +1,11 @@
-﻿import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Zap } from "lucide-react";
 import { useKellyXP } from "@/components/kelly/app-shell";
+import { getCurrentUser } from "@/lib/firebase";
+import { recordGameActivity } from "@/lib/kelly-activity";
 
-const PAIRS = ["🧬", "🌊", "📊", "⚛️", "🧠", "🌱", "🔬", "📚"];
+const PAIRS = ["??", "??", "??", "??", "??", "??", "??", "??"];
 const LAST_GAME_STORAGE_KEY = "kelly-last-game";
 
 type MemoryCard = {
@@ -53,6 +55,8 @@ export function MemoryMatchPage() {
     completedRef.current = true;
 
     const xp = Math.max(10, 40 - moves);
+    const gameId = `memory-match-${Date.now()}`;
+    const gameDate = new Date().toISOString().slice(0, 10);
 
     addXP(xp);
 
@@ -63,6 +67,29 @@ export function MemoryMatchPage() {
         points: xp,
       }),
     );
+
+    void (async () => {
+      try {
+        const user = await getCurrentUser();
+
+        if (user) {
+          await recordGameActivity(user.uid, {
+            id: gameId,
+            type: "game",
+            game: "memory-match",
+            title: "Memory Match",
+            date: gameDate,
+            points: xp,
+            xp,
+          });
+        }
+      } catch (error) {
+        console.error(
+          "Failed to save KELLY Memory Match activity:",
+          error,
+        );
+      }
+    })();
 
     setSessionXP(xp);
     setFinished(true);
@@ -77,7 +104,7 @@ export function MemoryMatchPage() {
       },
       {
         id: secondToastId,
-        text: `+${xp} XP · Memory Match complete`,
+        text: `+${xp} XP � Memory Match complete`,
       },
     ]);
 
@@ -145,7 +172,7 @@ export function MemoryMatchPage() {
           className="kelly-flashcards-back"
           onClick={() => navigate({ to: "/games" })}
         >
-          ← Back
+          ? Back
         </button>
         <h1>Memory Match</h1>
       </div>
@@ -153,7 +180,7 @@ export function MemoryMatchPage() {
       {finished ? (
         <div className="kelly-flashcards-complete">
           <div className="kelly-flashcards-complete-icon" aria-hidden="true">
-            🎉
+            ??
           </div>
 
           <h2>Session complete!</h2>
@@ -245,3 +272,5 @@ export function MemoryMatchPage() {
 export const Route = createFileRoute("/_authenticated/memory-match")({
   component: MemoryMatchPage,
 });
+
+
