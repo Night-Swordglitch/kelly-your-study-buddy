@@ -76,6 +76,31 @@ export function QuickQuizPage() {
 
     addXP(xp);
 
+    void (async () => {
+      try {
+        const user = await getCurrentUser();
+
+        if (user) {
+          await recordGameActivity(user.uid, {
+            id: `quick-quiz-${Date.now()}`,
+            type: "game",
+            game: "quick-quiz",
+            title: "Quick Quiz",
+            date: new Date().toISOString().slice(0, 10),
+            score: completedScore,
+            total: QUESTIONS.length,
+            points: xp,
+            xp,
+          });
+        }
+      } catch (error) {
+        console.error(
+          "Failed to save KELLY Quick Quiz activity:",
+          error,
+        );
+      }
+    })();
+
     window.localStorage.setItem(
       LAST_GAME_STORAGE_KEY,
       JSON.stringify({
