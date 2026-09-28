@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Flame, Moon } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageIntro } from "@/components/kelly/app-shell";
@@ -8,6 +8,10 @@ import {
   updateUserProfile,
 } from "@/lib/kelly-profile";
 import { loadUserXP } from "@/lib/kelly-progress";
+import {
+  KELLY_ACHIEVEMENTS,
+  loadKellyAchievements,
+} from "@/lib/kelly-stats";
 
 export const Route = createFileRoute("/_authenticated/profile")({
   component: ProfilePage,
@@ -24,6 +28,9 @@ function ProfilePage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [xp, setXp] = useState(1180);
+  const [unlockedAchievements, setUnlockedAchievements] = useState<
+  string[]
+>([]);
 
   useEffect(() => {
     let cancelled = false;
@@ -39,9 +46,14 @@ function ProfilePage() {
         const fallbackName =
           user.displayName?.trim() || "Muhsin";
 
-        const [profile, currentXP] = await Promise.all([
+        const [
+          profile,
+          currentXP,
+          achievements,
+        ] = await Promise.all([
           loadUserProfile(user.uid, fallbackName),
           loadUserXP(user.uid, 1180),
+          loadKellyAchievements(user.uid),
         ]);
 
         if (cancelled) {
@@ -52,6 +64,9 @@ function ProfilePage() {
         setDraftName(profile.displayName);
         setStudyStyle(profile.studyStyle);
         setXp(currentXP);
+        setUnlockedAchievements(
+          achievements.map((achievement) => achievement.id),
+        );
 
         setEmail(
           user.email?.trim() || "No email available",
@@ -417,38 +432,34 @@ function ProfilePage() {
             </div>
 
             <span className="kelly-profile-achievement-count">
-              4 / 8
+              {unlockedAchievements.length} / {KELLY_ACHIEVEMENTS.length}
             </span>
           </div>
 
           <div className="kelly-profile-achievements">
-            <div className="kelly-profile-achievement unlocked">
-              <span>+</span>
-              <strong>First Note</strong>
-            </div>
+            {KELLY_ACHIEVEMENTS.map((achievement) => {
+              const unlocked = unlockedAchievements.includes(
+                achievement.id,
+              );
 
-            <div className="kelly-profile-achievement unlocked">
-              <span>+</span>
-              <strong>5-Day Streak</strong>
-            </div>
+              return (
+                <div
+                  key={achievement.id}
+                  className={`kelly-profile-achievement ${
+                    unlocked ? "unlocked" : "locked"
+                  }`}
+                >
+                  <span>{unlocked ? "+" : "−"}</span>
 
-            <div className="kelly-profile-achievement unlocked">
-              <span>+</span>
-              <strong>First Recording</strong>
-            </div>
-
-            <div className="kelly-profile-achievement unlocked">
-              <span>+</span>
-              <strong>Quiz Starter</strong>
-            </div>
-
-            <div className="kelly-profile-achievement locked">
-              <span>+</span>
-              <strong>10-Day Streak</strong>
-            </div>
+                  <div>
+                    <strong>{achievement.title}</strong>
+                    <p>{achievement.description}</p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </section>
-
         {/* Journey */}
         <section className="kelly-profile-card kelly-profile-journey-card">
           <div className="kelly-profile-section-header">
