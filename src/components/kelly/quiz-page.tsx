@@ -1,3 +1,4 @@
+import { recordActivityStats } from "@/lib/kelly-stats";
 import { useEffect, useState } from "react";
 import { useKellyXP } from "@/components/kelly/app-shell";
 import {
@@ -293,6 +294,13 @@ export function QuizPage() {
           total: result.total,
           xp: result.xp,
         });
+
+        await recordActivityStats(
+          user.uid,
+          "quiz",
+          result.xp,
+          result.date,
+        );
       } catch (error) {
         console.error("Failed to save KELLY quiz activity:", error);
       }

@@ -1,3 +1,4 @@
+import { recordActivityStats } from "@/lib/kelly-stats";
 import { useEffect, useState } from "react";
 import { Clock3, Zap } from "lucide-react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
@@ -92,6 +93,12 @@ export function QuickQuizPage() {
             points: xp,
             xp,
           });
+
+        await recordActivityStats(
+          user.uid,
+          "game",
+          xp,
+        );
         }
       } catch (error) {
         console.error(

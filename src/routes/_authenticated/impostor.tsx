@@ -1,3 +1,4 @@
+import { recordActivityStats } from "@/lib/kelly-stats";
 import { useMemo, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import {
@@ -156,6 +157,12 @@ export function ImpostorPage() {
             points: xp,
             xp,
           });
+
+      await recordActivityStats(
+        user.uid,
+        "game",
+        xp,
+      );
         }
       } catch (error) {
         console.error(

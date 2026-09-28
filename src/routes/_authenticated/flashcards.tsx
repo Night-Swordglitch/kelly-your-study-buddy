@@ -1,3 +1,4 @@
+import { recordActivityStats } from "@/lib/kelly-stats";
 import { useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useKellyXP } from "@/components/kelly/app-shell";
@@ -64,6 +65,12 @@ export function FlashcardsPage() {
             points: finalXP,
             xp: finalXP,
           });
+
+      await recordActivityStats(
+        user.uid,
+        "game",
+        finalXP,
+      );
         }
       } catch (error) {
         console.error(

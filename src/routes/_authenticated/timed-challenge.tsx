@@ -1,3 +1,4 @@
+import { recordActivityStats } from "@/lib/kelly-stats";
 import { useEffect, useRef, useState } from "react";
 import { Clock3, Zap } from "lucide-react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
@@ -143,6 +144,12 @@ export function TimedChallengePage() {
             points: pointsRef.current,
             xp,
           });
+
+      await recordActivityStats(
+        user.uid,
+        "game",
+        xp,
+      );
         }
       } catch (error) {
         console.error(

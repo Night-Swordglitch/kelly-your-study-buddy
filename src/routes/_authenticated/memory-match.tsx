@@ -1,3 +1,4 @@
+import { recordActivityStats } from "@/lib/kelly-stats";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Zap } from "lucide-react";
@@ -82,6 +83,13 @@ export function MemoryMatchPage() {
             points: xp,
             xp,
           });
+
+        await recordActivityStats(
+          user.uid,
+          "game",
+          xp,
+          gameDate,
+        );
         }
       } catch (error) {
         console.error(

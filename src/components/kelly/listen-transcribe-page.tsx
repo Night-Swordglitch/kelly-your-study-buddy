@@ -1,3 +1,4 @@
+import { recordActivityStats } from "@/lib/kelly-stats";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useKellyXP } from "@/components/kelly/app-shell";
 import { getCurrentUser } from "@/lib/firebase";
@@ -331,6 +332,13 @@ export function ListenTranscribePage() {
           date: newRecording.date,
           duration: newRecording.duration,
         });
+
+        await recordActivityStats(
+          user.uid,
+          "recording",
+          25,
+          newRecording.date,
+        );
       }
     } catch (error) {
       console.error(
