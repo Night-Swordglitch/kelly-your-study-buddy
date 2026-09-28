@@ -1,5 +1,16 @@
 import { useEffect, useState } from "react";
-import { Flame, Moon } from "lucide-react";
+import {
+  Flame,
+  Footprints,
+  Gamepad2,
+  GraduationCap,
+  Lock,
+  Mic,
+  Moon,
+  Sparkles,
+  Brain,
+  Trophy,
+} from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageIntro } from "@/components/kelly/app-shell";
 import { getCurrentUser } from "@/lib/firebase";
@@ -16,6 +27,17 @@ import {
 export const Route = createFileRoute("/_authenticated/profile")({
   component: ProfilePage,
 });
+
+const ACHIEVEMENT_ICONS = {
+  "first-step": Footprints,
+  "game-on": Gamepad2,
+  quizzer: Brain,
+  "record-keeper": Mic,
+  "getting-started": Sparkles,
+  century: Trophy,
+  "week-warrior": Flame,
+  "dedicated-learner": GraduationCap,
+} as const;
 
 function ProfilePage() {
   const [editing, setEditing] = useState(false);
@@ -449,12 +471,28 @@ function ProfilePage() {
                     unlocked ? "unlocked" : "locked"
                   }`}
                 >
-                  <span>{unlocked ? "+" : "−"}</span>
+                  <span className="kelly-profile-achievement-icon">
+                    {unlocked ? (
+                      (() => {
+                        const Icon = ACHIEVEMENT_ICONS[
+                          achievement.id as keyof typeof ACHIEVEMENT_ICONS
+                        ];
 
-                  <div>
+                        return <Icon size={18} strokeWidth={1.8} />;
+                      })()
+                    ) : (
+                      <Lock size={16} strokeWidth={1.8} />
+                    )}
+                  </span>
+
+                  <div className="kelly-profile-achievement-copy">
                     <strong>{achievement.title}</strong>
                     <p>{achievement.description}</p>
                   </div>
+
+                  <span className="kelly-profile-achievement-status">
+                    {unlocked ? "UNLOCKED" : "LOCKED"}
+                  </span>
                 </div>
               );
             })}
@@ -536,3 +574,6 @@ function TimelineItem({
     </div>
   );
 }
+
+
+
