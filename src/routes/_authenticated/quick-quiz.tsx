@@ -1,7 +1,9 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Clock3, Zap } from "lucide-react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useKellyXP } from "@/components/kelly/app-shell";
+import { getCurrentUser } from "@/lib/firebase";
+import { recordGameActivity } from "@/lib/kelly-activity";
 
 const QUESTIONS = [
   {
