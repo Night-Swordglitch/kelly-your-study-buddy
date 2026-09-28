@@ -1,7 +1,9 @@
-﻿import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Clock3, Zap } from "lucide-react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useKellyXP } from "@/components/kelly/app-shell";
+import { getCurrentUser } from "@/lib/firebase";
+import { recordGameActivity } from "@/lib/kelly-activity";
 
 const QUESTIONS = [
   {
@@ -124,6 +126,31 @@ export function TimedChallengePage() {
 
     const finalCorrect = correctRef.current;
     const xp = finalCorrect * POINTS_PER_CORRECT;
+
+    void (async () => {
+      try {
+        const user = await getCurrentUser();
+
+        if (user) {
+          await recordGameActivity(user.uid, {
+            id: `timed-challenge-${Date.now()}`,
+            type: "game",
+            game: "timed-challenge",
+            title: "Timed Challenge",
+            date: new Date().toISOString().slice(0, 10),
+            score: pointsRef.current,
+            total: totalAnsweredRef.current,
+            points: pointsRef.current,
+            xp,
+          });
+        }
+      } catch (error) {
+        console.error(
+          "Failed to save KELLY Timed Challenge activity:",
+          error,
+        );
+      }
+    })();
 
     setSessionXP(xp);
 

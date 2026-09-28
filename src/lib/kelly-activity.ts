@@ -176,7 +176,8 @@ export type GameActivity = {
     | "memory-match"
     | "quick-quiz"
     | "timed-challenge"
-    | "impostor";
+    | "impostor"
+    | "flashcards";
   title: string;
   date: string;
   score?: number;

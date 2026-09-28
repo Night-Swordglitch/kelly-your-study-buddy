@@ -1,4 +1,4 @@
-﻿import { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import {
   Clock3,
@@ -10,6 +10,8 @@ import {
   Zap,
 } from "lucide-react";
 import { useKellyXP } from "@/components/kelly/app-shell";
+import { getCurrentUser } from "@/lib/firebase";
+import { recordGameActivity } from "@/lib/kelly-activity";
 
 const MIN_PLAYERS = 3;
 const MAX_PLAYERS = 8;
@@ -139,6 +141,29 @@ export function ImpostorPage() {
     const xp = caught ? XP_REWARD : 10;
 
     addXP(xp);
+
+    void (async () => {
+      try {
+        const user = await getCurrentUser();
+
+        if (user) {
+          await recordGameActivity(user.uid, {
+            id: `impostor-${Date.now()}`,
+            type: "game",
+            game: "impostor",
+            title: "Impostor",
+            date: new Date().toISOString().slice(0, 10),
+            points: xp,
+            xp,
+          });
+        }
+      } catch (error) {
+        console.error(
+          "Failed to save KELLY Impostor activity:",
+          error,
+        );
+      }
+    })();
 
     window.localStorage.setItem(
       LAST_GAME_STORAGE_KEY,

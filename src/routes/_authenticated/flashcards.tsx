@@ -1,6 +1,8 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useKellyXP } from "@/components/kelly/app-shell";
+import { getCurrentUser } from "@/lib/firebase";
+import { recordGameActivity } from "@/lib/kelly-activity";
 
 const FLASHCARDS = [
   {
@@ -46,6 +48,31 @@ export function FlashcardsPage() {
   const progress = currentIndex + 1;
 
   const finishSession = (finalKnown: number, finalXP: number) => {
+    void (async () => {
+      try {
+        const user = await getCurrentUser();
+
+        if (user) {
+          await recordGameActivity(user.uid, {
+            id: `flashcards-${Date.now()}`,
+            type: "game",
+            game: "flashcards",
+            title: "Flashcards",
+            date: new Date().toISOString().slice(0, 10),
+            score: finalKnown,
+            total: FLASHCARDS.length,
+            points: finalXP,
+            xp: finalXP,
+          });
+        }
+      } catch (error) {
+        console.error(
+          "Failed to save KELLY Flashcards activity:",
+          error,
+        );
+      }
+    })();
+
     window.localStorage.setItem(
       LAST_GAME_STORAGE_KEY,
       JSON.stringify({
