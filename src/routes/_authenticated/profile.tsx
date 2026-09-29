@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import {
   Flame,
   Footprints,
@@ -22,6 +22,7 @@ import { loadUserXP } from "@/lib/kelly-progress";
 import {
   KELLY_ACHIEVEMENTS,
   loadKellyAchievements,
+  loadKellyStreak,
 } from "@/lib/kelly-stats";
 
 export const Route = createFileRoute("/_authenticated/profile")({
@@ -50,6 +51,7 @@ function ProfilePage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [xp, setXp] = useState(1180);
+  const [currentStreak, setCurrentStreak] = useState(0);
   const [unlockedAchievements, setUnlockedAchievements] = useState<
   string[]
 >([]);
@@ -72,10 +74,12 @@ function ProfilePage() {
           profile,
           currentXP,
           achievements,
+          streak,
         ] = await Promise.all([
           loadUserProfile(user.uid, fallbackName),
           loadUserXP(user.uid, 1180),
           loadKellyAchievements(user.uid),
+          loadKellyStreak(user.uid),
         ]);
 
         if (cancelled) {
@@ -86,6 +90,7 @@ function ProfilePage() {
         setDraftName(profile.displayName);
         setStudyStyle(profile.studyStyle);
         setXp(currentXP);
+        setCurrentStreak(streak?.currentStreak ?? 0);
         setUnlockedAchievements(
           achievements.map((achievement) => achievement.id),
         );
@@ -224,7 +229,7 @@ function ProfilePage() {
 
               <div className="kelly-profile-identity-tags">
                 <span>Level {currentLevel}</span>
-                <span>5 day streak</span>
+                <span>{currentStreak} day streak</span>
                 <span>{xp.toLocaleString()} XP</span>
               </div>
             </div>
@@ -367,7 +372,9 @@ function ProfilePage() {
             <Flame size={20} />
           </div>
           <span className="kelly-profile-stat-label">CURRENT STREAK</span>
-          <strong className="kelly-profile-stat-large">5</strong>
+          <strong className="kelly-profile-stat-large">
+            {currentStreak}
+          </strong>
           <span className="kelly-profile-stat-subtle">days</span>
 
           <div className="kelly-profile-week">
